@@ -19,6 +19,7 @@ class Menu_Icons_Admin_Nav_Menus {
 	 */
 	public static function init() {
 		add_action( 'menu_item_custom_fields', array( __CLASS__, '_fields' ), 10, 3 );
+		add_filter( 'manage_nav-menus_columns', array( __CLASS__, '_columns' ), 99 );
 		add_action( 'wp_update_nav_menu_item', array( __CLASS__, '_save' ), 10, 3 );
 	}
 
@@ -82,7 +83,7 @@ class Menu_Icons_Admin_Nav_Menus {
 	public static function _fields( $item, $depth, $args = array(), $id = 0 ) {
 		$current = array_filter( (array) get_post_meta( $item->ID, 'menu-icons', true ) );
 		?>
-			<div class="description-wide menu-icons-wrap">
+			<div class="field-icon description-wide menu-icons-wrap">
 				<?php
 					/**
 					 * Allow plugin/themes to inject HTML before menu icons' fields
@@ -153,5 +154,22 @@ class Menu_Icons_Admin_Nav_Menus {
 		);
 
 		return $types;
+	}
+
+
+	/**
+	 * Add our field to the screen options toggle
+	 *
+	 * @since   0.1.0
+	 * @access  private
+	 * @wp_hook action manage_nav-menus_columns
+	 *
+	 * @param array $columns Menu item columns
+	 * @return array
+	 */
+	public static function _columns( $columns ) {
+		$columns['icon'] = __( 'Icon', 'my-plugin' );
+
+		return $columns;
 	}
 }
