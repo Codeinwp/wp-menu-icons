@@ -168,7 +168,7 @@ class Menu_Icons_Admin_Nav_Menus {
 	 * @return array
 	 */
 	public static function _columns( $columns ) {
-		$columns['icon'] = __( 'Icon', 'my-plugin' );
+		$columns['icon'] = __( 'Icon', 'menu-icons' );
 
 		return $columns;
 	}
