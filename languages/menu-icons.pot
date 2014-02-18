@@ -1,0 +1,1009 @@
+# Copyright (C) 2014 Menu Icons
+# This file is distributed under the same license as the Menu Icons package.
+msgid ""
+msgstr ""
+"Project-Id-Version: Menu Icons 0.1.0\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/menu-icons\n"
+"POT-Creation-Date: 2014-02-18 18:23:34+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2014-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+
+#: includes/admin.php:41 includes/type-fonts.php:128
+msgid "&mdash; Select &mdash;"
+msgstr ""
+
+#: includes/admin.php:88
+msgid "Icon type"
+msgstr ""
+
+#: includes/admin.php:134
+msgid "Icon"
+msgstr ""
+
+#: includes/menu-item-custom-fields/doc/menu-item-custom-fields-example.php:86
+#: includes/menu-item-custom-fields/doc/menu-item-custom-fields-example.php:107
+msgid "Custom Field"
+msgstr ""
+
+#: includes/type-dashicons.php:55
+msgid "Admin"
+msgstr ""
+
+#: includes/type-dashicons.php:57
+msgid "Appearance"
+msgstr ""
+
+#: includes/type-dashicons.php:58 includes/type-genericons.php:144
+msgid "Collapse"
+msgstr ""
+
+#: includes/type-dashicons.php:59 includes/type-dashicons.php:93
+msgid "Comments"
+msgstr ""
+
+#: includes/type-dashicons.php:60
+msgid "Dashboard"
+msgstr ""
+
+#: includes/type-dashicons.php:61
+msgid "Generic"
+msgstr ""
+
+#: includes/type-dashicons.php:62 includes/type-genericons.php:161
+msgid "Home"
+msgstr ""
+
+#: includes/type-dashicons.php:63
+msgid "Media"
+msgstr ""
+
+#: includes/type-dashicons.php:64 includes/type-genericons.php:170
+msgid "Menu"
+msgstr ""
+
+#: includes/type-dashicons.php:65
+msgid "Network"
+msgstr ""
+
+#: includes/type-dashicons.php:66
+msgid "Page"
+msgstr ""
+
+#: includes/type-dashicons.php:67
+msgid "Plugins"
+msgstr ""
+
+#: includes/type-dashicons.php:68
+msgid "Settings"
+msgstr ""
+
+#: includes/type-dashicons.php:69
+msgid "Site"
+msgstr ""
+
+#: includes/type-dashicons.php:70
+msgid "Tools"
+msgstr ""
+
+#: includes/type-dashicons.php:71
+msgid "Users"
+msgstr ""
+
+#: includes/type-dashicons.php:75 includes/type-genericons.php:69
+msgid "Post Formats"
+msgstr ""
+
+#: includes/type-dashicons.php:77 includes/type-genericons.php:71
+msgid "Standard"
+msgstr ""
+
+#: includes/type-dashicons.php:78 includes/type-genericons.php:72
+msgid "Aside"
+msgstr ""
+
+#: includes/type-dashicons.php:79 includes/type-genericons.php:73
+msgid "Image"
+msgstr ""
+
+#: includes/type-dashicons.php:80 includes/type-dashicons.php:134
+#: includes/type-dashicons.php:253 includes/type-genericons.php:75
+msgid "Video"
+msgstr ""
+
+#: includes/type-dashicons.php:81 includes/type-genericons.php:80
+msgid "Audio"
+msgstr ""
+
+#: includes/type-dashicons.php:82 includes/type-dashicons.php:120
+#: includes/type-genericons.php:77
+msgid "Quote"
+msgstr ""
+
+#: includes/type-dashicons.php:83 includes/type-genericons.php:74
+msgid "Gallery"
+msgstr ""
+
+#: includes/type-dashicons.php:84
+msgid "Links"
+msgstr ""
+
+#: includes/type-dashicons.php:85 includes/type-genericons.php:76
+msgid "Status"
+msgstr ""
+
+#: includes/type-dashicons.php:86 includes/type-genericons.php:79
+msgid "Chat"
+msgstr ""
+
+#: includes/type-dashicons.php:90
+msgid "Welcome Screen"
+msgstr ""
+
+#: includes/type-dashicons.php:92
+msgid "Add page"
+msgstr ""
+
+#: includes/type-dashicons.php:94
+msgid "Edit page"
+msgstr ""
+
+#: includes/type-dashicons.php:95
+msgid "Learn More"
+msgstr ""
+
+#: includes/type-dashicons.php:96
+msgid "View Site"
+msgstr ""
+
+#: includes/type-dashicons.php:97
+msgid "Widgets"
+msgstr ""
+
+#: includes/type-dashicons.php:98
+msgid "Write Blog"
+msgstr ""
+
+#: includes/type-dashicons.php:102 includes/type-dashicons.php:156
+#: includes/type-genericons.php:151
+msgid "Edit"
+msgstr ""
+
+#: includes/type-dashicons.php:104
+msgid "Crop"
+msgstr ""
+
+#: includes/type-dashicons.php:105
+msgid "Rotate Left"
+msgstr ""
+
+#: includes/type-dashicons.php:106
+msgid "Rotate Right"
+msgstr ""
+
+#: includes/type-dashicons.php:107
+msgid "Flip Vertical"
+msgstr ""
+
+#: includes/type-dashicons.php:108
+msgid "Flip Horizontal"
+msgstr ""
+
+#: includes/type-dashicons.php:109
+msgid "Undo"
+msgstr ""
+
+#: includes/type-dashicons.php:110
+msgid "Redo"
+msgstr ""
+
+#: includes/type-dashicons.php:114
+msgid "Editor"
+msgstr ""
+
+#: includes/type-dashicons.php:116 includes/type-genericons.php:133
+msgid "Bold"
+msgstr ""
+
+#: includes/type-dashicons.php:117 includes/type-genericons.php:163
+msgid "Italic"
+msgstr ""
+
+#: includes/type-dashicons.php:118
+msgid "Unordered List"
+msgstr ""
+
+#: includes/type-dashicons.php:119
+msgid "Ordered List"
+msgstr ""
+
+#: includes/type-dashicons.php:121 includes/type-dashicons.php:147
+msgid "Align Left"
+msgstr ""
+
+#: includes/type-dashicons.php:122 includes/type-dashicons.php:149
+msgid "Align Center"
+msgstr ""
+
+#: includes/type-dashicons.php:123 includes/type-dashicons.php:148
+msgid "Align Right"
+msgstr ""
+
+#: includes/type-dashicons.php:124
+msgid "Insert More"
+msgstr ""
+
+#: includes/type-dashicons.php:125
+msgid "Spell Check"
+msgstr ""
+
+#: includes/type-dashicons.php:126
+msgid "Distraction-free"
+msgstr ""
+
+#: includes/type-dashicons.php:127
+msgid "Kitchensink"
+msgstr ""
+
+#: includes/type-dashicons.php:128
+msgid "Underline"
+msgstr ""
+
+#: includes/type-dashicons.php:129
+msgid "Justify"
+msgstr ""
+
+#: includes/type-dashicons.php:130
+msgid "Text Color"
+msgstr ""
+
+#: includes/type-dashicons.php:131
+msgid "Paste Word"
+msgstr ""
+
+#: includes/type-dashicons.php:132
+msgid "Paste Text"
+msgstr ""
+
+#: includes/type-dashicons.php:133
+msgid "Clear Formatting"
+msgstr ""
+
+#: includes/type-dashicons.php:135
+msgid "Custom Characters"
+msgstr ""
+
+#: includes/type-dashicons.php:136
+msgid "Indent"
+msgstr ""
+
+#: includes/type-dashicons.php:137
+msgid "Outdent"
+msgstr ""
+
+#: includes/type-dashicons.php:138 includes/type-genericons.php:159
+msgid "Help"
+msgstr ""
+
+#: includes/type-dashicons.php:139
+msgid "Strikethrough"
+msgstr ""
+
+#: includes/type-dashicons.php:140
+msgid "Unlink"
+msgstr ""
+
+#: includes/type-dashicons.php:141
+msgid "RTL"
+msgstr ""
+
+#: includes/type-dashicons.php:145
+msgid "Post"
+msgstr ""
+
+#: includes/type-dashicons.php:150
+msgid "Align None"
+msgstr ""
+
+#: includes/type-dashicons.php:151 includes/type-genericons.php:167
+msgid "Lock"
+msgstr ""
+
+#: includes/type-dashicons.php:152
+msgid "Calendar"
+msgstr ""
+
+#: includes/type-dashicons.php:153
+msgid "Visibility"
+msgstr ""
+
+#: includes/type-dashicons.php:154
+msgid "Post Status"
+msgstr ""
+
+#: includes/type-dashicons.php:155
+msgid "Post Trash"
+msgstr ""
+
+#: includes/type-dashicons.php:157 includes/type-genericons.php:203
+msgid "Trash"
+msgstr ""
+
+#: includes/type-dashicons.php:161
+msgid "Sorting"
+msgstr ""
+
+#: includes/type-dashicons.php:163
+msgid "Arrow: Up"
+msgstr ""
+
+#: includes/type-dashicons.php:164
+msgid "Arrow: Down"
+msgstr ""
+
+#: includes/type-dashicons.php:165
+msgid "Arrow: Left"
+msgstr ""
+
+#: includes/type-dashicons.php:166
+msgid "Arrow: Right"
+msgstr ""
+
+#: includes/type-dashicons.php:167
+msgid "Arrow: Up #2"
+msgstr ""
+
+#: includes/type-dashicons.php:168
+msgid "Arrow: Down #2"
+msgstr ""
+
+#: includes/type-dashicons.php:169
+msgid "Arrow: Left #2"
+msgstr ""
+
+#: includes/type-dashicons.php:170
+msgid "Arrow: Right #2"
+msgstr ""
+
+#: includes/type-dashicons.php:171
+msgid "Arrow: Up #3"
+msgstr ""
+
+#: includes/type-dashicons.php:172
+msgid "Arrow: Down #3"
+msgstr ""
+
+#: includes/type-dashicons.php:173
+msgid "Arrow: Left #3"
+msgstr ""
+
+#: includes/type-dashicons.php:174
+msgid "Arrow: Right #3"
+msgstr ""
+
+#: includes/type-dashicons.php:175
+msgid "Left-Right"
+msgstr ""
+
+#: includes/type-dashicons.php:176
+msgid "Sort"
+msgstr ""
+
+#: includes/type-dashicons.php:177
+msgid "List View"
+msgstr ""
+
+#: includes/type-dashicons.php:178
+msgid "Excerpt View"
+msgstr ""
+
+#: includes/type-dashicons.php:182 includes/type-genericons.php:98
+msgid "Social"
+msgstr ""
+
+#: includes/type-dashicons.php:184 includes/type-genericons.php:191
+msgid "Share"
+msgstr ""
+
+#: includes/type-dashicons.php:185
+msgid "Share #2"
+msgstr ""
+
+#: includes/type-dashicons.php:186
+msgid "Share #3"
+msgstr ""
+
+#: includes/type-dashicons.php:187
+msgid "Share #4"
+msgstr ""
+
+#: includes/type-dashicons.php:189
+msgid "RSS"
+msgstr ""
+
+#: includes/type-dashicons.php:190
+msgid "Email"
+msgstr ""
+
+#: includes/type-dashicons.php:191
+msgid "Email #2"
+msgstr ""
+
+#: includes/type-dashicons.php:193 includes/type-dashicons.php:211
+msgid "%s #2"
+msgstr ""
+
+#: includes/type-dashicons.php:194
+msgid "Networking"
+msgstr ""
+
+#: includes/type-dashicons.php:199
+msgid "Jobs"
+msgstr ""
+
+#: includes/type-dashicons.php:201
+msgid "Art"
+msgstr ""
+
+#: includes/type-dashicons.php:202
+msgid "Hammer"
+msgstr ""
+
+#: includes/type-dashicons.php:203
+msgid "Migrate"
+msgstr ""
+
+#: includes/type-dashicons.php:204
+msgid "Performance"
+msgstr ""
+
+#: includes/type-dashicons.php:208
+msgid "Internal/Products"
+msgstr ""
+
+#: includes/type-dashicons.php:213
+msgid "Update"
+msgstr ""
+
+#: includes/type-dashicons.php:214
+msgid "Screen Options"
+msgstr ""
+
+#: includes/type-dashicons.php:215 includes/type-genericons.php:162
+msgid "Info"
+msgstr ""
+
+#: includes/type-dashicons.php:216 includes/type-genericons.php:135
+msgid "Cart"
+msgstr ""
+
+#: includes/type-dashicons.php:217
+msgid "Feedback"
+msgstr ""
+
+#: includes/type-dashicons.php:218 includes/type-genericons.php:139
+msgid "Cloud"
+msgstr ""
+
+#: includes/type-dashicons.php:219
+msgid "Translation"
+msgstr ""
+
+#: includes/type-dashicons.php:223
+msgid "Taxonomies"
+msgstr ""
+
+#: includes/type-dashicons.php:225 includes/type-genericons.php:88
+msgid "Tag"
+msgstr ""
+
+#: includes/type-dashicons.php:226 includes/type-genericons.php:87
+msgid "Category"
+msgstr ""
+
+#: includes/type-dashicons.php:230
+msgid "Alerts/Notifications"
+msgstr ""
+
+#: includes/type-dashicons.php:232
+msgid "Yes"
+msgstr ""
+
+#: includes/type-dashicons.php:233
+msgid "No"
+msgstr ""
+
+#: includes/type-dashicons.php:234
+msgid "No #2"
+msgstr ""
+
+#: includes/type-dashicons.php:235
+msgid "Plus"
+msgstr ""
+
+#: includes/type-dashicons.php:236
+msgid "Minus"
+msgstr ""
+
+#: includes/type-dashicons.php:237
+msgid "Dismiss"
+msgstr ""
+
+#: includes/type-dashicons.php:238
+msgid "Marker"
+msgstr ""
+
+#: includes/type-dashicons.php:239
+msgid "Star: Filled"
+msgstr ""
+
+#: includes/type-dashicons.php:240
+msgid "Star: Half"
+msgstr ""
+
+#: includes/type-dashicons.php:241
+msgid "Star: Empty"
+msgstr ""
+
+#: includes/type-dashicons.php:242 includes/type-genericons.php:156
+msgid "Flag"
+msgstr ""
+
+#: includes/type-dashicons.php:246
+msgid "Misc./Post Types"
+msgstr ""
+
+#: includes/type-dashicons.php:248 includes/type-genericons.php:166
+msgid "Location"
+msgstr ""
+
+#: includes/type-dashicons.php:249
+msgid "Location #2"
+msgstr ""
+
+#: includes/type-dashicons.php:250
+msgid "Camera"
+msgstr ""
+
+#: includes/type-dashicons.php:251
+msgid "Images"
+msgstr ""
+
+#: includes/type-dashicons.php:252
+msgid "Images #2"
+msgstr ""
+
+#: includes/type-dashicons.php:254
+msgid "Video #2"
+msgstr ""
+
+#: includes/type-dashicons.php:255
+msgid "Video #3"
+msgstr ""
+
+#: includes/type-dashicons.php:256
+msgid "Vault"
+msgstr ""
+
+#: includes/type-dashicons.php:257
+msgid "Shield"
+msgstr ""
+
+#: includes/type-dashicons.php:258
+msgid "Shield #2"
+msgstr ""
+
+#: includes/type-dashicons.php:259
+msgid "S.O.S."
+msgstr ""
+
+#: includes/type-dashicons.php:260 includes/type-genericons.php:188
+msgid "Search"
+msgstr ""
+
+#: includes/type-dashicons.php:261
+msgid "Slides"
+msgstr ""
+
+#: includes/type-dashicons.php:262
+msgid "Analytics"
+msgstr ""
+
+#: includes/type-dashicons.php:263
+msgid "Chart: Pie"
+msgstr ""
+
+#: includes/type-dashicons.php:264
+msgid "Chart: Bar"
+msgstr ""
+
+#: includes/type-dashicons.php:265
+msgid "Chart: Line"
+msgstr ""
+
+#: includes/type-dashicons.php:266
+msgid "Chart: Area"
+msgstr ""
+
+#: includes/type-dashicons.php:267
+msgid "Groups"
+msgstr ""
+
+#: includes/type-dashicons.php:268
+msgid "Businessman"
+msgstr ""
+
+#: includes/type-dashicons.php:269
+msgid "ID"
+msgstr ""
+
+#: includes/type-dashicons.php:270
+msgid "ID #2"
+msgstr ""
+
+#: includes/type-dashicons.php:271
+msgid "Products"
+msgstr ""
+
+#: includes/type-dashicons.php:272
+msgid "Awards"
+msgstr ""
+
+#: includes/type-dashicons.php:273
+msgid "Forms"
+msgstr ""
+
+#: includes/type-dashicons.php:274
+msgid "Testimonial"
+msgstr ""
+
+#: includes/type-dashicons.php:275 includes/type-genericons.php:179
+msgid "Portfolio"
+msgstr ""
+
+#: includes/type-dashicons.php:276 includes/type-genericons.php:134
+msgid "Book"
+msgstr ""
+
+#: includes/type-dashicons.php:277
+msgid "Book #2"
+msgstr ""
+
+#: includes/type-dashicons.php:278
+msgid "Download"
+msgstr ""
+
+#: includes/type-dashicons.php:279
+msgid "Upload"
+msgstr ""
+
+#: includes/type-dashicons.php:280
+msgid "Backup"
+msgstr ""
+
+#: includes/type-dashicons.php:281
+msgid "Clock"
+msgstr ""
+
+#: includes/type-dashicons.php:282
+msgid "Lightbulb"
+msgstr ""
+
+#: includes/type-dashicons.php:283
+msgid "Desktop"
+msgstr ""
+
+#: includes/type-dashicons.php:284 includes/type-genericons.php:201
+msgid "Tablet"
+msgstr ""
+
+#: includes/type-dashicons.php:285
+msgid "Smartphone"
+msgstr ""
+
+#: includes/type-dashicons.php:286
+msgid "Smiley"
+msgstr ""
+
+#: includes/type-genericons.php:78
+msgid "Link"
+msgstr ""
+
+#: includes/type-genericons.php:84
+msgid "Meta"
+msgstr ""
+
+#: includes/type-genericons.php:86
+msgid "Comment"
+msgstr ""
+
+#: includes/type-genericons.php:89
+msgid "Time"
+msgstr ""
+
+#: includes/type-genericons.php:90
+msgid "User"
+msgstr ""
+
+#: includes/type-genericons.php:91
+msgid "Day"
+msgstr ""
+
+#: includes/type-genericons.php:92
+msgid "Week"
+msgstr ""
+
+#: includes/type-genericons.php:93
+msgid "Month"
+msgstr ""
+
+#: includes/type-genericons.php:94
+msgid "Pinned"
+msgstr ""
+
+#: includes/type-genericons.php:105 includes/type-genericons.php:109
+#: includes/type-genericons.php:112 includes/type-genericons.php:115
+msgid "%s (alt.)"
+msgstr ""
+
+#: includes/type-genericons.php:129
+msgid "Misc."
+msgstr ""
+
+#: includes/type-genericons.php:131
+msgid "404"
+msgstr ""
+
+#: includes/type-genericons.php:132
+msgid "Attachment"
+msgstr ""
+
+#: includes/type-genericons.php:136
+msgid "Checkmark"
+msgstr ""
+
+#: includes/type-genericons.php:137
+msgid "Close"
+msgstr ""
+
+#: includes/type-genericons.php:138
+msgid "Close alt"
+msgstr ""
+
+#: includes/type-genericons.php:140
+msgid "Cloud download"
+msgstr ""
+
+#: includes/type-genericons.php:141
+msgid "Cloud upload"
+msgstr ""
+
+#: includes/type-genericons.php:142
+msgid "Code"
+msgstr ""
+
+#: includes/type-genericons.php:143
+msgid "Cog"
+msgstr ""
+
+#: includes/type-genericons.php:145
+msgid "Document"
+msgstr ""
+
+#: includes/type-genericons.php:146
+msgid "Dot"
+msgstr ""
+
+#: includes/type-genericons.php:147
+msgid "Downarrow"
+msgstr ""
+
+#: includes/type-genericons.php:148
+msgid "Draggable"
+msgstr ""
+
+#: includes/type-genericons.php:149
+msgid "Dropdown"
+msgstr ""
+
+#: includes/type-genericons.php:150
+msgid "Dropdown left"
+msgstr ""
+
+#: includes/type-genericons.php:152
+msgid "Expand"
+msgstr ""
+
+#: includes/type-genericons.php:153
+msgid "External"
+msgstr ""
+
+#: includes/type-genericons.php:154
+msgid "Fastforward"
+msgstr ""
+
+#: includes/type-genericons.php:155
+msgid "Feed"
+msgstr ""
+
+#: includes/type-genericons.php:157
+msgid "Fullscreen"
+msgstr ""
+
+#: includes/type-genericons.php:158
+msgid "Heart"
+msgstr ""
+
+#: includes/type-genericons.php:160
+msgid "Hide"
+msgstr ""
+
+#: includes/type-genericons.php:164
+msgid "Key"
+msgstr ""
+
+#: includes/type-genericons.php:165
+msgid "Leftarrow"
+msgstr ""
+
+#: includes/type-genericons.php:168
+msgid "Mail"
+msgstr ""
+
+#: includes/type-genericons.php:169
+msgid "Maximize"
+msgstr ""
+
+#: includes/type-genericons.php:171
+msgid "Minimize"
+msgstr ""
+
+#: includes/type-genericons.php:172
+msgid "Next"
+msgstr ""
+
+#: includes/type-genericons.php:173
+msgid "Notice"
+msgstr ""
+
+#: includes/type-genericons.php:174
+msgid "Pause"
+msgstr ""
+
+#: includes/type-genericons.php:175
+msgid "Phone"
+msgstr ""
+
+#: includes/type-genericons.php:176
+msgid "Picture"
+msgstr ""
+
+#: includes/type-genericons.php:177
+msgid "Play"
+msgstr ""
+
+#: includes/type-genericons.php:178
+msgid "Plugin"
+msgstr ""
+
+#: includes/type-genericons.php:180
+msgid "Previous"
+msgstr ""
+
+#: includes/type-genericons.php:181
+msgid "Print"
+msgstr ""
+
+#: includes/type-genericons.php:182
+msgid "Refresh"
+msgstr ""
+
+#: includes/type-genericons.php:183
+msgid "Reply"
+msgstr ""
+
+#: includes/type-genericons.php:184
+msgid "Reply alt"
+msgstr ""
+
+#: includes/type-genericons.php:185
+msgid "Reply single"
+msgstr ""
+
+#: includes/type-genericons.php:186
+msgid "Rewind"
+msgstr ""
+
+#: includes/type-genericons.php:187
+msgid "Rightarrow"
+msgstr ""
+
+#: includes/type-genericons.php:189 includes/type-genericons.php:190
+msgid "Send to"
+msgstr ""
+
+#: includes/type-genericons.php:192
+msgid "Show"
+msgstr ""
+
+#: includes/type-genericons.php:193
+msgid "Skip ahead"
+msgstr ""
+
+#: includes/type-genericons.php:194
+msgid "Skip back"
+msgstr ""
+
+#: includes/type-genericons.php:195
+msgid "Spam"
+msgstr ""
+
+#: includes/type-genericons.php:196
+msgid "Star"
+msgstr ""
+
+#: includes/type-genericons.php:197
+msgid "Stop"
+msgstr ""
+
+#: includes/type-genericons.php:198
+msgid "Subscribe"
+msgstr ""
+
+#: includes/type-genericons.php:199
+msgid "Subscribed"
+msgstr ""
+
+#: includes/type-genericons.php:200
+msgid "Summary"
+msgstr ""
+
+#: includes/type-genericons.php:202
+msgid "Top"
+msgstr ""
+
+#: includes/type-genericons.php:204
+msgid "Unapprove"
+msgstr ""
+
+#: includes/type-genericons.php:205
+msgid "Unsubscribe"
+msgstr ""
+
+#: includes/type-genericons.php:206
+msgid "Unzoom"
+msgstr ""
+
+#: includes/type-genericons.php:207
+msgid "Uparrow"
+msgstr ""
+
+#: includes/type-genericons.php:208
+msgid "Warning"
+msgstr ""
+
+#: includes/type-genericons.php:209
+msgid "Zoom"
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "Menu Icons"
+msgstr ""
+
+#. #-#-#-#-#  menu-icons.pot (Menu Icons 0.1.0)  #-#-#-#-#
+#. Plugin URI of the plugin/theme
+#. #-#-#-#-#  menu-icons.pot (Menu Icons 0.1.0)  #-#-#-#-#
+#. Author URI of the plugin/theme
+msgid "http://kucrut.org/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid "Easily add icons to your navigation menu items"
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Dzikri Aziz"
+msgstr ""

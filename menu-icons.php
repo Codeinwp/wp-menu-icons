@@ -60,23 +60,40 @@ final class Menu_Icons {
 
 
 	/**
-	 * Initialize plugin
+	 * Load plugin
 	 *
-	 * 1. Set plugin data (directory and URL paths)
-	 * 2. Collect registered types
-	 * 3. Add hook callbacks
+	 * 1. Load translation
+	 * 2. Set plugin data (directory and URL paths)
+	 * 3. Attach plugin initialization at wp_loaded hook
 	 *
 	 * @since   0.1.0
-	 * @wp_hook action wp_loaded/99
-	 * @link    http://codex.wordpress.org/Plugin_API/Action_Reference/wp_loaded Action: wp_loaded/9
+	 * @wp_hook action plugins_loaded/10
+	 * @link    http://codex.wordpress.org/Plugin_API/Action_Reference/plugins_loaded Action: plugins_loaded/10
 	 */
-	public static function init() {
+	public static function load() {
+		load_plugin_textdomain( 'stream', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
+
 		self::$data = array(
 			'dir'        => plugin_dir_path( __FILE__ ),
 			'url'        => plugin_dir_url( __FILE__ ),
 			'icon_types' => array(),
 		);
 
+		add_action( 'wp_loaded', array( __CLASS__, 'init' ), 9 );
+	}
+
+
+	/**
+	 * Initialize plugin
+	 *
+	 * 1. Collect registered types
+	 * 2. Add hook callbacks
+	 *
+	 * @since   0.1.0
+	 * @wp_hook action wp_loaded/9
+	 * @link    http://codex.wordpress.org/Plugin_API/Action_Reference/wp_loaded Action: wp_loaded/9
+	 */
+	public static function init() {
 		// Load icon types
 		require_once self::$data['dir'] . '/includes/type-fonts.php';
 		require_once self::$data['dir'] . '/includes/type-dashicons.php';
@@ -209,4 +226,4 @@ final class Menu_Icons {
 		}
 	}
 }
-add_action( 'wp_loaded', array( 'Menu_Icons', 'init' ), 9 );
+add_action( 'plugins_loaded', array( 'Menu_Icons', 'load' ) );
