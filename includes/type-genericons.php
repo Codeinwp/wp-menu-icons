@@ -12,34 +12,48 @@
  *
  * @since 0.1.0
  */
-class Menu_Items_Genericons {
+class Menu_Icons_Genericons extends Menu_Icons_Fonts {
 
 	/**
-	 * Initialize
+	 * Holds icon type
 	 *
-	 * @since 0.1.0
+	 * @since  0.1.0
+	 * @access protected
+	 * @var    string
 	 */
-	public static function init() {
-		add_filter( 'menu_icons_types', array( __CLASS__, '_register' ) );
-		add_action( 'get_header', array( __CLASS__, '_load_front_end' ) );
-		add_action( 'wp_enqueue_scripts', array( __CLASS__, '_enqueue_scripts_styles' ), 5 );
-	}
+	protected $type = 'genericon';
+
+	/**
+	 * Holds icon label
+	 *
+	 * @since  0.1.0
+	 * @access protected
+	 * @var    string
+	 */
+	protected $label = 'Genericons';
+
+	/**
+	 * Holds icon version
+	 *
+	 * @since  0.1.0
+	 * @access protected
+	 * @var    string
+	 */
+	protected $version = '3.0.3';
 
 
 	/**
-	 * Register our type
+	 * Class constructor
+	 *
+	 * We need to override the parent's to set our stylesheet URL
 	 *
 	 * @since 0.1.0
 	 * @param array $types Icon Types
 	 * @return array
 	 */
-	public static function _register( $types ) {
-		$types['genericon'] = array(
-			'label'    => 'Genericons',
-			'field_cb' => array( __CLASS__, 'the_field' ),
-		);
-
-		return $types;
+	public function __construct() {
+		$this->stylesheet = Menu_Icons::get( 'url' ) . '/css/genericons.css';
+		parent::__construct();
 	}
 
 
@@ -197,72 +211,19 @@ class Menu_Items_Genericons {
 			),
 		);
 	}
-
-
-	/**
-	 * Print field for genericons selection
-	 *
-	 * @since 0.1.0
-	 * @param int   $id      Menu item ID
-	 * @param array $current Current values of 'menu-icons' metadata
-	 */
-	public static function the_field( $id, $current ) {
-		$input_id   = sprintf( 'menu-icons-%d-genericon-icon', $id );
-		$input_name = sprintf( 'menu-icons[%d][genericon-icon]', $id );
-		?>
-		<p class="description menu-icon-type-font-awesome">
-			<label for="<?php echo esc_attr( $input_id ) ?>"><?php esc_html_e( 'Icon', 'menu-icons' ); ?></label>
-			<select id="<?php echo esc_attr( $input_id ) ?>" name="<?php echo esc_attr( $input_name ) ?>">
-				<?php printf(
-					'<option value="%s"%s>%s</option>',
-					esc_attr( $value ),
-					selected( empty( $current['genericon-icon'] ), true, false ),
-					esc_html__( '&mdash; Select &mdash;', 'menu-icons' )
-				) ?>
-				<?php foreach ( self::get_names() as $group ) : ?>
-					<optgroup label="<?php echo esc_attr( $group['label'] ) ?>">
-						<?php foreach ( $group['items'] as $value => $label ) : ?>
-							<?php printf(
-								'<option value="%s"%s>%s</option>',
-								esc_attr( $value ),
-								selected( ( isset( $current['genericon-icon'] ) && $value === $current['genericon-icon'] ), true, false ),
-								esc_html( $label )
-							) ?>
-						<?php endforeach; ?>
-					</optgroup>
-				<?php endforeach; ?>
-			</select>
-		</p>
-		<?php
-	}
-
-
-	/**
-	 * Load front-end handler
-	 *
-	 * @since   0.1.0
-	 * @wp_hook action get_header
-	 */
-	public static function _load_front_end() {
-		require_once dirname( __FILE__ ) . '/type-fonts.php';
-		$front = new Menu_Icons_Fonts( 'genericon' );
-	}
-
-
-	/**
-	 * Enqueue genericons stylesheet
-	 *
-	 * @since 0.1.0
-	 * @wp_hook action wp_enqueue_scripts
-	 */
-	public static function _enqueue_scripts_styles() {
-		wp_enqueue_style(
-			'genericons',
-			Menu_Icons::get( 'url' ) . '/css/genericons.css',
-			false,
-			'3.0.3'
-		);
-	}
 }
 
-Menu_Items_Genericons::init();
+
+/**
+ * Register Genericons
+ *
+ * @since   0.1.0
+ * @wp_hook filter menu_icons_types/10/1
+ * @param   array  $types Icon Types
+ * @return  array
+ */
+function _menu_icons_genericons( $types ) {
+	$dashicons = new Menu_Icons_Genericons();
+	return $dashicons->register( $types );
+}
+add_filter( 'menu_icons_types', '_menu_icons_genericons' );
