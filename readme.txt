@@ -47,6 +47,20 @@ Development of this plugin is done on [GitHub](https://github.com/kucrut/wp-menu
 If you're comfortable with editing your theme stylesheet, then you can override the styles from there.
 Otherwise, I recommend you to use the [Simple Custom CSS plugin](http://wordpress.org/plugins/simple-custom-css/)
 
+= Is this plugin extendable? =
+**Certainly!**
+
+Here's how you can remove an icon type from your plugin/theme:
+```php
+function myplugin_remove_menu_icons_type( $types ) {
+	unset( $types['genericon'] );
+	return $types;
+}
+add_filter( 'menu_icons_types', 'myplugin_remove_menu_icons_type' );
+```
+
+To add a new icon type, take a look at the `type-*.php` files inside the `includes` directory of this plugin.
+
 = Can you please add X icon font? =
 Let me know via [GitHub issues](https://github.com/kucrut/wp-menu-icons/issues) and I'll see what I can do.
 
