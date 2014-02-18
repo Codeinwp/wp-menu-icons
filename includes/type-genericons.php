@@ -218,7 +218,7 @@ class Menu_Icons_Genericons extends Menu_Icons_Fonts {
  * Register Genericons
  *
  * @since   0.1.0
- * @wp_hook filter menu_icons_types/10/1
+ * @wp_hook filter menu_icons_types/9/1
  * @param   array  $types Icon Types
  * @return  array
  */
@@ -226,4 +226,4 @@ function _menu_icons_genericons( $types ) {
 	$dashicons = new Menu_Icons_Genericons();
 	return $dashicons->register( $types );
 }
-add_filter( 'menu_icons_types', '_menu_icons_genericons' );
+add_filter( 'menu_icons_types', '_menu_icons_genericons', 9 );
