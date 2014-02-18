@@ -113,7 +113,7 @@ class Menu_Icons {
 	 */
 	public static function _enqueue_scripts_styles() {
 		/**
-		 * A
+		 * Enable/disable loading of extra stylesheet
 		 *
 		 * @since 0.1.0
 		 * @param bool $load_extra_style
