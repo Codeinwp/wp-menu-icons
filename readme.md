@@ -49,13 +49,13 @@ Otherwise, I recommend you to use the [Simple Custom CSS plugin](http://wordpres
 **Certainly!**
 
 Here's how you can remove an icon type from your plugin/theme:
-`
+```php
 function myplugin_remove_menu_icons_type( $types ) {
 	unset( $types['genericon'] );
 	return $types;
 }
 add_filter( 'menu_icons_types', 'myplugin_remove_menu_icons_type' );
-`
+```
 
 To add a new icon type, take a look at the `type-*.php` files inside the `includes` directory of this plugin.
 
