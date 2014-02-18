@@ -1,9 +1,19 @@
+.menu .dashicons,
+.nav-menu .dashicons,
 .menu .genericon,
 .nav-menu .genericon {
 	display: inline;
 	width: auto;
 	height: auto;
 	font-size: 1.2em;
-	vertical-align: middle;
 	margin-right: .25em;
+	line-height: 1;
+}
+.menu .dashicons,
+.nav-menu .dashicons {
+	vertical-align: sub;
+}
+.menu .genericon,
+.nav-menu .genericon {
+	vertical-align: middle;
 }

@@ -79,6 +79,7 @@ final class Menu_Icons {
 
 		// Load icon types
 		require_once self::$data['dir'] . '/includes/type-fonts.php';
+		require_once self::$data['dir'] . '/includes/type-dashicons.php';
 		require_once self::$data['dir'] . '/includes/type-genericons.php';
 
 		self::_collect_icon_types();
