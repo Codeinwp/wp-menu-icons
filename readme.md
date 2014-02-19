@@ -32,6 +32,8 @@ Easily add icons to your nav menu items.
 1. Provide modal popup that displays the icons for selection
 2. Theme customizer support
 
+See **Other Notes** to know about the *hidden* features.
+
 Development of this plugin is done on [GitHub](https://github.com/kucrut/wp-menu-icons). **Pull requests welcome**. Please see [issues reported](https://github.com/kucrut/wp-menu-icons/issues) there before going to the plugin forum.
 
 
@@ -62,6 +64,16 @@ To add a new icon type, take a look at the `type-*.php` files inside the `includ
 
 ### Can you please add X icon font? ###
 Let me know via [GitHub issues](https://github.com/kucrut/wp-menu-icons/issues) and I'll see what I can do.
+
+
+## Other Notes ##
+
+### Extra Stylesheet ###
+By default, this plugin loads an extra stylesheet to make the icons display nicely on the menus.
+If you don't desire this and would like your theme/plugin to handle it instead, simply do the following:
+```php
+add_filter( 'menu_icons_load_extra_style', '__return_false' );
+```
 
 
 ## Changelog ##
