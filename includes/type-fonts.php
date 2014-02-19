@@ -79,6 +79,10 @@ abstract class Menu_Icons_Fonts {
 	 */
 	function __construct() {
 		$this->_key = $this->type . '-icon';
+
+		if ( is_null( $this->version ) ) {
+			$this->version = get_bloginfo( 'version' );
+		}
 	}
 
 
@@ -95,11 +99,8 @@ abstract class Menu_Icons_Fonts {
 			'field_cb'   => array( $this, 'the_field' ),
 			'front_cb'   => array( $this, 'front' ),
 			'stylesheet' => $this->stylesheet,
+			'version'    => $this->version,
 		);
-
-		if ( empty( $this->version ) ) {
-			$props['version'] = get_bloginfo( 'url' );
-		}
 
 		$types[ $this->type ] = $props;
 
