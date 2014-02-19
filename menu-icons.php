@@ -219,7 +219,7 @@ final class Menu_Icons {
 		if ( true === $load_extra_style ) {
 			wp_enqueue_style(
 				'menu-icons-extra',
-				Menu_Icons::get( 'url' ) . '/css/extra.css',
+				Menu_Icons::get( 'url' ) . 'css/extra.css',
 				false,
 				Menu_Icons::VERSION
 			);

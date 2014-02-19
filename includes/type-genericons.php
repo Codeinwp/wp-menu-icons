@@ -52,7 +52,7 @@ class Menu_Icons_Genericons extends Menu_Icons_Fonts {
 	 * @return array
 	 */
 	public function __construct() {
-		$this->stylesheet = Menu_Icons::get( 'url' ) . '/css/genericons.css';
+		$this->stylesheet = Menu_Icons::get( 'url' ) . 'css/genericons.css';
 		parent::__construct();
 	}
 
