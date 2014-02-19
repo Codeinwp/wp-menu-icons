@@ -14,6 +14,13 @@ Easily add icons to your nav menu items.
 == Description ==
 This plugin gives you the ability to add icons to your menu items, similar to the look of the latest dashboard menu.
 
+= Usage =
+1. After the plugin is activated, go to *Appearance* > *Menus* to edit your menus
+1. Each menu item will now have new *Icon Type* selection field with their corresponding sub-fields
+1. Select the desired icon type
+1. Select the icon from the second drop-down
+1. Save the menu
+
 = Currently supported icon types =
 - Dashicons (WordPress core icon fonts)
 - [Genericons](http://genericons.com/) by [Automattic](http://automattic.com/)
@@ -24,15 +31,9 @@ This plugin gives you the ability to add icons to your menu items, similar to th
 
 = Planned features =
 1. Provide modal popup that displays the icons for selection
+2. Theme customizer support
 
 Development of this plugin is done on [GitHub](https://github.com/kucrut/wp-menu-icons). **Pull requests welcome**. Please see [issues reported](https://github.com/kucrut/wp-menu-icons/issues) there before going to the plugin forum.
-
-= Usage =
-1. After the plugin is activated, go to *Appearance* > *Menus* to edit your menus
-1. Each menu item will now have new *Icon Type* selection field with their corresponding sub-fields
-1. Select the desired icon type
-1. Select the icon from the second drop-down
-1. Save the menu
 
 
 == Installation ==
