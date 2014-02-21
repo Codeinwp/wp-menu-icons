@@ -1,5 +1,8 @@
+.menu-icons-wrap {
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
 .menu-icons-wrap label {
 	display: inline-block;
 	min-width: 7em;
 }
-.menu-icons-wrap {}
