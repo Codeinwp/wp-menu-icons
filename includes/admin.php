@@ -2,7 +2,7 @@
 /**
  * Menu editor handler
  * @package Menu_Icons
- * @version 0.1.0
+ * @version 0.1.1
  * @author Dzikri Aziz <kvcrvt@gmail.com>
  */
 
