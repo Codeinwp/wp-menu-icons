@@ -71,6 +71,13 @@ class Menu_Icons_Admin_Nav_Menus {
 			Menu_Icons::VERSION,
 			true
 		);
+
+		wp_enqueue_style(
+			'menu-icons',
+			Menu_Icons::get( 'url' ) . 'css/admin.css',
+			false,
+			Menu_Icons::VERSION
+		);
 	}
 
 
