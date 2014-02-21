@@ -7,7 +7,7 @@
  * is only loaded on the wp-admin/nav-menus.php page.
  *
  * @package Menu_Item_Custom_Fields
- * @version 0.1.0
+ * @version 0.1.1
  * @author Dzikri Aziz <kvcrvt@gmail.com>
  */
 
@@ -39,7 +39,7 @@ class Menu_Item_Custom_Fields_Walker extends Walker_Nav_Menu_Edit {
 		parent::start_el( $item_output, $item, $depth, $args, $id );
 		$output .= preg_replace(
 			// NOTE: Check this regex from time to time!
-			'/(?=<div[^>]+class="[^"]*submitbox)/',
+			'/(?=<p[^>]+class="[^"]*field-move)/',
 			$this->get_fields( $item, $depth, $args ),
 			$item_output
 		);
