@@ -120,7 +120,10 @@ abstract class Menu_Icons_Fonts {
 		$input_id   = sprintf( 'menu-icons-%d-%s', $id, $this->_key );
 		$input_name = sprintf( 'menu-icons[%d][%s]', $id, $this->_key );
 		?>
-		<p class="description menu-icon-type-<?php echo esc_attr( $this->type ) ?>">
+		<?php printf(
+			'<p class="field-icon-child description menu-icon-type-%1$s" data-dep-on="%1$s">',
+			esc_attr( $this->type )
+		) ?>
 			<label for="<?php echo esc_attr( $input_id ) ?>"><?php echo esc_html( $this->label ); ?></label>
 			<select id="<?php echo esc_attr( $input_id ) ?>" name="<?php echo esc_attr( $input_name ) ?>">
 				<?php printf(

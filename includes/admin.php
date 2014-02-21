@@ -18,6 +18,7 @@ class Menu_Icons_Admin_Nav_Menus {
 	 * Initialize class
 	 */
 	public static function init() {
+		add_action( 'admin_enqueue_scripts', array( __CLASS__, '_scripts_styles' ) );
 		add_action( 'menu_item_custom_fields', array( __CLASS__, '_fields' ), 10, 3 );
 		add_filter( 'manage_nav-menus_columns', array( __CLASS__, '_columns' ), 99 );
 		add_action( 'wp_update_nav_menu_item', array( __CLASS__, '_save' ), 10, 3 );
@@ -45,6 +46,31 @@ class Menu_Icons_Admin_Nav_Menus {
 		);
 
 		return $types;
+	}
+
+
+	/**
+	 * Enqueue scripts & styles on wp-admin/nav-menus.php
+	 *
+	 * @since   0.1.1
+	 * @access  protected
+	 * @wp_hook admin_enqueue_scripts
+	 */
+	public static function _scripts_styles() {
+		wp_register_script(
+			'kucrut-jquery-input-dependencies',
+			Menu_Icons::get( 'url' ) . 'js/input-dependencies.js',
+			array( 'jquery' ),
+			'0.1.0',
+			true
+		);
+		wp_enqueue_script(
+			'menu-icons',
+			Menu_Icons::get( 'url' ) . 'js/admin.js',
+			array( 'kucrut-jquery-input-dependencies' ),
+			Menu_Icons::VERSION,
+			true
+		);
 	}
 
 
@@ -86,7 +112,11 @@ class Menu_Icons_Admin_Nav_Menus {
 				?>
 				<p class="description">
 					<label for="<?php echo esc_attr( $input_id ) ?>"><?php esc_html_e( 'Icon type', 'menu-icons' ); ?></label>
-					<select id="<?php echo esc_attr( $input_id ) ?>" name="<?php echo esc_attr( $input_name ) ?>">
+					<?php printf(
+						'<select id="%s" name="%s" class="hasdep" data-dep-scope="div.menu-icons-wrap" data-dep-children=".field-icon-child">',
+						esc_attr( $input_id ),
+						esc_attr( $input_name )
+					) ?>
 						<?php foreach ( self::_get_types() as $id => $props ) : ?>
 							<?php printf(
 								'<option value="%s"%s>%s</option>',
