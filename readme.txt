@@ -31,7 +31,6 @@ This plugin gives you the ability to add icons to your menu items, similar to th
 
 = Planned features =
 1. Provide modal popup that displays the icons for selection
-2. Theme customizer support
 
 See **Other Notes** to know about the *hidden* features.
 
