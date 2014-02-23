@@ -2,7 +2,8 @@
 .nav-menu .dashicons,
 .menu .genericon,
 .nav-menu .genericon {
-	display: inline;
+	vertical-align: middle;
+	margin-top: -.265em;
 	width: auto;
 	height: auto;
 	font-size: 1.2em;
@@ -11,9 +12,7 @@
 }
 .menu .dashicons,
 .nav-menu .dashicons {
-	vertical-align: sub;
 }
 .menu .genericon,
 .nav-menu .genericon {
-	vertical-align: middle;
 }
