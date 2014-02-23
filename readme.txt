@@ -4,7 +4,7 @@ Donate Link: http://kucrut.org/#coffee
 Tags: menu, nav-menu, icons, navigation
 Requires at least: 3.8
 Tested up to: 3.8.1
-Stable tag: 0.1.1
+Stable tag: 0.1.2
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -36,6 +36,14 @@ This plugin gives you the ability to add icons to your menu items, similar to th
 See **Other Notes** to know about the *hidden* features.
 
 Development of this plugin is done on [GitHub](https://github.com/kucrut/wp-menu-icons). **Pull requests welcome**. Please see [issues reported](https://github.com/kucrut/wp-menu-icons/issues) there before going to the plugin forum.
+
+
+== Screenshots ==
+1. Icon selection
+2. Twenty Fourteen with Dashicons
+3. Twenty Fourteen with Genericons
+4. Twenty Thirteen with Dashicons
+5. Twenty Thirteen with Genericons
 
 
 == Installation ==
@@ -78,6 +86,9 @@ add_filter( 'menu_icons_load_extra_style', '__return_false' );
 
 
 == Changelog ==
+= 0.1.2 =
+* Improve extra stylesheet
+
 = 0.1.1 =
 * Improve icon selection UX
 
