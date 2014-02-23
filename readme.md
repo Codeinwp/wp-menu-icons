@@ -65,7 +65,7 @@ Development of this plugin is done on [GitHub](https://github.com/kucrut/wp-menu
 
 ## Frequently Asked Questions ##
 
-### The icons are now showing! ###
+### The icons are not showing! ###
 Make sure that your active theme is using the default walker for displaying the nav menu. If it's using its own custom walker, make sure that the menu item titles are filterable (please consult your theme author about this).
 
 ### The icon positions don't look right ###
