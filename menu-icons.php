@@ -4,14 +4,14 @@
  * Menu Icons
  *
  * @package Menu_Icons
- * @version 0.1.2
+ * @version 0.1.3
  * @author Dzikri Aziz <kvcrvt@gmail.com>
  *
  *
  * Plugin name: Menu Icons
  * Plugin URI: http://kucrut.org/
  * Description: Easily add icons to your navigation menu items
- * Version: 0.1.2
+ * Version: 0.1.3
  * Author: Dzikri Aziz
  * Author URI: http://kucrut.org/
  * License: GPLv2
@@ -22,11 +22,11 @@
 /**
  * Main plugin class
  *
- * @since 0.1.0
+ * @version 0.1.3
  */
 final class Menu_Icons {
 
-	const VERSION = '0.1.2';
+	const VERSION = '0.1.3';
 
 	/**
 	 * Holds plugin data
@@ -80,6 +80,7 @@ final class Menu_Icons {
 		);
 
 		add_action( 'wp_loaded', array( __CLASS__, 'init' ), 9 );
+		add_filter( 'wp_edit_nav_menu_walker', array( __CLASS__, '_load_nav_menus' ), 1 );
 	}
 
 
@@ -106,7 +107,6 @@ final class Menu_Icons {
 			return;
 		}
 
-		add_action( 'load-nav-menus.php', array( __CLASS__, '_load_nav_menus' ) );
 		add_action( 'get_header', array( __CLASS__, '_load_front_end' ) );
 		add_action( 'wp_enqueue_scripts', array( __CLASS__, '_enqueue_styles' ), 7 );
 	}
@@ -153,20 +153,25 @@ final class Menu_Icons {
 
 
 	/**
-	 * Prepare page: wp-admin/nav-menus.php
+	 * Prepare custom walker
 	 *
-	 * @since   0.1.0
+	 * This is kind of dirty, because we're using a filter hook for doing an action.
+	 * It's because we want our walker to always be used whether it's editing the current
+	 * menu items, or adding new ones (via ajax).
+	 *
+	 * @since   0.1.3
 	 * @access  protected
-	 * @wp_hook action    load-nav-menus.php/10
-	 * @link    http://codex.wordpress.org/Plugin_API/Action_Reference/load-(page) Action: load-nav-menus.php/10
+	 * @wp_hook filter    wp_edit_nav_menu_walker/10/1
 	 */
-	public static function _load_nav_menus() {
+	public static function _load_nav_menus( $walker ) {
 		// Load menu item custom fields plugin
 		require_once self::$data['dir'] . 'includes/menu-item-custom-fields/menu-item-custom-fields.php';
 
 		// Load custom fields
 		require_once self::$data['dir'] . 'includes/admin.php';
 		Menu_Icons_Admin_Nav_Menus::init();
+
+		return $walker;
 	}
 
 

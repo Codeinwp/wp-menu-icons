@@ -7,7 +7,7 @@ Easily add icons to your nav menu items.
 **Tags:** [menu](http://wordpress.org/plugins/tags/menu), [nav-menu](http://wordpress.org/plugins/tags/nav-menu), [icons](http://wordpress.org/plugins/tags/icons), [navigation](http://wordpress.org/plugins/tags/navigation)  
 **Requires at least:** 3.8  
 **Tested up to:** 3.8.1  
-**Stable tag:** 0.1.2  
+**Stable tag:** 0.1.3  
 **License:** [GPLv2](http://www.gnu.org/licenses/gpl-2.0.html)  
 **Donate Link:** http://kucrut.org/#coffee  
 
@@ -30,8 +30,6 @@ Easily add icons to your nav menu items.
 
 ### Planned features ###
 1. Provide modal popup that displays the icons for selection
-
-See **Other Notes** to know about the *hidden* features.
 
 Development of this plugin is done on [GitHub](https://github.com/kucrut/wp-menu-icons). **Pull requests welcome**. Please see [issues reported](https://github.com/kucrut/wp-menu-icons/issues) there before going to the plugin forum.
 
@@ -97,6 +95,9 @@ add_filter( 'menu_icons_load_extra_style', '__return_false' );
 
 
 ## Changelog ##
+
+### 0.1.3 ###
+* Provide icon selection fields on newly added menu items
 
 ### 0.1.2 ###
 * Improve extra stylesheet
