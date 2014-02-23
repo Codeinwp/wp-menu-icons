@@ -89,12 +89,8 @@ To add a new icon type, take a look at the `type-*.php` files inside the `includ
 ### Can you please add X icon font? ###
 Let me know via [GitHub issues](https://github.com/kucrut/wp-menu-icons/issues) and I'll see what I can do.
 
-
-## Other Notes ##
-
-### Extra Stylesheet ###
-By default, this plugin loads an extra stylesheet to make the icons display nicely on the menus.
-If you don't desire this and would like your theme/plugin to handle it instead, simply do the following:
+### Can I disable the extra stylesheet loaded by this plugin? ###
+YES! Simply add the following to your plugin/theme:
 ```php
 add_filter( 'menu_icons_load_extra_style', '__return_false' );
 ```
