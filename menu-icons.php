@@ -4,14 +4,14 @@
  * Menu Icons
  *
  * @package Menu_Icons
- * @version 0.1.4
+ * @version 0.1.5
  * @author Dzikri Aziz <kvcrvt@gmail.com>
  *
  *
  * Plugin name: Menu Icons
  * Plugin URI: http://kucrut.org/
  * Description: Easily add icons to your navigation menu items
- * Version: 0.1.4
+ * Version: 0.1.5
  * Author: Dzikri Aziz
  * Author URI: http://kucrut.org/
  * License: GPLv2
@@ -22,11 +22,11 @@
 /**
  * Main plugin class
  *
- * @version 0.1.4
+ * @version 0.1.5
  */
 final class Menu_Icons {
 
-	const VERSION = '0.1.4';
+	const VERSION = '0.1.5';
 
 	/**
 	 * Holds plugin data
@@ -64,14 +64,15 @@ final class Menu_Icons {
 	 *
 	 * 1. Load translation
 	 * 2. Set plugin data (directory and URL paths)
-	 * 3. Attach plugin initialization at wp_loaded hook
+	 * 3. Register built-in icon types
+	 * 4. Attach plugin initialization at wp_loaded hook
 	 *
 	 * @since   0.1.0
 	 * @wp_hook action plugins_loaded/10
 	 * @link    http://codex.wordpress.org/Plugin_API/Action_Reference/plugins_loaded Action: plugins_loaded/10
 	 */
 	public static function load() {
-		load_plugin_textdomain( 'stream', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
+		load_plugin_textdomain( 'menu-icons', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 
 		self::$data = array(
 			'dir'        => plugin_dir_path( __FILE__ ),
@@ -79,9 +80,8 @@ final class Menu_Icons {
 			'icon_types' => array(),
 		);
 
+		add_filter( 'menu_icons_types', array( __CLASS__, '_register_icon_types' ), 7 );
 		add_action( 'wp_loaded', array( __CLASS__, 'init' ), 9 );
-		add_filter( 'load-nav-menus.php', array( __CLASS__, '_load_nav_menus' ) );
-		add_filter( 'wp_edit_nav_menu_walker', array( __CLASS__, '_load_nav_menus' ), 1 );
 	}
 
 
@@ -96,11 +96,6 @@ final class Menu_Icons {
 	 * @link    http://codex.wordpress.org/Plugin_API/Action_Reference/wp_loaded Action: wp_loaded/9
 	 */
 	public static function init() {
-		// Load icon types
-		require_once self::$data['dir'] . '/includes/type-fonts.php';
-		require_once self::$data['dir'] . '/includes/type-dashicons.php';
-		require_once self::$data['dir'] . '/includes/type-genericons.php';
-
 		self::_collect_icon_types();
 
 		// Nothing to do if there are no icon types registered
@@ -108,8 +103,41 @@ final class Menu_Icons {
 			return;
 		}
 
+		// Back
+		add_filter( 'load-nav-menus.php', array( __CLASS__, '_load_nav_menus' ) );
+		add_filter( 'wp_edit_nav_menu_walker', array( __CLASS__, '_filter_wp_edit_nav_menu_walker' ), 99 );
+
+		// Front
 		add_action( 'get_header', array( __CLASS__, '_load_front_end' ) );
 		add_action( 'wp_enqueue_scripts', array( __CLASS__, '_enqueue_styles' ), 7 );
+	}
+
+
+	/**
+	 * Register built-in icon types
+	 *
+	 * @since   0.1.5
+	 * @access  protected
+	 * @wp_hook filter    menu_icons_types
+	 *
+	 * @param   array     $icon_types      Current icon types
+	 * @return  array
+	 */
+	public static function _register_icon_types( $icon_types ) {
+		$builtin_types = array(
+			'dashicons',
+			'genericons',
+		);
+
+		foreach ( $builtin_types as $type ) {
+			require_once sprintf( '%s/includes/type-%s.php', self::$data['dir'], $type );
+
+			$class_name    = sprintf( 'Menu_Icons_Type_%s', ucfirst( $type ) );
+			$type_instance = new $class_name;
+			$icon_types    = $type_instance->register( $icon_types );
+		}
+
+		return $icon_types;
 	}
 
 
@@ -133,6 +161,12 @@ final class Menu_Icons {
 		foreach ( $types as $type => $props ) {
 			$type_props = wp_parse_args( $props, $defaults );
 			foreach ( $type_props as $key => $value ) {
+				// Stylesheet can be empty
+				if ( 'stylesheet' === $key ) {
+					continue;
+				}
+
+				// Everything else must be specified
 				if ( empty( $value ) ) {
 					continue 2;
 				}
@@ -154,29 +188,39 @@ final class Menu_Icons {
 
 
 	/**
-	 * Prepare custom walker
-	 *
-	 * This is kind of dirty, because we're using a filter hook for doing an action.
-	 * It's because we want our walker to always be used whether it's editing the current
-	 * menu items, or adding new ones (via ajax).
-	 *
-	 * This method is also hooked into 'load-nav-menus.php'.
+	 * Prepare custom walker and custom field
 	 *
 	 * @since   0.1.3
 	 * @access  protected
-	 * @wp_hook action    load-nav-menus.php/10/1
 	 * @wp_hook filter    wp_edit_nav_menu_walker/10/1
-	 * @link    http://codex.wordpress.org/Plugin_API/Action_Reference/load-%28page%29
 	 */
-	public static function _load_nav_menus( $walker ) {
-		// Load menu item custom fields plugin
-		require_once self::$data['dir'] . 'includes/menu-item-custom-fields/menu-item-custom-fields.php';
+	public static function _filter_wp_edit_nav_menu_walker( $walker ) {
+		// Load custom fields
+		require_once self::$data['dir'] . 'includes/admin.php';
+		add_filter( 'menu_item_custom_fields', array( 'Menu_Icons_Admin_Nav_Menus', '_fields' ), 10, 3 );
 
+		// Load menu item custom fields plugin
+		if ( ! class_exists( 'Menu_Item_Custom_Fields_Walker' ) ) {
+			require_once self::$data['dir'] . '/includes/walker-nav-menu-edit.php';
+		}
+		$walker = 'Menu_Item_Custom_Fields_Walker';
+
+		return $walker;
+	}
+
+
+	/**
+	 * Prepare wp-admin/nav-menus.php
+	 *
+	 * @since   0.1.5
+	 * @access  protected
+	 * @wp_hook action    load-nav-menus.php/10
+	 * @link    http://codex.wordpress.org/Plugin_API/Action_Reference/load-%28page%29 Action: load-nav-menus.php/10
+	 */
+	public static function _load_nav_menus() {
 		// Load custom fields
 		require_once self::$data['dir'] . 'includes/admin.php';
 		Menu_Icons_Admin_Nav_Menus::init();
-
-		return $walker;
 	}
 
 
@@ -210,6 +254,10 @@ final class Menu_Icons {
 	public static function _enqueue_styles() {
 		// Enqueue icon types' stylesheets
 		foreach ( self::$data['icon_types'] as $id => $props ) {
+			if ( empty( $props['stylesheet'] ) ) {
+				continue;
+			}
+
 			if ( wp_style_is( $props['stylesheet'], 'registered' ) ) {
 				wp_enqueue_style( $id );
 			}

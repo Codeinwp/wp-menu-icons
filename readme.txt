@@ -4,7 +4,7 @@ Donate Link: http://kucrut.org/#coffee
 Tags: menu, nav-menu, icons, navigation
 Requires at least: 3.8
 Tested up to: 3.8.1
-Stable tag: 0.1.4
+Stable tag: 0.1.5
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -81,6 +81,9 @@ add_filter( 'menu_icons_load_extra_style', '__return_false' );
 
 
 == Changelog ==
+= 0.1.5 =
+* Invisible, but important fixes and improvements
+
 = 0.1.4 =
 * Fix menu saving
 

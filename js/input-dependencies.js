@@ -117,8 +117,6 @@
 
 		instances[ options.selector ] = options;
 
-		console.log( instances );
-
 		// Delegate event
 		$(document)
 			.on('change', options.selector, options, onChange)

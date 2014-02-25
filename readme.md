@@ -7,7 +7,7 @@ Easily add icons to your nav menu items.
 **Tags:** [menu](http://wordpress.org/plugins/tags/menu), [nav-menu](http://wordpress.org/plugins/tags/nav-menu), [icons](http://wordpress.org/plugins/tags/icons), [navigation](http://wordpress.org/plugins/tags/navigation)  
 **Requires at least:** 3.8  
 **Tested up to:** 3.8.1  
-**Stable tag:** 0.1.4  
+**Stable tag:** 0.1.5  
 **License:** [GPLv2](http://www.gnu.org/licenses/gpl-2.0.html)  
 **Donate Link:** http://kucrut.org/#coffee  
 
@@ -93,6 +93,9 @@ add_filter( 'menu_icons_load_extra_style', '__return_false' );
 
 
 ## Changelog ##
+
+### 0.1.5 ###
+* Invisible, but important fixes and improvements
 
 ### 0.1.4 ###
 * Fix menu saving

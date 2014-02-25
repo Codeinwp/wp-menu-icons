@@ -7,12 +7,15 @@
  * @author Dzikri Aziz <kvcrvt@gmail.com>
  */
 
+
+require_once dirname( __FILE__ ) . '/type-fonts.php';
+
 /**
  * Icon type: Genericons
  *
  * @since 0.1.0
  */
-class Menu_Icons_Genericons extends Menu_Icons_Fonts {
+class Menu_Icons_Type_Genericons extends Menu_Icons_Type_Fonts {
 
 	/**
 	 * Holds icon type
@@ -212,18 +215,3 @@ class Menu_Icons_Genericons extends Menu_Icons_Fonts {
 		);
 	}
 }
-
-
-/**
- * Register Genericons
- *
- * @since   0.1.0
- * @wp_hook filter menu_icons_types/9/1
- * @param   array  $types Icon Types
- * @return  array
- */
-function _menu_icons_genericons( $types ) {
-	$dashicons = new Menu_Icons_Genericons();
-	return $dashicons->register( $types );
-}
-add_filter( 'menu_icons_types', '_menu_icons_genericons', 9 );
