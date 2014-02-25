@@ -2,7 +2,7 @@
 /**
  * Menu editor handler
  * @package Menu_Icons
- * @version 0.1.1
+ * @version 0.1.2
  * @author Dzikri Aziz <kvcrvt@gmail.com>
  */
 
@@ -10,18 +10,33 @@
 /**
  * Menu item metadata
  *
- * @since 0.1.0
+ * @version 0.1.1
  */
 class Menu_Icons_Admin_Nav_Menus {
+
+	/**
+	 * Holds status
+	 *
+	 * @since 0.1.1
+	 * @var bool
+	 */
+	private static $loaded = false;
+
 
 	/**
 	 * Initialize class
 	 */
 	public static function init() {
+		if ( true === self::$loaded ) {
+			return;
+		}
+
 		add_action( 'admin_enqueue_scripts', array( __CLASS__, '_scripts_styles' ) );
 		add_action( 'menu_item_custom_fields', array( __CLASS__, '_fields' ), 10, 3 );
 		add_filter( 'manage_nav-menus_columns', array( __CLASS__, '_columns' ), 99 );
 		add_action( 'wp_update_nav_menu_item', array( __CLASS__, '_save' ), 10, 3 );
+
+		self:$loaded = true;
 	}
 
 

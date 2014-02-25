@@ -80,6 +80,7 @@ final class Menu_Icons {
 		);
 
 		add_action( 'wp_loaded', array( __CLASS__, 'init' ), 9 );
+		add_filter( 'load-nav-menus.php', array( __CLASS__, '_load_nav_menus' ) );
 		add_filter( 'wp_edit_nav_menu_walker', array( __CLASS__, '_load_nav_menus' ), 1 );
 	}
 
@@ -159,9 +160,13 @@ final class Menu_Icons {
 	 * It's because we want our walker to always be used whether it's editing the current
 	 * menu items, or adding new ones (via ajax).
 	 *
+	 * This method is also hooked into 'load-nav-menus.php'.
+	 *
 	 * @since   0.1.3
 	 * @access  protected
+	 * @wp_hook action    load-nav-menus.php/10/1
 	 * @wp_hook filter    wp_edit_nav_menu_walker/10/1
+	 * @link    http://codex.wordpress.org/Plugin_API/Action_Reference/load-%28page%29
 	 */
 	public static function _load_nav_menus( $walker ) {
 		// Load menu item custom fields plugin
