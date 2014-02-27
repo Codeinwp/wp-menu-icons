@@ -149,33 +149,49 @@ final class Menu_Icons {
 	 * @uses   apply_filters() Calls 'menu_icons_types' to get registered types.
 	 */
 	private static function _collect_icon_types() {
-		$types    = (array) apply_filters( 'menu_icons_types', array() );
-		$defaults = array(
+		$types     = (array) apply_filters( 'menu_icons_types', array() );
+		$defaults  = array(
 			'label'      => '',
 			'field_cb'   => '',
 			'front_cb'   => '',
 			'stylesheet' => '',
 			'version'    => get_bloginfo( 'version' ),
 		);
+		$callbacks = array( 'field_cb', 'front_cb' );
+		$optionals = array( 'stylesheet' );
+		$messages  = array(
+			'empty'    => _x(
+				'%1$s cannot be empty, %2$s has been disabled.',
+				'1: Property key, 2: Icon type ID',
+				'menu-icons'
+			),
+			'callback' => _x(
+				'%1$s must be callable, %2$s has been disabled.',
+				'1: Property key, 2: Icon type ID',
+				'menu-icons'
+			),
+		);
 
 		foreach ( $types as $type => $props ) {
 			$type_props = wp_parse_args( $props, $defaults );
 			foreach ( $type_props as $key => $value ) {
-				// Stylesheet can be empty
-				if ( 'stylesheet' === $key ) {
-					continue;
-				}
-
-				// Everything else must be specified
-				if ( empty( $value ) ) {
+				if ( ! in_array( $key, $optionals ) && empty( $value ) ) {
+					trigger_error(
+						'<strong>Menu Icons</strong>: ' . vsprintf(
+							$messages['empty'],
+							array( '<em>'.$key.'</em>', '<em>'.$type.'</em>' )
+						)
+					);
 					continue 2;
 				}
 
-				if ( 'field_cb' === $key && ! is_callable( $value ) ) {
-					continue 2;
-				}
-
-				if ( 'front_cb' === $key && ! is_callable( $value ) ) {
+				if ( in_array( $key, $callbacks ) && ! is_callable( $value ) ) {
+					trigger_error(
+						'<strong>Menu Icons</strong>: ' . vsprintf(
+							$messages['callback'],
+							array( '<em>'.$key.'</em>', '<em>'.$type.'</em>' )
+						)
+					);
 					continue 2;
 				}
 			}
