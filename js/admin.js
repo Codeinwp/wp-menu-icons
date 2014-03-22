@@ -111,15 +111,21 @@
 		},
 
 		updateSelection: function() {
-			var selection = this.get('selection'),
-				id = parseInt( menuIcons.currentItem.values['image-icon'] ),
-				attachment;
+			var values = menuIcons.currentItem.values;
 
-			if ( !isNaN(id) && id > 0 ) {
-				attachment = Attachment.get( id );
-				attachment.fetch();
-				selection.reset( attachment ? [ attachment ] : [] );
+			if ( 'image' === values.type  ) {
+				var selection = this.get('selection');
+				var id = parseInt( values['image-icon'] );
+				var attachment;
+
+
+				if ( !isNaN(id) && id > 0 ) {
+					attachment = Attachment.get( id );
+					attachment.fetch();
+				}
 			}
+
+			selection.reset( attachment ? [ attachment ] : [] );
 		}
 	});
 
@@ -146,30 +152,13 @@
 
 		bindHandlers: function() {
 			media.view.MediaFrame.Select.prototype.bindHandlers.apply( this, arguments );
-			this.on( 'toolbar:create:mi-image', this.createToolbar, this );
 
-			var handlers = {
-					menu: {
-						'default' : 'mainMenu'
-					},
-
-					/*
-					content: {
-						'embed':          'embedContent',
-						'edit-selection': 'editSelectionContent'
-					},
-					*/
-
-					toolbar: {
-						'mi-image' : 'imageToolbar'
-					}
-				};
-
-			_.each( handlers, function( regionHandlers, region ) {
-				_.each( regionHandlers, function( callback, handler ) {
-					this.on( region + ':render:' + handler, this[ callback ], this );
-				}, this );
+			_.each( menuIcons.iconTypes, function( props, type ) {
+				this.on( 'toolbar:create:mi-'+type, this.createToolbar, this );
+				this.on( 'toolbar:render:mi-'+type, this.miToolbarRender, this );
 			}, this );
+
+			this.on( 'menu:render:default', this.mainMenu, this );
 		},
 
 		// Menus
@@ -182,55 +171,37 @@
 			});
 		},
 
-		miCreateToolbar : function( toolbar ) {
-
-			toolbar.view = new media.view.Toolbar.MenuIcons( {
-				controller : this
-			} );
-
-		},
-
 		// Toolbars
 		selectionStatusToolbar: function( view ) {
-			var editable = this.state().get('editable');
-
 			view.set( 'selection', new media.view.Selection({
 				controller: this,
 				collection: this.state().get('selection'),
-				priority:   -40,
-
-				// If the selection is editable, pass the callback to
-				// switch the content mode.
-				editable: editable && function() {
-					this.controller.content.mode('edit-selection');
-				}
+				priority:   -40
 			}).render() );
 		},
 
-		imageToolbar: function( view ) {
-			var controller = this;
-
+		miToolbarRender: function( view ) {
 			this.selectionStatusToolbar( view );
+
+			var controller = this;
+			var type       = controller.state().id.replace('mi-', '');
 
 			view.set( 'mi-image', {
 				style    : 'primary',
 				priority : 80,
 				text     : menuIcons.labels.select,
-				requires : {
-					selection: true
-				},
+				requires : { selection: true },
 				click    : function() {
 					var state    = controller.state();
 					var selected = state.get('selection').single();
+					var args     = {
+						data   : selected,
+						values : { type : type }
+					};
+					args.values[type+'-icon'] = selected.id;
 
 					controller.close();
-					state.trigger( 'select', {
-						data   : selected,
-						values : {
-							type         : 'image',
-							'image-icon' : selected.id
-						}
-					} ).reset();
+					state.trigger( 'select', args ).reset();
 				}
 			});
 		}
