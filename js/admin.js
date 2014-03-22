@@ -111,10 +111,10 @@
 		},
 
 		updateSelection: function() {
-			var values = menuIcons.currentItem.values;
+			var values    = menuIcons.currentItem.values;
+			var selection = this.get('selection');
 
 			if ( 'image' === values.type  ) {
-				var selection = this.get('selection');
 				var id = parseInt( values['image-icon'] );
 				var attachment;
 
