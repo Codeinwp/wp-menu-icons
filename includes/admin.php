@@ -3,7 +3,6 @@
  * Menu editor handler
  *
  * @package Menu_Icons
- * @version 0.1.2
  * @author Dzikri Aziz <kvcrvt@gmail.com>
  */
 
@@ -11,15 +10,17 @@
 /**
  * Menu item metadata
  *
- * @version 0.1.2
  */
-class Menu_Icons_Admin_Nav_Menus {
+final class Menu_Icons_Admin_Nav_Menus {
+
 
 	/**
 	 * Initialize class
 	 */
 	public static function init() {
 		add_action( 'admin_enqueue_scripts', array( __CLASS__, '_scripts_styles' ) );
+		add_action( 'print_media_templates', array( __CLASS__, '_media_templates' ) );
+
 		add_filter( 'manage_nav-menus_columns', array( __CLASS__, '_columns' ), 99 );
 		add_action( 'wp_update_nav_menu_item', array( __CLASS__, '_save' ), 10, 3 );
 	}
@@ -57,6 +58,41 @@ class Menu_Icons_Admin_Nav_Menus {
 	 * @wp_hook admin_enqueue_scripts
 	 */
 	public static function _scripts_styles() {
+		wp_enqueue_style(
+			'menu-icons',
+			Menu_Icons::get( 'url' ) . 'css/admin.css',
+			false,
+			Menu_Icons::VERSION
+		);
+
+		$data = array(
+			'labels'    => array(
+				'title'  => __( 'Select Icon', 'menu-icons' ),
+				'select' => __( 'Select', 'menu-icons' ),
+			),
+			'base_url'  => untrailingslashit( Menu_Icons::get( 'url' ) ),
+			'admin_url' => untrailingslashit( admin_url() ),
+		);
+
+		$_icon_types = Menu_Icons::get( 'icon_types' );
+		$icon_types  = array();
+
+		foreach ( $_icon_types as $id => $props ) {
+			if ( ! empty( $props['frame_cb'] ) ) {
+				$icon_types[ $id ] = array(
+					'id'      => $id,
+					'label'   => $props['label'],
+					'options' => call_user_func_array( $props['frame_cb'], array( $id ) ),
+				);
+			}
+		}
+
+		if ( count( $_icon_types ) === count( $icon_types ) ) {
+			wp_enqueue_media();
+			$data['iconTypes'] = $icon_types;
+			$data['typeNames'] = array_keys( $icon_types );
+		}
+
 		wp_register_script(
 			'kucrut-jquery-input-dependencies',
 			Menu_Icons::get( 'url' ) . 'js/input-dependencies.js',
@@ -68,16 +104,54 @@ class Menu_Icons_Admin_Nav_Menus {
 			'menu-icons',
 			Menu_Icons::get( 'url' ) . 'js/admin.js',
 			array( 'kucrut-jquery-input-dependencies' ),
-			Menu_Icons::VERSION,
+			//Menu_Icons::VERSION,
+			date('YmdHis'),
 			true
 		);
+		wp_localize_script( 'menu-icons', 'menuIcons', $data );
+	}
 
-		wp_enqueue_style(
-			'menu-icons',
-			Menu_Icons::get( 'url' ) . 'css/admin.css',
-			false,
-			Menu_Icons::VERSION
+
+	/**
+	 * Get preview
+	 *
+	 * @since 0.2.0
+	 * @access private
+	 * @param int $id Menu item ID
+	 * @param array $meta_value Menu item meta value
+	 * @return mixed
+	 */
+	private static function _get_preview( $id, $meta_value ) {
+		$text = esc_html__( 'Select', 'menu-icons' );
+		if ( empty( $meta_value['type'] ) ) {
+			return $text;
+		}
+
+		$type  = $meta_value['type'];
+		$types = self::_get_types();
+		if ( empty( $types[ $type ] ) ) {
+			return $text;
+		}
+
+		if ( empty( $meta_value[ "{$type}-icon" ] ) ) {
+			return $text;
+		}
+
+		if ( empty( $types[ $type ]['preview_cb'] )
+			|| ! is_callable( $types[ $type ]['preview_cb'] )
+		) {
+			return $text;
+		}
+
+		$preview = call_user_func_array(
+			$types[ $type ]['preview_cb'],
+			array( $id, $meta_value )
 		);
+		if ( ! empty( $preview ) ) {
+			return $preview;
+		}
+
+		return $text;
 	}
 
 
@@ -117,28 +191,46 @@ class Menu_Icons_Admin_Nav_Menus {
 					$input_id   = sprintf( 'menu-icons-%d-type', $item->ID );
 					$input_name = sprintf( 'menu-icons[%d][type]', $item->ID );
 				?>
-				<p class="description">
-					<label for="<?php echo esc_attr( $input_id ) ?>"><?php esc_html_e( 'Icon type', 'menu-icons' ); ?></label>
-					<?php printf(
-						'<select id="%s" name="%s" class="hasdep" data-dep-scope="div.menu-icons-wrap" data-dep-children=".field-icon-child">',
-						esc_attr( $input_id ),
-						esc_attr( $input_name )
-					) ?>
-						<?php foreach ( self::_get_types() as $id => $props ) : ?>
-							<?php printf(
-								'<option value="%s"%s>%s</option>',
-								esc_attr( $id ),
-								selected( ( isset( $current['type'] ) && $id === $current['type'] ), true, false ),
-								esc_html( $props['label'] )
-							) ?>
-						<?php endforeach; ?>
-					</select>
-				</p>
-				<?php foreach ( self::_get_types() as $props ) : ?>
-					<?php if ( ! empty( $props['field_cb'] ) && is_callable( $props['field_cb'] ) ) : ?>
-						<?php call_user_func_array( $props['field_cb'], array( $item->ID, $current ) ); ?>
-					<?php endif; ?>
-				<?php endforeach; ?>
+				<div class="easy hidden">
+					<p class="description">
+						<label><?php esc_html_e( 'Icon:' ) ?></label>
+						<?php printf(
+							'<a id="menu-icons-%1$d-select" class="_select" title="%2$s" data-id="%1$d" data-text="%2$s">%3$s</a>',
+							esc_attr__( $item->ID ),
+							esc_attr__( 'Select icon', 'menu-icons' ),
+							self::_get_preview( $item->ID, $current )
+						) ?>
+						<?php printf(
+							'<a id="menu-icons-%1$d-remove" class="_remove" data-id="%1$d">%2$s</a>',
+							$item->ID,
+							esc_attr__( 'Remove', 'menu-icons' )
+						) ?>
+					<p>
+				</div>
+				<div class="original">
+					<p class="description">
+						<label for="<?php echo esc_attr( $input_id ) ?>"><?php esc_html_e( 'Icon type', 'menu-icons' ); ?></label>
+						<?php printf(
+							'<select id="%s" name="%s" class="hasdep" data-dep-scope="div.menu-icons-wrap" data-dep-children=".field-icon-child">',
+							esc_attr( $input_id ),
+							esc_attr( $input_name )
+						) ?>
+							<?php foreach ( self::_get_types() as $id => $props ) : ?>
+								<?php printf(
+									'<option value="%s"%s>%s</option>',
+									esc_attr( $id ),
+									selected( ( isset( $current['type'] ) && $id === $current['type'] ), true, false ),
+									esc_html( $props['label'] )
+								) ?>
+							<?php endforeach; ?>
+						</select>
+					</p>
+					<?php foreach ( self::_get_types() as $props ) : ?>
+						<?php if ( ! empty( $props['field_cb'] ) && is_callable( $props['field_cb'] ) ) : ?>
+							<?php call_user_func_array( $props['field_cb'], array( $item->ID, $current ) ); ?>
+						<?php endif; ?>
+					<?php endforeach; ?>
+				</div>
 				<?php
 					/**
 					 * Allow plugins/themes to inject HTML after menu icons' fields
@@ -212,5 +304,22 @@ class Menu_Icons_Admin_Nav_Menus {
 		else {
 			delete_post_meta( $menu_item_db_id, 'menu-icons' );
 		}
+	}
+
+
+	public static function _media_templates() {
+		foreach ( self::_get_types() as $type => $props ) :
+			if ( ! empty( $props['templates'] ) && ! empty( $props['templates'] ) ) :
+				$prefix = sprintf( 'tmpl-menu-icons-%s', $type );
+				foreach ( $props['templates'] as $key => $template ) :
+					$id = sprintf( '%s-%s', $prefix, $key );
+					?>
+					<script type="text/html" id="<?php echo esc_attr( $id ) ?>">
+						<?php echo $template ?>
+					</script>
+					<?php
+				endforeach;
+			endif;
+		endforeach;
 	}
 }

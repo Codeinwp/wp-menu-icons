@@ -2,7 +2,24 @@
 	margin-top: 5px;
 	margin-bottom: 5px;
 }
-.menu-icons-wrap label {
+.menu-icons-wrap .original label {
 	display: inline-block;
 	min-width: 7em;
+}
+.menu-icons-wrap .easy label {
+	vertical-align: baseline;
+}
+.menu-icons-wrap .easy a {
+	cursor: pointer;
+	text-decoration: none;
+}
+.menu-icons-wrap .easy ._select {
+	padding: 0 .25em;
+}
+.menu-icons-wrap .easy ._remove {
+	margin-left: .25em;
+}
+.menu-icons-wrap .easy img {
+	max-width: 40px;
+	height: auto !important;
 }

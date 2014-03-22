@@ -3,7 +3,6 @@
  * Icon fonts handler
  *
  * @package Menu_Icons
- * @version 0.1.2
  * @author Dzikri Aziz <kvcrvt@gmail.com>
  */
 
@@ -12,7 +11,6 @@ require_once dirname( __FILE__ ) . '/type.php';
 /**
  * Generic handler for icon fonts
  *
- * @version 0.1.2
  */
 abstract class Menu_Icons_Type_Fonts extends Menu_Icons_Type {
 
@@ -64,6 +62,33 @@ abstract class Menu_Icons_Type_Fonts extends Menu_Icons_Type {
 		</p>
 		<?php
 	}
+
+
+	/**
+	 * Media frame data
+	 *
+	 * @since 0.2.0
+	 * @param  string $id Icon type ID
+	 * @return array
+	 */
+	/*
+	public function frame_cb( $id ) {
+		$data = array(
+			'frameType' => 'font',
+			'tabs'      => array(),
+			'contents'  => array(),
+		);
+
+		foreach ( $this->get_names() as $group ) {
+			$key = strtolower( str_replace( ' ', '-', $group['label'] ) );
+
+			$data['tabs'][ $key ]     = $group['label'];
+			$data['contents'][ $key ] = $group['items'];
+		}
+
+		return $data;
+	}
+	*/
 
 
 	/**

@@ -125,8 +125,9 @@ final class Menu_Icons {
 	 */
 	public static function _register_icon_types( $icon_types ) {
 		$builtin_types = array(
-			'dashicons',
-			'genericons',
+			#'dashicons',
+			#'genericons',
+			'image',
 		);
 
 		foreach ( $builtin_types as $type ) {
@@ -157,8 +158,8 @@ final class Menu_Icons {
 			'stylesheet' => '',
 			'version'    => get_bloginfo( 'version' ),
 		);
-		$callbacks = array( 'field_cb', 'front_cb' );
-		$optionals = array( 'stylesheet' );
+		$callbacks = array( 'field_cb', 'front_cb', 'frame_cb' );
+		$optionals = array( 'stylesheet', 'frame_cb' );
 		$messages  = array(
 			'empty'    => _x(
 				'%1$s cannot be empty, %2$s has been disabled.',

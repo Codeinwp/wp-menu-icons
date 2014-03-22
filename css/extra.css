@@ -16,3 +16,7 @@
 .menu .genericon,
 .nav-menu .genericon {
 }
+.menu-item img {
+	vertical-align: middle;
+	margin: -.265em .25em 0 0;
+}

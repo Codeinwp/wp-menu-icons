@@ -93,6 +93,16 @@ abstract class Menu_Icons_Type {
 			'version'    => $this->version,
 		);
 
+		if ( method_exists( $this, 'frame_cb' ) ) {
+			$props['frame_cb'] = array( $this, 'frame_cb' );
+			if ( method_exists( $this, 'templates' ) ) {
+				$props['templates'] = $this->templates();
+			}
+			if ( method_exists( $this, 'preview_cb' ) ) {
+				$props['preview_cb'] = array( $this, 'preview_cb' );
+			}
+		}
+
 		$types[ $this->type ] = $props;
 
 		return $types;
