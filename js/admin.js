@@ -228,8 +228,8 @@
 			var values = {};
 
 			$el.closest('div.menu-icons-wrap').find(':input').each(function(i, input) {
-				var name = input.name.match( /\d+\]\[(.*)\]$/ );
-				values[ name[1] ] = input.value;
+				var key = $(input).data('key');
+				values[ key ] = input.value;
 			});
 
 			media.view.settings.post.id = id;

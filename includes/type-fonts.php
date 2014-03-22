@@ -37,10 +37,16 @@ abstract class Menu_Icons_Type_Fonts extends Menu_Icons_Type {
 		?>
 		<?php printf(
 			'<p class="field-icon-child description menu-icon-type-%1$s" data-dep-on="%1$s">',
-			esc_attr( $this->type )
+			esc_attr( $this->type ),
+			esc_attr( $this->key )
 		) ?>
 			<label for="<?php echo esc_attr( $input_id ) ?>"><?php echo esc_html( $this->label ); ?></label>
-			<select id="<?php echo esc_attr( $input_id ) ?>" name="<?php echo esc_attr( $input_name ) ?>">
+			<?php printf(
+				'<select id="%s" name="%s" data-key="%s">',
+				esc_attr( $input_id ),
+				esc_attr( esc_attr( $input_name ) ),
+				esc_attr( $this->key )
+			) ?>
 				<?php printf(
 					'<option value=""%s>%s</option>',
 					selected( empty( $current ), true, false ),

@@ -211,7 +211,7 @@ final class Menu_Icons_Admin_Nav_Menus {
 					<p class="description">
 						<label for="<?php echo esc_attr( $input_id ) ?>"><?php esc_html_e( 'Icon type', 'menu-icons' ); ?></label>
 						<?php printf(
-							'<select id="%s" name="%s" class="hasdep" data-dep-scope="div.menu-icons-wrap" data-dep-children=".field-icon-child">',
+							'<select id="%s" name="%s" class="hasdep" data-dep-scope="div.menu-icons-wrap" data-dep-children=".field-icon-child" data-key="type">',
 							esc_attr( $input_id ),
 							esc_attr( $input_name )
 						) ?>

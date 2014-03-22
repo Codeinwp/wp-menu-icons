@@ -65,10 +65,11 @@ class Menu_Icons_Type_Image extends Menu_Icons_Type {
 		) ?>
 			<label for="<?php echo esc_attr( $input_id ) ?>"><?php echo esc_html( $this->label ); ?></label>
 			<?php printf(
-				'<input type="text" id="%s" name="%s" value="%s" />',
-				$input_id,
-				$input_name,
-				$current
+				'<input type="text" id="%s" name="%s" value="%s" data-key="%s"/>',
+				esc_attr( $input_id ),
+				esc_attr( $input_name ),
+				esc_attr( $current ),
+				esc_attr( $this->key )
 			) ?>
 		</p>
 		<?php
