@@ -21,6 +21,10 @@
 		return;
 	}
 
+	var capitaliseFirstLetter = function(string) {
+		return string.charAt(0).toUpperCase() + string.slice(1);
+	};
+
 	menuIcons.frames      = {};
 	menuIcons.currentItem = {};
 	menuIcons.updateItem  = function( args ) {
@@ -86,7 +90,6 @@
 			searchable : true,
 			filterable : 'uploaded',
 			sortable   : false,
-			title      : 'Image',
 
 			// Uses a user setting to override the content mode.
 			contentUserSetting: true,
@@ -96,7 +99,7 @@
 		}, media.controller.Library.prototype.defaults ),
 
 		initialize: function() {
-			var library, comparator;
+			var library;
 
 			// If we haven't been provided a `library`, create a `Selection`.
 			this.set( 'library', media.query({ type: 'image' }) );
@@ -145,9 +148,15 @@
 			var options = this.options;
 
 			// Add the default states.
-			this.states.add( new media.controller.miImage() );
+			_.each(menuIcons.iconTypes, function( props, type ) {
+				var _controller  = 'mi'+ capitaliseFirstLetter( props.options.frameType );
+				if ( media.controller.hasOwnProperty(_controller) ) {
+					props.id    = 'mi-'+props.id;
+					props.title = props.label;
 
-			//new media.controller.FontIcon()
+					this.states.add( new media.controller[_controller]( props ) );
+				}
+			}, this);
 		},
 
 		bindHandlers: function() {
