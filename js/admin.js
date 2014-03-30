@@ -22,7 +22,7 @@
 	}
 
 	menuIcons = _.defaults({
-		frames      : {},
+		frame       : '',
 		currentItem : {},
 
 		updateItem : function( args ) {
@@ -414,11 +414,11 @@
 				values : values
 			};
 
-			if ( ! menuIcons.frames[id] ) {
-				menuIcons.frames[id] = new media.view.MediaFrame.menuIcons();
+			if ( ! ( menuIcons.frame instanceof media.view.MediaFrame.menuIcons ) ) {
+				menuIcons.frame = new media.view.MediaFrame.menuIcons();
 			}
 
-			menuIcons.frames[id].open();
+			menuIcons.frame.open();
 		})
 		.on( 'click', 'div.menu-icons-wrap a._remove', menuIcons.removeIcon );
 }(jQuery));
