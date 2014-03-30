@@ -60,8 +60,68 @@
 	var Attachment = media.model.Attachment;
 
 
-	// Dropdown filter
-	media.view.miFontFilters = media.view.AttachmentFilters.extend({
+	// Font icon: Wrapper
+	media.view.miFont = media.View.extend({
+		className : 'mi-items-wrap attachments-browser',
+
+		initialize : function() {
+			var list = '<ul class="mi-items attachments clearfix"></ul>';
+			this.$el.append( list );
+
+			this.collection.props.on( 'change:group', this.refresh, this );
+
+			this.createToolbar();
+		},
+
+		createToolbar : function() {
+			this.toolbar = new media.view.Toolbar({
+				controller : this.controller
+			});
+			this.views.add( this.toolbar );
+
+			this.toolbar.set( 'filters', new media.view.miFont.Filters({
+				controller : this.controller,
+				model      : this.collection.props,
+				priority   : -80
+			}).render() );
+		},
+
+		render : function() {
+			var container = document.createDocumentFragment();
+
+			this.collection.each( function( model ) {
+				container.appendChild( this.renderItem( model ) );
+			}, this );
+
+			this.$el.find('ul.mi-items').append( container );
+
+			return this;
+		},
+
+		clearItems: function() {
+			this.$el.find( '.mi-items' ).empty();
+		},
+
+		renderItem : function( model ) {
+			var view = new media.view.miFont.Item({
+				controller : this.controller,
+				model      : model,
+				type       : this.options.type,
+				data       : this.options.data
+			});
+
+			return view.render().el;
+		},
+
+		refresh : function() {
+			this.clearItems();
+			this.render();
+		}
+	});
+
+
+	// Font icon: Dropdown filter
+	media.view.miFont.Filters = media.view.AttachmentFilters.extend({
 		createFilters: function() {
 			this.filters = {
 				all : {
@@ -93,7 +153,8 @@
 	});
 
 
-	media.view.miFontItem = media.view.Attachment.extend({
+	// Font icon: Item
+	media.view.miFont.Item = media.view.Attachment.extend({
 		className : 'mi-item attachment',
 		events    : {
 			'click .attachment-preview' : 'toggleSelectionHandler',
@@ -115,67 +176,7 @@
 	});
 
 
-	// View: Font icon
-	media.view.miFont = media.View.extend({
-		className : 'mi-items-wrap attachments-browser',
-
-		initialize : function() {
-			var list = '<ul class="mi-items attachments clearfix"></ul>';
-			this.$el.append( list );
-
-			this.collection.props.on( 'change:group', this.refresh, this );
-
-			this.createToolbar();
-		},
-
-		createToolbar : function() {
-			this.toolbar = new media.view.Toolbar({
-				controller : this.controller
-			});
-			this.views.add( this.toolbar );
-
-			this.toolbar.set( 'filters', new media.view.miFontFilters({
-				controller : this.controller,
-				model      : this.collection.props,
-				priority   : -80
-			}).render() );
-		},
-
-		render : function() {
-			var container = document.createDocumentFragment();
-
-			this.collection.each( function( model ) {
-				container.appendChild( this.renderItem( model ) );
-			}, this );
-
-			this.$el.find('ul.mi-items').append( container );
-
-			return this;
-		},
-
-		clearItems: function() {
-			this.$el.find( '.mi-items' ).empty();
-		},
-
-		renderItem : function( model ) {
-			var view = new media.view.miFontItem({
-				controller : this.controller,
-				model      : model,
-				type       : this.options.type,
-				data       : this.options.data
-			});
-
-			return view.render().el;
-		},
-
-		refresh : function() {
-			this.clearItems();
-			this.render();
-		}
-	});
-
-
-	// Controller: Font icon
+	// Font icon: Controller
 	media.controller.miFont = media.controller.State.extend({
 		defaults: {
 			id      : 'mi-font',
