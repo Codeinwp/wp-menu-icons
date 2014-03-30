@@ -58,17 +58,15 @@ final class Menu_Icons_Admin_Nav_Menus {
 	 * @wp_hook admin_enqueue_scripts
 	 */
 	public static function _scripts_styles() {
-		wp_enqueue_style(
-			'menu-icons',
-			Menu_Icons::get( 'url' ) . 'css/admin.css',
-			false,
-			Menu_Icons::VERSION
-		);
+		// We need to dequeue and re-enqueue this one later,
+		// otherwise we won't get the dashboard's colors
+		wp_dequeue_style( 'colors' );
 
 		$data = array(
-			'labels'    => array(
+			'text'      => array(
 				'title'  => __( 'Select Icon', 'menu-icons' ),
 				'select' => __( 'Select', 'menu-icons' ),
+				'all'    => __( 'All', 'menu-icons' ),
 			),
 			'base_url'  => untrailingslashit( Menu_Icons::get( 'url' ) ),
 			'admin_url' => untrailingslashit( admin_url() ),
@@ -80,18 +78,29 @@ final class Menu_Icons_Admin_Nav_Menus {
 		foreach ( $_icon_types as $id => $props ) {
 			if ( ! empty( $props['frame_cb'] ) ) {
 				$icon_types[ $id ] = array(
-					'id'      => $id,
-					'label'   => $props['label'],
-					'options' => call_user_func_array( $props['frame_cb'], array( $id ) ),
+					'type'    => $id,
+					'id'      => sprintf( 'mi-%s', $id ),
+					'title'   => $props['label'],
+					'data'    => call_user_func_array( $props['frame_cb'], array( $id ) ),
 				);
+				Menu_Icons::enqueue_type_stylesheet( $id, $props );
 			}
 		}
 
+		wp_enqueue_style(
+			'menu-icons',
+			Menu_Icons::get( 'url' ) . 'css/admin.css',
+			false,
+			Menu_Icons::VERSION
+		);
 		if ( count( $_icon_types ) === count( $icon_types ) ) {
 			wp_enqueue_media();
 			$data['iconTypes'] = $icon_types;
 			$data['typeNames'] = array_keys( $icon_types );
 		}
+
+		// re-enqueue
+		wp_enqueue_style( 'colors' );
 
 		wp_register_script(
 			'kucrut-jquery-input-dependencies',
@@ -104,8 +113,7 @@ final class Menu_Icons_Admin_Nav_Menus {
 			'menu-icons',
 			Menu_Icons::get( 'url' ) . 'js/admin.js',
 			array( 'kucrut-jquery-input-dependencies' ),
-			//Menu_Icons::VERSION,
-			date('YmdHis'),
+			Menu_Icons::VERSION,
 			true
 		);
 		wp_localize_script( 'menu-icons', 'menuIcons', $data );
@@ -205,7 +213,7 @@ final class Menu_Icons_Admin_Nav_Menus {
 							$item->ID,
 							esc_attr__( 'Remove', 'menu-icons' )
 						) ?>
-					<p>
+					</p>
 				</div>
 				<div class="original">
 					<p class="description">

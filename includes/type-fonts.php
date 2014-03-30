@@ -71,30 +71,77 @@ abstract class Menu_Icons_Type_Fonts extends Menu_Icons_Type {
 
 
 	/**
+	 * Preview
+	 *
+	 * @since  0.2.0
+	 * @param  string $id         Menu item ID
+	 * @param  array  $meta_value Menu item metadata value
+	 * @return array
+	 */
+	public function preview_cb( $id, $meta_value ) {
+		return sprintf(
+			'<i class="_icon %s %s"></i>',
+			esc_attr( $this->type ),
+			esc_attr( $meta_value[ $this->key ] )
+		);
+	}
+
+
+	/**
 	 * Media frame data
 	 *
 	 * @since 0.2.0
 	 * @param  string $id Icon type ID
 	 * @return array
 	 */
-	/*
 	public function frame_cb( $id ) {
 		$data = array(
-			'frameType' => 'font',
-			'tabs'      => array(),
-			'contents'  => array(),
+			'controller' => 'miFont',
+			'tabs'       => array(),
+			'contents'   => array(),
 		);
 
 		foreach ( $this->get_names() as $group ) {
-			$key = strtolower( str_replace( ' ', '-', $group['label'] ) );
+			$key = sanitize_title_with_dashes( $group['label'] );
 
-			$data['tabs'][ $key ]     = $group['label'];
-			$data['contents'][ $key ] = $group['items'];
+			$data['groups'][ $key ] = $group['label'];
+
+			foreach ( $group['items'] as $class => $label ) {
+				$data['items'][] = array(
+					'group' => $key,
+					'name'  => $class,
+					'label' => $label,
+				);
+			}
 		}
 
 		return $data;
 	}
-	*/
+
+
+	/**
+	 * Media frame templates
+	 *
+	 * @since 0.2.0
+	 * @return array
+	 */
+	public function templates() {
+		$templates = array(
+			'item' => sprintf(
+				'<div class="attachment-preview" data-name="{{ data.name }}" data-group="{{ data.group }}">
+					<i class="_icon %s {{ data.name }}"></i>
+					<div class="filename"><div>{{ data.label }}</div></div>
+				</div>',
+				esc_attr( $this->type )
+			),
+			'preview' => sprintf(
+				'<i class="_icon %s {{ data.name }}"></i>',
+				esc_attr( $this->type )
+			),
+		);
+
+		return $templates;
+	}
 
 
 	/**

@@ -16,10 +16,40 @@
 .menu-icons-wrap .easy ._select {
 	padding: 0 .25em;
 }
-.menu-icons-wrap .easy ._remove {
-	margin-left: .25em;
-}
 .menu-icons-wrap .easy img {
 	max-width: 40px;
 	height: auto !important;
+	vertical-align: baseline;
+}
+.menu-icons-wrap ._icon {
+	color: #666;
+	font-size: 2em;
+	width: auto;
+	height: auto;
+	vertical-align: bottom;
+}
+
+.mi-items-wrap ul.mi-items {
+	padding-top: 5px;
+	right: 0;
+	margin-right: 0;
+}
+.mi-item .attachment-preview {
+	width: 110px;
+	height: 130px;
+	text-align: center;
+}
+.mi-item ._icon {
+	margin-top: 10px;
+	font-size: 80px;
+	width: 80px;
+	height: 80px;
+	vertical-align: top;
+	color: #666;
+}
+.menu-icons-wrap a._select:focus ._icon,
+.menu-icons-wrap a._select:hover ._icon,
+.mi-item:hover ._icon,
+.mi-item.selected ._icon {
+	color: #101010;
 }

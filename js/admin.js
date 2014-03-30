@@ -21,167 +21,293 @@
 		return;
 	}
 
-	var capitaliseFirstLetter = function(string) {
-		return string.charAt(0).toUpperCase() + string.slice(1);
-	};
+	menuIcons = _.defaults({
+		frames      : {},
+		currentItem : {},
 
-	menuIcons.frames      = {};
-	menuIcons.currentItem = {};
-	menuIcons.updateItem  = function( args ) {
-		var current = menuIcons.currentItem.values = _.defaults( args.values, menuIcons.currentItem.values );
-		var id      = menuIcons.currentItem.id;
-		var preview = media.template('menu-icons-'+ current.type +'-preview');
+		updateItem : function( args ) {
+			var current = menuIcons.currentItem.values = _.defaults( args.values, menuIcons.currentItem.values );
+			var id      = menuIcons.currentItem.id;
+			var preview = media.template('menu-icons-'+ current.type +'-preview');
 
-		_.each( current, function( value, key ) {
-			$('#menu-icons-'+ id +'-'+ key)
-				.val( value )
-				.trigger( 'change' )
-		});
+			_.each( current, function( value, key ) {
+				$('#menu-icons-'+ id +'-'+ key)
+					.val( value )
+					.trigger( 'change' )
+			});
 
-		$('#menu-icons-'+ id +'-remove').show();
-		$('#menu-icons-'+ id +'-select').html( preview(args.data.attributes) );
-	};
-	menuIcons.removeIcon = function(e) {
-		e.preventDefault();
-		e.stopPropagation();
+			$('#menu-icons-'+ id +'-remove').show();
+			$('#menu-icons-'+ id +'-select').html( preview(args.data.attributes) );
+		},
 
-		var $el     = $(this);
-		var id      = $el.data('id');
-		var $select = $('#menu-icons-'+ id +'-select');
+		removeIcon : function(e) {
+			e.preventDefault();
+			e.stopPropagation();
 
-		$el.hide();
-		$select.text( $select.data('text') );
-		$('#menu-icons-'+ id +'-type').val('').trigger('change');
-	};
-	menuIcons.getState = function() {
-		var current = menuIcons.currentItem.values;
-		var type;
+			var $el     = $(this);
+			var id      = $el.data('id');
+			var $select = $('#menu-icons-'+ id +'-select');
 
-		if (
-			undefined !== current.type
-			&& '' !== current.type
-			&& menuIcons.iconTypes.hasOwnProperty( current.type )
-		) {
-			type = current.type;
+			$el.hide();
+			$select.text( $select.data('text') );
+			$('#menu-icons-'+ id +'-type').val('').trigger('change');
+		},
+
+		getState : function() {
+			var current = menuIcons.currentItem.values;
+			var state;
+
+			if (
+				undefined !== current.type
+				&& '' !== current.type
+				&& menuIcons.iconTypes.hasOwnProperty( current.type )
+			) {
+				state = current.type;
+			}
+			else {
+				state = menuIcons.typeNames[0];
+			}
+
+			return 'mi-'+state;
 		}
-		else {
-			type = menuIcons.typeNames[0];
-		}
+	}, menuIcons );
 
-		return 'mi-'+type;
-	}
 
-	// Media View
+	// WP Media
 	var media      = wp.media;
 	var Attachment = media.model.Attachment;
 
 
-	// Controller: Image icon
-	media.controller.miImage = media.controller.Library.extend({
-		defaults: _.defaults({
-			id         : 'mi-image',
-			multiple   : false, // false, 'add', 'reset'
-			describe   : false,
-			toolbar    : 'mi-image',
-			sidebar    : 'settings',
-			content    : 'upload',
-			router     : 'browse',
-			menu       : 'default',
-			searchable : true,
-			filterable : 'uploaded',
-			sortable   : false,
+	// Dropdown filter
+	media.view.miFontFilters = media.view.AttachmentFilters.extend({
+		createFilters: function() {
+			this.filters = {
+				all : {
+					text  : menuIcons.text.all,
+					props : {
+						group : 'all'
+					}
+				}
+			};
 
-			// Uses a user setting to override the content mode.
-			contentUserSetting: true,
+			_.each( this.model.get('groups'), function( text, id ) {
+				this.filters[ id ] = {
+					text  : text,
+					props : {
+						group : id
+					}
+				};
+			}, this);
+		},
 
-			// Sync the selection from the last state when 'multiple' matches.
-			syncSelection: true
-		}, media.controller.Library.prototype.defaults ),
+		change : function() {
+			var filter = this.filters[ this.el.value ];
 
-		initialize: function() {
-			var library;
+			if ( filter ) {
+				this.model.set( 'group', filter.props.group );
+			}
+		}
+	});
 
-			// If we haven't been provided a `library`, create a `Selection`.
-			this.set( 'library', media.query({ type: 'image' }) );
 
-			media.controller.Library.prototype.initialize.apply( this, arguments );
+	media.view.miFontItem = media.view.Attachment.extend({
+		className : 'mi-item attachment',
+		events    : {
+			'click .attachment-preview' : 'toggleSelectionHandler',
+			'click a'                   : 'preventDefault'
+		},
+
+		initialize : function() {
+			this.template = media.template( 'menu-icons-' + this.options.type + '-item' );
+
+			media.view.Attachment.prototype.initialize.apply( this, arguments );
+		},
+
+		render: function() {
+			this.$el.html( this.template( this.model.toJSON() ) );
+			this.updateSelect();
+
+			return this;
+		}
+	});
+
+
+	// View: Font icon
+	media.view.miFont = media.View.extend({
+		className : 'mi-items-wrap attachments-browser',
+
+		initialize : function() {
+			var list = '<ul class="mi-items attachments clearfix"></ul>';
+			this.$el.append( list );
+
+			this.allCollection = new Backbone.Collection( this.options.data.items );
+			this.collection    = new Backbone.Collection();
+
+			this.collection.props = new Backbone.Model();
+			this.collection.props.set( 'groups', this.options.data.groups );
+			this.collection.props.set( 'group', 'all' );
+			this.collection.props.on( 'change:group', this.refresh, this );
+
+			this.createToolbar();
+			this.fetchItems();
+		},
+
+		createToolbar: function() {
+			this.toolbar = new media.view.Toolbar({
+				controller : this.controller
+			});
+			this.views.add( this.toolbar );
+
+			this.toolbar.set( 'filters', new media.view.miFontFilters({
+				controller : this.controller,
+				model      : this.collection.props,
+				priority   : -80
+			}).render() );
+		},
+
+		render : function() {
+			var container = document.createDocumentFragment();
+
+			this.collection.each( function( model ) {
+				container.appendChild( this.renderItem( model ) );
+			}, this );
+
+			this.$el.find('ul.mi-items').append( container );
+
+			return this;
+		},
+
+		clearItems: function() {
+			this.$el.find( '.mi-item' ).removeClass( 'selected details' );
+			this.$el.find( '.mi-items' ).empty();
+		},
+
+		fetchItems : function() {
+			var collection;
+
+			var group = this.collection.props.get('group');
+			if ( 'all' !== group ) {
+				collection = this.allCollection.where({group: group});
+			}
+
+			if ( _.isUndefined( collection ) ) {
+				collection = this.allCollection.models;
+			}
+
+			this.collection.reset( collection );
+		},
+
+		renderItem : function( model ) {
+			var view = new media.view.miFontItem({
+				controller : this.controller,
+				model      : model,
+				type       : this.options.type,
+				data       : this.options.data
+			});
+
+			return view.render().el;
+		},
+
+		refresh : function() {
+			this.clearItems();
+			this.fetchItems();
+			this.render();
+		}
+	});
+
+
+	// Controller: Font icon
+	media.controller.miFont = media.controller.State.extend({
+		defaults: {
+			id      : 'mi-font',
+			menu    : 'default',
+			content : 'mi-font',
+			toolbar : 'mi-select',
+			group   : 'all',
+			name    : ''
+		},
+
+		initialize : function() {
+			var selection = this.get('selection');
+
+			// If a selection instance isn't provided, create one.
+			if ( ! (selection instanceof media.model.Selection) ) {
+				this.set( 'selection', new media.model.Selection( [menuIcons.currentItem.values] ) );
+			}
 		},
 
 		activate: function() {
-			this.on( 'select', menuIcons.updateItem, this );
-			this.frame.on( 'open', this.updateSelection, this );
-			media.controller.Library.prototype.activate.apply( this, arguments );
+			this.frame.on( 'open', this.frame.miUpdateSelection, this );
+			//this.get('selection').on( 'add remove reset', this.refreshContent, this );
+
+			media.controller.State.prototype.activate.apply( this, arguments );
 		},
 
-		updateSelection: function() {
-			var values    = menuIcons.currentItem.values;
-			var selection = this.get('selection');
+		deactivate: function() {
+			this.frame.off( 'open', this.frame.miUpdateSelection, this );
+			media.controller.State.prototype.deactivate.apply( this, arguments );
+		},
 
-			if ( 'image' === values.type  ) {
-				var id = parseInt( values['image-icon'] );
-				var attachment;
-
-
-				if ( !isNaN(id) && id > 0 ) {
-					attachment = Attachment.get( id );
-					attachment.fetch();
-				}
-			}
-
-			selection.reset( attachment ? [ attachment ] : [] );
+		refresh: function() {
+			this.frame.toolbar.get().refresh();
 		}
 	});
 
 
 	// Custom Frame
-	media.view.MediaFrame.MenuIcons = media.view.MediaFrame.Select.extend({
+	media.view.MediaFrame.menuIcons = media.view.MediaFrame.Select.extend({
 		initialize: function() {
 			_.defaults( this.options, {
 				multiple : false,
 				editing  : false,
-				state    : menuIcons.getState()
+				state    : menuIcons.getState(),
+				toolbar  : 'mi-select'
 			});
+
 			media.view.MediaFrame.Select.prototype.initialize.apply( this, arguments );
+		},
+
+		createSelection : function() {
+			var selection = this.options.selection;
+
+			if ( ! (selection instanceof media.model.Selection) ) {
+				this.options.selection = new media.model.Selection( [menuIcons.currentItem.values] );
+			}
 		},
 
 		createStates: function() {
 			var options = this.options;
 
-			// Add the default states.
-			_.each(menuIcons.iconTypes, function( props, type ) {
-				var _controller  = 'mi'+ capitaliseFirstLetter( props.options.frameType );
-				if ( media.controller.hasOwnProperty(_controller) ) {
-					props.id    = 'mi-'+props.id;
-					props.title = props.label;
-
-					this.states.add( new media.controller[_controller]( props ) );
-				}
-			}, this);
-		},
-
-		bindHandlers: function() {
-			media.view.MediaFrame.Select.prototype.bindHandlers.apply( this, arguments );
+			if ( this.options.states ) {
+				return;
+			}
 
 			_.each( menuIcons.iconTypes, function( props, type ) {
-				this.on( 'toolbar:create:mi-'+type, this.createToolbar, this );
-				this.on( 'toolbar:render:mi-'+type, this.miToolbarRender, this );
-			}, this );
+				_.defaults( props, {
+					content: props.id
+				} );
 
-			this.on( 'menu:render:default', this.mainMenu, this );
+				if ( ! media.controller.hasOwnProperty( props.data.controller ) ) {
+					delete menuIcons.iconTypes[ type ];
+					return;
+				}
+
+				// States
+				this.states.add( new media.controller[ props.data.controller ]( props ) );
+			}, this );
 		},
 
-		// Menus
-		mainMenu: function( view ) {
-			view.set({
-				'library-separator': new media.View({
-					className: 'separator',
-					priority: 100
-				})
-			});
+		bindHandlers : function() {
+			this.on( 'toolbar:create:mi-select', this.createToolbar, this );
+			this.on( 'toolbar:render:mi-select', this.miSelectToolbar, this );
+
+			_.each( menuIcons.iconTypes, function( props, type ) {
+				this.on( 'content:render:'+props.id, _.bind( this.miContentRender, this, props ) );
+			}, this );
 		},
 
 		// Toolbars
-		selectionStatusToolbar: function( view ) {
+		selectionStatusToolbar : function( view ) {
 			view.set( 'selection', new media.view.Selection({
 				controller: this,
 				collection: this.state().get('selection'),
@@ -189,19 +315,19 @@
 			}).render() );
 		},
 
-		miToolbarRender: function( view ) {
+		miSelectToolbar : function( view ) {
 			this.selectionStatusToolbar( view );
 
 			var controller = this;
-			var type       = controller.state().id.replace('mi-', '');
+			var state      = controller.state();
+			var type       = state.id.replace('mi-', '');
 
-			view.set( 'mi-image', {
+			view.set( state.id, {
 				style    : 'primary',
 				priority : 80,
-				text     : menuIcons.labels.select,
+				text     : menuIcons.text.select,
 				requires : { selection: true },
 				click    : function() {
-					var state    = controller.state();
 					var selected = state.get('selection').single();
 					var args     = {
 						data   : selected,
@@ -213,6 +339,36 @@
 					state.trigger( 'select', args ).reset();
 				}
 			});
+		},
+
+		// Content
+		miContentRender: function( props ) {
+			var state = this.state();
+
+			_.defaults( props, {
+				controller : this,
+				model      : state
+			} );
+
+			var view = new media.view[ props.data.controller ]( props );
+			this.content.set( view );
+		},
+
+		miUpdateSelection : function() {
+			var values    = menuIcons.currentItem.values;
+			var selection = this.get('selection');
+
+			if ( 'image' === values.type  ) {
+				var id = parseInt( values['image-icon'] );
+				var attachment;
+
+				if ( !isNaN(id) && id > 0 ) {
+					attachment = Attachment.get( id );
+					attachment.fetch();
+				}
+			}
+
+			selection.reset( attachment ? [ attachment ] : [] );
 		}
 	});
 
@@ -252,7 +408,7 @@
 				return;
 			}
 
-			var frame = menuIcons.frames[id] = new media.view.MediaFrame.MenuIcons();
+			var frame = menuIcons.frames[id] = new media.view.MediaFrame.menuIcons();
 			frame.open();
 		})
 		.on( 'click', 'div.menu-icons-wrap a._remove', menuIcons.removeIcon );

@@ -125,9 +125,9 @@ final class Menu_Icons {
 	 */
 	public static function _register_icon_types( $icon_types ) {
 		$builtin_types = array(
-			#'dashicons',
-			#'genericons',
-			'image',
+			'dashicons',
+			'genericons',
+			//'image',
 		);
 
 		foreach ( $builtin_types as $type ) {
@@ -257,6 +257,23 @@ final class Menu_Icons {
 
 
 	/**
+	 *
+	 */
+	public static function enqueue_type_stylesheet( $id, $props ) {
+		if ( empty( $props['stylesheet'] ) ) {
+			return;
+		}
+
+		if ( wp_style_is( $props['stylesheet'], 'registered' ) ) {
+			wp_enqueue_style( $id );
+		}
+		else {
+			wp_enqueue_style( $id, $props['stylesheet'], false, $props['version'] );
+		}
+	}
+
+
+	/**
 	 * Enqueue extra stylesheet
 	 *
 	 * This stylesheet will override some styles of the icons
@@ -271,16 +288,7 @@ final class Menu_Icons {
 	public static function _enqueue_styles() {
 		// Enqueue icon types' stylesheets
 		foreach ( self::$data['icon_types'] as $id => $props ) {
-			if ( empty( $props['stylesheet'] ) ) {
-				continue;
-			}
-
-			if ( wp_style_is( $props['stylesheet'], 'registered' ) ) {
-				wp_enqueue_style( $id );
-			}
-			else {
-				wp_enqueue_style( $id, $props['stylesheet'], false, $props['version'] );
-			}
+			self::enqueue_type_stylesheet( $id, $props );
 		}
 
 		/**

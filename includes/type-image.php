@@ -98,15 +98,15 @@ class Menu_Icons_Type_Image extends Menu_Icons_Type {
 	public function frame_cb( $id ) {
 		return array(
 			'frameType' => 'image',
+			'content'   => 'upload',
 		);
 	}
 
 
 	/**
-	 * Media frame data
+	 * Media frame templates
 	 *
 	 * @since 0.2.0
-	 * @param  string $id Icon type ID
 	 * @return array
 	 */
 	public function templates() {
