@@ -97,8 +97,6 @@ abstract class Menu_Icons_Type_Fonts extends Menu_Icons_Type {
 	public function frame_cb( $id ) {
 		$data = array(
 			'controller' => 'miFont',
-			'tabs'       => array(),
-			'contents'   => array(),
 		);
 
 		foreach ( $this->get_names() as $group ) {
@@ -109,7 +107,7 @@ abstract class Menu_Icons_Type_Fonts extends Menu_Icons_Type {
 			foreach ( $group['items'] as $class => $label ) {
 				$data['items'][] = array(
 					'group' => $key,
-					'name'  => $class,
+					'icon'  => $class,
 					'label' => $label,
 				);
 			}
@@ -128,14 +126,14 @@ abstract class Menu_Icons_Type_Fonts extends Menu_Icons_Type {
 	public function templates() {
 		$templates = array(
 			'item' => sprintf(
-				'<div class="attachment-preview" data-name="{{ data.name }}" data-group="{{ data.group }}">
-					<i class="_icon %s {{ data.name }}"></i>
+				'<div class="attachment-preview" data-icon="{{ data.icon }}" data-group="{{ data.group }}">
+					<i class="_icon %s {{ data.icon }}"></i>
 					<div class="filename"><div>{{ data.label }}</div></div>
 				</div>',
 				esc_attr( $this->type )
 			),
 			'preview' => sprintf(
-				'<i class="_icon %s {{ data.name }}"></i>',
+				'<i class="_icon %s {{ data.icon }}"></i>',
 				esc_attr( $this->type )
 			),
 		);
