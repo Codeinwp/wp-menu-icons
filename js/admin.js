@@ -26,7 +26,7 @@
 		currentItem : {},
 
 		updateItem : function( args ) {
-			var current = menuIcons.currentItem.values = _.defaults( args.values, menuIcons.currentItem.values );
+			var current = menuIcons.currentItem = _.defaults( args, menuIcons.currentItem );
 			var id      = menuIcons.currentItem.id;
 			var preview = media.template('menu-icons-'+ current.type +'-preview');
 
@@ -60,16 +60,9 @@
 	var Attachment = media.model.Attachment;
 
 
-	// Model: Menu Item
+	// Model: Menu Items
 	media.model.miMenuItem = Backbone.Model.extend({
-		id     : '',
-		values : {
-			type : ''
-		},
-
-		parse : function( resp ) {
-			console.log( resp );
-		}
+		type : ''
 	});
 
 	media.model.miMenuItems = Backbone.Collection.extend({
@@ -240,12 +233,10 @@
 				this.set( 'library', library );
 			}
 
-
-
 			var selection = this.get('selection');
 			// If a selection instance isn't provided, create one.
 			if ( ! (selection instanceof media.model.Selection) ) {
-				this.set( 'selection', new media.model.Selection( [menuIcons.currentItem.values] ) );
+				this.set( 'selection', new media.model.Selection( [menuIcons.currentItem] ) );
 			}
 		},
 
@@ -274,6 +265,7 @@
 
 	// Custom Frame
 	media.view.MediaFrame.menuIcons = media.view.MediaFrame.Select.extend({
+		miCurrentID : '',
 		miMenuItems : {},
 
 		initialize: function() {
@@ -366,7 +358,7 @@
 		},
 
 		miUpdateSelection : function() {
-			var values    = menuIcons.currentItem.values;
+			var values    = menuIcons.currentItem;
 			var selection = this.get('selection');
 
 			if ( 'image' === values.type  ) {
@@ -383,7 +375,7 @@
 		},
 
 		miGetCurrentType : function() {
-			var current = menuIcons.currentItem.values;
+			var current = menuIcons.currentItem;
 			var type;
 
 			if (
@@ -402,14 +394,19 @@
 
 		miReinitialize : function() {
 			this.options.miCurrent = menuIcons.currentItem;
-			this.setState( 'mi-'+this.options.miCurrent.values.type );
+			this.setState( 'mi-'+this.options.miCurrent.type );
 		},
 
 		miUpdateItems : function() {
 			var item = this.miMenuItems.get( menuIcons.currentItem.id );
+			var id;
 
 			if ( _.isUndefined( item ) ) {
 				this.miMenuItems.add( menuIcons.currentItem );
+				this.miCurrentID = menuIcons.currentItem.id;
+			}
+			else {
+				this.miCurrentID = item.id;
 			}
 		}
 	});
@@ -430,20 +427,19 @@
 			e.preventDefault();
 			e.stopPropagation();
 
-			var $el    = $(this);
-			var id     = $el.data('id');
-			var values = {};
+			var $el   = $(this);
+			var id    = $el.data('id');
+			var attrs = {
+				id : id
+			};
 
 			$el.closest('div.menu-icons-wrap').find(':input').each(function(i, input) {
 				var key = $(input).data('key');
-				values[ key ] = input.value;
+				attrs[ key ] = input.value;
 			});
 
 			media.view.settings.post.id = id;
-			menuIcons.currentItem = {
-				id : id,
-				values : values
-			};
+			menuIcons.currentItem = attrs;
 
 			if ( ! ( menuIcons.frame instanceof media.view.MediaFrame.menuIcons ) ) {
 				menuIcons.frame = new media.view.MediaFrame.menuIcons();
