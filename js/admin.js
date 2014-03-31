@@ -66,7 +66,10 @@
 	});
 
 	media.model.miMenuItems = Backbone.Collection.extend({
-		model : media.model.miMenuItem
+		model : media.model.miMenuItem,
+		props : new Backbone.Model({
+			currentID : ''
+		})
 	});
 
 
@@ -265,7 +268,6 @@
 
 	// Custom Frame
 	media.view.MediaFrame.menuIcons = media.view.MediaFrame.Select.extend({
-		miCurrentID : '',
 		miMenuItems : {},
 
 		initialize: function() {
@@ -396,15 +398,17 @@
 
 		miUpdateItems : function() {
 			var item = this.miMenuItems.get( menuIcons.currentItem.id );
-			var id;
+			var currentID;
 
 			if ( _.isUndefined( item ) ) {
 				this.miMenuItems.add( menuIcons.currentItem );
-				this.miCurrentID = menuIcons.currentItem.id;
+				currentID = menuIcons.currentItem.id;
 			}
 			else {
-				this.miCurrentID = item.id;
+				currentID = item.id;
 			}
+
+			this.miMenuItems.props.set( 'currentID', currentID );
 		}
 	});
 
