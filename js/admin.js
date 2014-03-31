@@ -62,7 +62,12 @@
 
 	// Model: Menu Items
 	media.model.miMenuItem = Backbone.Model.extend({
-		type : ''
+		defaults : {
+			type  : '',
+			views : {
+				filters : 'all'
+			}
+		}
 	});
 
 	media.model.miMenuItems = Backbone.Collection.extend({
