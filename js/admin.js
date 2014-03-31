@@ -237,23 +237,18 @@
 			var selection = this.get('selection');
 			// If a selection instance isn't provided, create one.
 			if ( ! (selection instanceof media.model.Selection) ) {
-				this.set( 'selection', new media.model.Selection( [{ icon : '' }] ) );
+				this.set( 'selection', new media.model.Selection([]) );
 			}
 		},
 
 		activate: function() {
-			//this.frame.miMenuItems.props.on( 'change:icon', this.miResetSelection, this );
-			//this.get('selection').on( 'add remove reset', this.refreshContent, this );
+			this.frame.on( 'open', this.miUpdateSelection, this );
 			media.controller.State.prototype.activate.apply( this, arguments );
 		},
 
 		deactivate: function() {
-			//this.frame.off( 'open', this.frame.miUpdateSelection, this );
+			this.frame.off( 'open', this.miUpdateSelection, this );
 			media.controller.State.prototype.deactivate.apply( this, arguments );
-		},
-
-		refresh: function() {
-			this.frame.toolbar.get().refresh();
 		},
 
 		miResetLibrary : function() {
@@ -261,6 +256,20 @@
 
 			library.reInitialize();
 			this.set( 'library', library );
+		},
+
+		miUpdateSelection : function() {
+			var item      = this.frame.miGetCurrentItem().toJSON();
+			var icon      = '';
+
+			if (
+				this.get('type') === item.type
+				&& ! _.isUndefined( item[item.type+'-icon'] )
+			) {
+				icon = item[item.type+'-icon'];
+			}
+
+			this.get('selection').reset( icon ? [{icon: icon}] : [] );
 		}
 	});
 
@@ -269,34 +278,45 @@
 	media.view.MediaFrame.menuIcons = media.view.MediaFrame.Select.extend({
 		miMenuItems : {},
 
-		initialize: function() {
+		initialize : function() {
 			_.defaults( this.options, {
 				multiple  : false,
 				editing   : false,
 				toolbar   : 'mi-select'
 			});
 
-			media.view.MediaFrame.Select.prototype.initialize.apply( this, arguments );
-
 			this.miMenuItems = new media.model.miMenuItems;
+			this.miUpdateMenuItems();
+			media.view.MediaFrame.Select.prototype.initialize.apply( this, arguments );
 		},
 
-		createStates: function() {
+		createStates : function() {
 			var options = this.options;
 
 			if ( this.options.states ) {
 				return;
 			}
 
-			_.each( menuIcons.iconTypes, function( props, type ) {
-				_.defaults( props, {
-					content: props.id
-				} );
+			var current = this.miMenuItems.props.toJSON();
+			var selection;
 
+			_.each( menuIcons.iconTypes, function( props, type ) {
 				if ( ! media.controller.hasOwnProperty( props.data.controller ) ) {
 					delete menuIcons.iconTypes[ type ];
 					return;
 				}
+
+				if ( current.type === type && ! _.isUndefined(current.icon) ) {
+					selection = [ { icon : current.icon } ];
+				}
+				else {
+					selection = [];
+				}
+
+				_.defaults( props, {
+					content   : props.id,
+					selection : new media.model.Selection(selection)
+				} );
 
 				// States
 				this.states.add( new media.controller[ props.data.controller ]( props ) );
@@ -336,13 +356,13 @@
 					args[ type+'-icon' ] = selected.get('icon');
 
 					frame.close();
-					frame.miUpdateIcon( args );
+					frame.miUpdateItem( args );
 				}
 			});
 		},
 
 		// Content
-		miContentRender: function( props ) {
+		miContentRender : function( props ) {
 			var state = this.state();
 
 			_.defaults( props, {
@@ -355,23 +375,6 @@
 
 			var view = new media.view[ props.data.controller ]( props );
 			this.content.set( view );
-		},
-
-		miUpdateSelection : function() {
-			var values    = menuIcons.currentItem;
-			var selection = this.get('selection');
-
-			if ( 'image' === values.type  ) {
-				var id = parseInt( values['image-icon'] );
-				var attachment;
-
-				if ( !isNaN(id) && id > 0 ) {
-					attachment = Attachment.get( id );
-					attachment.fetch();
-				}
-			}
-
-			selection.reset( attachment ? [ attachment ] : [] );
 		},
 
 		miGetState : function() {
@@ -396,7 +399,7 @@
 			return this.miMenuItems.get( menuIcons.currentItem.id )
 		},
 
-		miUpdateItems : function() {
+		miUpdateMenuItems : function() {
 			var item = this.miGetCurrentItem();
 			var icon = '';
 
@@ -420,11 +423,11 @@
 		},
 
 		miReinitialize : function() {
-			this.miUpdateItems();
+			this.miUpdateMenuItems();
 			this.setState( this.miGetState() );
 		},
 
-		miUpdateIcon : function( args ) {
+		miUpdateItem : function( args ) {
 			_.defaults( menuIcons.currentItem, args );
 			var id      = menuIcons.currentItem.id;
 			var preview = media.template('menu-icons-'+ args.type +'-preview');
