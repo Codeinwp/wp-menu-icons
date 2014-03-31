@@ -265,8 +265,9 @@
 
 		miResetLibrary : function() {
 			var library = this.get('library');
+
 			library.reInitialize();
-			this.set('library', library );
+			this.set( 'library', library );
 		}
 	});
 
@@ -405,7 +406,7 @@
 		},
 
 		miUpdateItems : function() {
-			var item = this.miMenuItems.findWhere({id: menuIcons.currentItem.id});
+			var item = this.miMenuItems.get( menuIcons.currentItem.id );
 
 			if ( _.isUndefined( item ) ) {
 				this.miMenuItems.add( menuIcons.currentItem );
