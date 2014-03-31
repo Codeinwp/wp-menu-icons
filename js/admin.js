@@ -272,9 +272,7 @@
 			_.defaults( this.options, {
 				multiple  : false,
 				editing   : false,
-				state     : this.miGetCurrentType(),
-				toolbar   : 'mi-select',
-				miCurrent : {}
+				toolbar   : 'mi-select'
 			});
 
 			media.view.MediaFrame.Select.prototype.initialize.apply( this, arguments );
@@ -374,16 +372,16 @@
 			selection.reset( attachment ? [ attachment ] : [] );
 		},
 
-		miGetCurrentType : function() {
-			var current = menuIcons.currentItem;
+		miGetState : function() {
+			var item = menuIcons.currentItem;
 			var type;
 
 			if (
-				_.isUndefined( current.type )
-				&& '' !== current.type
-				&& menuIcons.iconTypes.hasOwnProperty( current.type )
+				! _.isUndefined( item.type )
+				&& '' !== item.type
+				&& menuIcons.iconTypes.hasOwnProperty( item.type )
 			) {
-				type = current.type;
+				type = item.type;
 			}
 			else {
 				type = menuIcons.typeNames[0];
@@ -393,8 +391,7 @@
 		},
 
 		miReinitialize : function() {
-			this.options.miCurrent = menuIcons.currentItem;
-			this.setState( 'mi-'+this.options.miCurrent.type );
+			this.setState( this.miGetState() );
 		},
 
 		miUpdateItems : function() {
