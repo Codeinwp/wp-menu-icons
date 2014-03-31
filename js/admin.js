@@ -60,6 +60,23 @@
 	var Attachment = media.model.Attachment;
 
 
+	// Model: Menu Item
+	media.model.miMenuItem = Backbone.Model.extend({
+		id     : '',
+		values : {
+			type : ''
+		},
+
+		parse : function( resp ) {
+			console.log( resp );
+		}
+	});
+
+	media.model.miMenuItems = Backbone.Collection.extend({
+		model : media.model.miMenuItem
+	});
+
+
 	// Font icon: Wrapper
 	media.view.miFont = media.View.extend({
 		className : 'mi-items-wrap attachments-browser',
@@ -233,7 +250,6 @@
 		},
 
 		activate: function() {
-			//this.frame.on( 'open', this.frame.miUpdateSelection, this );
 			//this.get('selection').on( 'add remove reset', this.refreshContent, this );
 			media.controller.State.prototype.activate.apply( this, arguments );
 		},
@@ -251,12 +267,14 @@
 			var library = this.get('library');
 			library.reInitialize();
 			this.set('library', library );
-		},
+		}
 	});
 
 
 	// Custom Frame
 	media.view.MediaFrame.menuIcons = media.view.MediaFrame.Select.extend({
+		miMenuItems : {},
+
 		initialize: function() {
 			_.defaults( this.options, {
 				multiple  : false,
@@ -267,6 +285,8 @@
 			});
 
 			media.view.MediaFrame.Select.prototype.initialize.apply( this, arguments );
+
+			this.miMenuItems = new media.model.miMenuItems;
 		},
 
 		createStates: function() {
@@ -299,6 +319,8 @@
 			_.each( menuIcons.iconTypes, function( props, type ) {
 				this.on( 'content:activate:'+props.id, _.bind( this.miContentRender, this, props ) );
 			}, this );
+
+			this.on( 'open', this.miUpdateItems, this );
 		},
 
 		// Toolbars
@@ -380,6 +402,14 @@
 		miReinitialize : function() {
 			this.options.miCurrent = menuIcons.currentItem;
 			this.setState( 'mi-'+this.options.miCurrent.values.type );
+		},
+
+		miUpdateItems : function() {
+			var item = this.miMenuItems.findWhere({id: menuIcons.currentItem.id});
+
+			if ( _.isUndefined( item ) ) {
+				this.miMenuItems.add( menuIcons.currentItem );
+			}
 		}
 	});
 
