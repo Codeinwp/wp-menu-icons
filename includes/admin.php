@@ -58,6 +58,7 @@ final class Menu_Icons_Admin_Nav_Menus {
 	 * @wp_hook admin_enqueue_scripts
 	 */
 	public static function _scripts_styles() {
+		// WP 3.8 bug, fixed in 3.9
 		// We need to dequeue and re-enqueue this one later,
 		// otherwise we won't get the dashboard's colors
 		wp_dequeue_style( 'colors' );

@@ -20,3 +20,16 @@
 	vertical-align: middle;
 	margin: -.265em .25em 0 0;
 }
+
+/**
+ * Force the icons' styles
+ *
+ * Some themes -- notably 2014 -- has nasty rules that
+ * could override the icons' styles so we need to force them here.
+.dashicons-admin-site:before {
+	content:"\f319" !important;
+}
+.dashicons-welcome-view-site:before {
+	content:"\f115" !important;
+}
+ */

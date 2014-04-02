@@ -202,6 +202,7 @@
 		className : 'mi-item attachment',
 		events    : {
 			'click .attachment-preview' : 'toggleSelectionHandler',
+			'click .check'              : 'removeFromSelection',
 			'click a'                   : 'preventDefault'
 		},
 
