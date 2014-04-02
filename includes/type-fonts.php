@@ -37,8 +37,7 @@ abstract class Menu_Icons_Type_Fonts extends Menu_Icons_Type {
 		?>
 		<?php printf(
 			'<p class="field-icon-child description menu-icon-type-%1$s" data-dep-on="%1$s">',
-			esc_attr( $this->type ),
-			esc_attr( $this->key )
+			esc_attr( $this->type )
 		) ?>
 			<label for="<?php echo esc_attr( $input_id ) ?>"><?php echo esc_html( $this->label ); ?></label>
 			<?php printf(
@@ -104,10 +103,10 @@ abstract class Menu_Icons_Type_Fonts extends Menu_Icons_Type {
 
 			$data['groups'][ $key ] = $group['label'];
 
-			foreach ( $group['items'] as $class => $label ) {
+			foreach ( $group['items'] as $id => $label ) {
 				$data['items'][] = array(
 					'group' => $key,
-					'icon'  => $class,
+					'id'    => $id,
 					'label' => $label,
 				);
 			}
@@ -126,14 +125,14 @@ abstract class Menu_Icons_Type_Fonts extends Menu_Icons_Type {
 	public function templates() {
 		$templates = array(
 			'item' => sprintf(
-				'<div class="attachment-preview" data-icon="{{ data.icon }}" data-group="{{ data.group }}">
-					<i class="_icon %s {{ data.icon }}"></i>
+				'<div class="attachment-preview" data-icon="{{ data.id }}" data-group="{{ data.group }}">
+					<i class="_icon %s {{ data.id }}"></i>
 					<div class="filename"><div>{{ data.label }}</div></div>
 				</div>',
 				esc_attr( $this->type )
 			),
 			'preview' => sprintf(
-				'<i class="_icon %s {{ data.icon }}"></i>',
+				'<i class="_icon %s {{ data.id }}"></i>',
 				esc_attr( $this->type )
 			),
 		);

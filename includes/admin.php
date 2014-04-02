@@ -199,7 +199,7 @@ final class Menu_Icons_Admin_Nav_Menus {
 					$input_id   = sprintf( 'menu-icons-%d-type', $item->ID );
 					$input_name = sprintf( 'menu-icons[%d][type]', $item->ID );
 				?>
-				<div class="easy hidden">
+				<div class="easy">
 					<p class="description">
 						<label><?php esc_html_e( 'Icon:' ) ?></label>
 						<?php printf(
@@ -209,17 +209,17 @@ final class Menu_Icons_Admin_Nav_Menus {
 							self::_get_preview( $item->ID, $current )
 						) ?>
 						<?php printf(
-							'<a id="menu-icons-%1$d-remove" class="_remove" data-id="%1$d">%2$s</a>',
+							'<a id="menu-icons-%1$d-remove" class="_remove hidden" data-id="%1$d">%2$s</a>',
 							$item->ID,
 							esc_attr__( 'Remove', 'menu-icons' )
 						) ?>
 					</p>
 				</div>
-				<div class="original">
+				<div class="original hidden">
 					<p class="description">
 						<label for="<?php echo esc_attr( $input_id ) ?>"><?php esc_html_e( 'Icon type', 'menu-icons' ); ?></label>
 						<?php printf(
-							'<select id="%s" name="%s" class="hasdep" data-dep-scope="div.menu-icons-wrap" data-dep-children=".field-icon-child" data-key="type">',
+							'<select id="%s" name="%s" class="_type hasdep" data-dep-scope="div.menu-icons-wrap" data-dep-children=".field-icon-child" data-key="type">',
 							esc_attr( $input_id ),
 							esc_attr( $input_name )
 						) ?>

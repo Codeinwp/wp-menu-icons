@@ -10,7 +10,8 @@
 	'use strict';
 
 	$.inputDependencies({
-		selector: 'select.hasdep'
+		selector: 'select.hasdep',
+		disable: false
 	});
 
 	if ( 'undefined' === typeof menuIcons ) {
@@ -24,6 +25,21 @@
 	menuIcons = _.defaults({
 		frame       : '',
 		currentItem : {},
+
+		toggleSelect : function(e) {
+			e.stopPropagation();
+
+			var $type   = $(e.currentTarget);
+			var $wrapr  = $type.closest('div.menu-icons-wrap');
+			var $select = $wrapr.find('a._select');
+
+			if ( '' !== $type.val() ) {
+				$select.siblings('a._remove').show();
+			}
+			else {
+				$select.text( $select.data('text') );
+			}
+		},
 
 		selectIcon : function(e) {
 			e.preventDefault();
@@ -53,12 +69,10 @@
 			e.preventDefault();
 			e.stopPropagation();
 
-			var $el     = $(this);
-			var id      = $el.data('id');
-			var $select = $('#menu-icons-'+ id +'-select');
+			var $el = $(this);
+			var id  = $el.data('id');
 
 			$el.hide();
-			$select.text( $select.data('text') );
 			$('#menu-icons-'+ id +'-type').val('').trigger('change');
 		}
 	}, menuIcons );
@@ -492,23 +506,15 @@
 			args.id = args.icon;
 			delete args.icon;
 
-			$('#menu-icons-'+ id +'-remove').show();
 			$('#menu-icons-'+ id +'-select').html( preview(args) );
 		}
 	});
 
 
-	$('div.menu-icons-wrap').each(function() {
-		var $wrap = $(this);
-		$wrap.find('div.original').hide();
-		$wrap.find('div.easy').show();
-
-		var $select = $wrap.find('a._select');
-		if ( ! $select.children().length ) {
-			$select.siblings('a._remove').hide();
-		}
-	});
 	$('body')
 		.on( 'click', 'div.menu-icons-wrap a._select', menuIcons.selectIcon )
-		.on( 'click', 'div.menu-icons-wrap a._remove', menuIcons.removeIcon );
+		.on( 'click', 'div.menu-icons-wrap a._remove', menuIcons.removeIcon )
+		.on( 'change', 'div.menu-icons-wrap select._type', menuIcons.toggleSelect );
+
+	$('div.menu-icons-wrap select._type').trigger('change');
 }(jQuery));
