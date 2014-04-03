@@ -88,17 +88,18 @@ final class Menu_Icons_Admin_Nav_Menus {
 			}
 		}
 
+		if ( count( $_icon_types ) === count( $icon_types ) ) {
+			wp_enqueue_media();
+			$data['iconTypes'] = $icon_types;
+			$data['typeNames'] = array_keys( $icon_types );
+		}
+
 		wp_enqueue_style(
 			'menu-icons',
 			Menu_Icons::get( 'url' ) . 'css/admin.css',
 			false,
 			Menu_Icons::VERSION
 		);
-		if ( count( $_icon_types ) === count( $icon_types ) ) {
-			wp_enqueue_media();
-			$data['iconTypes'] = $icon_types;
-			$data['typeNames'] = array_keys( $icon_types );
-		}
 
 		// re-enqueue
 		wp_enqueue_style( 'colors' );

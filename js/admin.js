@@ -104,13 +104,13 @@
 
 	// Font icon: Wrapper
 	media.view.miFont = media.View.extend({
-		className : 'mi-items-wrap attachments-browser',
+		className : 'attachments-browser mi-items-wrap',
 
 		initialize : function() {
-			var list = '<ul class="mi-items attachments clearfix"></ul>';
+			var list = '<ul class="attachments mi-items clearfix"></ul>';
 			this.$el.append( list );
 
-			this.collection.props.on( 'change:group', this.refresh, this );
+			this.collection.on( 'reset', this.refresh, this );
 
 			this.createToolbar();
 		},
@@ -121,10 +121,18 @@
 			});
 			this.views.add( this.toolbar );
 
+			// Dropdown filter
 			this.toolbar.set( 'filters', new media.view.miFont.Filters({
 				controller : this.controller,
 				model      : this.collection.props,
 				priority   : -80
+			}).render() );
+
+			// Search field
+			this.toolbar.set( 'search', new media.view.Search({
+				controller: this.controller,
+				model:      this.collection.props,
+				priority:   60
 			}).render() );
 		},
 
@@ -199,7 +207,7 @@
 
 	// Font icon: Item
 	media.view.miFont.Icon = media.view.Attachment.extend({
-		className : 'mi-item attachment',
+		className : 'attachment mi-item',
 		events    : {
 			'click .attachment-preview' : 'toggleSelectionHandler',
 			'click .check'              : 'removeFromSelection',
@@ -274,7 +282,8 @@
 			if ( ! this.get('library') ) {
 				var Icons = Backbone.Collection.extend({
 					props : new Backbone.Model({
-						group : state.get('group')
+						group  : state.get('group'),
+						search : ''
 					}),
 
 					initialize : function( models ) {
@@ -283,23 +292,51 @@
 					},
 
 					reInitialize : function() {
-						var models = this.icons;
-						var filtered;
+						var library  = this;
+						var icons    = this.icons;
+						var props    = this.props.toJSON();
 
-						var group = this.props.get('group');
-						if ( 'all' !== group ) {
-							filtered = this.original.where({group: group});
-						}
-						else {
-							filtered = this.icons;
-						}
+						_.each( props, function( val, filter ) {
+							if ( library.filters[ filter ] ) {
+								icons = _.filter( icons, library.filters[ filter ], val );
+							}
+						}, this);
 
-						this.reset( filtered );
+						this.reset( icons );
+					},
+
+					filters : {
+						group : function( icon ) {
+							var group = this;
+
+							return (
+								'all' === group
+								|| icon.group === group
+								|| '' === icon.group // fallback
+							);
+						},
+						search : function( icon ) {
+							var term = this;
+							var result;
+
+							if ( '' === term ) {
+								result = true;
+							}
+							else {
+								console.log( icon.group );
+								result = _.any(['id','label'], function( key ) {
+									var value = icon[key];
+									return value && -1 !== value.search( this );
+								}, term );
+							}
+
+							return result;
+						}
 					}
 				});
 
 				var library = new Icons( this.get('data').items );
-				library.props.on( 'change:group', this.miResetLibrary, this );
+				library.props.on( 'change', this.miResetLibrary, this );
 
 				this.set( 'library', library );
 			}

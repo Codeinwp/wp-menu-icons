@@ -29,9 +29,15 @@
 	vertical-align: bottom;
 }
 
+.mi-items-wrap .media-toolbar,
 .mi-items-wrap ul.mi-items {
-	padding-top: 10px;
 	right: 0;
+}
+.mi-items-wrap .media-toolbar-primary {
+	float: left;
+}
+.mi-items-wrap .mi-items {
+	padding-top: 10px;
 	margin-right: 0;
 }
 .mi-item .attachment-preview {
