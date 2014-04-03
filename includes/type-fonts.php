@@ -125,13 +125,22 @@ abstract class Menu_Icons_Type_Fonts extends Menu_Icons_Type {
 	public function templates() {
 		$templates = array(
 			'item' => sprintf(
-				'<div class="attachment-preview" data-icon="{{ data.id }}" data-group="{{ data.group }}">
+				'<div class="attachment-preview">
 					<i class="_icon %s {{ data.id }}"></i>
 					<div class="filename"><div>{{ data.label }}</div></div>
 					<a class="check" href="#" title="%s"><div class="media-modal-icon"></div></a>
 				</div>',
 				esc_attr( $this->type ),
 				esc_attr__( 'Deselect', 'menu-icons' )
+			),
+			'item-preview' => sprintf(
+				'<h3>%s</h3>
+				<p class="menu-item">
+					<a href="#"><i class="_icon %s {{ data.id }}"></i> {{ data.title }}</a>
+				</p>
+				',
+				esc_html__( 'Preview', 'menu-icons' ),
+				esc_attr( $this->type )
 			),
 			'preview' => sprintf(
 				'<i class="_icon %s {{ data.id }}"></i>',

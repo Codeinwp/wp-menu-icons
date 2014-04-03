@@ -48,7 +48,8 @@
 			var $el   = $(this);
 			var id    = media.view.settings.post.id = $el.data('id');
 			var attrs = {
-				id : id
+				id    : id,
+				title : $('#edit-menu-item-title-'+id).val()
 			};
 
 			$el.closest('div.menu-icons-wrap').find(':input').each(function(i, input) {
@@ -113,6 +114,7 @@
 			this.collection.on( 'reset', this.refresh, this );
 
 			this.createToolbar();
+			this.createSidebar();
 		},
 
 		createToolbar : function() {
@@ -136,8 +138,44 @@
 			}).render() );
 		},
 
+		createSidebar: function() {
+			var options   = this.options;
+			var selection = options.selection;
+			var sidebar   = this.sidebar = new media.view.Sidebar({
+				controller : this.controller,
+				type       : options.type
+			});
+
+			this.views.add( sidebar );
+
+			selection.on( 'selection:single', this.createSingle, this );
+			selection.on( 'selection:unsingle', this.disposeSingle, this );
+
+			if ( selection.single() ) {
+				this.createSingle();
+			}
+		},
+
+		createSingle: function() {
+			var sidebar = this.sidebar;
+			var single  = this.options.selection.single();
+
+			sidebar.set( 'details', new media.view.miFont.Icon.Preview({
+				controller : this.controller,
+				model      : single,
+				type       : this.options.type,
+				priority   : 80
+			}) );
+		},
+
+		disposeSingle: function() {
+			var sidebar = this.sidebar;
+			sidebar.unset('details');
+		},
+
 		render : function() {
 			var container = document.createDocumentFragment();
+			var selection = this.options.selection;
 
 			this.collection.each( function( model ) {
 				container.appendChild( this.renderItem( model ) );
@@ -218,7 +256,6 @@
 			this.template = media.template( 'menu-icons-' + this.options.type + '-item' );
 
 			media.view.Attachment.prototype.initialize.apply( this, arguments );
-			this.model.off( 'selection:single selection:unsingle', this.details, this );
 		},
 
 		render: function() {
@@ -226,49 +263,34 @@
 			this.updateSelect();
 
 			return this;
-		},
-
-		toggleSelection : function() {
-			media.view.Attachment.prototype.toggleSelection.apply( this, arguments );
-		},
-
-		selected : function() {
-			var selection = this.options.selection;
-
-			if ( selection ) {
-				return !! ( selection.get( this.model.id ) );
-			}
-		},
-
-		select: function( model, collection ) {
-			var selection = this.options.selection;
-
-			// Check if a selection exists and if it's the collection provided.
-			// If they're not the same collection, bail; we're in another
-			// selection's event loop.
-			if ( ! selection || ( collection && collection !== selection ) )
-				return;
-
-			this.$el.addClass('selected details');
-		},
-
-		deselect: function( model, collection ) {
-			var selection = this.options.selection;
-
-			// Check if a selection exists and if it's the collection provided.
-			// If they're not the same collection, bail; we're in another
-			// selection's event loop.
-			if ( ! selection || ( collection && collection !== selection ) )
-				return;
-
-			this.$el.removeClass('selected details');
 		}
+	});
+
+	media.view.miFont.Icon.Preview = Backbone.View.extend({
+		tagName   : 'div',
+		className : 'mi-preview',
+		events    : {
+			'click a' : 'preventDefault'
+		},
+
+		initialize : function() {
+			this.template = media.template( 'menu-icons-' + this.options.type + '-item-preview' );
+		},
+
+		render: function() {
+			var model = this.model.toJSON();
+			model.title = menuIcons.currentItem.title;
+
+			this.$el.html( this.template( model ) );
+
+			return this;
+		},
 	});
 
 
 	// Font icon: Controller
 	media.controller.miFont = media.controller.State.extend({
-		defaults: {
+		defaults : {
 			id      : 'mi-font',
 			menu    : 'default',
 			toolbar : 'mi-select',
@@ -287,13 +309,12 @@
 					}),
 
 					initialize : function( models ) {
-						this.icons    = models;
 						this.original = new Backbone.Collection(models);
 					},
 
 					reInitialize : function() {
 						var library  = this;
-						var icons    = this.icons;
+						var icons    = state.get('data').items;
 						var props    = this.props.toJSON();
 
 						_.each( props, function( val, filter ) {
@@ -323,7 +344,6 @@
 								result = true;
 							}
 							else {
-								console.log( icon.group );
 								result = _.any(['id','label'], function( key ) {
 									var value = icon[key];
 									return value && -1 !== value.search( this );
@@ -350,14 +370,13 @@
 		},
 
 		activate: function() {
-			this.miUpdateSelection();
-			this.frame.on( 'open', this.miUpdateSelection, this );
 			media.controller.State.prototype.activate.apply( this, arguments );
+			this.miUpdateSelection();
 		},
 
 		deactivate: function() {
-			this.frame.off( 'open', this.miUpdateSelection, this );
 			media.controller.State.prototype.deactivate.apply( this, arguments );
+			this.frame.off( 'open', this.miUpdateSelection, this );
 		},
 
 		miResetLibrary : function() {
@@ -368,17 +387,18 @@
 		},
 
 		miUpdateSelection : function() {
-			var current = menuIcons.currentItem;
-			var icon;
+			var selection = this.get('selection');
+			var current   = menuIcons.currentItem;
+			var selected;
 
 			if (
 				this.get('type') === current.type
 				&& ! _.isUndefined( current[ current.type+'-icon' ] )
 			) {
-				icon = current[ current.type+'-icon' ];
+				selected = this.get('library').where({id: current[ current.type+'-icon' ]});
 			}
 
-			this.get('selection').reset( icon ? [{id: icon}] : [] );
+			selection.reset( selected ? selected : [] );
 		}
 	});
 

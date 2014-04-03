@@ -29,16 +29,8 @@
 	vertical-align: bottom;
 }
 
-.mi-items-wrap .media-toolbar,
-.mi-items-wrap ul.mi-items {
-	right: 0;
-}
-.mi-items-wrap .media-toolbar-primary {
-	float: left;
-}
 .mi-items-wrap .mi-items {
 	padding-top: 10px;
-	margin-right: 0;
 }
 .mi-item .attachment-preview {
 	width: 110px;
@@ -58,4 +50,14 @@
 .mi-item:hover ._icon,
 .mi-item.selected ._icon {
 	color: #101010;
+}
+
+.mi-preview .menu-item {
+	font-size: 1.2em;
+}
+.mi-preview .menu-item a {
+	text-decoration: none;
+}
+.mi-preview .menu-item ._icon {
+	vertical-align: middle;
 }
