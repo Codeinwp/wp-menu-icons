@@ -87,10 +87,7 @@
 	// Font icon: Menu Items
 	media.model.miMenuItem = Backbone.Model.extend({
 		defaults : {
-			type  : '',
-			views : {
-				filters : 'all'
-			}
+			type  : ''
 		}
 	});
 
@@ -103,18 +100,26 @@
 		})
 	});
 
-	// Font icon: Wrapper
+
+	// Font icon: Browser
 	media.view.miFont = media.View.extend({
 		className : 'attachments-browser mi-items-wrap',
 
 		initialize : function() {
-			var list = '<ul class="attachments mi-items clearfix"></ul>';
-			this.$el.append( list );
-
-			this.collection.on( 'reset', this.refresh, this );
-
 			this.createToolbar();
+			this.createLibrary();
 			this.createSidebar();
+		},
+
+		createLibrary : function() {
+			this.items = new media.view.miFont.Library({
+				controller : this.controller,
+				collection : this.collection,
+				selection  : this.options.selection,
+				type       : this.options.type,
+				data       : this.options.data
+			});
+			this.views.add( this.items );
 		},
 
 		createToolbar : function() {
@@ -138,7 +143,7 @@
 			}).render() );
 		},
 
-		createSidebar: function() {
+		createSidebar : function() {
 			var options   = this.options;
 			var selection = options.selection;
 			var sidebar   = this.sidebar = new media.view.Sidebar({
@@ -156,7 +161,7 @@
 			}
 		},
 
-		createSingle: function() {
+		createSingle : function() {
 			var sidebar = this.sidebar;
 			var single  = this.options.selection.single();
 
@@ -168,26 +173,36 @@
 			}) );
 		},
 
-		disposeSingle: function() {
+		disposeSingle : function() {
 			var sidebar = this.sidebar;
 			sidebar.unset('details');
 		},
 
 		render : function() {
-			var container = document.createDocumentFragment();
 			var selection = this.options.selection;
-
-			this.collection.each( function( model ) {
-				container.appendChild( this.renderItem( model ) );
-			}, this );
-
-			this.$el.find('ul.mi-items').append( container );
 
 			return this;
 		},
+	});
 
-		clearItems: function() {
-			this.$el.find( '.mi-items' ).empty();
+
+	// Font icon: Library
+	media.view.miFont.Library = media.View.extend({
+		tagName   : 'ul',
+		className : 'attachments mi-items clearfix',
+
+		initialize : function() {
+			this.collection.on( 'reset', this.refresh, this );
+			this._viewsByCid = {};
+		},
+
+		render : function() {
+			this.collection.each( function( model ) {
+				var icon = this.renderItem( model );
+				this.views.add( icon );
+			}, this );
+
+			return this;
 		},
 
 		renderItem : function( model ) {
@@ -200,7 +215,14 @@
 				data       : this.options.data
 			});
 
-			return view.render().el;
+			return this._viewsByCid[ view.cid ] = view;
+		},
+
+		clearItems: function() {
+			_.each( this._viewsByCid, function( view, x ) {
+				delete this._viewsByCid[ view.cid ];
+				view.remove();
+			}, this );
 		},
 
 		refresh : function() {
