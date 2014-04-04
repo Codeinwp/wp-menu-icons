@@ -296,7 +296,7 @@
 		},
 
 		initialize : function() {
-			this.template = media.template( 'menu-icons-' + this.options.type + '-item-preview' );
+			this.template = media.template( 'menu-icons-' + this.options.type + '-preview' );
 		},
 
 		render: function() {
@@ -574,8 +574,8 @@
 
 		miUpdateItem : function( args ) {
 			_.defaults( menuIcons.currentItem, args );
-			var id      = menuIcons.currentItem.id;
-			var preview = media.template('menu-icons-'+ args.type +'-preview');
+			var id    = menuIcons.currentItem.id;
+			var field = media.template('menu-icons-'+ args.type +'-field');
 
 			_.each( args, function( value, key ) {
 				if ( 'icon' !== key ) {
@@ -586,7 +586,7 @@
 			args.id = args.icon;
 			delete args.icon;
 
-			$('#menu-icons-'+ id +'-select').html( preview(args) );
+			$('#menu-icons-'+ id +'-select').html( field(args) );
 		}
 	});
 

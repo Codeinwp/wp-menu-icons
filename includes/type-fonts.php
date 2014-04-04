@@ -133,7 +133,7 @@ abstract class Menu_Icons_Type_Fonts extends Menu_Icons_Type {
 				esc_attr( $this->type ),
 				esc_attr__( 'Deselect', 'menu-icons' )
 			),
-			'item-preview' => sprintf(
+			'preview' => sprintf(
 				'<h3>%s</h3>
 				<p class="menu-item">
 					<a href="#"><i class="_icon %s {{ data.id }}"></i> {{ data.title }}</a>
@@ -142,7 +142,7 @@ abstract class Menu_Icons_Type_Fonts extends Menu_Icons_Type {
 				esc_html__( 'Preview', 'menu-icons' ),
 				esc_attr( $this->type )
 			),
-			'preview' => sprintf(
+			'field' => sprintf(
 				'<i class="_icon %s {{ data.id }}"></i>',
 				esc_attr( $this->type )
 			),
