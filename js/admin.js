@@ -394,6 +394,7 @@
 		activate: function() {
 			media.controller.State.prototype.activate.apply( this, arguments );
 			this.miUpdateSelection();
+			this.frame.on( 'open', this.miUpdateSelection, this );
 		},
 
 		deactivate: function() {
