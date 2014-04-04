@@ -560,6 +560,7 @@
 			var item      = this.miGetCurrentItem();
 			var icon      = single ? single.id : '';
 
+			item.set( 'type', type );
 			item.set( type+'-icon', icon );
 		},
 
