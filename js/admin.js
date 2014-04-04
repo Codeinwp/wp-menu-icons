@@ -76,7 +76,7 @@
 			$el.hide();
 			$('#menu-icons-'+ id +'-type').val('').trigger('change');
 		}
-	}, menuIcons );
+	}, menuIcons);
 
 
 	// WP Media
@@ -94,9 +94,7 @@
 	media.model.miMenuItems = Backbone.Collection.extend({
 		model : media.model.miMenuItem,
 		props : new Backbone.Model({
-			currentID : '',
-			type      : '',
-			icon      : '',
+			item : ''
 		})
 	});
 
@@ -137,9 +135,9 @@
 
 			// Search field
 			this.toolbar.set( 'search', new media.view.Search({
-				controller: this.controller,
-				model:      this.collection.props,
-				priority:   60
+				controller : this.controller,
+				model      : this.collection.props,
+				priority   : 60
 			}).render() );
 		},
 
@@ -171,18 +169,16 @@
 				type       : this.options.type,
 				priority   : 80
 			}) );
+
+			this.controller.miUpdateItemProps();
 		},
 
 		disposeSingle : function() {
 			var sidebar = this.sidebar;
 			sidebar.unset('details');
-		},
 
-		render : function() {
-			var selection = this.options.selection;
-
-			return this;
-		},
+			this.controller.miUpdateItemProps();
+		}
 	});
 
 
@@ -218,7 +214,7 @@
 			return this._viewsByCid[ view.cid ] = view;
 		},
 
-		clearItems: function() {
+		clearItems : function() {
 			_.each( this._viewsByCid, function( view, x ) {
 				delete this._viewsByCid[ view.cid ];
 				view.remove();
@@ -234,7 +230,7 @@
 
 	// Font icon: Dropdown filter
 	media.view.miFont.Filters = media.view.AttachmentFilters.extend({
-		createFilters: function() {
+		createFilters : function() {
 			this.filters = {
 				all : {
 					text  : menuIcons.text.all,
@@ -252,7 +248,7 @@
 						group : id
 					}
 				};
-			}, this);
+			}, this );
 		},
 
 		change : function() {
@@ -270,7 +266,6 @@
 		className : 'attachment mi-item',
 		events    : {
 			'click .attachment-preview' : 'toggleSelectionHandler',
-			'click .check'              : 'removeFromSelection',
 			'click a'                   : 'preventDefault'
 		},
 
@@ -288,6 +283,8 @@
 		}
 	});
 
+
+	// Font icon: Preview on sidebar
 	media.view.miFont.Icon.Preview = Backbone.View.extend({
 		tagName   : 'div',
 		className : 'mi-preview',
@@ -300,8 +297,8 @@
 		},
 
 		render: function() {
-			var model = this.model.toJSON();
-			model.title = menuIcons.currentItem.title;
+			var model   = this.model.toJSON();
+			model.title = this.controller.miGetCurrentItem().get('title');
 
 			this.$el.html( this.template( model ) );
 
@@ -368,6 +365,7 @@
 							else {
 								result = _.any(['id','label'], function( key ) {
 									var value = icon[key];
+
 									return value && -1 !== value.search( this );
 								}, term );
 							}
@@ -391,13 +389,13 @@
 			}
 		},
 
-		activate: function() {
+		activate : function() {
 			media.controller.State.prototype.activate.apply( this, arguments );
-			this.miUpdateSelection();
 			this.frame.on( 'open', this.miUpdateSelection, this );
+			this.miUpdateSelection();
 		},
 
-		deactivate: function() {
+		deactivate : function() {
 			media.controller.State.prototype.deactivate.apply( this, arguments );
 			this.frame.off( 'open', this.miUpdateSelection, this );
 		},
@@ -407,18 +405,19 @@
 
 			library.reInitialize();
 			this.set( 'library', library );
+			this.miUpdateSelection();
 		},
 
 		miUpdateSelection : function() {
 			var selection = this.get('selection');
-			var current   = menuIcons.currentItem;
+			var type      = this.get('type');
+			var key       = type+'-icon';
+			var item      = this.frame.miGetCurrentItem();
+			var icon      = item.get(key);
 			var selected;
 
-			if (
-				this.get('type') === current.type
-				&& ! _.isUndefined( current[ current.type+'-icon' ] )
-			) {
-				selected = this.get('library').where({id: current[ current.type+'-icon' ]});
+			if ( type === item.get('type') && icon ) {
+				selected = this.get('library').findWhere({id: icon});
 			}
 
 			selection.reset( selected ? selected : [] );
@@ -428,8 +427,6 @@
 
 	// Custom Frame
 	media.view.MediaFrame.menuIcons = media.view.MediaFrame.extend({
-		miMenuItems : {},
-
 		initialize : function() {
 			media.view.MediaFrame.prototype.initialize.apply( this, arguments );
 
@@ -441,7 +438,6 @@
 			});
 
 			this.miMenuItems = new media.model.miMenuItems;
-			this.miInitialize();
 			this.createStates();
 			this.bindHandlers();
 		},
@@ -493,18 +489,11 @@
 				priority : 80,
 				text     : menuIcons.text.select,
 				requires : {
-					selection: true
+					selection : true
 				},
 				click    : function() {
-					var selected = state.get('selection').single();
-					var args     = {
-						type : type,
-						icon : selected.id,
-					};
-					args[ type+'-icon' ] = selected.id;
-
 					frame.close();
-					frame.miUpdateItem( args );
+					frame.miUpdateItem();
 				}
 			});
 		},
@@ -547,25 +536,15 @@
 
 		miUpdateMenuItems : function() {
 			var item = this.miGetCurrentItem();
-			var icon = '';
 
 			if ( _.isUndefined( item ) ) {
 				this.miMenuItems.add( menuIcons.currentItem );
-				item = menuIcons.currentItem;
 			}
 			else {
-				item = item.toJSON();
+				item.set( menuIcons.currentItem );
 			}
 
-			if ( ! _.isUndefined( item[ item.type+'-icon' ] ) ) {
-				icon = item[ item.type+'-icon' ];
-			}
-
-			this.miMenuItems.props.set({
-				currentID : item.id,
-				type      : item.type,
-				icon      : icon
-			});
+			this.miMenuItems.props.set( 'item', menuIcons.currentItem.id );
 		},
 
 		miInitialize : function() {
@@ -573,21 +552,31 @@
 			this.setState( this.miGetState() );
 		},
 
-		miUpdateItem : function( args ) {
-			_.defaults( menuIcons.currentItem, args );
-			var id    = menuIcons.currentItem.id;
-			var field = media.template('menu-icons-'+ args.type +'-field');
+		miUpdateItemProps : function() {
+			var state     = this.state();
+			var type      = state.get('type');
+			var selection = state.get('selection');
+			var single    = selection.single();
+			var item      = this.miGetCurrentItem();
+			var icon      = single ? single.id : '';
 
-			_.each( args, function( value, key ) {
-				if ( 'icon' !== key ) {
-					$('#menu-icons-'+ id +'-'+ key).val(value).trigger('change');
-				}
+			item.set( type+'-icon', icon );
+		},
+
+		miUpdateItem : function() {
+			var attrs = this.miGetCurrentItem().toJSON();
+
+			var id    = attrs.id;
+			var field = media.template( 'menu-icons-'+ attrs.type +'-field' );
+
+			delete attrs.id;
+			delete attrs.title;
+
+			_.each( attrs, function( value, key ) {
+				$('#menu-icons-'+ id +'-'+ key).val(value).trigger('change');
 			});
 
-			args.id = args.icon;
-			delete args.icon;
-
-			$('#menu-icons-'+ id +'-select').html( field(args) );
+			$('#menu-icons-'+ id +'-select').html( field(attrs) );
 		}
 	});
 

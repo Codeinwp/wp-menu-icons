@@ -143,7 +143,7 @@ abstract class Menu_Icons_Type_Fonts extends Menu_Icons_Type {
 				esc_attr( $this->type )
 			),
 			'field' => sprintf(
-				'<i class="_icon %s {{ data.id }}"></i>',
+				'<i class="_icon %1$s {{ data["%1$s-icon"] }}"></i>',
 				esc_attr( $this->type )
 			),
 		);
