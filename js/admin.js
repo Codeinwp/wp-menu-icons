@@ -313,8 +313,7 @@
 			id      : 'mi-font',
 			menu    : 'default',
 			toolbar : 'mi-select',
-			type    : '',
-			group   : 'all'
+			type    : ''
 		},
 
 		initialize : function() {
@@ -323,7 +322,7 @@
 			if ( ! this.get('library') ) {
 				var Icons = Backbone.Collection.extend({
 					props : new Backbone.Model({
-						group  : state.get('group'),
+						group  : 'all',
 						search : ''
 					}),
 
@@ -391,20 +390,33 @@
 
 		activate : function() {
 			media.controller.State.prototype.activate.apply( this, arguments );
-			this.frame.on( 'open', this.miUpdateSelection, this );
+			this.frame.on( 'open', this.refresh, this );
 			this.miUpdateSelection();
 		},
 
 		deactivate : function() {
 			media.controller.State.prototype.deactivate.apply( this, arguments );
-			this.frame.off( 'open', this.miUpdateSelection, this );
+			this.frame.off( 'open', this.refresh, this );
+		},
+
+		refresh : function() {
+			var library = this.get('library');
+			var item    = this.frame.miGetCurrentItem();
+
+			library.props.set( 'group', item.get('group') );
+			this.miUpdateSelection();
 		},
 
 		miResetLibrary : function() {
 			var library = this.get('library');
+			var group   = library.props.get('group');
+			var item    = this.frame.miGetCurrentItem();
+
+			item.set( 'group', group );
 
 			library.reInitialize();
 			this.set( 'library', library );
+
 			this.miUpdateSelection();
 		},
 
@@ -538,7 +550,7 @@
 			var item = this.miGetCurrentItem();
 
 			if ( _.isUndefined( item ) ) {
-				this.miMenuItems.add( menuIcons.currentItem );
+				this.miMenuItems.add( _.extend({ group : 'all' }, menuIcons.currentItem ) );
 			}
 			else {
 				item.set( menuIcons.currentItem );
