@@ -32,12 +32,14 @@
 			var $type   = $(e.currentTarget);
 			var $wrapr  = $type.closest('div.menu-icons-wrap');
 			var $select = $wrapr.find('a._select');
+			var $remove = $wrapr.find('a._remove');
 
 			if ( '' !== $type.val() ) {
-				$select.siblings('a._remove').show();
+				$remove.show();
 			}
 			else {
 				$select.text( $select.data('text') );
+				$remove.hide();
 			}
 		},
 
@@ -70,10 +72,8 @@
 			e.preventDefault();
 			e.stopPropagation();
 
-			var $el = $(this);
-			var id  = $el.data('id');
+			var id = $(this).data('id');
 
-			$el.hide();
 			$('#menu-icons-'+ id +'-type').val('').trigger('change');
 		}
 	}, menuIcons);
