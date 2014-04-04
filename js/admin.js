@@ -402,8 +402,14 @@
 		refresh : function() {
 			var library = this.get('library');
 			var item    = this.frame.miGetCurrentItem();
+			var groups  = this.get('data').groups;
+			var group   = item.get('group');
 
-			library.props.set( 'group', item.get('group') );
+			if ( _.isUndefined( groups[ group ] ) ) {
+				group = 'all';
+			}
+
+			library.props.set( 'group', group );
 			this.miUpdateSelection();
 		},
 
