@@ -126,7 +126,7 @@ abstract class Menu_Icons_Type_Fonts extends Menu_Icons_Type {
 		$templates = array(
 			'item' => sprintf(
 				'<div class="attachment-preview">
-					<i class="_icon %s {{ data.id }}"></i>
+					<span class="_icon"><i class="%s {{ data.id }}"></i></span>
 					<div class="filename"><div>{{ data.label }}</div></div>
 					<a class="check" href="#" title="%s"><div class="media-modal-icon"></div></a>
 				</div>',

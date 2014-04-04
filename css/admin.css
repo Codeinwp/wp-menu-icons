@@ -6,15 +6,18 @@
 	display: inline-block;
 	min-width: 7em;
 }
-.menu-icons-wrap .easy label {
-	vertical-align: baseline;
+.menu-icons-wrap .easy p {
+	min-height: 2.2em;
+	margin-bottom: 0;
+}
+.menu-icons-wrap .easy p > * {
+	display: inline-block;
+	height: 100%;
+	vertical-align: middle;
 }
 .menu-icons-wrap .easy a {
 	cursor: pointer;
 	text-decoration: none;
-}
-.menu-icons-wrap .easy ._select {
-	padding: 0 .25em;
 }
 .menu-icons-wrap .easy img {
 	max-width: 40px;
@@ -23,10 +26,11 @@
 }
 .menu-icons-wrap ._icon {
 	color: #666;
-	font-size: 2em;
+	font-size: 1.9em;
 	width: auto;
 	height: auto;
 	vertical-align: bottom;
+	margin-top: -.1em;
 }
 
 .mi-items-wrap .mi-items {
@@ -38,18 +42,26 @@
 	text-align: center;
 }
 .mi-item ._icon {
-	margin-top: 10px;
+	display: inline-block;
+	margin-top: 8px;
+	color: #666;
+	height: 110px;
+}
+.mi-item ._icon i {
 	font-size: 80px;
 	width: 80px;
 	height: 80px;
-	vertical-align: top;
-	color: #666;
+	vertical-align: middle;
 }
 .menu-icons-wrap a._select:focus ._icon,
 .menu-icons-wrap a._select:hover ._icon,
 .mi-item:hover ._icon,
 .mi-item.selected ._icon {
 	color: #101010;
+}
+.mi-item .filename div {
+	line-height: 1.1;
+	padding: 8px 10px;
 }
 
 .mi-preview .menu-item {
