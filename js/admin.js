@@ -188,14 +188,16 @@
 		className : 'attachments mi-items clearfix',
 
 		initialize : function() {
-			this.collection.on( 'reset', this.refresh, this );
 			this._viewsByCid = {};
+			this.collection.on( 'reset', this.refresh, this );
+			this.controller.on( 'open', this.scrollToSelected, this );
 		},
 
 		render : function() {
 			this.collection.each( function( model ) {
-				var icon = this.renderItem( model );
-				this.views.add( icon );
+				this.views.add( this.renderItem( model ), {
+					at : this.collection.indexOf( model )
+				} );
 			}, this );
 
 			return this;
@@ -215,7 +217,7 @@
 		},
 
 		clearItems : function() {
-			_.each( this._viewsByCid, function( view, x ) {
+			_.each( this._viewsByCid, function( view ) {
 				delete this._viewsByCid[ view.cid ];
 				view.remove();
 			}, this );
@@ -225,6 +227,43 @@
 			this.clearItems();
 			this.render();
 		},
+
+		ready : function() {
+			this.scrollToSelected();
+		},
+
+		scrollToSelected : function() {
+			var single = this.options.selection.single();
+			var singleView;
+
+			if ( ! single ) {
+				return;
+			}
+
+			singleView = this.getView( single );
+			if ( singleView && ! this.isInView( singleView.$el ) ) {
+				this.$el.scrollTop(
+					singleView.$el.offset().top
+					- this.$el.offset().top
+					+ this.$el.scrollTop()
+					- parseInt( this.$el.css('paddingTop') )
+				);
+			}
+		},
+
+		getView : function( model ) {
+			return _.findWhere( this._viewsByCid, { model : model } );
+		},
+
+		isInView: function( $elem ) {
+			var $window       = $(window)
+			var docViewTop    = $window.scrollTop();
+			var docViewBottom = docViewTop + $window.height();
+			var elemTop       = $elem.offset().top;
+			var elemBottom    = elemTop + $elem.height();
+
+			return ((elemBottom <= docViewBottom) && (elemTop >= docViewTop));
+		}
 	});
 
 
@@ -271,7 +310,6 @@
 
 		initialize : function() {
 			this.template = media.template( 'menu-icons-' + this.options.type + '-item' );
-
 			media.view.Attachment.prototype.initialize.apply( this, arguments );
 		},
 
