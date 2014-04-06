@@ -10,8 +10,8 @@
 	'use strict';
 
 	$.inputDependencies({
-		selector: 'select.hasdep',
-		disable: false
+		selector : 'select.hasdep',
+		disable  : false
 	});
 
 	if ( 'undefined' === typeof menuIcons ) {
@@ -27,8 +27,6 @@
 		currentItem : {},
 
 		toggleSelect : function(e) {
-			e.stopPropagation();
-
 			var $type   = $(e.currentTarget);
 			var $wrapr  = $type.closest('div.menu-icons-wrap');
 			var $select = $wrapr.find('a._select');
@@ -87,7 +85,8 @@
 	// Font icon: Menu Items
 	media.model.miMenuItem = Backbone.Model.extend({
 		defaults : {
-			type  : ''
+			type     : '',
+			icon     : ''
 		}
 	});
 
@@ -96,6 +95,54 @@
 		props : new Backbone.Model({
 			item : ''
 		})
+	});
+
+
+	// All: Sidebar
+	media.view.miSidebar = media.view.Sidebar.extend({
+		initialize : function() {
+			media.view.Sidebar.prototype.initialize.apply( this, arguments );
+
+			this.createTitle();
+		},
+
+		createTitle : function() {
+			this.views.add( new media.view.miSidebar.Title );
+		},
+	});
+
+
+	// All: Sidebar title
+	media.view.miSidebar.Title = media.View.extend({
+		initialize : function() {
+			this.template = media.template( 'menu-icons-sidebar-title' );
+			media.View.prototype.initialize.apply( this, arguments );
+		}
+	});
+
+
+	// All: Settings
+	media.view.miSidebar.Settings = media.view.Settings.extend({
+		className : 'mi-settings',
+
+		initialize : function() {
+			this.template = media.template( 'menu-icons-settings' );
+			media.view.Settings.prototype.initialize.apply( this, arguments );
+		},
+
+		update: function( key ) {
+			media.view.Settings.prototype.update.apply( this, arguments );
+
+			var id     = this.model.id;
+			var value  = this.model.get( key );
+			var $field = $('#menu-icons-'+ id +'-'+ key);
+
+			// Bail if we didn't find a matching field.
+			if ( ! $field.length )
+				return;
+
+			$field.val( value ).trigger('change');
+		}
 	});
 
 
@@ -144,7 +191,7 @@
 		createSidebar : function() {
 			var options   = this.options;
 			var selection = options.selection;
-			var sidebar   = this.sidebar = new media.view.Sidebar({
+			var sidebar   = this.sidebar = new media.view.miSidebar({
 				controller : this.controller,
 				type       : options.type
 			});
@@ -160,24 +207,32 @@
 		},
 
 		createSingle : function() {
+			this.controller.miUpdateItemProps();
+
 			var sidebar = this.sidebar;
-			var single  = this.options.selection.single();
+			var item    = this.controller.miGetCurrentItem();
 
 			sidebar.set( 'details', new media.view.miFont.Icon.Preview({
 				controller : this.controller,
-				model      : single,
+				model      : item,
 				type       : this.options.type,
 				priority   : 80
 			}) );
 
-			this.controller.miUpdateItemProps();
+			sidebar.set( 'settings', new media.view.miSidebar.Settings({
+				controller : this.controller,
+				model      : item,
+				type       : this.options.type,
+				priority   : 120
+			}) );
 		},
 
 		disposeSingle : function() {
+			this.controller.miUpdateItemProps();
+
 			var sidebar = this.sidebar;
 			sidebar.unset('details');
-
-			this.controller.miUpdateItemProps();
+			sidebar.unset('settings');
 		}
 	});
 
@@ -322,26 +377,27 @@
 	});
 
 
-	// Font icon: Preview on sidebar
+	// Font icon: Preview
 	media.view.miFont.Icon.Preview = Backbone.View.extend({
-		tagName   : 'div',
-		className : 'mi-preview',
+		tagName   : 'p',
+		className : 'mi-preview menu-item',
 		events    : {
 			'click a' : 'preventDefault'
 		},
 
 		initialize : function() {
-			this.template = media.template( 'menu-icons-' + this.options.type + '-preview' );
+			this.model.on( 'change', this.render, this );
 		},
 
-		render: function() {
-			var model   = this.model.toJSON();
-			model.title = this.controller.miGetCurrentItem().get('title');
+		render : function() {
+			var data     = this.model.toJSON();
+			var template = 'menu-icons-' + this.options.type + '-preview-' + data.position;
 
-			this.$el.html( this.template( model ) );
+			this.template = media.template( template );
+			this.$el.html( this.template( data ) );
 
 			return this;
-		},
+		}
 	});
 
 
@@ -477,11 +533,17 @@
 			}
 
 			selection.reset( selected ? selected : [] );
+		},
+
+		miGetIcon : function() {
+			var single = this.get('selection').single();
+
+			return single ? single.id : '';
 		}
 	});
 
 
-	// Custom Frame
+	// Frame
 	media.view.MediaFrame.menuIcons = media.view.MediaFrame.extend({
 		initialize : function() {
 			media.view.MediaFrame.prototype.initialize.apply( this, arguments );
@@ -618,6 +680,7 @@
 
 			item.set( 'type', type );
 			item.set( type+'-icon', icon );
+			item.set( 'icon', state.miGetIcon() );
 		},
 
 		miUpdateItem : function() {

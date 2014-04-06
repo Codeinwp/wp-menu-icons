@@ -30,7 +30,7 @@
 	width: auto;
 	height: auto;
 	vertical-align: bottom;
-	margin-top: -.1em;
+	margin: -.1em .2em 0 .2em;
 }
 
 .mi-items-wrap .mi-items {
@@ -64,12 +64,12 @@
 	padding: 8px 10px;
 }
 
-.mi-preview .menu-item {
+.mi-preview.menu-item {
 	font-size: 1.2em;
 }
-.mi-preview .menu-item a {
+.mi-preview.menu-item a {
 	text-decoration: none;
 }
-.mi-preview .menu-item ._icon {
+.mi-preview.menu-item ._icon {
 	vertical-align: middle;
 }

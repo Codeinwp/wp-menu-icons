@@ -133,13 +133,12 @@ abstract class Menu_Icons_Type_Fonts extends Menu_Icons_Type {
 				esc_attr( $this->type ),
 				esc_attr__( 'Deselect', 'menu-icons' )
 			),
-			'preview' => sprintf(
-				'<h3>%s</h3>
-				<p class="menu-item">
-					<a href="#"><i class="_icon %s {{ data.id }}"></i> {{ data.title }}</a>
-				</p>
-				',
-				esc_html__( 'Preview', 'menu-icons' ),
+			'preview-before' => sprintf(
+				'<a href="#"><i class="_icon %s {{ data.icon }}"></i> {{ data.title }}</a>',
+				esc_attr( $this->type )
+			),
+			'preview-after' => sprintf(
+				'<a href="#">{{ data.title }} <i class="_icon %s {{ data.icon }}"></i></a>',
 				esc_attr( $this->type )
 			),
 			'field' => sprintf(
@@ -164,7 +163,14 @@ abstract class Menu_Icons_Type_Fonts extends Menu_Icons_Type {
 	 * @return string
 	 */
 	protected function add_icon( $title, $values ) {
-		$title = sprintf( '<i class="%s %s"></i>%s', $values['type'], $values[ $this->key ], $title );
+		$title = sprintf(
+			'%s<i class="_mi _%s %s %s"></i>%s',
+			'before' === $values['position'] ? '' : $title,
+			esc_attr( $values['position'] ),
+			esc_attr( $this->type ),
+			esc_attr( $values[ $this->key ] ),
+			'after' === $values['position'] ? '' : $title
+		);
 
 		return $title;
 	}

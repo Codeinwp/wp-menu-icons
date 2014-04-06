@@ -60,6 +60,18 @@ abstract class Menu_Icons_Type {
 	 */
 	protected $key;
 
+	/**
+	 * Holds icon positions
+	 *
+	 * @since  0.2.0
+	 * @access protected
+	 * @var    array
+	 */
+	protected $positions = array(
+		'before',
+		'after',
+	);
+
 
 	/**
 	 * Class constructor
@@ -192,6 +204,15 @@ abstract class Menu_Icons_Type {
 
 		if ( empty( $values[ $this->key ] ) ) {
 			return $title;
+		}
+
+		/**
+		 * Set icon position, defaults to 'before'
+		 *
+		 * @since 0.2.0
+		 */
+		if ( ! isset( $values['position'] ) || ! in_array( $values['position'], $this->positions ) ) {
+			$values['position'] = $this->positions[0];
 		}
 
 		$title = $this->add_icon( $title, $values );

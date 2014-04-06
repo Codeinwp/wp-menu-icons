@@ -198,8 +198,13 @@ final class Menu_Icons_Admin_Nav_Menus {
 					do_action( 'menu_icons_before_fields', $item, $depth, $args, $id );
 				?>
 				<?php
-					$input_id   = sprintf( 'menu-icons-%d-type', $item->ID );
-					$input_name = sprintf( 'menu-icons[%d][type]', $item->ID );
+					$input_id   = sprintf( 'menu-icons-%d', $item->ID );
+					$input_name = sprintf( 'menu-icons[%d]', $item->ID );
+					$positions  = array(
+						'before' => __( 'Before', 'menu-icons' ),
+						'after'  => __( 'After', 'menu-icons' ),
+					);
+					$type_ids   = array_values( array_filter( array_keys( self::_get_types() ) ) );
 				?>
 				<div class="easy">
 					<p class="description">
@@ -219,9 +224,9 @@ final class Menu_Icons_Admin_Nav_Menus {
 				</div>
 				<div class="original hidden">
 					<p class="description">
-						<label for="<?php echo esc_attr( $input_id ) ?>"><?php esc_html_e( 'Icon type', 'menu-icons' ); ?></label>
+						<label for="<?php echo esc_attr( $input_id ) ?>-type"><?php esc_html_e( 'Icon type', 'menu-icons' ); ?></label>
 						<?php printf(
-							'<select id="%s" name="%s" class="_type hasdep" data-dep-scope="div.menu-icons-wrap" data-dep-children=".field-icon-child" data-key="type">',
+							'<select id="%s-type" name="%s[type]" class="_type hasdep" data-dep-scope="div.menu-icons-wrap" data-dep-children=".field-icon-child" data-key="type">',
 							esc_attr( $input_id ),
 							esc_attr( $input_name )
 						) ?>
@@ -240,6 +245,23 @@ final class Menu_Icons_Admin_Nav_Menus {
 							<?php call_user_func_array( $props['field_cb'], array( $item->ID, $current ) ); ?>
 						<?php endif; ?>
 					<?php endforeach; ?>
+					<p class="description field-icon-child" data-dep-on='<?php echo json_encode( $type_ids ) ?>'>
+						<label for="<?php echo esc_attr( $input_id ) ?>-position"><?php esc_html_e( 'Position', 'menu-icons' ); ?></label>
+						<?php printf(
+							'<select id="%s-position" name="%s[position]" data-key="position">',
+							esc_attr( $input_id ),
+							esc_attr( $input_name )
+						) ?>
+							<?php foreach ( $positions as $value => $label ) : ?>
+								<?php printf(
+									'<option value="%s"%s>%s</option>',
+									esc_attr( $value ),
+									selected( ( isset( $current['position'] ) && $value === $current['position'] ), true, false ),
+									esc_html( $label )
+								) ?>
+							<?php endforeach; ?>
+						</select>
+					</p>
 				</div>
 				<?php
 					/**
@@ -317,19 +339,65 @@ final class Menu_Icons_Admin_Nav_Menus {
 	}
 
 
+	/**
+	 * Get and print media templates from all types
+	 *
+	 * @since 0.2.0
+	 * @wp_hook action print_media_templates
+	 */
 	public static function _media_templates() {
-		foreach ( self::_get_types() as $type => $props ) :
-			if ( ! empty( $props['templates'] ) && ! empty( $props['templates'] ) ) :
-				$prefix = sprintf( 'tmpl-menu-icons-%s', $type );
-				foreach ( $props['templates'] as $key => $template ) :
-					$id = sprintf( '%s-%s', $prefix, $key );
-					?>
-					<script type="text/html" id="<?php echo esc_attr( $id ) ?>">
-						<?php echo $template ?>
-					</script>
-					<?php
-				endforeach;
-			endif;
-		endforeach;
+		$id_prefix = 'tmpl-menu-icons';
+
+		// Common templates
+		$templates = array(
+			'sidebar-title' => sprintf(
+				'<h3>%s</h3>',
+				esc_html__( 'Preview', 'menu-icons' )
+			),
+			'settings' => sprintf(
+				'<label class="setting" data-setting="position">
+					<span>%1$s</span>
+					<select data-setting="position">
+						<option value="before">%2$s</option>
+						<option value="after">%3$s</option>
+					</select>
+				</label>',
+				esc_html__( 'Position', 'menu-icons' ),
+				esc_html__( 'Before', 'menu-icons' ),
+				esc_html__( 'After', 'menu-icons' )
+			),
+		);
+		$templates = apply_filters( 'menu_icons_media_templates', $templates );
+
+		foreach ( $templates as $key => $template ) {
+			$id = sprintf( '%s-%s', $id_prefix, $key );
+			self::_print_tempate( $id, $template );
+		}
+
+		// Icon type templates
+		foreach ( self::_get_types() as $type => $props ) {
+			if ( ! empty( $props['templates'] ) ) {
+				foreach ( $props['templates'] as $key => $template ) {
+					$id = sprintf( '%s-%s-%s', $id_prefix, $type, $key );
+					self::_print_tempate( $id, $template );
+				}
+			}
+		}
+	}
+
+
+	/**
+	 * Print media template
+	 *
+	 * @since 0.2.0
+	 * @param string $id       Template ID
+	 * @param string $template Media template HTML
+	 */
+	protected static function _print_tempate( $id, $template ) {
+		?>
+			<script type="text/html" id="<?php echo esc_attr( $id ) ?>">
+				<?php echo $template ?>
+			</script>
+		<?php
 	}
 }

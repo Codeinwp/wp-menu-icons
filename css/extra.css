@@ -1,25 +1,21 @@
-.menu .dashicons,
-.nav-menu .dashicons,
-.menu .genericon,
-.nav-menu .genericon {
+.menu i._mi,
+.nav-menu i._mi {
 	vertical-align: middle;
 	margin-top: -.265em;
 	width: auto;
 	height: auto;
 	font-size: 1.2em;
-	margin-right: .25em;
 	line-height: 1;
 }
-.menu .dashicons,
-.nav-menu .dashicons {
+.menu i._before,
+.nav-menu i._before {
+	margin-right: .25em;
 }
-.menu .genericon,
-.nav-menu .genericon {
+.menu i._after,
+.nav-menu i._after{
+	margin-left: .25em;
 }
-.menu-item img {
-	vertical-align: middle;
-	margin: -.265em .25em 0 0;
-}
+
 
 /**
  * Force the icons' styles
