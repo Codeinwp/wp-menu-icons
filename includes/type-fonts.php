@@ -123,7 +123,19 @@ abstract class Menu_Icons_Type_Fonts extends Menu_Icons_Type {
 	 * @return array
 	 */
 	public function templates() {
+		$icon = sprintf(
+			'<i class="_icon %s {{ data.icon }}" style="
+				font-size:{{ data.size }}em;
+				vertical-align:{{ data["vertical-align"] }};
+			"></i>',
+			esc_attr( $this->type )
+		);
+
 		$templates = array(
+			'field' => sprintf(
+				'<i class="_icon %1$s {{ data["%1$s-icon"] }}"></i>',
+				esc_attr( $this->type )
+			),
 			'item' => sprintf(
 				'<div class="attachment-preview">
 					<span class="_icon"><i class="%s {{ data.id }}"></i></span>
@@ -134,16 +146,12 @@ abstract class Menu_Icons_Type_Fonts extends Menu_Icons_Type {
 				esc_attr__( 'Deselect', 'menu-icons' )
 			),
 			'preview-before' => sprintf(
-				'<a href="#"><i class="_icon %s {{ data.icon }}"></i> {{ data.title }}</a>',
-				esc_attr( $this->type )
+				'<a href="#">%s {{ data.title }}</a>',
+				$icon
 			),
 			'preview-after' => sprintf(
-				'<a href="#">{{ data.title }} <i class="_icon %s {{ data.icon }}"></i></a>',
-				esc_attr( $this->type )
-			),
-			'field' => sprintf(
-				'<i class="_icon %1$s {{ data["%1$s-icon"] }}"></i>',
-				esc_attr( $this->type )
+				'<a href="#">{{ data.title }} %s</i></a>',
+				$icon
 			),
 		);
 
@@ -164,14 +172,40 @@ abstract class Menu_Icons_Type_Fonts extends Menu_Icons_Type {
 	 */
 	protected function add_icon( $title, $values ) {
 		$title = sprintf(
-			'%s<i class="_mi _%s %s %s"></i>%s',
+			'%s<i class="_mi _%s %s %s"%s></i>%s',
 			'before' === $values['position'] ? '' : $title,
 			esc_attr( $values['position'] ),
 			esc_attr( $this->type ),
 			esc_attr( $values[ $this->key ] ),
+			$this->get_style( $values ),
 			'after' === $values['position'] ? '' : $title
 		);
 
 		return $title;
+	}
+
+
+	/**
+	 * Inline style for icon size, etc
+	 *
+	 * @since  0.2.0
+	 * @param  array  $values Menu item metadata value
+	 * @return string
+	 */
+	protected function get_style( $values ) {
+		$style = '';
+
+		if ( ! empty( $values['size'] ) ) {
+			$style .= sprintf( 'font-size:%sem;', $values['size'] );
+		}
+		if ( ! empty( $values['vertical-align'] ) ) {
+			$style .= sprintf( 'vertical-align:%s;', $values['vertical-align'] );
+		}
+
+		if ( ! empty( $style ) ) {
+			$style = sprintf( ' style="%s"', $style );
+		}
+
+		return $style;
 	}
 }

@@ -85,8 +85,10 @@
 	// Font icon: Menu Items
 	media.model.miMenuItem = Backbone.Model.extend({
 		defaults : {
-			type     : '',
-			icon     : ''
+			type             : '',
+			icon             : '',
+			size             : '',
+			'vertical-align' : ''
 		}
 	});
 
@@ -123,11 +125,16 @@
 
 	// All: Settings
 	media.view.miSidebar.Settings = media.view.Settings.extend({
-		className : 'mi-settings',
+		className : 'mi-settings attachment-info',
 
 		initialize : function() {
 			this.template = media.template( 'menu-icons-settings' );
 			media.view.Settings.prototype.initialize.apply( this, arguments );
+		},
+
+		render : function() {
+			this.$el.html( this.template( this.model.toJSON() ) );
+			return this;
 		},
 
 		update: function( key ) {
@@ -211,6 +218,11 @@
 
 			var sidebar = this.sidebar;
 			var item    = this.controller.miGetCurrentItem();
+			var size    = parseInt( item.get('size') );
+
+			if ( '' === size || isNaN(size) || size < 0 ) {
+				item.set( 'size', 1 );
+			}
 
 			sidebar.set( 'details', new media.view.miFont.Icon.Preview({
 				controller : this.controller,
@@ -380,7 +392,7 @@
 	// Font icon: Preview
 	media.view.miFont.Icon.Preview = Backbone.View.extend({
 		tagName   : 'p',
-		className : 'mi-preview menu-item',
+		className : 'mi-preview menu-item attachment-info',
 		events    : {
 			'click a' : 'preventDefault'
 		},

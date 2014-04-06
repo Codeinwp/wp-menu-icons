@@ -200,11 +200,24 @@ final class Menu_Icons_Admin_Nav_Menus {
 				<?php
 					$input_id   = sprintf( 'menu-icons-%d', $item->ID );
 					$input_name = sprintf( 'menu-icons[%d]', $item->ID );
-					$positions  = array(
-						'before' => __( 'Before', 'menu-icons' ),
-						'after'  => __( 'After', 'menu-icons' ),
-					);
 					$type_ids   = array_values( array_filter( array_keys( self::_get_types() ) ) );
+					$choices    = array(
+						'positions'      => array(
+							'before' => __( 'Before', 'menu-icons' ),
+							'after'  => __( 'After', 'menu-icons' ),
+						),
+						'vertical-align' => array(
+							''            => __( '&ndash; Select &ndash;', 'menu-icons' ),
+							'super'       => __( 'Super', 'menu-icons' ),
+							'top'         => __( 'Top', 'menu-icons' ),
+							'text-top'    => __( 'Text Top', 'menu-icons' ),
+							'middle'      => __( 'Middle', 'menu-icons' ),
+							'baseline'    => __( 'Baseline', 'menu-icons' ),
+							'text-bottom' => __( 'Text Bottom', 'menu-icons' ),
+							'bottom'      => __( 'Bottom', 'menu-icons' ),
+							'sub'         => __( 'Sub', 'menu-icons' ),
+						),
+					);
 				?>
 				<div class="easy">
 					<p class="description">
@@ -252,11 +265,37 @@ final class Menu_Icons_Admin_Nav_Menus {
 							esc_attr( $input_id ),
 							esc_attr( $input_name )
 						) ?>
-							<?php foreach ( $positions as $value => $label ) : ?>
+							<?php foreach ( $choices['positions'] as $value => $label ) : ?>
 								<?php printf(
 									'<option value="%s"%s>%s</option>',
 									esc_attr( $value ),
 									selected( ( isset( $current['position'] ) && $value === $current['position'] ), true, false ),
+									esc_html( $label )
+								) ?>
+							<?php endforeach; ?>
+						</select>
+					</p>
+					<p class="description field-icon-child" data-dep-on='<?php echo json_encode( $type_ids ) ?>'>
+						<label for="<?php echo esc_attr( $input_id ) ?>-size"><?php esc_html_e( 'Size', 'menu-icons' ); ?></label>
+						<?php printf(
+							'<input type="text" id="%s-size" name="%s[size]" data-key="size" value="%s">',
+							esc_attr( $input_id ),
+							esc_attr( $input_name ),
+							isset( $current['size'] ) ? $current['size'] : ''
+						) ?>
+					</p>
+					<p class="description field-icon-child" data-dep-on='<?php echo json_encode( $type_ids ) ?>'>
+						<label for="<?php echo esc_attr( $input_id ) ?>-vertical-align"><?php esc_html_e( 'Vertical Align', 'menu-icons' ); ?></label>
+						<?php printf(
+							'<select id="%s-vertical-align" name="%s[vertical-align]" data-key="vertical-align">',
+							esc_attr( $input_id ),
+							esc_attr( $input_name )
+						) ?>
+							<?php foreach ( $choices['vertical-align'] as $value => $label ) : ?>
+								<?php printf(
+									'<option value="%s"%s>%s</option>',
+									esc_attr( $value ),
+									selected( ( isset( $current['vertical-align'] ) && $value === $current['vertical-align'] ), true, false ),
 									esc_html( $label )
 								) ?>
 							<?php endforeach; ?>
@@ -355,16 +394,48 @@ final class Menu_Icons_Admin_Nav_Menus {
 				esc_html__( 'Preview', 'menu-icons' )
 			),
 			'settings' => sprintf(
-				'<label class="setting" data-setting="position">
+				'<label class="setting">
 					<span>%1$s</span>
 					<select data-setting="position">
 						<option value="before">%2$s</option>
 						<option value="after">%3$s</option>
 					</select>
-				</label>',
+				</label>
+				<label class="setting">
+					<span>%4$s</span>
+					<input type="number" min="0.1" step="0.1" data-setting="size" value="{{ data.size }}" />
+					em
+				</label>
+				<label class="setting">
+					<span>%5$s</span>
+					<select data-setting="vertical-align">
+						<option value="">%6$s</option>
+						<option value="super">%7$s</option>
+						<option value="top">%8$s</option>
+						<option value="text-top">%9$s</option>
+						<option value="middle">%10$s</option>
+						<option value="baseline">%11$s</option>
+						<option value="text-bottom">%12$s</option>
+						<option value="bottom">%13$s</option>
+						<option value="sub">%14$s</option>
+					</select>
+				</label>
+				<p class="_info"><em>%15$s</em></p>',
 				esc_html__( 'Position', 'menu-icons' ),
 				esc_html__( 'Before', 'menu-icons' ),
-				esc_html__( 'After', 'menu-icons' )
+				esc_html__( 'After', 'menu-icons' ),
+				esc_html__( 'Size', 'menu-icons' ),
+				esc_html__( 'Vertical Align', 'menu-icons' ),
+				esc_html__( '&ndash; Select &ndash;', 'menu-icons' ),
+				esc_html__( 'Super', 'menu-icons' ),
+				esc_html__( 'Top', 'menu-icons' ),
+				esc_html__( 'Text Top', 'menu-icons' ),
+				esc_html__( 'Middle', 'menu-icons' ),
+				esc_html__( 'Baseline', 'menu-icons' ),
+				esc_html__( 'Bottom', 'menu-icons' ),
+				esc_html__( 'Text Bottom', 'menu-icons' ),
+				esc_html__( 'Sub', 'menu-icons' ),
+				esc_html__( "Please note that the actual look of the icons on the front-end will also be affected by your active theme's style.", 'menu-icons')
 			),
 		);
 		$templates = apply_filters( 'menu_icons_media_templates', $templates );
