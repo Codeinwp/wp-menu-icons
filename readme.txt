@@ -37,11 +37,12 @@ Development of this plugin is done on [GitHub](https://github.com/kucrut/wp-menu
 
 
 == Screenshots ==
-1. Icon selection
-2. Twenty Fourteen with Dashicons
-3. Twenty Fourteen with Genericons
-4. Twenty Thirteen with Dashicons
-5. Twenty Thirteen with Genericons
+1. Menu Editor
+2. Icon selection
+3. Twenty Fourteen with Dashicons
+4. Twenty Fourteen with Genericons
+5. Twenty Thirteen with Dashicons
+6. Twenty Thirteen with Genericons
 
 
 == Installation ==

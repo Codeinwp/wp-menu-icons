@@ -37,25 +37,29 @@ Development of this plugin is done on [GitHub](https://github.com/kucrut/wp-menu
 
 ## Screenshots ##
 
+### Menu Editor
+
+![Menu Editor](assets/screenshot-1.png)
+
 ### Icon selection
 
-![Icon selection](assets/screenshot-1.png)
+![Icon selection](assets/screenshot-2.png)
 
 ### Twenty Fourteen with Dashicons
 
-![Twenty Fourteen with Dashicons](assets/screenshot-2.png)
+![Twenty Fourteen with Dashicons](assets/screenshot-3.png)
 
 ### Twenty Fourteen with Genericons
 
-![Twenty Fourteen with Genericons](assets/screenshot-3.png)
+![Twenty Fourteen with Genericons](assets/screenshot-4.png)
 
 ### Twenty Thirteen with Dashicons
 
-![Twenty Thirteen with Dashicons](assets/screenshot-4.png)
+![Twenty Thirteen with Dashicons](assets/screenshot-5.png)
 
 ### Twenty Thirteen with Genericons
 
-![Twenty Thirteen with Genericons](assets/screenshot-5.png)
+![Twenty Thirteen with Genericons](assets/screenshot-6.png)
 
 ## Installation ##
 
