@@ -134,11 +134,13 @@
 
 		render : function() {
 			this.$el.html( this.template( this.model.toJSON() ) );
+			_( this.model.attributes ).chain().keys().each( this.update, this );
+
 			return this;
 		},
 
 		update: function( key ) {
-			media.view.Settings.prototype.update.apply( this, arguments );
+			media.view.Settings.prototype.update.call( this, key );
 
 			var id     = this.model.id;
 			var value  = this.model.get( key );
@@ -218,11 +220,6 @@
 
 			var sidebar = this.sidebar;
 			var item    = this.controller.miGetCurrentItem();
-			var size    = parseInt( item.get('size') );
-
-			if ( '' === size || isNaN(size) || size < 0 ) {
-				item.set( 'size', 1 );
-			}
 
 			sidebar.set( 'details', new media.view.miFont.Icon.Preview({
 				controller : this.controller,
@@ -231,7 +228,7 @@
 				priority   : 80
 			}) );
 
-			sidebar.set( 'settings', new media.view.miSidebar.Settings({
+			sidebar.set( 'display', new media.view.miSidebar.Settings({
 				controller : this.controller,
 				model      : item,
 				type       : this.options.type,
@@ -244,7 +241,7 @@
 
 			var sidebar = this.sidebar;
 			sidebar.unset('details');
-			sidebar.unset('settings');
+			sidebar.unset('display');
 		}
 	});
 
