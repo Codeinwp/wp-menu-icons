@@ -127,7 +127,7 @@ final class Menu_Icons {
 		$builtin_types = array(
 			'dashicons',
 			'genericons',
-			//'image',
+			'fontawesome',
 		);
 
 		foreach ( $builtin_types as $type ) {
