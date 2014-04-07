@@ -261,7 +261,7 @@ final class Menu_Icons_Admin_Nav_Menus {
 					<p class="description field-icon-child" data-dep-on='<?php echo json_encode( $type_ids ) ?>'>
 						<label for="<?php echo esc_attr( $input_id ) ?>-position"><?php esc_html_e( 'Position', 'menu-icons' ); ?></label>
 						<?php printf(
-							'<select id="%s-position" name="%s[position]" data-key="position">',
+							'<select class="_setting" id="%s-position" name="%s[position]" data-key="position">',
 							esc_attr( $input_id ),
 							esc_attr( $input_name )
 						) ?>
@@ -278,7 +278,7 @@ final class Menu_Icons_Admin_Nav_Menus {
 					<p class="description field-icon-child" data-dep-on='<?php echo json_encode( $type_ids ) ?>'>
 						<label for="<?php echo esc_attr( $input_id ) ?>-size"><?php esc_html_e( 'Size', 'menu-icons' ); ?></label>
 						<?php printf(
-							'<input type="text" id="%s-size" name="%s[size]" data-key="size" value="%s">',
+							'<input class="_setting" type="text" id="%s-size" name="%s[size]" data-key="size" value="%s">',
 							esc_attr( $input_id ),
 							esc_attr( $input_name ),
 							isset( $current['size'] ) ? $current['size'] : ''
@@ -287,7 +287,7 @@ final class Menu_Icons_Admin_Nav_Menus {
 					<p class="description field-icon-child" data-dep-on='<?php echo json_encode( $type_ids ) ?>'>
 						<label for="<?php echo esc_attr( $input_id ) ?>-vertical-align"><?php esc_html_e( 'Vertical Align', 'menu-icons' ); ?></label>
 						<?php printf(
-							'<select id="%s-vertical-align" name="%s[vertical-align]" data-key="vertical-align">',
+							'<select class="_setting" id="%s-vertical-align" name="%s[vertical-align]" data-key="vertical-align">',
 							esc_attr( $input_id ),
 							esc_attr( $input_name )
 						) ?>
@@ -435,7 +435,10 @@ final class Menu_Icons_Admin_Nav_Menus {
 				esc_html__( 'Bottom', 'menu-icons' ),
 				esc_html__( 'Text Bottom', 'menu-icons' ),
 				esc_html__( 'Sub', 'menu-icons' ),
-				esc_html__( "Please note that the actual look of the icons on the front-end will also be affected by your active theme's style.", 'menu-icons')
+				sprintf(
+					esc_html__( "Please note that the actual look of the icons on the front-end will also be affected by your active theme's style. You can use %s if you need to override it.", 'menu-icons'),
+					'<a target="_blank" href="http://wordpress.org/plugins/simple-custom-css/">Simple Custom CSS</a>'
+				)
 			),
 		);
 		$templates = apply_filters( 'menu_icons_media_templates', $templates );

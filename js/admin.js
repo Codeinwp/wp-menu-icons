@@ -142,7 +142,7 @@
 
 			var id     = this.model.id;
 			var value  = this.model.get( key );
-			var $field = $('#menu-icons-'+ id +'-'+ key);
+			var $field = $('#menu-icons-'+ id +'-'+ key +'._setting');
 
 			// Bail if we didn't find a matching field.
 			if ( ! $field.length )
@@ -697,15 +697,18 @@
 
 		miUpdateItem : function() {
 			var attrs = this.miGetCurrentItem().toJSON();
-
 			var id    = attrs.id;
 			var field = media.template( 'menu-icons-'+ attrs.type +'-field' );
+			var $el;
 
 			delete attrs.id;
 			delete attrs.title;
 
 			_.each( attrs, function( value, key ) {
-				$('#menu-icons-'+ id +'-'+ key).val(value).trigger('change');
+				$el = $('#menu-icons-'+ id +'-'+ key).not('._setting');
+				if ( $el.length ) {
+					$el.val( value ).trigger('change');
+				}
 			});
 
 			$('#menu-icons-'+ id +'-select').html( field(attrs) );
