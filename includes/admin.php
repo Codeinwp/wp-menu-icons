@@ -96,7 +96,7 @@ final class Menu_Icons_Admin_Nav_Menus {
 
 		wp_enqueue_style(
 			'menu-icons',
-			Menu_Icons::get( 'url' ) . 'css/admin.css',
+			Menu_Icons::get( 'url' ) . 'css/admin' . Menu_Icons::get_script_suffix() . '.css',
 			false,
 			Menu_Icons::VERSION
 		);
@@ -106,11 +106,12 @@ final class Menu_Icons_Admin_Nav_Menus {
 
 		wp_register_script(
 			'kucrut-jquery-input-dependencies',
-			Menu_Icons::get( 'url' ) . 'js/input-dependencies.js',
+			Menu_Icons::get( 'url' ) . 'js/input-dependencies' . Menu_Icons::get_script_suffix() . '.js',
 			array( 'jquery' ),
 			'0.1.0',
 			true
 		);
+		// TODO: WHY U NO WANT MINIFY?
 		wp_enqueue_script(
 			'menu-icons',
 			Menu_Icons::get( 'url' ) . 'js/admin.js',

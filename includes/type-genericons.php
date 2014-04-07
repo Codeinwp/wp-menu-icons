@@ -55,7 +55,12 @@ class Menu_Icons_Type_Genericons extends Menu_Icons_Type_Fonts {
 	 * @return array
 	 */
 	public function __construct() {
-		$this->stylesheet = Menu_Icons::get( 'url' ) . 'css/genericons.css';
+		$this->stylesheet = sprintf(
+			'%scss/genericons%s.css',
+			Menu_Icons::get( 'url' ),
+			Menu_Icons::get_script_suffix()
+		);
+
 		parent::__construct();
 	}
 
