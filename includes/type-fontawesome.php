@@ -72,7 +72,7 @@ class Menu_Icons_Type_Fontawesome extends Menu_Icons_Type_Fonts {
 	 * @return array
 	 */
 	public function get_names() {
-				return array (
+		return array(
 			array(
 				'key'   => 'web-application',
 				'label' => __( 'Web Application', 'menu-icons' ),
@@ -346,7 +346,7 @@ class Menu_Icons_Type_Fontawesome extends Menu_Icons_Type_Fonts {
 					'fa-copy'          => __( 'Copy', 'menu-icons' ),
 					'fa-cut'           => __( 'Cut', 'menu-icons' ),
 					'fa-paste'         => __( 'Paste', 'menu-icons' ),
- 					'fa-eraser'        => __( 'Eraser', 'menu-icons' ),
+					'fa-eraser'        => __( 'Eraser', 'menu-icons' ),
 					'fa-file'          => __( 'File', 'menu-icons' ),
 					'fa-file-o'        => __( 'File (o)', 'menu-icons' ),
 					'fa-file-text'     => __( 'File Text', 'menu-icons' ),

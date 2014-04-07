@@ -7,7 +7,7 @@ Easily add icons to your nav menu items.
 **Tags:** [menu](http://wordpress.org/plugins/tags/menu), [nav-menu](http://wordpress.org/plugins/tags/nav-menu), [icons](http://wordpress.org/plugins/tags/icons), [navigation](http://wordpress.org/plugins/tags/navigation)  
 **Requires at least:** 3.8  
 **Tested up to:** 3.8.1  
-**Stable tag:** 0.1.5  
+**Stable tag:** 0.2.0  
 **License:** [GPLv2](http://www.gnu.org/licenses/gpl-2.0.html)  
 **Donate Link:** http://kucrut.org/#coffee  
 
@@ -22,14 +22,15 @@ Easily add icons to your nav menu items.
 
 ### Currently supported icon types ###
 - Dashicons (WordPress core icon fonts)
+- [Font awesome](http://fortawesome.github.io/Font-Awesome/)
 - [Genericons](http://genericons.com/) by [Automattic](http://automattic.com/)
 
 ### Planned supported icon types ###
-- [Font awesome](http://fortawesome.github.io/Font-Awesome/)
 - Image (attachment file & URL)
 
 ### Planned features ###
-1. Provide modal popup that displays the icons for selection
+1. Provide menus preview on the front end
+1. Provide setting page
 
 Development of this plugin is done on [GitHub](https://github.com/kucrut/wp-menu-icons). **Pull requests welcome**. Please see [issues reported](https://github.com/kucrut/wp-menu-icons/issues) there before going to the plugin forum.
 
@@ -70,6 +71,9 @@ Make sure that your active theme is using the default walker for displaying the 
 If you're comfortable with editing your theme stylesheet, then you can override the styles from there.
 Otherwise, I recommend you to use the [Simple Custom CSS plugin](http://wordpress.org/plugins/simple-custom-css/)
 
+### Some font icons are not rendering correctly ###
+This is a bug with the font icon itself. When the font is updated, this plugin will update its font too.
+
 ### Is this plugin extendable? ###
 **Certainly!** Here's how you can remove an icon type from your plugin/theme:
 ```php
@@ -93,6 +97,10 @@ add_filter( 'menu_icons_load_extra_style', '__return_false' );
 
 
 ## Changelog ##
+
+### 0.2.0 ###
+* Media frame for icon selection
+* New font icon: Font Awesome
 
 ### 0.1.5 ###
 * Invisible, but important fixes and improvements

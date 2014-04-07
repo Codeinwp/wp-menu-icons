@@ -437,7 +437,7 @@ final class Menu_Icons_Admin_Nav_Menus {
 				esc_html__( 'Text Bottom', 'menu-icons' ),
 				esc_html__( 'Sub', 'menu-icons' ),
 				sprintf(
-					esc_html__( "Please note that the actual look of the icons on the front-end will also be affected by your active theme's style. You can use %s if you need to override it.", 'menu-icons'),
+					esc_html__( "Please note that the actual look of the icons on the front-end will also be affected by your active theme's style. You can use %s if you need to override it.", 'menu-icons' ),
 					'<a target="_blank" href="http://wordpress.org/plugins/simple-custom-css/">Simple Custom CSS</a>'
 				)
 			),
@@ -471,7 +471,7 @@ final class Menu_Icons_Admin_Nav_Menus {
 	protected static function _print_tempate( $id, $template ) {
 		?>
 			<script type="text/html" id="<?php echo esc_attr( $id ) ?>">
-				<?php echo $template ?>
+				<?php echo $template // xss ok ?>
 			</script>
 		<?php
 	}
