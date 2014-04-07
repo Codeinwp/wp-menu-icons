@@ -54,6 +54,7 @@ class Menu_Icons_Type_Dashicons extends Menu_Icons_Type_Fonts {
 	public function get_names() {
 		return array(
 			array(
+				'key'   => 'admin',
 				'label' => __( 'Admin', 'menu-icons' ),
 				'items' => array(
 					'dashicons-admin-appearance' => __( 'Appearance', 'menu-icons' ),
@@ -74,6 +75,7 @@ class Menu_Icons_Type_Dashicons extends Menu_Icons_Type_Fonts {
 				),
 			),
 			array(
+				'key'   => 'post-formats',
 				'label' => __( 'Post Formats', 'menu-icons' ),
 				'items' => array(
 					'dashicons-format-standard' => __( 'Standard', 'menu-icons' ),
@@ -89,6 +91,7 @@ class Menu_Icons_Type_Dashicons extends Menu_Icons_Type_Fonts {
 				),
 			),
 			array(
+				'key'   => 'welcome-screen',
 				'label' => __( 'Welcome Screen', 'menu-icons' ),
 				'items' => array(
 					'dashicons-welcome-add-page'      => __( 'Add page', 'menu-icons' ),
@@ -101,6 +104,7 @@ class Menu_Icons_Type_Dashicons extends Menu_Icons_Type_Fonts {
 				),
 			),
 			array(
+				'key'   => 'edit',
 				'label' => __( 'Edit', 'menu-icons' ),
 				'items' => array(
 					'dashicons-image-crop'            => __( 'Crop', 'menu-icons' ),
@@ -113,6 +117,7 @@ class Menu_Icons_Type_Dashicons extends Menu_Icons_Type_Fonts {
 				),
 			),
 			array(
+				'key'   => 'editor',
 				'label' => __( 'Editor', 'menu-icons' ),
 				'items' => array(
 					'dashicons-editor-bold'             => __( 'Bold', 'menu-icons' ),
@@ -144,6 +149,7 @@ class Menu_Icons_Type_Dashicons extends Menu_Icons_Type_Fonts {
 				),
 			),
 			array(
+				'key'   => 'post',
 				'label' => __( 'Post', 'menu-icons' ),
 				'items' => array(
 					'dashicons-align-left'   => __( 'Align Left', 'menu-icons' ),
@@ -160,6 +166,7 @@ class Menu_Icons_Type_Dashicons extends Menu_Icons_Type_Fonts {
 				),
 			),
 			array(
+				'key'   => 'sorting',
 				'label' => __( 'Sorting', 'menu-icons' ),
 				'items' => array(
 					'dashicons-arrow-up'         => __( 'Arrow: Up', 'menu-icons' ),
@@ -181,6 +188,7 @@ class Menu_Icons_Type_Dashicons extends Menu_Icons_Type_Fonts {
 				),
 			),
 			array(
+				'key'   => 'social',
 				'label' => __( 'Social', 'menu-icons' ),
 				'items' => array(
 					'dashicons-share'        => __( 'Share', 'menu-icons' ),
@@ -198,6 +206,7 @@ class Menu_Icons_Type_Dashicons extends Menu_Icons_Type_Fonts {
 				),
 			),
 			array(
+				'key'   => 'jobs',
 				'label' => __( 'Jobs', 'menu-icons' ),
 				'items' => array(
 					'dashicons-art'         => __( 'Art', 'menu-icons' ),
@@ -207,6 +216,7 @@ class Menu_Icons_Type_Dashicons extends Menu_Icons_Type_Fonts {
 				),
 			),
 			array(
+				'key'   => 'products',
 				'label' => __( 'Internal/Products', 'menu-icons' ),
 				'items' => array(
 					'dashicons-wordpress'     => 'WordPress',
@@ -222,6 +232,7 @@ class Menu_Icons_Type_Dashicons extends Menu_Icons_Type_Fonts {
 				),
 			),
 			array(
+				'key'   => 'taxonomies',
 				'label' => __( 'Taxonomies', 'menu-icons' ),
 				'items' => array(
 					'dashicons-tag'      => __( 'Tag', 'menu-icons' ),
@@ -229,6 +240,7 @@ class Menu_Icons_Type_Dashicons extends Menu_Icons_Type_Fonts {
 				),
 			),
 			array(
+				'key'   => 'alerts',
 				'label' => __( 'Alerts/Notifications', 'menu-icons' ),
 				'items' => array(
 					'dashicons-yes'         => __( 'Yes', 'menu-icons' ),
@@ -245,6 +257,7 @@ class Menu_Icons_Type_Dashicons extends Menu_Icons_Type_Fonts {
 				),
 			),
 			array(
+				'key'   => 'misc',
 				'label' => __( 'Misc./Post Types', 'menu-icons' ),
 				'items' => array(
 					'dashicons-location'     => __( 'Location', 'menu-icons' ),

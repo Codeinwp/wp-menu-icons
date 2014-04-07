@@ -99,13 +99,11 @@ abstract class Menu_Icons_Type_Fonts extends Menu_Icons_Type {
 		);
 
 		foreach ( $this->get_names() as $group ) {
-			$key = sanitize_title_with_dashes( $group['label'] );
-
-			$data['groups'][ $key ] = $group['label'];
+			$data['groups'][ $group['key'] ] = $group['label'];
 
 			foreach ( $group['items'] as $id => $label ) {
 				$data['items'][] = array(
-					'group' => $key,
+					'group' => $group['key'],
 					'id'    => $id,
 					'label' => $label,
 				);

@@ -69,6 +69,7 @@ class Menu_Icons_Type_Genericons extends Menu_Icons_Type_Fonts {
 	public function get_names() {
 		return array(
 			array(
+				'key'   => 'post-formats',
 				'label' => __( 'Post Formats', 'menu-icons' ),
 				'items' => array(
 					'genericon-standard' => __( 'Standard', 'menu-icons' ),
@@ -84,6 +85,7 @@ class Menu_Icons_Type_Genericons extends Menu_Icons_Type_Fonts {
 				),
 			),
 			array(
+				'key'   => 'meta',
 				'label' => __( 'Meta', 'menu-icons' ),
 				'items' => array(
 					'genericon-comment'  => __( 'Comment', 'menu-icons' ),
@@ -98,6 +100,7 @@ class Menu_Icons_Type_Genericons extends Menu_Icons_Type_Fonts {
 				),
 			),
 			array(
+				'key'   => 'social',
 				'label' => __( 'Social', 'menu-icons' ),
 				'items' => array(
 					'genericon-codepen'        => 'CodePen',
@@ -129,6 +132,7 @@ class Menu_Icons_Type_Genericons extends Menu_Icons_Type_Fonts {
 				),
 			),
 			array(
+				'key'   => 'misc',
 				'label' => __( 'Misc.', 'menu-icons' ),
 				'items' => array(
 					'genericon-404'            => __( '404', 'menu-icons' ),
