@@ -221,14 +221,14 @@
 			var sidebar = this.sidebar;
 			var item    = this.controller.miGetCurrentItem();
 
-			sidebar.set( 'details', new media.view.miFont.Icon.Preview({
+			sidebar.set( 'preview', new media.view.miFont.Icon.Preview({
 				controller : this.controller,
 				model      : item,
 				type       : this.options.type,
 				priority   : 80
 			}) );
 
-			sidebar.set( 'display', new media.view.miSidebar.Settings({
+			sidebar.set( 'settings', new media.view.miSidebar.Settings({
 				controller : this.controller,
 				model      : item,
 				type       : this.options.type,
@@ -240,8 +240,8 @@
 			this.controller.miUpdateItemProps();
 
 			var sidebar = this.sidebar;
-			sidebar.unset('details');
-			sidebar.unset('display');
+			sidebar.unset('preview');
+			sidebar.unset('settings');
 		}
 	});
 
@@ -387,7 +387,7 @@
 
 
 	// Font icon: Preview
-	media.view.miFont.Icon.Preview = Backbone.View.extend({
+	media.view.miFont.Icon.Preview = media.View.extend({
 		tagName   : 'p',
 		className : 'mi-preview menu-item attachment-info',
 		events    : {
@@ -396,6 +396,7 @@
 
 		initialize : function() {
 			this.model.on( 'change', this.render, this );
+			media.View.prototype.initialize.apply( this, arguments )
 		},
 
 		render : function() {
