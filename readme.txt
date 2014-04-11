@@ -3,8 +3,8 @@ Contributors: kucrut
 Donate Link: http://kucrut.org/#coffee
 Tags: menu, nav-menu, icons, navigation
 Requires at least: 3.8
-Tested up to: 3.8.1
-Stable tag: 0.2.0
+Tested up to: 3.9-RC1
+Stable tag: 0.2.1
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -86,6 +86,9 @@ add_filter( 'menu_icons_load_extra_style', '__return_false' );
 
 
 == Changelog ==
+= 0.2.1 =
+* Fix icon selector compatibility with WP 3.9
+
 = 0.2.0 =
 * Media frame for icon selection
 * New font icon: Font Awesome
