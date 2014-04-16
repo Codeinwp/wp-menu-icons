@@ -4,7 +4,7 @@ Donate Link: http://kucrut.org/#coffee
 Tags: menu, nav-menu, icons, navigation
 Requires at least: 3.8
 Tested up to: 3.9
-Stable tag: 0.2.2
+Stable tag: 0.2.3
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -86,6 +86,9 @@ add_filter( 'menu_icons_load_extra_style', '__return_false' );
 
 
 == Changelog ==
+= 0.2.3 =
+* Add new group for Dashicons: Media
+
 = 0.2.1 =
 * Fix icon selector compatibility with WP 3.9
 
