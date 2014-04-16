@@ -2,9 +2,9 @@
 # This file is distributed under the same license as the Menu Icons package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Menu Icons 0.2.1\n"
+"Project-Id-Version: Menu Icons 0.2.2\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/menu-icons\n"
-"POT-Creation-Date: 2014-04-11 07:16:30+00:00\n"
+"POT-Creation-Date: 2014-04-16 19:51:24+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -2326,9 +2326,9 @@ msgstr ""
 msgid "Menu Icons"
 msgstr ""
 
-#. #-#-#-#-#  menu-icons.pot (Menu Icons 0.2.1)  #-#-#-#-#
+#. #-#-#-#-#  menu-icons.pot (Menu Icons 0.2.2)  #-#-#-#-#
 #. Plugin URI of the plugin/theme
-#. #-#-#-#-#  menu-icons.pot (Menu Icons 0.2.1)  #-#-#-#-#
+#. #-#-#-#-#  menu-icons.pot (Menu Icons 0.2.2)  #-#-#-#-#
 #. Author URI of the plugin/theme
 msgid "http://kucrut.org/"
 msgstr ""

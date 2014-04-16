@@ -3,8 +3,8 @@ Contributors: kucrut
 Donate Link: http://kucrut.org/#coffee
 Tags: menu, nav-menu, icons, navigation
 Requires at least: 3.8
-Tested up to: 3.9-RC1
-Stable tag: 0.2.1
+Tested up to: 3.9
+Stable tag: 0.2.2
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
