@@ -257,6 +257,23 @@ class Menu_Icons_Type_Dashicons extends Menu_Icons_Type_Fonts {
 				),
 			),
 			array(
+				'key'   => 'media',
+				'label' => __( 'Media', 'menu-icons' ),
+				'items' => array(
+					'dashicons-media-archive'     => __( 'Archive', 'menu-icons' ),
+					'dashicons-media-audio'       => __( 'Audio', 'menu-icons' ),
+					'dashicons-media-code'        => __( 'Code', 'menu-icons' ),
+					'dashicons-media-default'     => __( 'Default', 'menu-icons' ),
+					'dashicons-media-document'    => __( 'Document', 'menu-icons' ),
+					'dashicons-media-interactive' => __( 'Interactive', 'menu-icons' ),
+					'dashicons-media-spreadsheet' => __( 'Spreadsheet', 'menu-icons' ),
+					'dashicons-media-text'        => __( 'Text', 'menu-icons' ),
+					'dashicons-media-video'       => __( 'Video', 'menu-icons' ),
+					'dashicons-playlist-audio'    => __( 'Audio Playlist', 'menu-icons' ),
+					'dashicons-playlist-video'    => __( 'Video Playlist', 'menu-icons' ),
+				),
+			),
+			array(
 				'key'   => 'misc',
 				'label' => __( 'Misc./Post Types', 'menu-icons' ),
 				'items' => array(
