@@ -120,6 +120,8 @@ final class Menu_Icons {
 
 		// Nothing to do if there are no icon types registered
 		if ( empty( self::$data['icon_types'] ) ) {
+			trigger_error( __( 'Menu Icons: No registered icon types found.', 'menu-icons' ) );
+
 			return;
 		}
 
