@@ -79,7 +79,29 @@ final class Menu_Icons {
 		);
 
 		add_filter( 'menu_icons_types', array( __CLASS__, '_register_icon_types' ), 7 );
+		add_filter( 'is_protected_meta', array( __CLASS__, '_protect_meta_key' ), 10, 3 );
 		add_action( 'wp_loaded', array( __CLASS__, 'init' ), 9 );
+	}
+
+
+	/**
+	 * Protect meta key
+	 *
+	 * This prevents our meta key from showing up on Custom Fields meta box
+	 *
+	 * @since   0.3.0
+	 * @wp_hook filter is_protected_meta
+	 * @param   bool   $protected        Protection status
+	 * @param   string $meta_key         Meta key
+	 * @param   string $meta_type        Meta type
+	 * @return  bool   Protection status
+	 */
+	public static function _protect_meta_key( $protected, $meta_key, $meta_type ) {
+		if ( 'menu-icons' === $meta_key ) {
+			$protected = true;
+		}
+
+		return $protected;
 	}
 
 
