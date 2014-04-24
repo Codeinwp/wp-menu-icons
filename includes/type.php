@@ -61,19 +61,6 @@ abstract class Menu_Icons_Type {
 	protected $key;
 
 	/**
-	 * Holds icon positions
-	 *
-	 * @since  0.2.0
-	 * @access protected
-	 * @var    array
-	 */
-	protected $positions = array(
-		'before',
-		'after',
-	);
-
-
-	/**
 	 * Class constructor
 	 *
 	 * This simply sets $key
@@ -192,7 +179,7 @@ abstract class Menu_Icons_Type {
 	 * @return string
 	 */
 	public function _filter_menu_item_title( $title, $id ) {
-		$values = array_filter( (array) get_post_meta( $id, 'menu-icons', true ) );
+		$values = Menu_Icons::get_meta( $id );
 
 		if ( empty( $values['type'] ) ) {
 			return $title;
@@ -204,15 +191,6 @@ abstract class Menu_Icons_Type {
 
 		if ( empty( $values[ $this->key ] ) ) {
 			return $title;
-		}
-
-		/**
-		 * Set icon position, defaults to 'before'
-		 *
-		 * @since 0.2.0
-		 */
-		if ( ! isset( $values['position'] ) || ! in_array( $values['position'], $this->positions ) ) {
-			$values['position'] = $this->positions[0];
 		}
 
 		$title = $this->add_icon( $title, $values );

@@ -222,7 +222,7 @@ final class Menu_Icons_Admin_Nav_Menus {
 	 * @return string Form fields
 	 */
 	public static function _fields( $item, $depth, $args = array(), $id = 0 ) {
-		$current = array_filter( (array) get_post_meta( $item->ID, 'menu-icons', true ) );
+		$current = Menu_Icons::get_meta( $item->ID );
 		?>
 			<div class="field-icon description-wide menu-icons-wrap">
 				<?php

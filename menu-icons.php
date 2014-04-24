@@ -304,5 +304,22 @@ final class Menu_Icons {
 			);
 		}
 	}
+
+
+	/**
+	 * Get menu item meta value
+	 *
+	 * @since 0.3.0
+	 * @param int   $item_id Menu item ID
+	 * @return array
+	 */
+	public static function get_meta( $item_id ) {
+		$current = array_filter( (array) get_post_meta( $item_id, 'menu-icons', true ) );
+		if ( ! isset( $current['position'] ) ) {
+			$current['position'] = Menu_Icons_Settings::get( 'default_position' );
+		}
+
+		return $current;
+	}
 }
 add_action( 'plugins_loaded', array( 'Menu_Icons', '_load' ) );
