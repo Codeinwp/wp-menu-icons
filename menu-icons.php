@@ -222,7 +222,6 @@ final class Menu_Icons {
 		}
 
 		ksort( self::$data['icon_types'] );
-		self::$data['defaults']['icon_types'] = array_keys( self::$data['icon_types'] );
 	}
 
 
@@ -293,8 +292,10 @@ final class Menu_Icons {
 	 */
 	public static function _enqueue_styles() {
 		// Enqueue icon types' stylesheets
-		foreach ( self::$data['icon_types'] as $id => $props ) {
-			self::enqueue_type_stylesheet( $id, $props );
+		foreach ( Menu_Icons_Settings::get('icon_types') as $id ) {
+			if ( isset( self::$data['icon_types'][ $id ] ) ) {
+				self::enqueue_type_stylesheet( $id, self::$data['icon_types'][ $id ] );
+			}
 		}
 
 		/**
