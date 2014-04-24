@@ -70,6 +70,9 @@ final class Menu_Icons_Settings {
 		self::$defaults['icon_types'] = array_keys( Menu_Icons::get('icon_types') );
 		self::_get();
 
+		require_once Menu_Icons::get( 'dir' ) . 'includes/admin.php';
+		Menu_Icons_Admin_Nav_Menus::init();
+
 		add_action( 'load-nav-menus.php', array( __CLASS__, '_load_nav_menus' ), 1 );
 	}
 
@@ -80,13 +83,6 @@ final class Menu_Icons_Settings {
 
 		add_action( 'admin_notices', array( __CLASS__, '_admin_notices' ) );
 		add_action( 'admin_enqueue_scripts', array( __CLASS__, '_enqueue_scripts' ), 99 );
-
-		// Load editor
-		$active_types = self::get( 'icon_types' );
-		if ( ! empty( $active_types ) ) {
-			require_once Menu_Icons::get( 'dir' ) . 'includes/admin.php';
-			Menu_Icons_Admin_Nav_Menus::init();
-		}
 	}
 
 

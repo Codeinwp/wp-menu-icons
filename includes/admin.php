@@ -30,15 +30,38 @@ final class Menu_Icons_Admin_Nav_Menus {
 	 * @wp_hook action load-nav-menus.php
 	 */
 	public static function init() {
+		$active_types = Menu_Icons_Settings::get( 'icon_types' );
+		if ( empty( $active_types ) ) {
+			return;
+		}
+
 		self::_collect_icon_types();
 
-		add_filter( 'menu_item_custom_fields', array( 'Menu_Icons_Admin_Nav_Menus', '_fields' ), 10, 3 );
 		add_filter( 'wp_edit_nav_menu_walker', array( __CLASS__, '_filter_wp_edit_nav_menu_walker' ), 99 );
+		add_filter( 'menu_item_custom_fields', array( __CLASS__, '_fields' ), 10, 3 );
 		add_action( 'admin_enqueue_scripts', array( __CLASS__, '_scripts_styles' ) );
 		add_action( 'print_media_templates', array( __CLASS__, '_media_templates' ) );
 
 		add_filter( 'manage_nav-menus_columns', array( __CLASS__, '_columns' ), 99 );
 		add_action( 'wp_update_nav_menu_item', array( __CLASS__, '_save' ), 10, 3 );
+	}
+
+
+	/**
+	 * Custom walker
+	 *
+	 * @since   0.3.0
+	 * @access  protected
+	 * @wp_hook filter    wp_edit_nav_menu_walker/10/1
+	 */
+	public static function _filter_wp_edit_nav_menu_walker( $walker ) {
+		// Load menu item custom fields plugin
+		if ( ! class_exists( 'Menu_Item_Custom_Fields_Walker' ) ) {
+			require_once Menu_Icons::get( 'dir' ) . 'includes/walker-nav-menu-edit.php';
+		}
+		$walker = 'Menu_Item_Custom_Fields_Walker';
+
+		return $walker;
 	}
 
 
@@ -53,24 +76,6 @@ final class Menu_Icons_Admin_Nav_Menus {
 		foreach ( Menu_Icons_Settings::get( 'icon_types' ) as $id ) {
 			self::$_icon_types[ $id ] = $registered_types[ $id ];
 		}
-	}
-
-
-	/**
-	 * Prepare custom walker and custom field
-	 *
-	 * @since   0.3.0
-	 * @access  protected
-	 * @wp_hook filter    wp_edit_nav_menu_walker/10/1
-	 */
-	public static function _filter_wp_edit_nav_menu_walker( $walker ) {
-		// Load menu item custom fields plugin
-		if ( ! class_exists( 'Menu_Item_Custom_Fields_Walker' ) ) {
-			require_once Menu_Icons::get( 'dir' ) . 'includes/walker-nav-menu-edit.php';
-		}
-		$walker = 'Menu_Item_Custom_Fields_Walker';
-
-		return $walker;
 	}
 
 
@@ -390,6 +395,10 @@ final class Menu_Icons_Admin_Nav_Menus {
 	 * @param array $menu_item_args  Menu item data
 	 */
 	public static function _save( $menu_id, $menu_item_db_id, $menu_item_args ) {
+		if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
+			return;
+		}
+
 		check_admin_referer( 'update-nav_menu', 'update-nav-menu-nonce' );
 
 		// Sanitize
