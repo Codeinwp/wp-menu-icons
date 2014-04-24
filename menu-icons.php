@@ -279,15 +279,11 @@ final class Menu_Icons {
 
 
 	/**
-	 * Enqueue extra stylesheet
-	 *
-	 * This stylesheet will override some styles of the icons
+	 * Enqueue stylesheets
 	 *
 	 * @since   0.1.0
 	 * @access  protected
 	 * @wp_hook action          wp_enqueue_scripts/10
-	 * @uses    apply_filters() Calls 'menu_icons_load_extra_style' allow plugins/themes to
-	 *                          enable/disable the loading of the extra stylesheet
 	 * @link   http://codex.wordpress.org/Plugin_API/Action_Reference/wp_enqueue_scripts Action: wp_enqueue_scripts/10
 	 */
 	public static function _enqueue_styles() {
@@ -298,14 +294,7 @@ final class Menu_Icons {
 			}
 		}
 
-		/**
-		 * Enable/disable loading of extra stylesheet
-		 *
-		 * @since 0.1.0
-		 * @param bool $load_extra_style
-		 */
-		$load_extra_style = (bool) apply_filters( 'menu_icons_load_extra_style', true );
-
+		$load_extra_style = (bool) Menu_Icons_Settings::get( 'extra_css' );
 		if ( true === $load_extra_style ) {
 			wp_enqueue_style(
 				'menu-icons-extra',
