@@ -85,3 +85,21 @@
 	padding-top: 1em;
 	margin-bottom: 0;
 }
+
+/** Settings Meta Box **/
+.menu-icons-settings ._field {
+	padding: .5em 0;
+}
+.menu-icons-settings ._field ._main {
+	display: block;
+	font-weight: bold;
+	margin-bottom: .25em;
+}
+#menu-settings-column .menu-icons-settings .inside {
+	margin-top: 0;
+}
+.menu-icons-settings .taxonomydiv .tabs-panel {
+	max-height: none;
+	padding-top: .3em;
+	padding-bottom: .4em;
+}

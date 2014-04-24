@@ -13,16 +13,64 @@
  */
 final class Menu_Icons_Admin_Nav_Menus {
 
+	/**
+	 * Holds active icon types
+	 *
+	 * @since  0.3.0
+	 * @access private
+	 * @var    array
+	 */
+	private static $_icon_types;
+
 
 	/**
 	 * Initialize class
+	 *
+	 * @since   0.1.0
+	 * @wp_hook action load-nav-menus.php
 	 */
 	public static function init() {
+		self::_collect_icon_types();
+
+		add_filter( 'menu_item_custom_fields', array( 'Menu_Icons_Admin_Nav_Menus', '_fields' ), 10, 3 );
+		add_filter( 'wp_edit_nav_menu_walker', array( __CLASS__, '_filter_wp_edit_nav_menu_walker' ), 99 );
 		add_action( 'admin_enqueue_scripts', array( __CLASS__, '_scripts_styles' ) );
 		add_action( 'print_media_templates', array( __CLASS__, '_media_templates' ) );
 
 		add_filter( 'manage_nav-menus_columns', array( __CLASS__, '_columns' ), 99 );
 		add_action( 'wp_update_nav_menu_item', array( __CLASS__, '_save' ), 10, 3 );
+	}
+
+
+	/**
+	 * Collect icon types
+	 *
+	 * @since  0.3.0
+	 * @access private
+	 */
+	private static function _collect_icon_types() {
+		$registered_types = Menu_Icons::get( 'icon_types' );
+		foreach ( Menu_Icons_Settings::get( 'icon_types' ) as $id ) {
+			self::$_icon_types[ $id ] = $registered_types[ $id ];
+		}
+	}
+
+
+	/**
+	 * Prepare custom walker and custom field
+	 *
+	 * @since   0.3.0
+	 * @access  protected
+	 * @wp_hook filter    wp_edit_nav_menu_walker/10/1
+	 */
+	public static function _filter_wp_edit_nav_menu_walker( $walker ) {
+		// Load menu item custom fields plugin
+		if ( ! class_exists( 'Menu_Item_Custom_Fields_Walker' ) ) {
+			require_once Menu_Icons::get( 'dir' ) . 'includes/walker-nav-menu-edit.php';
+		}
+		$walker = 'Menu_Item_Custom_Fields_Walker';
+
+		return $walker;
 	}
 
 
@@ -43,7 +91,7 @@ final class Menu_Icons_Admin_Nav_Menus {
 					'label' => __( '&mdash; Select &mdash;', 'menu-icons' )
 				),
 			),
-			Menu_Icons::get( 'icon_types' )
+			self::$_icon_types
 		);
 
 		return $types;
@@ -58,11 +106,6 @@ final class Menu_Icons_Admin_Nav_Menus {
 	 * @wp_hook admin_enqueue_scripts
 	 */
 	public static function _scripts_styles() {
-		// WP 3.8 bug, fixed in 3.9
-		// We need to dequeue and re-enqueue this one later,
-		// otherwise we won't get the dashboard's colors
-		wp_dequeue_style( 'colors' );
-
 		$data = array(
 			'text'      => array(
 				'title'  => __( 'Select Icon', 'menu-icons' ),
@@ -73,10 +116,7 @@ final class Menu_Icons_Admin_Nav_Menus {
 			'admin_url' => untrailingslashit( admin_url() ),
 		);
 
-		$_icon_types = Menu_Icons::get( 'icon_types' );
-		$icon_types  = array();
-
-		foreach ( $_icon_types as $id => $props ) {
+		foreach ( self::$_icon_types as $id => $props ) {
 			if ( ! empty( $props['frame_cb'] ) ) {
 				$icon_types[ $id ] = array(
 					'type'    => $id,
@@ -88,20 +128,19 @@ final class Menu_Icons_Admin_Nav_Menus {
 			}
 		}
 
-		if ( count( $_icon_types ) === count( $icon_types ) ) {
-			wp_enqueue_media();
-			$data['iconTypes'] = $icon_types;
-			$data['typeNames'] = array_keys( $icon_types );
-		}
+		/**
+		 * WP 3.8 bug, fixed in 3.9
+		 *
+		 * We need to dequeue and re-enqueue this one later,
+		 * otherwise we won't get the dashboard's colors
+		 */
+		wp_dequeue_style( 'colors' );
 
-		wp_enqueue_style(
-			'menu-icons',
-			Menu_Icons::get( 'url' ) . 'css/admin' . Menu_Icons::get_script_suffix() . '.css',
-			false,
-			Menu_Icons::VERSION
-		);
+		wp_enqueue_media();
+		$data['iconTypes'] = $icon_types;
+		$data['typeNames'] = array_keys( self::$_icon_types );
 
-		// re-enqueue
+		// re-enqueue color style
 		wp_enqueue_style( 'colors' );
 
 		wp_register_script(
