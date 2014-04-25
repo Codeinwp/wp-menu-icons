@@ -234,7 +234,7 @@ final class Menu_Icons {
 	 * @link    http://codex.wordpress.org/Plugin_API/Action_Reference/get_header Action: get_header/10
 	 */
 	public static function _load_front_end() {
-		foreach ( Menu_Icons_Settings::get('icon_types') as $id ) {
+		foreach ( Menu_Icons_Settings::get( 'icon_types' ) as $id ) {
 			if ( isset( self::$data['icon_types'][ $id ] ) ) {
 				call_user_func( self::$data['icon_types'][ $id ]['front_cb'] );
 			}
@@ -288,7 +288,7 @@ final class Menu_Icons {
 	 */
 	public static function _enqueue_styles() {
 		// Enqueue icon types' stylesheets
-		foreach ( Menu_Icons_Settings::get('icon_types') as $id ) {
+		foreach ( Menu_Icons_Settings::get( 'icon_types' ) as $id ) {
 			if ( isset( self::$data['icon_types'][ $id ] ) ) {
 				self::enqueue_type_stylesheet( $id, self::$data['icon_types'][ $id ] );
 			}

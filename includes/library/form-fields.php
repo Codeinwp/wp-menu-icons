@@ -268,20 +268,20 @@ abstract class Kucrut_Form_Field {
 
 
 	/**
-	* Set field properties
-	*
-	* @since 0.1.0
-	*/
+	 * Set field properties
+	 *
+	 * @since 0.1.0
+	 */
 	protected function set_properties() {}
 
 
 	/**
-	* Build field attributes
-	*
-	* @since  0.1.0
-	* @param  array  $excludes Attributes to be excluded
-	* @return string
-	*/
+	 * Build field attributes
+	 *
+	 * @since  0.1.0
+	 * @param  array  $excludes Attributes to be excluded
+	 * @return string
+	 */
 	protected function build_attributes( $excludes = array() ) {
 		$excludes   = array_filter( (array) $excludes );
 		$attributes = '';
@@ -307,18 +307,18 @@ abstract class Kucrut_Form_Field {
 
 
 	/**
-	* Print field
-	*
-	* @since 0.1.0
-	*/
+	 * Print field
+	 *
+	 * @since 0.1.0
+	 */
 	abstract public function render();
 
 
 	/**
-	* Print field description
-	*
-	* @since 0.1.0
-	*/
+	 * Print field description
+	 *
+	 * @since 0.1.0
+	 */
 	public function description() {
 		if ( ! empty( $this->field['description'] ) ) {
 			printf(
@@ -472,8 +472,8 @@ class Kucrut_Form_Field_Select extends Kucrut_Form_Field {
 class Kucrut_Form_Field_Select_Multiple extends Kucrut_Form_Field_Select {
 
 	protected function set_properties() {
-		$this->field['value'] = array_filter( (array) $this->field['value'] );
-		$this->attributes['name'] .= '[]';
+		$this->field['value']         = array_filter( (array) $this->field['value'] );
+		$this->attributes['name']    .= '[]';
 		$this->attributes['multiple'] = 'multiple';
 	}
 

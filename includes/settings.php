@@ -6,6 +6,10 @@
  * @package Menu_Icons
  * @author Dzikri Aziz <kvcrvt@gmail.com>
  */
+
+/**
+ * Menu Icons Settings module
+ */
 final class Menu_Icons_Settings {
 
 	const UPDATE_KEY = 'menu-icons-settings-update';
@@ -14,20 +18,45 @@ final class Menu_Icons_Settings {
 
 	const TRANSIENT_KEY = 'menu_icons_message';
 
+	/**
+	 * Default setting values
+	 *
+	 * @since 0.3.0
+	 * @var   array
+	 * @acess protected
+	 */
 	protected static $defaults = array(
 		'icon_types' => array(),
 		'extra_css'  => '1',
 		'position'   => 'before',
 	);
 
+	/**
+	 * Setting values
+	 *
+	 * @since 0.3.0
+	 * @var   array
+	 * @acess protected
+	 */
 	protected static $settings;
 
 
+	/**
+	 * Get setting value
+	 *
+	 * @since 0.3.0
+	 */
 	public static function get() {
 		return kucrut_get_array_value_deep( self::$settings, func_get_args() );
 	}
 
 
+	/**
+	 * Get setting values and apply sanitation
+	 *
+	 * @since 0.3.0
+	 * @acess private
+	 */
 	private static function _get() {
 		$settings = get_option( 'menu-icons', null );
 
@@ -67,7 +96,7 @@ final class Menu_Icons_Settings {
 	 * @since 0.3.0
 	 */
 	public static function init() {
-		self::$defaults['icon_types'] = array_keys( Menu_Icons::get('icon_types') );
+		self::$defaults['icon_types'] = array_keys( Menu_Icons::get( 'icon_types' ) );
 		self::_get();
 
 		require_once Menu_Icons::get( 'dir' ) . 'includes/admin.php';
@@ -77,6 +106,12 @@ final class Menu_Icons_Settings {
 	}
 
 
+	/**
+	 * Prepare wp-admin/nav-menus.php page
+	 *
+	 * @since   0.3.0
+	 * @wp_hook load-nav-menus.php
+	 */
 	public static function _load_nav_menus() {
 		self::_maybe_update_settings();
 		self::_add_settings_meta_box();
@@ -121,6 +156,12 @@ final class Menu_Icons_Settings {
 	}
 
 
+	/**
+	 * Print admin notices
+	 *
+	 * @since   0.3.0
+	 * @wp_hook admin_notices
+	 */
 	public static function _admin_notices() {
 		$messages = array(
 			'updated' => __( '<strong>Menu Icons Settings</strong> has been successfully updated.', 'menu-icons' ),
@@ -165,7 +206,7 @@ final class Menu_Icons_Settings {
 		require_once Menu_Icons::get( 'dir' ) . 'includes/library/form-fields.php';
 
 		$icon_types = array();
-		foreach ( Menu_Icons::get('icon_types') as $id => $props ) {
+		foreach ( Menu_Icons::get( 'icon_types' ) as $id => $props ) {
 			$icon_types[ $id ] = $props['label'];
 		}
 

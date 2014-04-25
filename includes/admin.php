@@ -8,8 +8,7 @@
 
 
 /**
- * Menu item metadata
- *
+ * Nav menu admin
  */
 final class Menu_Icons_Admin_Nav_Menus {
 
