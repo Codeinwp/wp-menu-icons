@@ -26,15 +26,14 @@ abstract class Kucrut_Form_Field {
 			'id'          => '',
 			'type'        => 'text',
 			'value'       => null,
-			'default'     => '',
+			'default'     => null,
 			'attributes'  => array(),
 			'description' => '',
 			'choices'     => array(),
 		),
 		'args'  => array(
-			'prefix'  => '',
-			'section' => '',
-			'mode'    => 'plugin'
+			'keys'               => array(),
+			'inline_description' => false,
 		),
 	);
 
@@ -47,6 +46,10 @@ abstract class Kucrut_Form_Field {
 	 */
 	protected static $types = array(
 		'text'            => 'Kucrut_Form_Field_Text',
+		'number'          => 'Kucrut_Form_Field_Text',
+		'url'             => 'Kucrut_Form_Field_Text',
+		'color'           => 'Kucrut_Form_Field_Text',
+		'date'            => 'Kucrut_Form_Field_Text',
 		'checkbox'        => 'Kucrut_Form_Field_Checkbox',
 		'radio'           => 'Kucrut_Form_Field_Radio',
 		'textarea'        => 'Kucrut_Form_Field_Textarea',
@@ -85,15 +88,6 @@ abstract class Kucrut_Form_Field {
 		'span'   => array( 'class' => true ),
 		'strong' => true,
 	);
-
-	/**
-	 * Holds field keys
-	 *
-	 * @since  0.1.0
-	 * @var    array
-	 * @access protected
-	 */
-	protected $keys;
 
 	/**
 	 * Holds constructed field
@@ -159,6 +153,10 @@ abstract class Kucrut_Form_Field {
 			$field['type'] = 'text';
 		}
 
+		if ( is_null( $field['value'] ) && ! is_null( $field['default'] ) ) {
+			$field['value'] = $field['default'];
+		}
+
 		foreach ( self::$forbidden_attributes as $key ) {
 			unset( $field['attributes'][ $key ] );
 		}
@@ -180,13 +178,11 @@ abstract class Kucrut_Form_Field {
 	public function __construct( $field, $args ) {
 		$this->field = $field;
 		$this->args  = $args;
-		$this->keys  = array_filter(
-			array(
-				$this->args->prefix,
-				$this->args->section,
-				$this->field['id'],
-			)
-		);
+
+		if ( ! is_array( $this->args->keys ) ) {
+			$this->args->keys = array();
+		}
+		$this->args->keys[] = $field['id'];
 
 		$this->attributes['id']   = $this->create_id();
 		$this->attributes['name'] = $this->create_name();
@@ -223,14 +219,13 @@ abstract class Kucrut_Form_Field {
 	 *
 	 * @since 0.1.0
 	 * @param string $format Attribute format
-	 * @param array  $keys Field keys to construct the ID
 	 */
 	protected function create_id_name( $format ) {
 		return call_user_func_array(
 			'sprintf',
 			array_merge(
 				array( $format ),
-				$this->keys
+				$this->args->keys
 			)
 		);
 	}
@@ -241,11 +236,10 @@ abstract class Kucrut_Form_Field {
 	 *
 	 * @since  0.1.0
 	 * @access protected
-	 *
-	 * @param array $keys Field keys to construct the ID
+	 * @return string
 	 */
 	protected function create_id() {
-		$format = implode( '-', $this->keys );
+		$format = implode( '-', $this->args->keys );
 
 		return $this->create_id_name( $format );
 	}
@@ -256,12 +250,11 @@ abstract class Kucrut_Form_Field {
 	 *
 	 * @since  0.1.0
 	 * @access protected
-	 *
-	 * @param array $keys Field keys to construct the name
+	 * @return string
 	 */
 	protected function create_name() {
 		$format  = '%s';
-		$format .= str_repeat( '[%s]', ( count( $this->keys ) - 1 ) );
+		$format .= str_repeat( '[%s]', ( count( $this->args->keys ) - 1 ) );
 
 		return $this->create_id_name( $format );
 	}
@@ -321,8 +314,11 @@ abstract class Kucrut_Form_Field {
 	 */
 	public function description() {
 		if ( ! empty( $this->field['description'] ) ) {
+			$tag = ( ! empty( $this->args->inline_description ) ) ? 'span' : 'p';
+
 			printf(
-				'<p class="description">%s</p>',
+				'<%1$s class="description">%2$s</%1$s>',
+				$tag,
 				wp_kses( $this->field['description'], $this->allowed_html )
 			);
 		}
@@ -335,14 +331,23 @@ abstract class Kucrut_Form_Field {
  */
 class Kucrut_Form_Field_Text extends Kucrut_Form_Field {
 
-	protected $attributes = array(
-		'class' => 'regular-text',
-	);
+	protected function set_properties() {
+		if ( ! is_string( $this->field['value'] ) ) {
+			$this->field['value'] = '';
+		}
+
+		if ( 'text' === $this->field['type'] ) {
+			$this->attributes = array(
+				'class' => 'regular-text',
+			);
+		}
+	}
 
 
 	public function render() {
 		printf(
-			'<input type="text" value="%s"%s />',
+			'<input type="%s" value="%s"%s />',
+			esc_attr( $this->field['type'] ),
 			esc_attr( $this->field['value'] ),
 			$this->build_attributes()
 		);
