@@ -40,3 +40,28 @@ if ( ! function_exists( 'kucrut_get_array_value_deep' ) ) {
 		return $array[ $key ];
 	}
 }
+
+
+if ( ! function_exists( 'kucrut_validate' ) ) {
+	/**
+	 * Validate settings values
+	 *
+	 * @param  array $values Settings values
+	 * @return array
+	 */
+	function kucrut_validate( $values, $sanitize_cb = 'wp_kses_data' ) {
+		foreach ( $values as $key => $value ) {
+			if ( is_array( $value ) ) {
+				$values[ $key ] = kucrut_validate( $value );
+			}
+			else {
+				$values[ $key ] = call_user_func_array(
+					$sanitize_cb,
+					array( $value )
+				);
+			}
+		}
+
+		return $values;
+	}
+}
