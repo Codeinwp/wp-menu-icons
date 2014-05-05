@@ -92,7 +92,7 @@ final class Menu_Icons {
 	 *
 	 * This prevents our meta key from showing up on Custom Fields meta box
 	 *
-	 * @since   0.3.0
+	 * @since   %ver%
 	 * @wp_hook filter is_protected_meta
 	 * @param   bool   $protected        Protection status
 	 * @param   string $meta_key         Meta key
@@ -234,7 +234,7 @@ final class Menu_Icons {
 	 * @link    http://codex.wordpress.org/Plugin_API/Action_Reference/get_header Action: get_header/10
 	 */
 	public static function _load_front_end() {
-		foreach ( Menu_Icons_Settings::get( 'icon_types' ) as $id ) {
+		foreach ( Menu_Icons_Settings::get( 'global', 'icon_types' ) as $id ) {
 			if ( isset( self::$data['icon_types'][ $id ] ) ) {
 				call_user_func( self::$data['icon_types'][ $id ]['front_cb'] );
 			}
@@ -288,13 +288,13 @@ final class Menu_Icons {
 	 */
 	public static function _enqueue_styles() {
 		// Enqueue icon types' stylesheets
-		foreach ( Menu_Icons_Settings::get( 'icon_types' ) as $id ) {
+		foreach ( Menu_Icons_Settings::get( 'global', 'icon_types' ) as $id ) {
 			if ( isset( self::$data['icon_types'][ $id ] ) ) {
 				self::enqueue_type_stylesheet( $id, self::$data['icon_types'][ $id ] );
 			}
 		}
 
-		$load_extra_style = (bool) Menu_Icons_Settings::get( 'extra_css' );
+		$load_extra_style = (bool) Menu_Icons_Settings::get( 'global', 'extra_css' );
 		if ( true === $load_extra_style ) {
 			wp_enqueue_style(
 				'menu-icons-extra',
@@ -309,14 +309,14 @@ final class Menu_Icons {
 	/**
 	 * Get menu item meta value
 	 *
-	 * @since 0.3.0
+	 * @since %ver%
 	 * @param int   $item_id Menu item ID
 	 * @return array
 	 */
 	public static function get_meta( $item_id ) {
 		$current = array_filter( (array) get_post_meta( $item_id, 'menu-icons', true ) );
 		if ( ! isset( $current['position'] ) ) {
-			$current['position'] = Menu_Icons_Settings::get( 'default_position' );
+			$current['position'] = 'before';
 		}
 
 		return $current;

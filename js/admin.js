@@ -14,6 +14,33 @@
 		disable  : false
 	});
 
+	/**
+	 * Settings box tabs
+	 *
+	 * We can't use core's tabs script here because it will clear the
+	 * checkboxes upon tab switching
+	 */
+	$('#menu-icons-settings-tabs')
+		.on('click', 'a.mi-settings-nav-tab', function(e) {
+			e.preventDefault();
+			e.stopPropagation();
+
+			var $el     = $(this).blur();
+			var $target = $( '#'+$el.data('type') );
+
+			$el.parent().addClass('tabs').siblings().removeClass('tabs');
+			$target
+				.removeClass('tabs-panel-inactive')
+				.addClass('tabs-panel-active')
+				.show()
+				.siblings('div.tabs-panel')
+					.hide()
+					.addClass('tabs-panel-inactive')
+					.removeClass('tabs-panel-active');
+		})
+		.find('a.mi-settings-nav-tab').first().trigger('click');
+
+
 	if ( 'undefined' === typeof menuIcons ) {
 		return;
 	}

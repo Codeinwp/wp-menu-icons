@@ -21,20 +21,22 @@ final class Menu_Icons_Settings {
 	/**
 	 * Default setting values
 	 *
-	 * @since 0.3.0
+	 * @since %ver%
 	 * @var   array
 	 * @acess protected
 	 */
 	protected static $defaults = array(
-		'icon_types' => array(),
-		'extra_css'  => '1',
-		'position'   => 'before',
+		'global' => array(
+			'icon_types' => array(),
+			'extra_css'  => '1',
+			'position'   => 'before',
+		),
 	);
 
 	/**
 	 * Setting values
 	 *
-	 * @since 0.3.0
+	 * @since %ver%
 	 * @var   array
 	 * @acess protected
 	 */
@@ -44,7 +46,7 @@ final class Menu_Icons_Settings {
 	/**
 	 * Get setting value
 	 *
-	 * @since 0.3.0
+	 * @since %ver%
 	 */
 	public static function get() {
 		return kucrut_get_array_value_deep( self::$settings, func_get_args() );
@@ -54,7 +56,7 @@ final class Menu_Icons_Settings {
 	/**
 	 * Get setting values and apply sanitation
 	 *
-	 * @since 0.3.0
+	 * @since %ver%
 	 * @acess private
 	 */
 	private static function _get() {
@@ -70,18 +72,18 @@ final class Menu_Icons_Settings {
 		 * A type could be enabled in the settings but disabled by a filter,
 		 * so we need to 'fix' it here.
 		 */
-		if ( ! empty( $settings['icon_types'] ) ) {
+		if ( ! empty( $settings['global']['icon_types'] ) ) {
 			$active_types = array();
 			$icon_types   = Menu_Icons::get( 'icon_types' );
 
-			foreach ( (array) $settings['icon_types'] as $index => $id ) {
+			foreach ( (array) $settings['global']['icon_types'] as $index => $id ) {
 				if ( isset( $icon_types[ $id ] ) ) {
 					$active_types[] = $id;
 				}
 			}
 
-			if ( $settings['icon_types'] !== $active_types ) {
-				$settings['icon_types'] = $active_types;
+			if ( $settings['global']['icon_types'] !== $active_types ) {
+				$settings['global']['icon_types'] = $active_types;
 				update_option( 'menu-icons', $settings );
 			}
 		}
@@ -93,10 +95,10 @@ final class Menu_Icons_Settings {
 	/**
 	 * Settings init
 	 *
-	 * @since 0.3.0
+	 * @since %ver%
 	 */
 	public static function init() {
-		self::$defaults['icon_types'] = array_keys( Menu_Icons::get( 'icon_types' ) );
+		self::$defaults['global']['icon_types'] = array_keys( Menu_Icons::get( 'icon_types' ) );
 		self::_get();
 
 		require_once Menu_Icons::get( 'dir' ) . 'includes/admin.php';
@@ -109,7 +111,7 @@ final class Menu_Icons_Settings {
 	/**
 	 * Prepare wp-admin/nav-menus.php page
 	 *
-	 * @since   0.3.0
+	 * @since   %ver%
 	 * @wp_hook load-nav-menus.php
 	 */
 	public static function _load_nav_menus() {
@@ -117,14 +119,14 @@ final class Menu_Icons_Settings {
 		self::_add_settings_meta_box();
 
 		add_action( 'admin_notices', array( __CLASS__, '_admin_notices' ) );
-		add_action( 'admin_enqueue_scripts', array( __CLASS__, '_enqueue_scripts' ), 99 );
+		add_action( 'admin_enqueue_scripts', array( __CLASS__, '_enqueue_assets' ), 99 );
 	}
 
 
 	/**
 	 * Update settings
 	 *
-	 * @since   0.3.0
+	 * @since   %ver%
 	 * @access  private
 	 * @wp_hook load-nav-menus.php
 	 */
@@ -132,7 +134,13 @@ final class Menu_Icons_Settings {
 		if ( ! empty( $_POST['menu-icons']['settings'] ) ) {
 			check_admin_referer( self::UPDATE_KEY, self::UPDATE_KEY );
 
-			update_option( 'menu-icons', $_POST['menu-icons']['settings'] );
+			update_option(
+				'menu-icons',
+				wp_parse_args(
+					kucrut_validate( $_POST['menu-icons']['settings'] ),
+					self::$settings
+				)
+			);
 			set_transient( self::TRANSIENT_KEY, 'updated', 30 );
 			wp_redirect(
 				remove_query_arg(
@@ -159,7 +167,7 @@ final class Menu_Icons_Settings {
 	/**
 	 * Print admin notices
 	 *
-	 * @since   0.3.0
+	 * @since   %ver%
 	 * @wp_hook admin_notices
 	 */
 	public static function _admin_notices() {
@@ -181,7 +189,7 @@ final class Menu_Icons_Settings {
 	/**
 	 * Settings meta box
 	 *
-	 * @since  0.3.0
+	 * @since  %ver%
 	 * @access private
 	 */
 	private static function _add_settings_meta_box() {
@@ -198,73 +206,176 @@ final class Menu_Icons_Settings {
 
 
 	/**
-	 * Settings meta box
+	 * Get settings fields
 	 *
-	 * @since 0.3.0
+	 * @since  %ver%
+	 * @uses   apply_filters() Calls 'menu_icons_settings_fields'.
+	 * @return array
 	 */
-	public static function _meta_box() {
-		require_once Menu_Icons::get( 'dir' ) . 'includes/library/form-fields.php';
+	public static function get_fields() {
+		global $nav_menu_selected_id;
 
 		$icon_types = array();
 		foreach ( Menu_Icons::get( 'icon_types' ) as $id => $props ) {
 			$icon_types[ $id ] = $props['label'];
 		}
 
-		$fields     = array(
-			array(
-				'id'      => 'icon_types',
-				'type'    => 'checkbox',
-				'label'   => __( 'Icon Types', 'menu-icons' ),
-				'choices' => $icon_types,
-			),
-			array(
-				'id'      => 'extra_css',
-				'type'    => 'select',
-				'label'   => __( 'Extra Stylesheet', 'menu-icons' ),
-				'choices' => array(
-					'1' => __( 'Enable', 'menu-icons' ),
-					'0' => __( 'Disable', 'menu-icons' ),
+		$fields = array(
+			'global' => array(
+				'id'          => 'global',
+				'title'       => __( 'Global', 'menu-icons' ),
+				'description' => __( 'Global settings', 'menu-icons' ),
+				'fields'      => array(
+					array(
+						'id'      => 'icon_types',
+						'type'    => 'checkbox',
+						'label'   => __( 'Icon Types', 'menu-icons' ),
+						'choices' => $icon_types,
+					),
+					array(
+						'id'      => 'extra_css',
+						'type'    => 'select',
+						'label'   => __( 'Extra Stylesheet', 'menu-icons' ),
+						'choices' => array(
+							'1' => __( 'Enable', 'menu-icons' ),
+							'0' => __( 'Disable', 'menu-icons' ),
+						),
+					),
 				),
+				'args'  => array(),
 			),
-			array(
-				'id'      => 'default_position',
-				'type'    => 'select',
-				'label'   => __( 'Default Icon Position', 'menu-icons' ),
-				'choices' => array(
-					'before' => __( 'Before', 'menu-icons' ),
-					'after'  => __( 'After', 'menu-icons' ),
-				),
-			),
-		);
-		$field_args = array(
-			'prefix'  => 'menu-icons',
-			'section' => 'settings',
 		);
 
+		if ( ! empty( $nav_menu_selected_id ) ) {
+			$menu_term      = get_term( $nav_menu_selected_id, 'nav_menu' );
+			$menu_key       = sprintf( 'menu_%d', $nav_menu_selected_id );
+			$fields['menu'] = array(
+				'id'          => $menu_key,
+				'title'       => __( 'Current Menu', 'menu-icons' ),
+				'description' => sprintf(
+					__( '"%s" menu settings', 'menu-icons' ),
+					apply_filters( 'single_term_title', $menu_term->name )
+				),
+				'fields'      => array(
+					array(
+						'id'      => 'position',
+						'type'    => 'select',
+						'label'   => __( 'Position', 'menu-icons' ),
+						'choices' => array(
+							'before' => __( 'Before', 'menu-icons' ),
+							'after'  => __( 'After', 'menu-icons' ),
+						),
+						'default' => 'before',
+					),
+					array(
+						'id'      => 'vertical-align',
+						'type'    => 'select',
+						'label'   => __( 'Vertical Align', 'menu-icons' ),
+						'choices' => array(
+							'super'       => __( 'Super', 'menu-icons' ),
+							'top'         => __( 'Top', 'menu-icons' ),
+							'text-top'    => __( 'Text Top', 'menu-icons' ),
+							'middle'      => __( 'Middle', 'menu-icons' ),
+							'baseline'    => __( 'Baseline', 'menu-icons' ),
+							'text-bottom' => __( 'Text Bottom', 'menu-icons' ),
+							'bottom'      => __( 'Bottom', 'menu-icons' ),
+							'sub'         => __( 'Sub', 'menu-icons' ),
+						),
+						'default' => 'middle',
+					),
+					array(
+						'id'          => 'font-size',
+						'type'        => 'number',
+						'label'       => __( 'Font Size', 'menu-icons' ),
+						'description' => 'em',
+						'attributes'  => array(
+							'min'  => '0.1',
+							'step' => '0.1',
+						),
+						'default'     => '1.2',
+					),
+				),
+				'args' => array(
+					'inline_description' => true,
+				),
+			);
+		}
+
+		return apply_filters( 'menu_icons_settings_fields', $fields, $nav_menu_selected_id );
+	}
+
+
+	/**
+	 * Get processed settings fields
+	 *
+	 * @since  %ver%
+	 * @access private
+	 * @return array
+	 */
+	private static function _get_fields() {
+		require_once Menu_Icons::get( 'dir' ) . 'includes/library/form-fields.php';
+
+		$keys     = array( 'menu-icons', 'settings' );
+		$sections = self::get_fields();
+
+		foreach ( $sections as &$section ) {
+			$_fields = $section['fields'];
+			$_keys   = array_merge( $keys, array( $section['id'] ) );
+			$_args   = array_merge(
+				array( 'keys' => $_keys ),
+				$section['args']
+			);
+
+			$section['fields'] = array();
+			foreach ( $_fields as $field ) {
+				$field['value']      = self::get( $section['id'], $field['id'] );
+				$section['fields'][] = Kucrut_Form_Field::create( $field, $_args );
+			}
+		}
+
+		return $sections;
+	}
+
+
+	/**
+	 * Settings meta box
+	 *
+	 * @since %ver%
+	 */
+	public static function _meta_box() {
 		?>
 			<div class="taxonomydiv">
-				<div class="tabs-panel">
-					<?php
-						foreach ( $fields as $_field ) :
-							$_field['value'] = self::get( $_field['id'] );
-							$field = Kucrut_Form_Field::create( $_field, $field_args );
-					?>
-						<div class="_field">
-							<?php printf(
-								'<label for="%s" class="_main">%s</label>',
-								esc_attr( $field->id ),
-								esc_html( $_field['label'] )
-							) ?>
-							<?php $field->render() ?>
-						</div>
-					<?php endforeach; ?>
-				</div>
+				<ul id="menu-icons-settings-tabs" class="taxonomy-tabs add-menu-item-tabs hide-if-no-js">
+					<?php foreach ( self::get_fields() as $section ) : ?>
+						<?php printf(
+							'<li><a href="#" title="%s" class="mi-settings-nav-tab" data-type="menu-icons-settings-%s">%s</a></li>',
+							esc_attr( $section['description'] ),
+							esc_attr( $section['id'] ),
+							esc_html( $section['title'] )
+						) ?>
+					<?php endforeach ?>
+				</ul>
+				<?php foreach ( self::_get_fields() as $section_index => $section ) : ?>
+					<div id="menu-icons-settings-<?php echo esc_attr( $section['id'] ) ?>" class="tabs-panel _<?php echo esc_attr( $section_index ) ?>">
+						<h4 class="hide-if-js"><?php echo esc_html( $section['title'] ) ?></h4>
+						<?php foreach ( $section['fields'] as $field ) : ?>
+							<div class="_field">
+								<?php printf(
+									'<label for="%s" class="_main">%s</label>',
+									esc_attr( $field->id ),
+									esc_html( $field->label )
+								) ?>
+								<?php $field->render() ?>
+							</div>
+						<?php endforeach; ?>
+					</div>
+				<?php endforeach; ?>
 			</div>
 			<p class="submitbox button-controls">
 				<?php wp_nonce_field( self::UPDATE_KEY, self::UPDATE_KEY ) ?>
 				<span class="list-controls">
 					<?php printf(
-						'<a href="%s" class="select-all submitdelete">%s</a>',
+						'<a href="%s" title="%s" class="select-all submitdelete">%s</a>',
 						esc_url(
 							wp_nonce_url(
 								admin_url( '/nav-menus.php' ),
@@ -272,6 +383,7 @@ final class Menu_Icons_Settings {
 								self::RESET_KEY
 							)
 						),
+						esc_attr__( 'Discard all changes and reset to default state', 'menu-icons' ),
 						esc_html__( 'Reset', 'menu-icons' )
 					) ?>
 				</span>
@@ -292,15 +404,35 @@ final class Menu_Icons_Settings {
 	/**
 	 * Enqueue scripts & styles for admin page
 	 *
-	 * @since   0.3.0
+	 * @since   %ver%
 	 * @wp_hook action admin_enqueue_scripts
 	 */
-	public static function _enqueue_scripts() {
+	public static function _enqueue_assets() {
 		wp_enqueue_style(
 			'menu-icons',
 			Menu_Icons::get( 'url' ) . 'css/admin' . Menu_Icons::get_script_suffix() . '.css',
 			false,
 			Menu_Icons::VERSION
+		);
+		wp_register_script(
+			'kucrut-jquery-input-dependencies',
+			Menu_Icons::get( 'url' ) . 'js/input-dependencies' . Menu_Icons::get_script_suffix() . '.js',
+			array( 'jquery' ),
+			'0.1.0',
+			true
+		);
+
+		if ( ! empty( self::$settings['global']['icon_types'] ) ) {
+			wp_enqueue_media();
+		}
+
+		// TODO: WHY U NO WANT MINIFY?
+		wp_enqueue_script(
+			'menu-icons',
+			Menu_Icons::get( 'url' ) . 'js/admin.js',
+			array( 'kucrut-jquery-input-dependencies' ),
+			Menu_Icons::VERSION,
+			true
 		);
 	}
 }

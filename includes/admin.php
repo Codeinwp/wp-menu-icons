@@ -15,7 +15,7 @@ final class Menu_Icons_Admin_Nav_Menus {
 	/**
 	 * Holds active icon types
 	 *
-	 * @since  0.3.0
+	 * @since  %ver%
 	 * @access private
 	 * @var    array
 	 */
@@ -29,7 +29,7 @@ final class Menu_Icons_Admin_Nav_Menus {
 	 * @wp_hook action load-nav-menus.php
 	 */
 	public static function init() {
-		$active_types = Menu_Icons_Settings::get( 'icon_types' );
+		$active_types = Menu_Icons_Settings::get( 'global', 'icon_types' );
 		if ( empty( $active_types ) ) {
 			return;
 		}
@@ -38,7 +38,7 @@ final class Menu_Icons_Admin_Nav_Menus {
 
 		add_filter( 'wp_edit_nav_menu_walker', array( __CLASS__, '_filter_wp_edit_nav_menu_walker' ), 99 );
 		add_filter( 'menu_item_custom_fields', array( __CLASS__, '_fields' ), 10, 3 );
-		add_action( 'admin_enqueue_scripts', array( __CLASS__, '_scripts_styles' ) );
+		add_action( 'admin_enqueue_scripts', array( __CLASS__, '_enqueue_assets' ), 101 );
 		add_action( 'print_media_templates', array( __CLASS__, '_media_templates' ) );
 
 		add_filter( 'manage_nav-menus_columns', array( __CLASS__, '_columns' ), 99 );
@@ -49,7 +49,7 @@ final class Menu_Icons_Admin_Nav_Menus {
 	/**
 	 * Custom walker
 	 *
-	 * @since   0.3.0
+	 * @since   %ver%
 	 * @access  protected
 	 * @wp_hook filter    wp_edit_nav_menu_walker/10/1
 	 */
@@ -67,12 +67,12 @@ final class Menu_Icons_Admin_Nav_Menus {
 	/**
 	 * Collect icon types
 	 *
-	 * @since  0.3.0
+	 * @since  %ver%
 	 * @access private
 	 */
 	private static function _collect_icon_types() {
 		$registered_types = Menu_Icons::get( 'icon_types' );
-		foreach ( Menu_Icons_Settings::get( 'icon_types' ) as $id ) {
+		foreach ( Menu_Icons_Settings::get( 'global', 'icon_types' ) as $id ) {
 			self::$_icon_types[ $id ] = $registered_types[ $id ];
 		}
 	}
@@ -109,7 +109,7 @@ final class Menu_Icons_Admin_Nav_Menus {
 	 * @access  protected
 	 * @wp_hook admin_enqueue_scripts
 	 */
-	public static function _scripts_styles() {
+	public static function _enqueue_assets() {
 		$data = array(
 			'text'      => array(
 				'title'  => __( 'Select Icon', 'menu-icons' ),
@@ -137,31 +137,17 @@ final class Menu_Icons_Admin_Nav_Menus {
 		 *
 		 * We need to dequeue and re-enqueue this one later,
 		 * otherwise we won't get the dashboard's colors
+		 *
+		 * @todo Remove in 4.0.1
 		 */
 		wp_dequeue_style( 'colors' );
 
-		wp_enqueue_media();
 		$data['iconTypes'] = $icon_types;
 		$data['typeNames'] = array_keys( self::$_icon_types );
 
 		// re-enqueue color style
 		wp_enqueue_style( 'colors' );
 
-		wp_register_script(
-			'kucrut-jquery-input-dependencies',
-			Menu_Icons::get( 'url' ) . 'js/input-dependencies' . Menu_Icons::get_script_suffix() . '.js',
-			array( 'jquery' ),
-			'0.1.0',
-			true
-		);
-		// TODO: WHY U NO WANT MINIFY?
-		wp_enqueue_script(
-			'menu-icons',
-			Menu_Icons::get( 'url' ) . 'js/admin.js',
-			array( 'kucrut-jquery-input-dependencies' ),
-			Menu_Icons::VERSION,
-			true
-		);
 		wp_localize_script( 'menu-icons', 'menuIcons', $data );
 	}
 

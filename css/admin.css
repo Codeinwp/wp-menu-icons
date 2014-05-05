@@ -75,7 +75,8 @@
 	vertical-align: middle;
 }
 
-.mi-settings input[type="number"] {
+.mi-settings input[type="number"],
+.menu-icons-settings input[type="number"] {
 	width: auto;
 	max-width: 5em;
 	float: none;
@@ -102,4 +103,14 @@
 	max-height: none;
 	padding-top: .3em;
 	padding-bottom: .4em;
+	margin-bottom: .75em;
+}
+.js .menu-icons-settings .taxonomydiv .tabs-panel {
+	margin-bottom: 0;
+}
+.menu-icons-settings h4 {
+	margin: 0;
+}
+.menu-icons-settings ._menu span.description {
+	margin-left: .5em;
 }
