@@ -336,9 +336,15 @@ class Kucrut_Form_Field_Text extends Kucrut_Form_Field {
 			$this->field['value'] = '';
 		}
 
-		if ( 'text' === $this->field['type'] ) {
-			$this->attributes = array(
-				'class' => 'regular-text',
+		if ( in_array( $this->field['type'], array( 'text', 'url' ) ) ) {
+			if ( ! isset( $this->attributes['class'] ) ) {
+				$this->attributes['class'] = array();
+			}
+			$this->attributes['class'] = array_unique(
+				array_merge(
+					array( 'regular-text' ),
+					$this->attributes['class']
+				)
 			);
 		}
 	}
