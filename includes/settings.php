@@ -172,8 +172,8 @@ final class Menu_Icons_Settings {
 	 */
 	public static function _admin_notices() {
 		$messages = array(
-			'updated' => __( '<strong>Menu Icons Settings</strong> has been successfully updated.', 'menu-icons' ),
-			'reset'   => __( '<strong>Menu Icons Settings</strong> has been successfully reset.', 'menu-icons' ),
+			'updated' => __( '<strong>Menu Icons Settings</strong> have been successfully updated.', 'menu-icons' ),
+			'reset'   => __( '<strong>Menu Icons Settings</strong> have been successfully reset.', 'menu-icons' ),
 		);
 
 		$message_type = get_transient( self::TRANSIENT_KEY );
