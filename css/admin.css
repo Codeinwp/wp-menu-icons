@@ -81,6 +81,9 @@
 	max-width: 5em;
 	float: none;
 }
+.media-sidebar .mi-settings .setting input {
+	float: none;
+}
 .mi-settings ._info {
 	clear: both;
 	padding-top: 1em;
