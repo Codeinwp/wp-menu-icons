@@ -331,6 +331,9 @@ abstract class Kucrut_Form_Field {
  */
 class Kucrut_Form_Field_Text extends Kucrut_Form_Field {
 
+	protected $template = '<input type="%s" value="%s"%s />';
+
+
 	protected function set_properties() {
 		if ( ! is_string( $this->field['value'] ) ) {
 			$this->field['value'] = '';
@@ -352,7 +355,7 @@ class Kucrut_Form_Field_Text extends Kucrut_Form_Field {
 
 	public function render() {
 		printf(
-			'<input type="%s" value="%s"%s />',
+			$this->template,
 			esc_attr( $this->field['type'] ),
 			esc_attr( $this->field['value'] ),
 			$this->build_attributes()
@@ -367,6 +370,8 @@ class Kucrut_Form_Field_Text extends Kucrut_Form_Field {
  */
 class Kucrut_Form_Field_Textarea extends Kucrut_Form_Field {
 
+	protected $template = '<textarea%s>%s</textarea>';
+
 	protected $attributes = array(
 		'class' => 'widefat',
 		'cols'  => 50,
@@ -376,7 +381,7 @@ class Kucrut_Form_Field_Textarea extends Kucrut_Form_Field {
 
 	public function render() {
 		printf(
-			'<textarea%s>%s</textarea>',
+			$this->template,
 			$this->build_attributes(),
 			esc_textarea( $this->field['value'] )
 		);
@@ -389,9 +394,7 @@ class Kucrut_Form_Field_Textarea extends Kucrut_Form_Field {
  */
 class Kucrut_Form_Field_Checkbox extends Kucrut_Form_Field {
 
-	protected $type = 'checkbox';
-
-	protected $format = '<label><input type="%s" value="%s"%s%s /> %s</label><br />';
+	protected $template = '<label><input type="%s" value="%s"%s%s /> %s</label><br />';
 
 
 	protected function set_properties() {
@@ -408,8 +411,8 @@ class Kucrut_Form_Field_Checkbox extends Kucrut_Form_Field {
 	public function render() {
 		foreach ( $this->field['choices'] as $value => $label ) {
 			printf(
-				$this->format,
-				$this->type,
+				$this->template,
+				$this->field['type'],
 				esc_attr( $value ),
 				$this->checked( $value ),
 				$this->build_attributes( 'id' ),
@@ -424,8 +427,6 @@ class Kucrut_Form_Field_Checkbox extends Kucrut_Form_Field {
  * Field: Radio
  */
 class Kucrut_Form_Field_Radio extends Kucrut_Form_Field_Checkbox {
-
-	protected $type = 'radio';
 
 	protected function set_properties() {
 		if ( ! is_string( $this->field['value'] ) ) {
@@ -445,7 +446,7 @@ class Kucrut_Form_Field_Radio extends Kucrut_Form_Field_Checkbox {
  */
 class Kucrut_Form_Field_Select extends Kucrut_Form_Field {
 
-	protected $format = '<option value="%s"%s>%s</option>';
+	protected $template = '<option value="%s"%s>%s</option>';
 
 
 	protected function set_properties() {
@@ -465,7 +466,7 @@ class Kucrut_Form_Field_Select extends Kucrut_Form_Field {
 		<select<?php echo $this->build_attributes() // xss ok ?>>
 			<?php foreach ( $this->field['choices'] as $value => $label ) : ?>
 				<?php printf(
-					$this->format,
+					$this->template,
 					esc_attr( $value ),
 					$this->selected( $value ),
 					esc_html( $label )
