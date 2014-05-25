@@ -50,6 +50,7 @@ abstract class Kucrut_Form_Field {
 		'url'             => 'Kucrut_Form_Field_Text',
 		'color'           => 'Kucrut_Form_Field_Text',
 		'date'            => 'Kucrut_Form_Field_Text',
+		'hidden'          => 'Kucrut_Form_Field_Text',
 		'checkbox'        => 'Kucrut_Form_Field_Checkbox',
 		'radio'           => 'Kucrut_Form_Field_Radio',
 		'textarea'        => 'Kucrut_Form_Field_Textarea',
