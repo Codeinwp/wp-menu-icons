@@ -211,9 +211,12 @@ final class Menu_Icons_Admin_Nav_Menus {
 
 		foreach ( $fields as &$field ) {
 			$field['default'] = $field['value'];
-			$field['attributes'] = array(
-				'class'    => '_setting',
-				'data-key' => $field['id'],
+			$field['attributes'] = array_merge(
+				array(
+					'class'    => '_setting',
+					'data-key' => $field['id'],
+				),
+				isset( $field['attributes'] ) ? $field['attributes'] : array()
 			);
 		}
 
@@ -281,7 +284,7 @@ final class Menu_Icons_Admin_Nav_Menus {
 						) ?>
 					</p>
 				</div>
-				<div class="original">
+				<div class="original hidden">
 					<p class="description">
 						<label for="<?php echo esc_attr( $input_id ) ?>-type"><?php esc_html_e( 'Icon type', 'menu-icons' ); ?></label>
 						<?php printf(
@@ -431,12 +434,12 @@ final class Menu_Icons_Admin_Nav_Menus {
 				</label>
 				<label class="setting">
 					<span>%4$s</span>
-					<input type="number" min="0.1" step="0.1" data-setting="size" value="{{ data.size }}" />
+					<input type="number" min="0.1" step="0.1" data-setting="font_size" value="{{ data.font_size }}" />
 					em
 				</label>
 				<label class="setting">
 					<span>%5$s</span>
-					<select data-setting="vertical-align">
+					<select data-setting="vertical_align">
 						<option value="">%6$s</option>
 						<option value="super">%7$s</option>
 						<option value="top">%8$s</option>

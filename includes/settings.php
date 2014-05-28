@@ -32,8 +32,8 @@ final class Menu_Icons_Settings {
 		),
 		'menu'   => array(
 			'position'       => 'before',
-			'vertical-align' => 'middle',
-			'font-size'      => '1.2',
+			'vertical_align' => 'middle',
+			'font_size'      => '1.2',
 			'misc'           => array(),
 		)
 	);
@@ -298,7 +298,7 @@ final class Menu_Icons_Settings {
 						'value'   => $menu_settings['position'],
 					),
 					array(
-						'id'      => 'vertical-align',
+						'id'      => 'vertical_align',
 						'type'    => 'select',
 						'label'   => __( 'Vertical Align', 'menu-icons' ),
 						'choices' => array(
@@ -311,10 +311,10 @@ final class Menu_Icons_Settings {
 							'bottom'      => __( 'Bottom', 'menu-icons' ),
 							'sub'         => __( 'Sub', 'menu-icons' ),
 						),
-						'value'   => $menu_settings['vertical-align'],
+						'value'   => $menu_settings['vertical_align'],
 					),
 					array(
-						'id'          => 'font-size',
+						'id'          => 'font_size',
 						'type'        => 'number',
 						'label'       => __( 'Font Size', 'menu-icons' ),
 						'description' => 'em',
@@ -322,7 +322,7 @@ final class Menu_Icons_Settings {
 							'min'  => '0.1',
 							'step' => '0.1',
 						),
-						'value'   => $menu_settings['font-size'],
+						'value'   => $menu_settings['font_size'],
 					),
 					array(
 						'id'      => 'misc',

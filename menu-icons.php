@@ -356,8 +356,8 @@ final class Menu_Icons {
 	public static function get_meta( $item_id ) {
 		$current = array_filter( (array) get_post_meta( $item_id, 'menu-icons', true ) );
 
-		if ( ! isset( $current['font-size'] ) ) {
-			$current['font-size'] = isset( $current['size'] ) ? $current['size'] : '';
+		if ( ! isset( $current['font_size'] ) ) {
+			$current['font_size'] = isset( $current['size'] ) ? $current['size'] : '';
 		}
 		unset( $current['size'] );
 

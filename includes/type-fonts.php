@@ -123,8 +123,8 @@ abstract class Menu_Icons_Type_Fonts extends Menu_Icons_Type {
 	public function templates() {
 		$icon = sprintf(
 			'<i class="_icon %s {{ data.icon }}" style="
-				font-size:{{ data.size }}em;
-				vertical-align:{{ data["vertical-align"] }};
+				font-size:{{ data.font_size }}em;
+				vertical-align:{{ data.vertical_align }};
 			"></i>',
 			esc_attr( $this->type )
 		);
@@ -191,16 +191,20 @@ abstract class Menu_Icons_Type_Fonts extends Menu_Icons_Type {
 	 * @return string
 	 */
 	protected function get_style( $values ) {
-		$style = '';
+		$style_a = array();
 
-		if ( ! empty( $values['font-size'] ) ) {
-			$style .= sprintf( 'font-size:%sem;', $values['font-size'] );
+		if ( ! empty( $values['font_size'] ) ) {
+			$style_a['font-size'] = sprintf( '%sem', $values['font_size'] );
 		}
-		if ( ! empty( $values['vertical-align'] ) ) {
-			$style .= sprintf( 'vertical-align:%s;', $values['vertical-align'] );
+		if ( ! empty( $values['vertical_align'] ) ) {
+			$style_a['vertical-align'] = $values['vertical_align'];
 		}
 
-		if ( ! empty( $style ) ) {
+		if ( ! empty( $style_a ) ) {
+			$style = '';
+			foreach ( $style_a as $key => $value ) {
+				$style .= sprintf( '%s:%s;', esc_attr( $key ), esc_attr( $value ) );
+			}
 			$style = sprintf( ' style="%s"', $style );
 		}
 

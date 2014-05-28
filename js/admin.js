@@ -112,10 +112,10 @@
 	// Font icon: Menu Items
 	media.model.miMenuItem = Backbone.Model.extend({
 		defaults : {
-			type             : '',
-			icon             : '',
-			size             : '',
-			'vertical-align' : ''
+			type           : '',
+			icon           : '',
+			font_size      : '',
+			vertical_align : ''
 		}
 	});
 
@@ -174,8 +174,9 @@
 			var $field = $('#menu-icons-'+ id +'-'+ key +'._setting');
 
 			// Bail if we didn't find a matching field.
-			if ( ! $field.length )
+			if ( ! $field.length ) {
 				return;
+			}
 
 			$field.val( value ).trigger('change');
 		}
