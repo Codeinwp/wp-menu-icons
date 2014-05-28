@@ -442,6 +442,10 @@
 			this.$el.html( this.template( data ) );
 
 			return this;
+		},
+
+		preventDefault: function(e) {
+			e.preventDefault();
 		}
 	});
 
