@@ -73,9 +73,13 @@ final class Menu_Icons {
 		load_plugin_textdomain( 'menu-icons', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 
 		self::$data = array(
-			'dir'        => plugin_dir_path( __FILE__ ),
-			'url'        => plugin_dir_url( __FILE__ ),
-			'icon_types' => array(),
+			'dir'           => plugin_dir_path( __FILE__ ),
+			'url'           => plugin_dir_url( __FILE__ ),
+			'icon_types'    => array(),
+			'default_style' => array(
+				'font-size'      => '1.2em',
+				'vertical-align' => 'middle',
+			),
 		);
 
 		require_once self::$data['dir'] . 'includes/library/functions.php';

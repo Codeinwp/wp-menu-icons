@@ -191,7 +191,9 @@ abstract class Menu_Icons_Type_Fonts extends Menu_Icons_Type {
 	 * @return string
 	 */
 	protected function get_style( $values ) {
+		$style_d = Menu_Icons::get( 'default_style' );
 		$style_a = array();
+		$style_s = '';
 
 		if ( ! empty( $values['font_size'] ) ) {
 			$style_a['font-size'] = sprintf( '%sem', $values['font_size'] );
@@ -200,14 +202,15 @@ abstract class Menu_Icons_Type_Fonts extends Menu_Icons_Type {
 			$style_a['vertical-align'] = $values['vertical_align'];
 		}
 
+		$style_a = array_diff_assoc( $style_a, $style_d );
+
 		if ( ! empty( $style_a ) ) {
-			$style = '';
 			foreach ( $style_a as $key => $value ) {
-				$style .= sprintf( '%s:%s;', esc_attr( $key ), esc_attr( $value ) );
+				$style_s .= sprintf( '%s:%s;', esc_attr( $key ), esc_attr( $value ) );
 			}
-			$style = sprintf( ' style="%s"', $style );
+			$style_s = sprintf( ' style="%s"', $style_s );
 		}
 
-		return $style;
+		return $style_s;
 	}
 }
