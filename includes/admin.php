@@ -250,7 +250,7 @@ final class Menu_Icons_Admin_Nav_Menus {
 					);
 				?>
 				<div class="easy">
-					<p class="description">
+					<p class="description submitbox">
 						<label><?php esc_html_e( 'Icon:' ) ?></label>
 						<?php printf(
 							'<a id="menu-icons-%1$d-select" class="_select" title="%2$s" data-id="%1$d" data-text="%2$s">%3$s</a>',
@@ -259,7 +259,7 @@ final class Menu_Icons_Admin_Nav_Menus {
 							self::_get_preview( $item->ID, $current )
 						) ?>
 						<?php printf(
-							'<a id="menu-icons-%1$d-remove" class="_remove hidden" data-id="%1$d">%2$s</a>',
+							'<a id="menu-icons-%1$d-remove" class="_remove hidden submitdelete" data-id="%1$d">%2$s</a>',
 							$item->ID,
 							esc_attr__( 'Remove', 'menu-icons' )
 						) ?>

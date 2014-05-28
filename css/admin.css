@@ -19,6 +19,9 @@
 	cursor: pointer;
 	text-decoration: none;
 }
+.menu-icons-wrap .easy .submitdelete {
+	float: none;
+}
 .menu-icons-wrap .easy img {
 	max-width: 40px;
 	height: auto !important;
