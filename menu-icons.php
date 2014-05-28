@@ -298,15 +298,12 @@ final class Menu_Icons {
 			}
 		}
 
-		$load_extra_style = (bool) Menu_Icons_Settings::get( 'global', 'extra_css' );
-		if ( true === $load_extra_style ) {
-			wp_enqueue_style(
-				'menu-icons-extra',
-				Menu_Icons::get( 'url' ) . 'css/extra' . self::get_script_suffix() .'.css',
-				false,
-				Menu_Icons::VERSION
-			);
-		}
+		wp_enqueue_style(
+			'menu-icons-extra',
+			Menu_Icons::get( 'url' ) . 'css/extra' . self::get_script_suffix() .'.css',
+			false,
+			Menu_Icons::VERSION
+		);
 	}
 
 

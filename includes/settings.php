@@ -28,7 +28,6 @@ final class Menu_Icons_Settings {
 	protected static $defaults = array(
 		'global' => array(
 			'icon_types' => array(),
-			'extra_css'  => '1',
 		),
 		'menu'   => array(
 			'position'       => 'before',
@@ -259,16 +258,6 @@ final class Menu_Icons_Settings {
 						'label'   => __( 'Icon Types', 'menu-icons' ),
 						'choices' => $icon_types,
 						'value'   => self::get( 'global', 'icon_types' ),
-					),
-					array(
-						'id'      => 'extra_css',
-						'type'    => 'select',
-						'label'   => __( 'Extra Stylesheet', 'menu-icons' ),
-						'choices' => array(
-							'1' => __( 'Enable', 'menu-icons' ),
-							'0' => __( 'Disable', 'menu-icons' ),
-						),
-						'value'   => self::get( 'global', 'extra_css' ),
 					),
 				),
 				'args'  => array(),
