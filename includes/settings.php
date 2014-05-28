@@ -29,8 +29,13 @@ final class Menu_Icons_Settings {
 		'global' => array(
 			'icon_types' => array(),
 			'extra_css'  => '1',
-			'position'   => 'before',
 		),
+		'menu'   => array(
+			'position'       => 'before',
+			'vertical-align' => 'middle',
+			'font-size'      => '1.2',
+			'misc'           => array(),
+		)
 	);
 
 	/**
@@ -40,7 +45,7 @@ final class Menu_Icons_Settings {
 	 * @var   array
 	 * @acess protected
 	 */
-	protected static $settings;
+	protected static $settings = array();
 
 
 	/**
@@ -63,7 +68,7 @@ final class Menu_Icons_Settings {
 		$settings = get_option( 'menu-icons', null );
 
 		if ( is_null( $settings ) ) {
-			$settings = self::$defaults;
+			$settings['global'] = self::$defaults['global'];
 		}
 
 		/**
@@ -89,6 +94,28 @@ final class Menu_Icons_Settings {
 		}
 
 		self::$settings = $settings;
+	}
+
+
+	/**
+	 * Get menu settings
+	 *
+	 * @since  %ver%
+	 * @param  int   $menu_id
+	 * @return array
+	 */
+	public static function get_menu_settings( $menu_id ) {
+		$defaults      = self::$defaults['menu'];
+		$menu_settings = self::get( sprintf( 'menu_%d', $menu_id ) );
+
+		if ( is_null( $menu_settings ) ) {
+			$menu_settings = $defaults;
+		}
+		else {
+			$menu_settings = wp_parse_args( $menu_settings, $defaults );
+		}
+
+		return apply_filters( 'menu_icons_menu_settings', $menu_settings, $menu_id );
 	}
 
 
@@ -231,6 +258,7 @@ final class Menu_Icons_Settings {
 						'type'    => 'checkbox',
 						'label'   => __( 'Icon Types', 'menu-icons' ),
 						'choices' => $icon_types,
+						'value'   => self::get( 'global', 'icon_types' ),
 					),
 					array(
 						'id'      => 'extra_css',
@@ -240,6 +268,7 @@ final class Menu_Icons_Settings {
 							'1' => __( 'Enable', 'menu-icons' ),
 							'0' => __( 'Disable', 'menu-icons' ),
 						),
+						'value'   => self::get( 'global', 'extra_css' ),
 					),
 				),
 				'args'  => array(),
@@ -249,6 +278,7 @@ final class Menu_Icons_Settings {
 		if ( ! empty( $nav_menu_selected_id ) ) {
 			$menu_term      = get_term( $nav_menu_selected_id, 'nav_menu' );
 			$menu_key       = sprintf( 'menu_%d', $nav_menu_selected_id );
+			$menu_settings  = self::get_menu_settings( $nav_menu_selected_id );
 			$fields['menu'] = array(
 				'id'          => $menu_key,
 				'title'       => __( 'Current Menu', 'menu-icons' ),
@@ -265,7 +295,7 @@ final class Menu_Icons_Settings {
 							'before' => __( 'Before', 'menu-icons' ),
 							'after'  => __( 'After', 'menu-icons' ),
 						),
-						'default' => 'before',
+						'value'   => $menu_settings['position'],
 					),
 					array(
 						'id'      => 'vertical-align',
@@ -281,7 +311,7 @@ final class Menu_Icons_Settings {
 							'bottom'      => __( 'Bottom', 'menu-icons' ),
 							'sub'         => __( 'Sub', 'menu-icons' ),
 						),
-						'default' => 'middle',
+						'value'   => $menu_settings['vertical-align'],
 					),
 					array(
 						'id'          => 'font-size',
@@ -292,7 +322,16 @@ final class Menu_Icons_Settings {
 							'min'  => '0.1',
 							'step' => '0.1',
 						),
-						'default'     => '1.2',
+						'value'   => $menu_settings['font-size'],
+					),
+					array(
+						'id'      => 'misc',
+						'type'    => 'checkbox',
+						'label'   => __( 'Misc.', 'menu-icons' ),
+						'choices' => array(
+							'hide-label' => __( 'Hide Label', 'menu-icons' ),
+						),
+						'value'   => $menu_settings['misc'],
 					),
 				),
 				'args' => array(
@@ -319,17 +358,11 @@ final class Menu_Icons_Settings {
 		$sections = self::get_fields();
 
 		foreach ( $sections as &$section ) {
-			$_fields = $section['fields'];
-			$_keys   = array_merge( $keys, array( $section['id'] ) );
-			$_args   = array_merge(
-				array( 'keys' => $_keys ),
-				$section['args']
-			);
+			$_keys = array_merge( $keys, array( $section['id'] ) );
+			$_args = array_merge( array( 'keys' => $_keys ), $section['args'] );
 
-			$section['fields'] = array();
-			foreach ( $_fields as $field ) {
-				$field['value']      = self::get( $section['id'], $field['id'] );
-				$section['fields'][] = Kucrut_Form_Field::create( $field, $_args );
+			foreach ( $section['fields'] as &$field ) {
+				$field = Kucrut_Form_Field::create( $field, $_args );
 			}
 		}
 
