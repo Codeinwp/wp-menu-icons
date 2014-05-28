@@ -210,7 +210,7 @@ final class Menu_Icons_Admin_Nav_Menus {
 		$fields   = $sections['menu']['fields'];
 
 		foreach ( $fields as &$field ) {
-			$field['default'] = $field['value'];
+			$field['default']    = $field['value'];
 			$field['attributes'] = array_merge(
 				array(
 					'class'    => '_setting',

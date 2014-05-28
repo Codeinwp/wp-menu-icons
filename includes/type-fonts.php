@@ -176,7 +176,7 @@ abstract class Menu_Icons_Type_Fonts extends Menu_Icons_Type {
 		$class = ! empty( $values['hide_label'] ) ? 'visuallyhidden' : '';
 		$title = sprintf(
 			'<span%s>%s</span>',
-			! empty( $class ) ? sprintf( ' class="%s"', esc_attr( $class ) ) : '',
+			( ! empty( $class ) ) ? sprintf( ' class="%s"', esc_attr( $class ) ) : '',
 			$title
 		);
 
