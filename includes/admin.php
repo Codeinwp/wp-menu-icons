@@ -247,7 +247,7 @@ final class Menu_Icons_Admin_Nav_Menus {
 		$input_id   = sprintf( 'menu-icons-%d', $item->ID );
 		$input_name = sprintf( 'menu-icons[%d]', $item->ID );
 		$current    = wp_parse_args(
-			array_filter( Menu_Icons::get_meta( $item->ID ) ),
+			Menu_Icons::get_meta( $item->ID ),
 			Menu_Icons_Settings::get_menu_settings( Menu_Icons_Settings::get_current_menu_id() )
 		);
 		?>
@@ -383,7 +383,7 @@ final class Menu_Icons_Admin_Nav_Menus {
 
 		// Sanitize
 		if ( ! empty( $_POST['menu-icons'][ $menu_item_db_id ] ) ) {
-			$value = array_filter( (array) $_POST['menu-icons'][ $menu_item_db_id ] );
+			$value = (array) $_POST['menu-icons'][ $menu_item_db_id ];
 		}
 		else {
 			$value = array();

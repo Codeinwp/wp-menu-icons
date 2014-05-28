@@ -181,9 +181,9 @@ abstract class Menu_Icons_Type_Fonts extends Menu_Icons_Type {
 		);
 
 		$title = sprintf(
-			'%s<i class="_mi _%s %s %s"%s></i>%s',
+			'%s<i class="_mi%s %s %s"%s></i>%s',
 			'before' === $values['position'] ? '' : $title,
-			esc_attr( $values['position'] ),
+			( empty( $values['hide_label'] ) ) ? esc_attr( " _{$values['position']}" ) : '',
 			esc_attr( $this->type ),
 			esc_attr( $values[ $this->key ] ),
 			$this->get_style( $values ),

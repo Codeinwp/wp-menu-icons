@@ -355,14 +355,17 @@ final class Menu_Icons {
 	 * @return array
 	 */
 	public static function get_meta( $item_id ) {
-		$current = array_filter( (array) get_post_meta( $item_id, 'menu-icons', true ) );
+		$values = get_post_meta( $item_id, 'menu-icons', true );
 
-		if ( ! isset( $current['font_size'] ) ) {
-			$current['font_size'] = isset( $current['size'] ) ? $current['size'] : '';
+		if ( empty( $values ) || ! is_array( $values ) ) {
+			$values = array();
 		}
-		unset( $current['size'] );
+		elseif ( isset( $values['size'] ) && ! isset( $values['font_size'] ) ) {
+			$values['font_size'] = $values['size'];
+			unset( $values['size'] );
+		}
 
-		return $current;
+		return $values;
 	}
 }
 add_action( 'plugins_loaded', array( 'Menu_Icons', '_load' ) );

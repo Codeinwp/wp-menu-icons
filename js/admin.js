@@ -114,8 +114,9 @@
 		defaults : {
 			type           : '',
 			icon           : '',
-			font_size      : '',
-			vertical_align : ''
+			font_size      : '1.2',
+			vertical_align : 'middle',
+			hide_label     : ''
 		}
 	});
 
