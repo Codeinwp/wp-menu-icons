@@ -327,7 +327,7 @@ final class Menu_Icons_Settings {
 						'type'    => 'checkbox',
 						'label'   => __( 'Misc.', 'menu-icons' ),
 						'choices' => array(
-							'hide-label' => __( 'Hide Label', 'menu-icons' ),
+							'hide_label' => __( 'Hide Label', 'menu-icons' ),
 						),
 						'value'   => $menu_settings['misc'],
 					),
