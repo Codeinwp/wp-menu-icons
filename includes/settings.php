@@ -232,6 +232,26 @@ final class Menu_Icons_Settings {
 
 
 	/**
+	 * Get ID of nav menu being edited
+	 *
+	 * @since  %ver
+	 * @return int
+	 */
+	public static function get_current_menu_id() {
+		global $nav_menu_selected_id;
+
+		if ( defined( 'DOING_AJAX' ) && DOING_AJAX && ! empty( $_POST['menu'] ) ) {
+			$menu_id = absint( $_POST['menu'] );
+		}
+		else {
+			$menu_id = $nav_menu_selected_id;
+		}
+
+		return $menu_id;
+	}
+
+
+	/**
 	 * Get settings fields
 	 *
 	 * @since  %ver%
@@ -239,9 +259,7 @@ final class Menu_Icons_Settings {
 	 * @return array
 	 */
 	public static function get_fields() {
-		global $nav_menu_selected_id;
-
-		$menu_id    = 0;
+		$menu_id    = self::get_current_menu_id();
 		$icon_types = array();
 		foreach ( Menu_Icons::get( 'icon_types' ) as $id => $props ) {
 			$icon_types[ $id ] = $props['label'];
@@ -264,14 +282,6 @@ final class Menu_Icons_Settings {
 				'args'  => array(),
 			),
 		);
-
-		if ( defined( 'DOING_AJAX' ) && DOING_AJAX && ! empty( $_POST['menu'] ) ) {
-			$menu_id = absint( $_POST['menu'] );
-		}
-		else {
-			$menu_id = $nav_menu_selected_id;
-		}
-
 
 		if ( ! empty( $menu_id ) ) {
 			$menu_term      = get_term( $menu_id, 'nav_menu' );

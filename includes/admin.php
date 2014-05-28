@@ -243,14 +243,12 @@ final class Menu_Icons_Admin_Nav_Menus {
 	public static function _fields( $item, $depth, $args = array(), $id = 0 ) {
 		require_once Menu_Icons::get( 'dir' ) . 'includes/library/form-fields.php';
 
-		global $nav_menu_selected_id;
-
 		$type_ids   = array_values( array_filter( array_keys( self::_get_types() ) ) );
 		$input_id   = sprintf( 'menu-icons-%d', $item->ID );
 		$input_name = sprintf( 'menu-icons[%d]', $item->ID );
 		$current    = wp_parse_args(
 			array_filter( Menu_Icons::get_meta( $item->ID ) ),
-			Menu_Icons_Settings::get_menu_settings( $nav_menu_selected_id )
+			Menu_Icons_Settings::get_menu_settings( Menu_Icons_Settings::get_current_menu_id() )
 		);
 		?>
 			<div class="field-icon description-wide menu-icons-wrap">
