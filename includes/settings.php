@@ -241,6 +241,7 @@ final class Menu_Icons_Settings {
 	public static function get_fields() {
 		global $nav_menu_selected_id;
 
+		$menu_id    = 0;
 		$icon_types = array();
 		foreach ( Menu_Icons::get( 'icon_types' ) as $id => $props ) {
 			$icon_types[ $id ] = $props['label'];
@@ -264,10 +265,18 @@ final class Menu_Icons_Settings {
 			),
 		);
 
-		if ( ! empty( $nav_menu_selected_id ) ) {
-			$menu_term      = get_term( $nav_menu_selected_id, 'nav_menu' );
-			$menu_key       = sprintf( 'menu_%d', $nav_menu_selected_id );
-			$menu_settings  = self::get_menu_settings( $nav_menu_selected_id );
+		if ( defined( 'DOING_AJAX' ) && DOING_AJAX && ! empty( $_POST['menu'] ) ) {
+			$menu_id = absint( $_POST['menu'] );
+		}
+		else {
+			$menu_id = $nav_menu_selected_id;
+		}
+
+
+		if ( ! empty( $menu_id ) ) {
+			$menu_term      = get_term( $menu_id, 'nav_menu' );
+			$menu_key       = sprintf( 'menu_%d', $menu_id );
+			$menu_settings  = self::get_menu_settings( $menu_id );
 			$fields['menu'] = array(
 				'id'          => $menu_key,
 				'title'       => __( 'Current Menu', 'menu-icons' ),
@@ -329,7 +338,7 @@ final class Menu_Icons_Settings {
 			);
 		}
 
-		return apply_filters( 'menu_icons_settings_fields', $fields, $nav_menu_selected_id );
+		return apply_filters( 'menu_icons_settings_fields', $fields, $menu_id );
 	}
 
 

@@ -57,7 +57,7 @@ abstract class Menu_Icons_Type_Fonts extends Menu_Icons_Type {
 							<?php printf(
 								'<option value="%s"%s>%s</option>',
 								esc_attr( $value ),
-								selected( $meta_value[ $this->key ], $value, false ),
+								selected( $current, $value, false ),
 								esc_html( $label )
 							) ?>
 						<?php endforeach; ?>
