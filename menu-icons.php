@@ -307,6 +307,46 @@ final class Menu_Icons {
 
 
 	/**
+	 * Get nav menu ID based on arguments passed to wp_nav_menu()
+	 *
+	 * @since  %ver%
+	 * @param  array $args wp_nav_menu() Arguments
+	 * @return mixed Nav menu ID or FALSE on failure
+	 */
+	public static function get_nav_menu_id( $args ) {
+		$args = (object) $args;
+		$menu = wp_get_nav_menu_object( $args->menu );
+
+		// Get the nav menu based on the theme_location
+		if ( ! $menu
+			&& $args->theme_location
+			&& ( $locations = get_nav_menu_locations() )
+			&& isset( $locations[ $args->theme_location ] )
+		) {
+			$menu = wp_get_nav_menu_object( $locations[ $args->theme_location ] );
+		}
+
+		// get the first menu that has items if we still can't find a menu
+		if ( ! $menu && ! $args->theme_location ) {
+			$menus = wp_get_nav_menus();
+			foreach ( $menus as $menu_maybe ) {
+				if ( $menu_items = wp_get_nav_menu_items( $menu_maybe->term_id, array( 'update_post_term_cache' => false ) ) ) {
+					$menu = $menu_maybe;
+					break;
+				}
+			}
+		}
+
+		if ( is_object( $menu ) && ! is_wp_error( $menu ) ) {
+			return $menu->term_id;
+		}
+		else {
+			return false;
+		}
+	}
+
+
+	/**
 	 * Get menu item meta value
 	 *
 	 * @since %ver%
@@ -315,9 +355,11 @@ final class Menu_Icons {
 	 */
 	public static function get_meta( $item_id ) {
 		$current = array_filter( (array) get_post_meta( $item_id, 'menu-icons', true ) );
-		if ( ! isset( $current['position'] ) ) {
-			$current['position'] = 'before';
+
+		if ( ! isset( $current['font-size'] ) ) {
+			$current['font-size'] = isset( $current['size'] ) ? $current['size'] : '';
 		}
+		unset( $current['size'] );
 
 		return $current;
 	}

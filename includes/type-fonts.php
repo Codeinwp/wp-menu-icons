@@ -193,8 +193,8 @@ abstract class Menu_Icons_Type_Fonts extends Menu_Icons_Type {
 	protected function get_style( $values ) {
 		$style = '';
 
-		if ( ! empty( $values['size'] ) ) {
-			$style .= sprintf( 'font-size:%sem;', $values['size'] );
+		if ( ! empty( $values['font-size'] ) ) {
+			$style .= sprintf( 'font-size:%sem;', $values['font-size'] );
 		}
 		if ( ! empty( $values['vertical-align'] ) ) {
 			$style .= sprintf( 'vertical-align:%s;', $values['vertical-align'] );

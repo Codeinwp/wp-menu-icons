@@ -199,6 +199,29 @@ final class Menu_Icons_Admin_Nav_Menus {
 
 
 	/**
+	 * Get Fields
+	 *
+	 * @since  %ver%
+	 * @access private
+	 * @return array
+	 */
+	private static function _get_fields() {
+		$sections = Menu_Icons_Settings::get_fields();
+		$fields   = $sections['menu']['fields'];
+
+		foreach ( $fields as &$field ) {
+			$field['default'] = $field['value'];
+			$field['attributes'] = array(
+				'class'    => '_setting',
+				'data-key' => $field['id'],
+			);
+		}
+
+		return $fields;
+	}
+
+
+	/**
 	 * Print fields
 	 *
 	 * @since   0.1.0
@@ -215,7 +238,17 @@ final class Menu_Icons_Admin_Nav_Menus {
 	 * @return string Form fields
 	 */
 	public static function _fields( $item, $depth, $args = array(), $id = 0 ) {
-		$current = Menu_Icons::get_meta( $item->ID );
+		require_once Menu_Icons::get( 'dir' ) . 'includes/library/form-fields.php';
+
+		global $nav_menu_selected_id;
+
+		$type_ids   = array_values( array_filter( array_keys( self::_get_types() ) ) );
+		$input_id   = sprintf( 'menu-icons-%d', $item->ID );
+		$input_name = sprintf( 'menu-icons[%d]', $item->ID );
+		$current    = wp_parse_args(
+			array_filter( Menu_Icons::get_meta( $item->ID ) ),
+			Menu_Icons_Settings::get_menu_settings( $nav_menu_selected_id )
+		);
 		?>
 			<div class="field-icon description-wide menu-icons-wrap">
 				<?php
@@ -231,26 +264,6 @@ final class Menu_Icons_Admin_Nav_Menus {
 					do_action( 'menu_icons_before_fields', $item, $depth, $args, $id );
 				?>
 				<?php
-					$input_id   = sprintf( 'menu-icons-%d', $item->ID );
-					$input_name = sprintf( 'menu-icons[%d]', $item->ID );
-					$type_ids   = array_values( array_filter( array_keys( self::_get_types() ) ) );
-					$choices    = array(
-						'positions'      => array(
-							'before' => __( 'Before', 'menu-icons' ),
-							'after'  => __( 'After', 'menu-icons' ),
-						),
-						'vertical-align' => array(
-							''            => __( '&ndash; Select &ndash;', 'menu-icons' ),
-							'super'       => __( 'Super', 'menu-icons' ),
-							'top'         => __( 'Top', 'menu-icons' ),
-							'text-top'    => __( 'Text Top', 'menu-icons' ),
-							'middle'      => __( 'Middle', 'menu-icons' ),
-							'baseline'    => __( 'Baseline', 'menu-icons' ),
-							'text-bottom' => __( 'Text Bottom', 'menu-icons' ),
-							'bottom'      => __( 'Bottom', 'menu-icons' ),
-							'sub'         => __( 'Sub', 'menu-icons' ),
-						),
-					);
 				?>
 				<div class="easy">
 					<p class="description submitbox">
@@ -268,7 +281,7 @@ final class Menu_Icons_Admin_Nav_Menus {
 						) ?>
 					</p>
 				</div>
-				<div class="original hidden">
+				<div class="original">
 					<p class="description">
 						<label for="<?php echo esc_attr( $input_id ) ?>-type"><?php esc_html_e( 'Icon type', 'menu-icons' ); ?></label>
 						<?php printf(
@@ -286,54 +299,32 @@ final class Menu_Icons_Admin_Nav_Menus {
 							<?php endforeach; ?>
 						</select>
 					</p>
+
 					<?php foreach ( self::_get_types() as $props ) : ?>
 						<?php if ( ! empty( $props['field_cb'] ) && is_callable( $props['field_cb'] ) ) : ?>
 							<?php call_user_func_array( $props['field_cb'], array( $item->ID, $current ) ); ?>
 						<?php endif; ?>
 					<?php endforeach; ?>
-					<p class="description field-icon-child" data-dep-on='<?php echo json_encode( $type_ids ) ?>'>
-						<label for="<?php echo esc_attr( $input_id ) ?>-position"><?php esc_html_e( 'Position', 'menu-icons' ); ?></label>
-						<?php printf(
-							'<select class="_setting" id="%s-position" name="%s[position]" data-key="position">',
-							esc_attr( $input_id ),
-							esc_attr( $input_name )
-						) ?>
-							<?php foreach ( $choices['positions'] as $value => $label ) : ?>
-								<?php printf(
-									'<option value="%s"%s>%s</option>',
-									esc_attr( $value ),
-									selected( ( isset( $current['position'] ) && $value === $current['position'] ), true, false ),
-									esc_html( $label )
-								) ?>
-							<?php endforeach; ?>
-						</select>
-					</p>
-					<p class="description field-icon-child" data-dep-on='<?php echo json_encode( $type_ids ) ?>'>
-						<label for="<?php echo esc_attr( $input_id ) ?>-size"><?php esc_html_e( 'Size', 'menu-icons' ); ?></label>
-						<?php printf(
-							'<input class="_setting" type="text" id="%s-size" name="%s[size]" data-key="size" value="%s">',
-							esc_attr( $input_id ),
-							esc_attr( $input_name ),
-							isset( $current['size'] ) ? $current['size'] : ''
-						) ?>
-					</p>
-					<p class="description field-icon-child" data-dep-on='<?php echo json_encode( $type_ids ) ?>'>
-						<label for="<?php echo esc_attr( $input_id ) ?>-vertical-align"><?php esc_html_e( 'Vertical Align', 'menu-icons' ); ?></label>
-						<?php printf(
-							'<select class="_setting" id="%s-vertical-align" name="%s[vertical-align]" data-key="vertical-align">',
-							esc_attr( $input_id ),
-							esc_attr( $input_name )
-						) ?>
-							<?php foreach ( $choices['vertical-align'] as $value => $label ) : ?>
-								<?php printf(
-									'<option value="%s"%s>%s</option>',
-									esc_attr( $value ),
-									selected( ( isset( $current['vertical-align'] ) && $value === $current['vertical-align'] ), true, false ),
-									esc_html( $label )
-								) ?>
-							<?php endforeach; ?>
-						</select>
-					</p>
+
+					<?php foreach ( self::_get_fields() as $field ) :
+						$field['value'] = $current[ $field['id'] ];
+						$field = Kucrut_Form_Field::create(
+							$field,
+							array(
+								'keys'               => array( 'menu-icons', $item->ID ),
+								'inline_description' => true,
+							)
+						);
+					?>
+						<p class="description field-icon-child" data-dep-on='<?php echo json_encode( $type_ids ) ?>'>
+							<?php printf(
+								'<label for="%s">%s</label>',
+								esc_attr( $field->id ),
+								esc_html( $field->label )
+							) ?>
+							<?php $field->render() ?>
+						</p>
+					<?php endforeach; ?>
 				</div>
 				<?php
 					/**

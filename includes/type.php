@@ -61,6 +61,15 @@ abstract class Menu_Icons_Type {
 	protected $key;
 
 	/**
+	 * Holds menu settings
+	 *
+	 * @since  %ver%
+	 * @access protected
+	 * @var    array
+	 */
+	protected $menu_setttings = array();
+
+	/**
 	 * Class constructor
 	 *
 	 * This simply sets $key
@@ -143,7 +152,12 @@ abstract class Menu_Icons_Type {
 	 * @return array
 	 */
 	public function _add_menu_item_title_filter( $args ) {
-		add_filter( 'the_title', array( $this, '_filter_menu_item_title' ), 999, 2 );
+		$menu_id = Menu_Icons::get_nav_menu_id( $args );
+
+		if ( false !== $menu_id ) {
+			$this->menu_settings = Menu_Icons_Settings::get_menu_settings( $menu_id );
+			add_filter( 'the_title', array( $this, '_filter_menu_item_title' ), 999, 2 );
+		}
 
 		return $args;
 	}
@@ -161,6 +175,7 @@ abstract class Menu_Icons_Type {
 	 * @return array
 	 */
 	public function _remove_menu_item_title_filter( $nav_menu ) {
+		$this->menu_settings = array();
 		remove_filter( 'the_title', array( $this, '_filter_menu_item_title' ), 999, 2 );
 
 		return $nav_menu;
@@ -179,7 +194,7 @@ abstract class Menu_Icons_Type {
 	 * @return string
 	 */
 	public function _filter_menu_item_title( $title, $id ) {
-		$values = Menu_Icons::get_meta( $id );
+		$values = wp_parse_args( Menu_Icons::get_meta( $id ), $this->menu_settings );
 
 		if ( empty( $values['type'] ) ) {
 			return $title;
