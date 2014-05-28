@@ -429,7 +429,14 @@
 
 		render : function() {
 			var data     = this.model.toJSON();
-			var template = 'menu-icons-' + this.options.type + '-preview-' + data.position;
+			var template = 'menu-icons-' + this.options.type + '-preview-';
+
+			if ( data.hide_label ) {
+				template += 'hide_label';
+			}
+			else {
+				template += data.position;
+			}
 
 			this.template = media.template( template );
 			this.$el.html( this.template( data ) );

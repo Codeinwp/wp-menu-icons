@@ -33,7 +33,7 @@ final class Menu_Icons_Settings {
 			'position'       => 'before',
 			'vertical_align' => 'middle',
 			'font_size'      => '1.2',
-			'misc'           => array(),
+			'hide_label'     => false,
 		)
 	);
 
@@ -323,13 +323,14 @@ final class Menu_Icons_Settings {
 						'value'   => $menu_settings['font_size'],
 					),
 					array(
-						'id'      => 'misc',
-						'type'    => 'checkbox',
-						'label'   => __( 'Misc.', 'menu-icons' ),
+						'id'      => 'hide_label',
+						'type'    => 'select',
+						'label'   => __( 'Hide Label', 'menu-icons' ),
 						'choices' => array(
-							'hide_label' => __( 'Hide Label', 'menu-icons' ),
+							''  => __( 'No', 'menu-icons' ),
+							'1' => __( 'Yes', 'menu-icons' ),
 						),
-						'value'   => $menu_settings['misc'],
+						'value'   => $menu_settings['hide_label'],
 					),
 				),
 				'args' => array(

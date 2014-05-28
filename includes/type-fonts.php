@@ -122,7 +122,7 @@ abstract class Menu_Icons_Type_Fonts extends Menu_Icons_Type {
 	 */
 	public function templates() {
 		$icon = sprintf(
-			'<i class="_icon %s {{ data.icon }}" style="
+			'<i class="_icon %s {{ data.icon }} _{{ data.position }}" style="
 				font-size:{{ data.font_size }}em;
 				vertical-align:{{ data.vertical_align }};
 			"></i>',
@@ -144,11 +144,15 @@ abstract class Menu_Icons_Type_Fonts extends Menu_Icons_Type {
 				esc_attr__( 'Deselect', 'menu-icons' )
 			),
 			'preview-before' => sprintf(
-				'<a href="#">%s {{ data.title }}</a>',
+				'<a href="#">%s <span>{{ data.title }}</span></a>',
 				$icon
 			),
 			'preview-after' => sprintf(
-				'<a href="#">{{ data.title }} %s</i></a>',
+				'<a href="#"><span>{{ data.title }}</span> %s</i></a>',
+				$icon
+			),
+			'preview-hide_label' => sprintf(
+				'<a href="#">%s</i></a>',
 				$icon
 			),
 		);
@@ -169,7 +173,7 @@ abstract class Menu_Icons_Type_Fonts extends Menu_Icons_Type {
 	 * @return string
 	 */
 	protected function add_icon( $title, $values ) {
-		$class = ( ! empty( $values['misc'] ) && in_array( 'hide_label', (array) $values['misc'] ) ) ? 'visuallyhidden' : '';
+		$class = ! empty( $values['hide_label'] ) ? 'visuallyhidden' : '';
 		$title = sprintf(
 			'<span%s>%s</span>',
 			! empty( $class ) ? sprintf( ' class="%s"', esc_attr( $class ) ) : '',

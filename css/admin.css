@@ -74,10 +74,15 @@
 .mi-preview.menu-item a {
 	text-decoration: none;
 }
-.mi-preview.menu-item ._icon {
+.mi-preview.menu-item a > * {
+	display: inline-block;
 	vertical-align: middle;
+	line-height: 100%;
+	height: 100%;
 }
-
+.mi-preview.menu-item ._icon {
+	margin-right: .25em;
+}
 .mi-settings input[type="number"],
 .menu-icons-settings input[type="number"] {
 	width: auto;

@@ -451,7 +451,14 @@ final class Menu_Icons_Admin_Nav_Menus {
 						<option value="sub">%14$s</option>
 					</select>
 				</label>
-				<p class="_info"><em>%15$s</em></p>',
+				<label class="setting">
+					<span>%15$s</span>
+					<select data-setting="hide_label">
+						<option value="">%16$s</option>
+						<option value="1">%17$s</option>
+					</select>
+				</label>
+				<p class="_info"><em>%18$s</em></p>',
 				esc_html__( 'Position', 'menu-icons' ),
 				esc_html__( 'Before', 'menu-icons' ),
 				esc_html__( 'After', 'menu-icons' ),
@@ -466,6 +473,9 @@ final class Menu_Icons_Admin_Nav_Menus {
 				esc_html__( 'Bottom', 'menu-icons' ),
 				esc_html__( 'Text Bottom', 'menu-icons' ),
 				esc_html__( 'Sub', 'menu-icons' ),
+				esc_html__( 'Hide Label', 'menu-icons' ),
+				esc_html__( 'No', 'menu-icons' ),
+				esc_html__( 'Yes', 'menu-icons' ),
 				sprintf(
 					esc_html__( "Please note that the actual look of the icons on the front-end will also be affected by your active theme's style. You can use %s if you need to override it.", 'menu-icons' ),
 					'<a target="_blank" href="http://wordpress.org/plugins/simple-custom-css/">Simple Custom CSS</a>'
