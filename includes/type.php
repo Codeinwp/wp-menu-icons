@@ -61,17 +61,13 @@ abstract class Menu_Icons_Type {
 	protected $key;
 
 	/**
-	 * Holds icon positions
+	 * Holds menu settings
 	 *
-	 * @since  0.2.0
+	 * @since  %ver%
 	 * @access protected
 	 * @var    array
 	 */
-	protected $positions = array(
-		'before',
-		'after',
-	);
-
+	protected $menu_setttings = array();
 
 	/**
 	 * Class constructor
@@ -156,7 +152,12 @@ abstract class Menu_Icons_Type {
 	 * @return array
 	 */
 	public function _add_menu_item_title_filter( $args ) {
-		add_filter( 'the_title', array( $this, '_filter_menu_item_title' ), 999, 2 );
+		$menu_id = Menu_Icons::get_nav_menu_id( $args );
+
+		if ( false !== $menu_id ) {
+			$this->menu_settings = Menu_Icons_Settings::get_menu_settings( $menu_id );
+			add_filter( 'the_title', array( $this, '_filter_menu_item_title' ), 999, 2 );
+		}
 
 		return $args;
 	}
@@ -174,6 +175,7 @@ abstract class Menu_Icons_Type {
 	 * @return array
 	 */
 	public function _remove_menu_item_title_filter( $nav_menu ) {
+		$this->menu_settings = array();
 		remove_filter( 'the_title', array( $this, '_filter_menu_item_title' ), 999, 2 );
 
 		return $nav_menu;
@@ -192,7 +194,7 @@ abstract class Menu_Icons_Type {
 	 * @return string
 	 */
 	public function _filter_menu_item_title( $title, $id ) {
-		$values = array_filter( (array) get_post_meta( $id, 'menu-icons', true ) );
+		$values = wp_parse_args( Menu_Icons::get_meta( $id ), $this->menu_settings );
 
 		if ( empty( $values['type'] ) ) {
 			return $title;
@@ -204,15 +206,6 @@ abstract class Menu_Icons_Type {
 
 		if ( empty( $values[ $this->key ] ) ) {
 			return $title;
-		}
-
-		/**
-		 * Set icon position, defaults to 'before'
-		 *
-		 * @since 0.2.0
-		 */
-		if ( ! isset( $values['position'] ) || ! in_array( $values['position'], $this->positions ) ) {
-			$values['position'] = $this->positions[0];
 		}
 
 		$title = $this->add_icon( $title, $values );

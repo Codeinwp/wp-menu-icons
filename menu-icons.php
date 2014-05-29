@@ -69,45 +69,72 @@ final class Menu_Icons {
 	 * @wp_hook action plugins_loaded/10
 	 * @link    http://codex.wordpress.org/Plugin_API/Action_Reference/plugins_loaded Action: plugins_loaded/10
 	 */
-	public static function load() {
+	public static function _load() {
 		load_plugin_textdomain( 'menu-icons', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 
 		self::$data = array(
-			'dir'        => plugin_dir_path( __FILE__ ),
-			'url'        => plugin_dir_url( __FILE__ ),
-			'icon_types' => array(),
+			'dir'           => plugin_dir_path( __FILE__ ),
+			'url'           => plugin_dir_url( __FILE__ ),
+			'icon_types'    => array(),
+			'default_style' => array(
+				'font-size'      => '1.2em',
+				'vertical-align' => 'middle',
+			),
 		);
 
+		require_once self::$data['dir'] . 'includes/library/functions.php';
+
 		add_filter( 'menu_icons_types', array( __CLASS__, '_register_icon_types' ), 7 );
-		add_action( 'wp_loaded', array( __CLASS__, 'init' ), 9 );
+		add_filter( 'is_protected_meta', array( __CLASS__, '_protect_meta_key' ), 10, 3 );
+		add_action( 'wp_loaded', array( __CLASS__, '_init' ), 9 );
+		add_action( 'get_header', array( __CLASS__, '_load_front_end' ) );
 	}
 
 
 	/**
-	 * Initialize plugin
+	 * Protect meta key
+	 *
+	 * This prevents our meta key from showing up on Custom Fields meta box
+	 *
+	 * @since   %ver%
+	 * @wp_hook filter is_protected_meta
+	 * @param   bool   $protected        Protection status
+	 * @param   string $meta_key         Meta key
+	 * @param   string $meta_type        Meta type
+	 * @return  bool   Protection status
+	 */
+	public static function _protect_meta_key( $protected, $meta_key, $meta_type ) {
+		if ( 'menu-icons' === $meta_key ) {
+			$protected = true;
+		}
+
+		return $protected;
+	}
+
+
+	/**
+	 * Initialize
 	 *
 	 * 1. Collect registered types
-	 * 2. Add hook callbacks
+	 * 2. Load settings
 	 *
 	 * @since   0.1.0
 	 * @wp_hook action wp_loaded/9
 	 * @link    http://codex.wordpress.org/Plugin_API/Action_Reference/wp_loaded Action: wp_loaded/9
 	 */
-	public static function init() {
+	public static function _init() {
 		self::_collect_icon_types();
 
 		// Nothing to do if there are no icon types registered
 		if ( empty( self::$data['icon_types'] ) ) {
+			trigger_error( __( 'Menu Icons: No registered icon types found.', 'menu-icons' ) );
+
 			return;
 		}
 
-		// Back
-		add_filter( 'load-nav-menus.php', array( __CLASS__, '_load_nav_menus' ) );
-		add_filter( 'wp_edit_nav_menu_walker', array( __CLASS__, '_filter_wp_edit_nav_menu_walker' ), 99 );
-
-		// Front
-		add_action( 'get_header', array( __CLASS__, '_load_front_end' ) );
-		add_action( 'wp_enqueue_scripts', array( __CLASS__, '_enqueue_styles' ), 7 );
+		// Load settings
+		require_once self::$data['dir'] . 'includes/settings.php';
+		Menu_Icons_Settings::init();
 	}
 
 
@@ -204,43 +231,6 @@ final class Menu_Icons {
 
 
 	/**
-	 * Prepare custom walker and custom field
-	 *
-	 * @since   0.1.3
-	 * @access  protected
-	 * @wp_hook filter    wp_edit_nav_menu_walker/10/1
-	 */
-	public static function _filter_wp_edit_nav_menu_walker( $walker ) {
-		// Load custom fields
-		require_once self::$data['dir'] . 'includes/admin.php';
-		add_filter( 'menu_item_custom_fields', array( 'Menu_Icons_Admin_Nav_Menus', '_fields' ), 10, 3 );
-
-		// Load menu item custom fields plugin
-		if ( ! class_exists( 'Menu_Item_Custom_Fields_Walker' ) ) {
-			require_once self::$data['dir'] . '/includes/walker-nav-menu-edit.php';
-		}
-		$walker = 'Menu_Item_Custom_Fields_Walker';
-
-		return $walker;
-	}
-
-
-	/**
-	 * Prepare wp-admin/nav-menus.php
-	 *
-	 * @since   0.1.5
-	 * @access  protected
-	 * @wp_hook action    load-nav-menus.php/10
-	 * @link    http://codex.wordpress.org/Plugin_API/Action_Reference/load-%28page%29 Action: load-nav-menus.php/10
-	 */
-	public static function _load_nav_menus() {
-		// Load custom fields
-		require_once self::$data['dir'] . 'includes/admin.php';
-		Menu_Icons_Admin_Nav_Menus::init();
-	}
-
-
-	/**
 	 * Load front-end tasks
 	 *
 	 * @since   0.1.0
@@ -249,9 +239,13 @@ final class Menu_Icons {
 	 * @link    http://codex.wordpress.org/Plugin_API/Action_Reference/get_header Action: get_header/10
 	 */
 	public static function _load_front_end() {
-		foreach ( self::$data['icon_types'] as $props ) {
-			call_user_func( $props['front_cb'] );
+		foreach ( Menu_Icons_Settings::get( 'global', 'icon_types' ) as $id ) {
+			if ( isset( self::$data['icon_types'][ $id ] ) ) {
+				call_user_func( self::$data['icon_types'][ $id ]['front_cb'] );
+			}
 		}
+
+		add_action( 'wp_enqueue_scripts', array( __CLASS__, '_enqueue_styles' ), 7 );
 	}
 
 
@@ -290,39 +284,89 @@ final class Menu_Icons {
 
 
 	/**
-	 * Enqueue extra stylesheet
-	 *
-	 * This stylesheet will override some styles of the icons
+	 * Enqueue stylesheets
 	 *
 	 * @since   0.1.0
 	 * @access  protected
 	 * @wp_hook action          wp_enqueue_scripts/10
-	 * @uses    apply_filters() Calls 'menu_icons_load_extra_style' allow plugins/themes to
-	 *                          enable/disable the loading of the extra stylesheet
 	 * @link   http://codex.wordpress.org/Plugin_API/Action_Reference/wp_enqueue_scripts Action: wp_enqueue_scripts/10
 	 */
 	public static function _enqueue_styles() {
 		// Enqueue icon types' stylesheets
-		foreach ( self::$data['icon_types'] as $id => $props ) {
-			self::enqueue_type_stylesheet( $id, $props );
+		foreach ( Menu_Icons_Settings::get( 'global', 'icon_types' ) as $id ) {
+			if ( isset( self::$data['icon_types'][ $id ] ) ) {
+				self::enqueue_type_stylesheet( $id, self::$data['icon_types'][ $id ] );
+			}
 		}
 
-		/**
-		 * Enable/disable loading of extra stylesheet
-		 *
-		 * @since 0.1.0
-		 * @param bool $load_extra_style
-		 */
-		$load_extra_style = (bool) apply_filters( 'menu_icons_load_extra_style', true );
+		wp_enqueue_style(
+			'menu-icons-extra',
+			Menu_Icons::get( 'url' ) . 'css/extra' . self::get_script_suffix() .'.css',
+			false,
+			Menu_Icons::VERSION
+		);
+	}
 
-		if ( true === $load_extra_style ) {
-			wp_enqueue_style(
-				'menu-icons-extra',
-				Menu_Icons::get( 'url' ) . 'css/extra' . self::get_script_suffix() .'.css',
-				false,
-				Menu_Icons::VERSION
-			);
+
+	/**
+	 * Get nav menu ID based on arguments passed to wp_nav_menu()
+	 *
+	 * @since  %ver%
+	 * @param  array $args wp_nav_menu() Arguments
+	 * @return mixed Nav menu ID or FALSE on failure
+	 */
+	public static function get_nav_menu_id( $args ) {
+		$args = (object) $args;
+		$menu = wp_get_nav_menu_object( $args->menu );
+
+		// Get the nav menu based on the theme_location
+		if ( ! $menu
+			&& $args->theme_location
+			&& ( $locations = get_nav_menu_locations() )
+			&& isset( $locations[ $args->theme_location ] )
+		) {
+			$menu = wp_get_nav_menu_object( $locations[ $args->theme_location ] );
+		}
+
+		// get the first menu that has items if we still can't find a menu
+		if ( ! $menu && ! $args->theme_location ) {
+			$menus = wp_get_nav_menus();
+			foreach ( $menus as $menu_maybe ) {
+				if ( $menu_items = wp_get_nav_menu_items( $menu_maybe->term_id, array( 'update_post_term_cache' => false ) ) ) {
+					$menu = $menu_maybe;
+					break;
+				}
+			}
+		}
+
+		if ( is_object( $menu ) && ! is_wp_error( $menu ) ) {
+			return $menu->term_id;
+		}
+		else {
+			return false;
 		}
 	}
+
+
+	/**
+	 * Get menu item meta value
+	 *
+	 * @since %ver%
+	 * @param int   $item_id Menu item ID
+	 * @return array
+	 */
+	public static function get_meta( $item_id ) {
+		$values = get_post_meta( $item_id, 'menu-icons', true );
+
+		if ( empty( $values ) || ! is_array( $values ) ) {
+			$values = array();
+		}
+		elseif ( isset( $values['size'] ) && ! isset( $values['font_size'] ) ) {
+			$values['font_size'] = $values['size'];
+			unset( $values['size'] );
+		}
+
+		return $values;
+	}
 }
-add_action( 'plugins_loaded', array( 'Menu_Icons', 'load' ) );
+add_action( 'plugins_loaded', array( 'Menu_Icons', '_load' ) );

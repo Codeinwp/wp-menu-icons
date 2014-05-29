@@ -8,21 +8,73 @@
 
 
 /**
- * Menu item metadata
- *
+ * Nav menu admin
  */
 final class Menu_Icons_Admin_Nav_Menus {
+
+	/**
+	 * Holds active icon types
+	 *
+	 * @since  %ver%
+	 * @access private
+	 * @var    array
+	 */
+	private static $_icon_types;
 
 
 	/**
 	 * Initialize class
+	 *
+	 * @since   0.1.0
+	 * @wp_hook action load-nav-menus.php
 	 */
 	public static function init() {
-		add_action( 'admin_enqueue_scripts', array( __CLASS__, '_scripts_styles' ) );
+		$active_types = Menu_Icons_Settings::get( 'global', 'icon_types' );
+		if ( empty( $active_types ) ) {
+			return;
+		}
+
+		self::_collect_icon_types();
+
+		add_filter( 'wp_edit_nav_menu_walker', array( __CLASS__, '_filter_wp_edit_nav_menu_walker' ), 99 );
+		add_filter( 'menu_item_custom_fields', array( __CLASS__, '_fields' ), 10, 3 );
+		add_action( 'admin_enqueue_scripts', array( __CLASS__, '_enqueue_assets' ), 101 );
 		add_action( 'print_media_templates', array( __CLASS__, '_media_templates' ) );
 
 		add_filter( 'manage_nav-menus_columns', array( __CLASS__, '_columns' ), 99 );
 		add_action( 'wp_update_nav_menu_item', array( __CLASS__, '_save' ), 10, 3 );
+	}
+
+
+	/**
+	 * Custom walker
+	 *
+	 * @since   %ver%
+	 * @access  protected
+	 * @wp_hook filter    wp_edit_nav_menu_walker/10/1
+	 */
+	public static function _filter_wp_edit_nav_menu_walker( $walker ) {
+		// Load menu item custom fields plugin
+		if ( ! class_exists( 'Menu_Item_Custom_Fields_Walker' ) ) {
+			require_once Menu_Icons::get( 'dir' ) . 'includes/walker-nav-menu-edit.php';
+		}
+		$walker = 'Menu_Item_Custom_Fields_Walker';
+
+		return $walker;
+	}
+
+
+	/**
+	 * Collect icon types
+	 *
+	 * @since  %ver%
+	 * @access private
+	 */
+	private static function _collect_icon_types() {
+		$registered_types = Menu_Icons::get( 'icon_types' );
+		foreach ( Menu_Icons_Settings::get( 'global', 'icon_types' ) as $id ) {
+			self::$_icon_types[ $id ] = $registered_types[ $id ];
+		}
 	}
 
 
@@ -43,7 +95,7 @@ final class Menu_Icons_Admin_Nav_Menus {
 					'label' => __( '&mdash; Select &mdash;', 'menu-icons' )
 				),
 			),
-			Menu_Icons::get( 'icon_types' )
+			self::$_icon_types
 		);
 
 		return $types;
@@ -57,26 +109,21 @@ final class Menu_Icons_Admin_Nav_Menus {
 	 * @access  protected
 	 * @wp_hook admin_enqueue_scripts
 	 */
-	public static function _scripts_styles() {
-		// WP 3.8 bug, fixed in 3.9
-		// We need to dequeue and re-enqueue this one later,
-		// otherwise we won't get the dashboard's colors
-		wp_dequeue_style( 'colors' );
+	public static function _enqueue_assets() {
+		global $nav_menu_selected_id;
 
 		$data = array(
-			'text'      => array(
+			'text'         => array(
 				'title'  => __( 'Select Icon', 'menu-icons' ),
 				'select' => __( 'Select', 'menu-icons' ),
 				'all'    => __( 'All', 'menu-icons' ),
 			),
-			'base_url'  => untrailingslashit( Menu_Icons::get( 'url' ) ),
-			'admin_url' => untrailingslashit( admin_url() ),
+			'base_url'     => untrailingslashit( Menu_Icons::get( 'url' ) ),
+			'admin_url'    => untrailingslashit( admin_url() ),
+			'menuSettings' => Menu_Icons_Settings::get_menu_settings( $nav_menu_selected_id ),
 		);
 
-		$_icon_types = Menu_Icons::get( 'icon_types' );
-		$icon_types  = array();
-
-		foreach ( $_icon_types as $id => $props ) {
+		foreach ( self::$_icon_types as $id => $props ) {
 			if ( ! empty( $props['frame_cb'] ) ) {
 				$icon_types[ $id ] = array(
 					'type'    => $id,
@@ -88,37 +135,22 @@ final class Menu_Icons_Admin_Nav_Menus {
 			}
 		}
 
-		if ( count( $_icon_types ) === count( $icon_types ) ) {
-			wp_enqueue_media();
-			$data['iconTypes'] = $icon_types;
-			$data['typeNames'] = array_keys( $icon_types );
-		}
+		/**
+		 * WP 3.8 bug, fixed in 3.9
+		 *
+		 * We need to dequeue and re-enqueue this one later,
+		 * otherwise we won't get the dashboard's colors
+		 *
+		 * @todo Remove in 4.0.1
+		 */
+		wp_dequeue_style( 'colors' );
 
-		wp_enqueue_style(
-			'menu-icons',
-			Menu_Icons::get( 'url' ) . 'css/admin' . Menu_Icons::get_script_suffix() . '.css',
-			false,
-			Menu_Icons::VERSION
-		);
+		$data['iconTypes'] = $icon_types;
+		$data['typeNames'] = array_keys( self::$_icon_types );
 
-		// re-enqueue
+		// re-enqueue color style
 		wp_enqueue_style( 'colors' );
 
-		wp_register_script(
-			'kucrut-jquery-input-dependencies',
-			Menu_Icons::get( 'url' ) . 'js/input-dependencies' . Menu_Icons::get_script_suffix() . '.js',
-			array( 'jquery' ),
-			'0.1.0',
-			true
-		);
-		// TODO: WHY U NO WANT MINIFY?
-		wp_enqueue_script(
-			'menu-icons',
-			Menu_Icons::get( 'url' ) . 'js/admin.js',
-			array( 'kucrut-jquery-input-dependencies' ),
-			Menu_Icons::VERSION,
-			true
-		);
 		wp_localize_script( 'menu-icons', 'menuIcons', $data );
 	}
 
@@ -167,6 +199,32 @@ final class Menu_Icons_Admin_Nav_Menus {
 
 
 	/**
+	 * Get Fields
+	 *
+	 * @since  %ver%
+	 * @access private
+	 * @return array
+	 */
+	private static function _get_fields() {
+		$sections = Menu_Icons_Settings::get_fields();
+		$fields   = $sections['menu']['fields'];
+
+		foreach ( $fields as &$field ) {
+			$field['default']    = $field['value'];
+			$field['attributes'] = array_merge(
+				array(
+					'class'    => '_setting',
+					'data-key' => $field['id'],
+				),
+				isset( $field['attributes'] ) ? $field['attributes'] : array()
+			);
+		}
+
+		return $fields;
+	}
+
+
+	/**
 	 * Print fields
 	 *
 	 * @since   0.1.0
@@ -183,7 +241,15 @@ final class Menu_Icons_Admin_Nav_Menus {
 	 * @return string Form fields
 	 */
 	public static function _fields( $item, $depth, $args = array(), $id = 0 ) {
-		$current = array_filter( (array) get_post_meta( $item->ID, 'menu-icons', true ) );
+		require_once Menu_Icons::get( 'dir' ) . 'includes/library/form-fields.php';
+
+		$type_ids   = array_values( array_filter( array_keys( self::_get_types() ) ) );
+		$input_id   = sprintf( 'menu-icons-%d', $item->ID );
+		$input_name = sprintf( 'menu-icons[%d]', $item->ID );
+		$current    = wp_parse_args(
+			Menu_Icons::get_meta( $item->ID ),
+			Menu_Icons_Settings::get_menu_settings( Menu_Icons_Settings::get_current_menu_id() )
+		);
 		?>
 			<div class="field-icon description-wide menu-icons-wrap">
 				<?php
@@ -199,29 +265,9 @@ final class Menu_Icons_Admin_Nav_Menus {
 					do_action( 'menu_icons_before_fields', $item, $depth, $args, $id );
 				?>
 				<?php
-					$input_id   = sprintf( 'menu-icons-%d', $item->ID );
-					$input_name = sprintf( 'menu-icons[%d]', $item->ID );
-					$type_ids   = array_values( array_filter( array_keys( self::_get_types() ) ) );
-					$choices    = array(
-						'positions'      => array(
-							'before' => __( 'Before', 'menu-icons' ),
-							'after'  => __( 'After', 'menu-icons' ),
-						),
-						'vertical-align' => array(
-							''            => __( '&ndash; Select &ndash;', 'menu-icons' ),
-							'super'       => __( 'Super', 'menu-icons' ),
-							'top'         => __( 'Top', 'menu-icons' ),
-							'text-top'    => __( 'Text Top', 'menu-icons' ),
-							'middle'      => __( 'Middle', 'menu-icons' ),
-							'baseline'    => __( 'Baseline', 'menu-icons' ),
-							'text-bottom' => __( 'Text Bottom', 'menu-icons' ),
-							'bottom'      => __( 'Bottom', 'menu-icons' ),
-							'sub'         => __( 'Sub', 'menu-icons' ),
-						),
-					);
 				?>
 				<div class="easy">
-					<p class="description">
+					<p class="description submitbox">
 						<label><?php esc_html_e( 'Icon:' ) ?></label>
 						<?php printf(
 							'<a id="menu-icons-%1$d-select" class="_select" title="%2$s" data-id="%1$d" data-text="%2$s">%3$s</a>',
@@ -230,7 +276,7 @@ final class Menu_Icons_Admin_Nav_Menus {
 							self::_get_preview( $item->ID, $current )
 						) ?>
 						<?php printf(
-							'<a id="menu-icons-%1$d-remove" class="_remove hidden" data-id="%1$d">%2$s</a>',
+							'<a id="menu-icons-%1$d-remove" class="_remove hidden submitdelete" data-id="%1$d">%2$s</a>',
 							$item->ID,
 							esc_attr__( 'Remove', 'menu-icons' )
 						) ?>
@@ -254,54 +300,32 @@ final class Menu_Icons_Admin_Nav_Menus {
 							<?php endforeach; ?>
 						</select>
 					</p>
+
 					<?php foreach ( self::_get_types() as $props ) : ?>
 						<?php if ( ! empty( $props['field_cb'] ) && is_callable( $props['field_cb'] ) ) : ?>
 							<?php call_user_func_array( $props['field_cb'], array( $item->ID, $current ) ); ?>
 						<?php endif; ?>
 					<?php endforeach; ?>
-					<p class="description field-icon-child" data-dep-on='<?php echo json_encode( $type_ids ) ?>'>
-						<label for="<?php echo esc_attr( $input_id ) ?>-position"><?php esc_html_e( 'Position', 'menu-icons' ); ?></label>
-						<?php printf(
-							'<select class="_setting" id="%s-position" name="%s[position]" data-key="position">',
-							esc_attr( $input_id ),
-							esc_attr( $input_name )
-						) ?>
-							<?php foreach ( $choices['positions'] as $value => $label ) : ?>
-								<?php printf(
-									'<option value="%s"%s>%s</option>',
-									esc_attr( $value ),
-									selected( ( isset( $current['position'] ) && $value === $current['position'] ), true, false ),
-									esc_html( $label )
-								) ?>
-							<?php endforeach; ?>
-						</select>
-					</p>
-					<p class="description field-icon-child" data-dep-on='<?php echo json_encode( $type_ids ) ?>'>
-						<label for="<?php echo esc_attr( $input_id ) ?>-size"><?php esc_html_e( 'Size', 'menu-icons' ); ?></label>
-						<?php printf(
-							'<input class="_setting" type="text" id="%s-size" name="%s[size]" data-key="size" value="%s">',
-							esc_attr( $input_id ),
-							esc_attr( $input_name ),
-							isset( $current['size'] ) ? $current['size'] : ''
-						) ?>
-					</p>
-					<p class="description field-icon-child" data-dep-on='<?php echo json_encode( $type_ids ) ?>'>
-						<label for="<?php echo esc_attr( $input_id ) ?>-vertical-align"><?php esc_html_e( 'Vertical Align', 'menu-icons' ); ?></label>
-						<?php printf(
-							'<select class="_setting" id="%s-vertical-align" name="%s[vertical-align]" data-key="vertical-align">',
-							esc_attr( $input_id ),
-							esc_attr( $input_name )
-						) ?>
-							<?php foreach ( $choices['vertical-align'] as $value => $label ) : ?>
-								<?php printf(
-									'<option value="%s"%s>%s</option>',
-									esc_attr( $value ),
-									selected( ( isset( $current['vertical-align'] ) && $value === $current['vertical-align'] ), true, false ),
-									esc_html( $label )
-								) ?>
-							<?php endforeach; ?>
-						</select>
-					</p>
+
+					<?php foreach ( self::_get_fields() as $field ) :
+						$field['value'] = $current[ $field['id'] ];
+						$field = Kucrut_Form_Field::create(
+							$field,
+							array(
+								'keys'               => array( 'menu-icons', $item->ID ),
+								'inline_description' => true,
+							)
+						);
+					?>
+						<p class="description field-icon-child" data-dep-on='<?php echo json_encode( $type_ids ) ?>'>
+							<?php printf(
+								'<label for="%s">%s</label>',
+								esc_attr( $field->id ),
+								esc_html( $field->label )
+							) ?>
+							<?php $field->render() ?>
+						</p>
+					<?php endforeach; ?>
 				</div>
 				<?php
 					/**
@@ -351,11 +375,15 @@ final class Menu_Icons_Admin_Nav_Menus {
 	 * @param array $menu_item_args  Menu item data
 	 */
 	public static function _save( $menu_id, $menu_item_db_id, $menu_item_args ) {
+		if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
+			return;
+		}
+
 		check_admin_referer( 'update-nav_menu', 'update-nav-menu-nonce' );
 
 		// Sanitize
 		if ( ! empty( $_POST['menu-icons'][ $menu_item_db_id ] ) ) {
-			$value = array_filter( (array) $_POST['menu-icons'][ $menu_item_db_id ] );
+			$value = (array) $_POST['menu-icons'][ $menu_item_db_id ];
 		}
 		else {
 			$value = array();
@@ -404,12 +432,12 @@ final class Menu_Icons_Admin_Nav_Menus {
 				</label>
 				<label class="setting">
 					<span>%4$s</span>
-					<input type="number" min="0.1" step="0.1" data-setting="size" value="{{ data.size }}" />
+					<input type="number" min="0.1" step="0.1" data-setting="font_size" value="{{ data.font_size }}" />
 					em
 				</label>
 				<label class="setting">
 					<span>%5$s</span>
-					<select data-setting="vertical-align">
+					<select data-setting="vertical_align">
 						<option value="">%6$s</option>
 						<option value="super">%7$s</option>
 						<option value="top">%8$s</option>
@@ -421,7 +449,14 @@ final class Menu_Icons_Admin_Nav_Menus {
 						<option value="sub">%14$s</option>
 					</select>
 				</label>
-				<p class="_info"><em>%15$s</em></p>',
+				<label class="setting">
+					<span>%15$s</span>
+					<select data-setting="hide_label">
+						<option value="">%16$s</option>
+						<option value="1">%17$s</option>
+					</select>
+				</label>
+				<p class="_info"><em>%18$s</em></p>',
 				esc_html__( 'Position', 'menu-icons' ),
 				esc_html__( 'Before', 'menu-icons' ),
 				esc_html__( 'After', 'menu-icons' ),
@@ -436,6 +471,9 @@ final class Menu_Icons_Admin_Nav_Menus {
 				esc_html__( 'Bottom', 'menu-icons' ),
 				esc_html__( 'Text Bottom', 'menu-icons' ),
 				esc_html__( 'Sub', 'menu-icons' ),
+				esc_html__( 'Hide Label', 'menu-icons' ),
+				esc_html__( 'No', 'menu-icons' ),
+				esc_html__( 'Yes', 'menu-icons' ),
 				sprintf(
 					esc_html__( "Please note that the actual look of the icons on the front-end will also be affected by your active theme's style. You can use %s if you need to override it.", 'menu-icons' ),
 					'<a target="_blank" href="http://wordpress.org/plugins/simple-custom-css/">Simple Custom CSS</a>'

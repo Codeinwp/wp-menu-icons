@@ -57,7 +57,7 @@ abstract class Menu_Icons_Type_Fonts extends Menu_Icons_Type {
 							<?php printf(
 								'<option value="%s"%s>%s</option>',
 								esc_attr( $value ),
-								selected( $meta_value[ $this->key ], $value, false ),
+								selected( $current, $value, false ),
 								esc_html( $label )
 							) ?>
 						<?php endforeach; ?>
@@ -122,9 +122,9 @@ abstract class Menu_Icons_Type_Fonts extends Menu_Icons_Type {
 	 */
 	public function templates() {
 		$icon = sprintf(
-			'<i class="_icon %s {{ data.icon }}" style="
-				font-size:{{ data.size }}em;
-				vertical-align:{{ data["vertical-align"] }};
+			'<i class="_icon %s {{ data.icon }} _{{ data.position }}" style="
+				font-size:{{ data.font_size }}em;
+				vertical-align:{{ data.vertical_align }};
 			"></i>',
 			esc_attr( $this->type )
 		);
@@ -144,11 +144,15 @@ abstract class Menu_Icons_Type_Fonts extends Menu_Icons_Type {
 				esc_attr__( 'Deselect', 'menu-icons' )
 			),
 			'preview-before' => sprintf(
-				'<a href="#">%s {{ data.title }}</a>',
+				'<a href="#">%s <span>{{ data.title }}</span></a>',
 				$icon
 			),
 			'preview-after' => sprintf(
-				'<a href="#">{{ data.title }} %s</i></a>',
+				'<a href="#"><span>{{ data.title }}</span> %s</i></a>',
+				$icon
+			),
+			'preview-hide_label' => sprintf(
+				'<a href="#">%s</i></a>',
 				$icon
 			),
 		);
@@ -169,10 +173,17 @@ abstract class Menu_Icons_Type_Fonts extends Menu_Icons_Type {
 	 * @return string
 	 */
 	protected function add_icon( $title, $values ) {
+		$class = ! empty( $values['hide_label'] ) ? 'visuallyhidden' : '';
 		$title = sprintf(
-			'%s<i class="_mi _%s %s %s"%s></i>%s',
+			'<span%s>%s</span>',
+			( ! empty( $class ) ) ? sprintf( ' class="%s"', esc_attr( $class ) ) : '',
+			$title
+		);
+
+		$title = sprintf(
+			'%s<i class="_mi%s %s %s"%s></i>%s',
 			'before' === $values['position'] ? '' : $title,
-			esc_attr( $values['position'] ),
+			( empty( $values['hide_label'] ) ) ? esc_attr( " _{$values['position']}" ) : '',
 			esc_attr( $this->type ),
 			esc_attr( $values[ $this->key ] ),
 			$this->get_style( $values ),
@@ -191,19 +202,26 @@ abstract class Menu_Icons_Type_Fonts extends Menu_Icons_Type {
 	 * @return string
 	 */
 	protected function get_style( $values ) {
-		$style = '';
+		$style_d = Menu_Icons::get( 'default_style' );
+		$style_a = array();
+		$style_s = '';
 
-		if ( ! empty( $values['size'] ) ) {
-			$style .= sprintf( 'font-size:%sem;', $values['size'] );
+		if ( ! empty( $values['font_size'] ) ) {
+			$style_a['font-size'] = sprintf( '%sem', $values['font_size'] );
 		}
-		if ( ! empty( $values['vertical-align'] ) ) {
-			$style .= sprintf( 'vertical-align:%s;', $values['vertical-align'] );
-		}
-
-		if ( ! empty( $style ) ) {
-			$style = sprintf( ' style="%s"', $style );
+		if ( ! empty( $values['vertical_align'] ) ) {
+			$style_a['vertical-align'] = $values['vertical_align'];
 		}
 
-		return $style;
+		$style_a = array_diff_assoc( $style_a, $style_d );
+
+		if ( ! empty( $style_a ) ) {
+			foreach ( $style_a as $key => $value ) {
+				$style_s .= sprintf( '%s:%s;', esc_attr( $key ), esc_attr( $value ) );
+			}
+			$style_s = sprintf( ' style="%s"', $style_s );
+		}
+
+		return $style_s;
 	}
 }
