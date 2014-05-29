@@ -171,15 +171,20 @@
 			media.view.Settings.prototype.update.call( this, key );
 
 			var id     = this.model.id;
-			var value  = this.model.get( key );
+			var mValue = this.model.get( key );
 			var $field = $('#menu-icons-'+ id +'-'+ key +'._setting');
+			var fValue;
 
 			// Bail if we didn't find a matching field.
 			if ( ! $field.length ) {
 				return;
 			}
 
-			$field.val( value ).trigger('change');
+			fValue = $field.val();
+			// Only update as needed
+			if ( fValue !== mValue ) {
+				$field.val( mValue ).trigger('change');
+			}
 		}
 	});
 

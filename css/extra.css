@@ -1,5 +1,6 @@
 .menu i._mi,
 .nav-menu i._mi {
+	display: inline-block;
 	vertical-align: middle;
 	margin-top: -.265em;
 	width: auto;
@@ -27,6 +28,10 @@
 	width: 1px;
 }
 
+.menu i.elusive,
+.nav-menu i.elusive {
+	margin-top: -.3em;
+}
 
 /**
  * Force the icons' styles
