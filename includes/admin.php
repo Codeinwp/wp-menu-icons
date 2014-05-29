@@ -15,7 +15,7 @@ final class Menu_Icons_Admin_Nav_Menus {
 	/**
 	 * Holds active icon types
 	 *
-	 * @since  %ver%
+	 * @since  0.3.0
 	 * @access private
 	 * @var    array
 	 */
@@ -49,7 +49,7 @@ final class Menu_Icons_Admin_Nav_Menus {
 	/**
 	 * Custom walker
 	 *
-	 * @since   %ver%
+	 * @since   0.3.0
 	 * @access  protected
 	 * @wp_hook filter    wp_edit_nav_menu_walker/10/1
 	 */
@@ -67,7 +67,7 @@ final class Menu_Icons_Admin_Nav_Menus {
 	/**
 	 * Collect icon types
 	 *
-	 * @since  %ver%
+	 * @since  0.3.0
 	 * @access private
 	 */
 	private static function _collect_icon_types() {
@@ -201,7 +201,7 @@ final class Menu_Icons_Admin_Nav_Menus {
 	/**
 	 * Get Fields
 	 *
-	 * @since  %ver%
+	 * @since  0.3.0
 	 * @access private
 	 * @return array
 	 */

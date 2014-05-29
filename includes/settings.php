@@ -21,7 +21,7 @@ final class Menu_Icons_Settings {
 	/**
 	 * Default setting values
 	 *
-	 * @since %ver%
+	 * @since 0.3.0
 	 * @var   array
 	 * @acess protected
 	 */
@@ -40,7 +40,7 @@ final class Menu_Icons_Settings {
 	/**
 	 * Setting values
 	 *
-	 * @since %ver%
+	 * @since 0.3.0
 	 * @var   array
 	 * @acess protected
 	 */
@@ -50,7 +50,8 @@ final class Menu_Icons_Settings {
 	/**
 	 * Get setting value
 	 *
-	 * @since %ver%
+	 * @since  0.3.0
+	 * @return mixed
 	 */
 	public static function get() {
 		return kucrut_get_array_value_deep( self::$settings, func_get_args() );
@@ -60,7 +61,7 @@ final class Menu_Icons_Settings {
 	/**
 	 * Get setting values and apply sanitation
 	 *
-	 * @since %ver%
+	 * @since 0.3.0
 	 * @acess private
 	 */
 	private static function _get() {
@@ -99,7 +100,7 @@ final class Menu_Icons_Settings {
 	/**
 	 * Get menu settings
 	 *
-	 * @since  %ver%
+	 * @since  0.3.0
 	 * @param  int   $menu_id
 	 * @return array
 	 */
@@ -121,7 +122,7 @@ final class Menu_Icons_Settings {
 	/**
 	 * Settings init
 	 *
-	 * @since %ver%
+	 * @since 0.3.0
 	 */
 	public static function init() {
 		self::$defaults['global']['icon_types'] = array_keys( Menu_Icons::get( 'icon_types' ) );
@@ -137,7 +138,7 @@ final class Menu_Icons_Settings {
 	/**
 	 * Prepare wp-admin/nav-menus.php page
 	 *
-	 * @since   %ver%
+	 * @since   0.3.0
 	 * @wp_hook load-nav-menus.php
 	 */
 	public static function _load_nav_menus() {
@@ -152,7 +153,7 @@ final class Menu_Icons_Settings {
 	/**
 	 * Update settings
 	 *
-	 * @since   %ver%
+	 * @since   0.3.0
 	 * @access  private
 	 * @wp_hook load-nav-menus.php
 	 */
@@ -193,7 +194,7 @@ final class Menu_Icons_Settings {
 	/**
 	 * Print admin notices
 	 *
-	 * @since   %ver%
+	 * @since   0.3.0
 	 * @wp_hook admin_notices
 	 */
 	public static function _admin_notices() {
@@ -215,7 +216,7 @@ final class Menu_Icons_Settings {
 	/**
 	 * Settings meta box
 	 *
-	 * @since  %ver%
+	 * @since  0.3.0
 	 * @access private
 	 */
 	private static function _add_settings_meta_box() {
@@ -254,7 +255,7 @@ final class Menu_Icons_Settings {
 	/**
 	 * Get settings fields
 	 *
-	 * @since  %ver%
+	 * @since  0.3.0
 	 * @uses   apply_filters() Calls 'menu_icons_settings_fields'.
 	 * @return array
 	 */
@@ -356,7 +357,7 @@ final class Menu_Icons_Settings {
 	/**
 	 * Get processed settings fields
 	 *
-	 * @since  %ver%
+	 * @since  0.3.0
 	 * @access private
 	 * @return array
 	 */
@@ -382,7 +383,7 @@ final class Menu_Icons_Settings {
 	/**
 	 * Settings meta box
 	 *
-	 * @since %ver%
+	 * @since 0.3.0
 	 */
 	public static function _meta_box() {
 		?>
@@ -446,7 +447,7 @@ final class Menu_Icons_Settings {
 	/**
 	 * Enqueue scripts & styles for admin page
 	 *
-	 * @since   %ver%
+	 * @since   0.3.0
 	 * @wp_hook action admin_enqueue_scripts
 	 */
 	public static function _enqueue_assets() {

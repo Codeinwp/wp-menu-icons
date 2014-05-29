@@ -63,11 +63,12 @@ abstract class Menu_Icons_Type {
 	/**
 	 * Holds menu settings
 	 *
-	 * @since  %ver%
+	 * @since  0.3.0
 	 * @access protected
 	 * @var    array
 	 */
 	protected $menu_setttings = array();
+
 
 	/**
 	 * Class constructor

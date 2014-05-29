@@ -4,14 +4,14 @@
  * Menu Icons
  *
  * @package Menu_Icons
- * @version 0.2.3
+ * @version 0.3.0
  * @author Dzikri Aziz <kvcrvt@gmail.com>
  *
  *
  * Plugin name: Menu Icons
  * Plugin URI: http://kucrut.org/
  * Description: Easily add icons to your navigation menu items
- * Version: 0.2.3
+ * Version: 0.3.0
  * Author: Dzikri Aziz
  * Author URI: http://kucrut.org/
  * License: GPLv2
@@ -24,7 +24,7 @@
  */
 final class Menu_Icons {
 
-	const VERSION = '0.2.3';
+	const VERSION = '0.3.0';
 
 	/**
 	 * Holds plugin data
@@ -96,7 +96,7 @@ final class Menu_Icons {
 	 *
 	 * This prevents our meta key from showing up on Custom Fields meta box
 	 *
-	 * @since   %ver%
+	 * @since   0.3.0
 	 * @wp_hook filter is_protected_meta
 	 * @param   bool   $protected        Protection status
 	 * @param   string $meta_key         Meta key
@@ -311,7 +311,7 @@ final class Menu_Icons {
 	/**
 	 * Get nav menu ID based on arguments passed to wp_nav_menu()
 	 *
-	 * @since  %ver%
+	 * @since  0.3.0
 	 * @param  array $args wp_nav_menu() Arguments
 	 * @return mixed Nav menu ID or FALSE on failure
 	 */
@@ -351,7 +351,7 @@ final class Menu_Icons {
 	/**
 	 * Get menu item meta value
 	 *
-	 * @since %ver%
+	 * @since 0.3.0
 	 * @param int   $item_id Menu item ID
 	 * @return array
 	 */

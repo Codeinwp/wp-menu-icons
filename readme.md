@@ -7,7 +7,7 @@ Easily add icons to your nav menu items.
 **Tags:** [menu](http://wordpress.org/plugins/tags/menu), [nav-menu](http://wordpress.org/plugins/tags/nav-menu), [icons](http://wordpress.org/plugins/tags/icons), [navigation](http://wordpress.org/plugins/tags/navigation)  
 **Requires at least:** 3.8  
 **Tested up to:** 3.9  
-**Stable tag:** 0.2.3  
+**Stable tag:** 0.3.0  
 **License:** [GPLv2](http://www.gnu.org/licenses/gpl-2.0.html)  
 **Donate Link:** http://kucrut.org/#coffee  
 
@@ -15,6 +15,8 @@ Easily add icons to your nav menu items.
 
 ### Usage ###
 1. After the plugin is activated, go to *Appearance* > *Menus* to edit your menus
+1. Enable/Disable icon types in "Menu Icons Settings" meta box
+1. Set default settings for current nav menu; these settings will be inherited by the newly added menu items
 1. Each menu item will now have new *Icon Type* selection field with their corresponding sub-fields
 1. Select the desired icon type
 1. Select the icon from the second drop-down
@@ -94,14 +96,15 @@ To add a new icon type, take a look at the `type-*.php` files inside the `includ
 ### Can you please add X icon font? ###
 Let me know via [GitHub issues](https://github.com/kucrut/wp-menu-icons/issues) and I'll see what I can do.
 
-### Can I disable the extra stylesheet loaded by this plugin? ###
-**YES!** Simply add the following to your plugin/theme:
-```php
-add_filter( 'menu_icons_load_extra_style', '__return_false' );
-```
-
 
 ## Changelog ##
+
+### 0.3.0 ###
+* Add Settings meta box on Menu screen
+* New feature: Settings inheritance (nav menu > menu items)
+* New feature: Hide menu item labels
+* New Icon type: Elusive Icons
+* Update Font Awesome to 4.1.0
 
 ### 0.2.3 ###
 * Add new group for Dashicons: Media
