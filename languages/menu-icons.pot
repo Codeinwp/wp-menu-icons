@@ -2,9 +2,9 @@
 # This file is distributed under the same license as the Menu Icons package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Menu Icons 0.3.0\n"
+"Project-Id-Version: Menu Icons 0.3.1\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/menu-icons\n"
-"POT-Creation-Date: 2014-05-29 15:12:07+00:00\n"
+"POT-Creation-Date: 2014-05-30 16:21:41+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -52,15 +52,15 @@ msgstr ""
 msgid "Preview"
 msgstr ""
 
-#: includes/admin.php:460 includes/settings.php:302
+#: includes/admin.php:460 includes/settings.php:304
 msgid "Position"
 msgstr ""
 
-#: includes/admin.php:461 includes/settings.php:304
+#: includes/admin.php:461 includes/settings.php:306
 msgid "Before"
 msgstr ""
 
-#: includes/admin.php:462 includes/settings.php:305
+#: includes/admin.php:462 includes/settings.php:307
 msgid "After"
 msgstr ""
 
@@ -68,7 +68,7 @@ msgstr ""
 msgid "Size"
 msgstr ""
 
-#: includes/admin.php:464 includes/settings.php:312
+#: includes/admin.php:464 includes/settings.php:314
 msgid "Vertical Align"
 msgstr ""
 
@@ -76,49 +76,49 @@ msgstr ""
 msgid "&ndash; Select &ndash;"
 msgstr ""
 
-#: includes/admin.php:466 includes/settings.php:314
+#: includes/admin.php:466 includes/settings.php:316
 msgid "Super"
 msgstr ""
 
-#: includes/admin.php:467 includes/settings.php:315
+#: includes/admin.php:467 includes/settings.php:317
 #: includes/type-genericons.php:214
 msgid "Top"
 msgstr ""
 
-#: includes/admin.php:468 includes/settings.php:316
+#: includes/admin.php:468 includes/settings.php:318
 msgid "Text Top"
 msgstr ""
 
-#: includes/admin.php:469 includes/settings.php:317
+#: includes/admin.php:469 includes/settings.php:319
 msgid "Middle"
 msgstr ""
 
-#: includes/admin.php:470 includes/settings.php:318
+#: includes/admin.php:470 includes/settings.php:320
 msgid "Baseline"
 msgstr ""
 
-#: includes/admin.php:471 includes/settings.php:320
+#: includes/admin.php:471 includes/settings.php:322
 msgid "Bottom"
 msgstr ""
 
-#: includes/admin.php:472 includes/settings.php:319
+#: includes/admin.php:472 includes/settings.php:321
 msgid "Text Bottom"
 msgstr ""
 
-#: includes/admin.php:473 includes/settings.php:321
+#: includes/admin.php:473 includes/settings.php:323
 msgid "Sub"
 msgstr ""
 
-#: includes/admin.php:474 includes/settings.php:339
+#: includes/admin.php:474 includes/settings.php:341
 msgid "Hide Label"
 msgstr ""
 
-#: includes/admin.php:475 includes/settings.php:341
+#: includes/admin.php:475 includes/settings.php:343
 #: includes/type-dashicons.php:246
 msgid "No"
 msgstr ""
 
-#: includes/admin.php:476 includes/settings.php:342
+#: includes/admin.php:476 includes/settings.php:344
 #: includes/type-dashicons.php:245
 msgid "Yes"
 msgstr ""
@@ -134,51 +134,51 @@ msgstr ""
 msgid "%1$s: Type %2$s is not supported, reverting to text."
 msgstr ""
 
-#: includes/settings.php:202
+#: includes/settings.php:204
 msgid "<strong>Menu Icons Settings</strong> have been successfully updated."
 msgstr ""
 
-#: includes/settings.php:203
+#: includes/settings.php:205
 msgid "<strong>Menu Icons Settings</strong> have been successfully reset."
 msgstr ""
 
-#: includes/settings.php:225
+#: includes/settings.php:227
 msgid "Menu Icons Settings"
 msgstr ""
 
-#: includes/settings.php:272
+#: includes/settings.php:274
 msgid "Global"
 msgstr ""
 
-#: includes/settings.php:273
+#: includes/settings.php:275
 msgid "Global settings"
 msgstr ""
 
-#: includes/settings.php:278
+#: includes/settings.php:280
 msgid "Icon Types"
 msgstr ""
 
-#: includes/settings.php:293
+#: includes/settings.php:295
 msgid "Current Menu"
 msgstr ""
 
-#: includes/settings.php:295
+#: includes/settings.php:297
 msgid "\"%s\" menu settings"
 msgstr ""
 
-#: includes/settings.php:328 includes/type-elusive.php:251
+#: includes/settings.php:330 includes/type-elusive.php:251
 msgid "Font Size"
 msgstr ""
 
-#: includes/settings.php:429
+#: includes/settings.php:431
 msgid "Discard all changes and reset to default state"
 msgstr ""
 
-#: includes/settings.php:430
+#: includes/settings.php:432
 msgid "Reset"
 msgstr ""
 
-#: includes/settings.php:436
+#: includes/settings.php:438
 msgid "Save Settings"
 msgstr ""
 
@@ -2649,9 +2649,9 @@ msgstr ""
 msgid "Menu Icons"
 msgstr ""
 
-#. #-#-#-#-#  menu-icons.pot (Menu Icons 0.3.0)  #-#-#-#-#
+#. #-#-#-#-#  menu-icons.pot (Menu Icons 0.3.1)  #-#-#-#-#
 #. Plugin URI of the plugin/theme
-#. #-#-#-#-#  menu-icons.pot (Menu Icons 0.3.0)  #-#-#-#-#
+#. #-#-#-#-#  menu-icons.pot (Menu Icons 0.3.1)  #-#-#-#-#
 #. Author URI of the plugin/theme
 msgid "http://kucrut.org/"
 msgstr ""
