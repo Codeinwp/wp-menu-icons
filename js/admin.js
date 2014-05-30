@@ -14,6 +14,33 @@
 		disable  : false
 	});
 
+	/**
+	 * Settings box tabs
+	 *
+	 * We can't use core's tabs script here because it will clear the
+	 * checkboxes upon tab switching
+	 */
+	$('#menu-icons-settings-tabs')
+		.on('click', 'a.mi-settings-nav-tab', function(e) {
+			e.preventDefault();
+			e.stopPropagation();
+
+			var $el     = $(this).blur();
+			var $target = $( '#'+$el.data('type') );
+
+			$el.parent().addClass('tabs').siblings().removeClass('tabs');
+			$target
+				.removeClass('tabs-panel-inactive')
+				.addClass('tabs-panel-active')
+				.show()
+				.siblings('div.tabs-panel')
+					.hide()
+					.addClass('tabs-panel-inactive')
+					.removeClass('tabs-panel-active');
+		})
+		.find('a.mi-settings-nav-tab').first().trigger('click');
+
+
 	if ( 'undefined' === typeof menuIcons ) {
 		return;
 	}
@@ -85,10 +112,11 @@
 	// Font icon: Menu Items
 	media.model.miMenuItem = Backbone.Model.extend({
 		defaults : {
-			type             : '',
-			icon             : '',
-			size             : '',
-			'vertical-align' : ''
+			type           : '',
+			icon           : '',
+			font_size      : '1.2',
+			vertical_align : 'middle',
+			hide_label     : ''
 		}
 	});
 
@@ -143,14 +171,20 @@
 			media.view.Settings.prototype.update.call( this, key );
 
 			var id     = this.model.id;
-			var value  = this.model.get( key );
+			var mValue = this.model.get( key );
 			var $field = $('#menu-icons-'+ id +'-'+ key +'._setting');
+			var fValue;
 
 			// Bail if we didn't find a matching field.
-			if ( ! $field.length )
+			if ( ! $field.length ) {
 				return;
+			}
 
-			$field.val( value ).trigger('change');
+			fValue = $field.val();
+			// Only update as needed
+			if ( fValue !== mValue ) {
+				$field.val( mValue ).trigger('change');
+			}
 		}
 	});
 
@@ -401,12 +435,23 @@
 
 		render : function() {
 			var data     = this.model.toJSON();
-			var template = 'menu-icons-' + this.options.type + '-preview-' + data.position;
+			var template = 'menu-icons-' + this.options.type + '-preview-';
+
+			if ( data.hide_label ) {
+				template += 'hide_label';
+			}
+			else {
+				template += data.position;
+			}
 
 			this.template = media.template( template );
 			this.$el.html( this.template( data ) );
 
 			return this;
+		},
+
+		preventDefault: function(e) {
+			e.preventDefault();
 		}
 	});
 

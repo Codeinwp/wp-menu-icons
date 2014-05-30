@@ -3,7 +3,6 @@
  * Dashicons
  *
  * @package Menu_Icons
- * @version 0.1.0
  * @author Dzikri Aziz <kvcrvt@gmail.com>
  */
 
