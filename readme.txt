@@ -46,6 +46,8 @@ Development of this plugin is done on [GitHub](https://github.com/kucrut/wp-menu
 4. Twenty Fourteen with Genericons
 5. Twenty Thirteen with Dashicons
 6. Twenty Thirteen with Genericons
+7. Settings Meta Box (Global)
+8. Settings Meta Box (Menu)
 
 
 == Installation ==

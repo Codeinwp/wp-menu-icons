@@ -64,6 +64,14 @@ Development of this plugin is done on [GitHub](https://github.com/kucrut/wp-menu
 
 ![Twenty Thirteen with Genericons](assets/screenshot-6.png)
 
+### Settings Meta Box (Global)
+
+![Settings Meta Box (Global)](assets/screenshot-7.png)
+
+### Settings Meta Box (Menu)
+
+![Settings Meta Box (Menu)](assets/screenshot-8.png)
+
 ## Installation ##
 
 1. Upload `menu-icons` to the `/wp-content/plugins/` directory
