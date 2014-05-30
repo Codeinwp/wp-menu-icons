@@ -7,7 +7,7 @@ Easily add icons to your nav menu items.
 **Tags:** [menu](http://wordpress.org/plugins/tags/menu), [nav-menu](http://wordpress.org/plugins/tags/nav-menu), [icons](http://wordpress.org/plugins/tags/icons), [navigation](http://wordpress.org/plugins/tags/navigation)  
 **Requires at least:** 3.8  
 **Tested up to:** 3.9  
-**Stable tag:** 0.3.0  
+**Stable tag:** 0.3.1  
 **License:** [GPLv2](http://www.gnu.org/licenses/gpl-2.0.html)  
 **Donate Link:** http://kucrut.org/#coffee  
 
@@ -106,6 +106,9 @@ Let me know via [GitHub issues](https://github.com/kucrut/wp-menu-icons/issues) 
 
 
 ## Changelog ##
+
+### 0.3.1 ###
+* Fix fatal error on outdated PHP versions, props [dellos](http://profiles.wordpress.org/dellos)
 
 ### 0.3.0 ###
 * Add Settings meta box on Menu screen
