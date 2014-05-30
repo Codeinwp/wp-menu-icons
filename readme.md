@@ -7,7 +7,7 @@ Easily add icons to your nav menu items.
 **Tags:** [menu](http://wordpress.org/plugins/tags/menu), [nav-menu](http://wordpress.org/plugins/tags/nav-menu), [icons](http://wordpress.org/plugins/tags/icons), [navigation](http://wordpress.org/plugins/tags/navigation)  
 **Requires at least:** 3.8  
 **Tested up to:** 3.9  
-**Stable tag:** 0.3.0  
+**Stable tag:** 0.3.1  
 **License:** [GPLv2](http://www.gnu.org/licenses/gpl-2.0.html)  
 **Donate Link:** http://kucrut.org/#coffee  
 
@@ -17,9 +17,7 @@ Easily add icons to your nav menu items.
 1. After the plugin is activated, go to *Appearance* > *Menus* to edit your menus
 1. Enable/Disable icon types in "Menu Icons Settings" meta box
 1. Set default settings for current nav menu; these settings will be inherited by the newly added menu items
-1. Each menu item will now have new *Icon Type* selection field with their corresponding sub-fields
-1. Select the desired icon type
-1. Select the icon from the second drop-down
+1. Select icon by clicking on the "Select icon" link
 1. Save the menu
 
 ### Supported icon types ###
@@ -106,6 +104,9 @@ Let me know via [GitHub issues](https://github.com/kucrut/wp-menu-icons/issues) 
 
 
 ## Changelog ##
+
+### 0.3.1 ###
+* Fix fatal error on outdated PHP versions, props [dellos](http://profiles.wordpress.org/dellos)
 
 ### 0.3.0 ###
 * Add Settings meta box on Menu screen

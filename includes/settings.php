@@ -54,7 +54,9 @@ final class Menu_Icons_Settings {
 	 * @return mixed
 	 */
 	public static function get() {
-		return kucrut_get_array_value_deep( self::$settings, func_get_args() );
+		$args = func_get_args();
+
+		return kucrut_get_array_value_deep( self::$settings, $args );
 	}
 
 
