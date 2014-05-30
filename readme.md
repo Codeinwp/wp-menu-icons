@@ -17,9 +17,7 @@ Easily add icons to your nav menu items.
 1. After the plugin is activated, go to *Appearance* > *Menus* to edit your menus
 1. Enable/Disable icon types in "Menu Icons Settings" meta box
 1. Set default settings for current nav menu; these settings will be inherited by the newly added menu items
-1. Each menu item will now have new *Icon Type* selection field with their corresponding sub-fields
-1. Select the desired icon type
-1. Select the icon from the second drop-down
+1. Select icon by clicking on the "Select icon" link
 1. Save the menu
 
 ### Supported icon types ###
