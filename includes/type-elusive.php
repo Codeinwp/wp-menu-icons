@@ -12,7 +12,7 @@ require_once dirname( __FILE__ ) . '/type-fonts.php';
 /**
  * Icon type: Elusive
  *
- * @since 0.1.0
+ * @version 2.0
  */
 class Menu_Icons_Type_Elusive extends Menu_Icons_Type_Fonts {
 
@@ -33,6 +33,15 @@ class Menu_Icons_Type_Elusive extends Menu_Icons_Type_Fonts {
 	 * @var    string
 	 */
 	protected $label = 'Elusive';
+
+	/**
+	 * Holds icon version
+	 *
+	 * @since  0.1.0
+	 * @access protected
+	 * @var    string
+	 */
+	protected $version = '2.0';
 
 
 	/**

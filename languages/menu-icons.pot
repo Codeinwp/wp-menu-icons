@@ -2,9 +2,9 @@
 # This file is distributed under the same license as the Menu Icons package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Menu Icons 0.3.1\n"
+"Project-Id-Version: Menu Icons 0.3.2\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/menu-icons\n"
-"POT-Creation-Date: 2014-05-30 16:21:41+00:00\n"
+"POT-Creation-Date: 2014-06-04 18:41:27+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -36,7 +36,7 @@ msgstr ""
 msgid "Select icon"
 msgstr ""
 
-#: includes/admin.php:281 includes/type-elusive.php:144
+#: includes/admin.php:281 includes/type-elusive.php:153
 msgid "Remove"
 msgstr ""
 
@@ -166,7 +166,7 @@ msgstr ""
 msgid "\"%s\" menu settings"
 msgstr ""
 
-#: includes/settings.php:330 includes/type-elusive.php:251
+#: includes/settings.php:330 includes/type-elusive.php:260
 msgid "Font Size"
 msgstr ""
 
@@ -199,7 +199,7 @@ msgstr ""
 msgid "Comments"
 msgstr ""
 
-#: includes/type-dashicons.php:62 includes/type-elusive.php:334
+#: includes/type-dashicons.php:62 includes/type-elusive.php:343
 #: includes/type-fontawesome.php:391
 msgid "Dashboard"
 msgstr ""
@@ -208,14 +208,14 @@ msgstr ""
 msgid "Generic"
 msgstr ""
 
-#: includes/type-dashicons.php:64 includes/type-elusive.php:335
-#: includes/type-elusive.php:336 includes/type-fontawesome.php:442
+#: includes/type-dashicons.php:64 includes/type-elusive.php:344
+#: includes/type-elusive.php:345 includes/type-fontawesome.php:442
 #: includes/type-genericons.php:175
 msgid "Home"
 msgstr ""
 
 #: includes/type-dashicons.php:65 includes/type-dashicons.php:260
-#: includes/type-elusive.php:188
+#: includes/type-elusive.php:197
 msgid "Media"
 msgstr ""
 
@@ -223,7 +223,7 @@ msgstr ""
 msgid "Menu"
 msgstr ""
 
-#: includes/type-dashicons.php:67 includes/type-elusive.php:338
+#: includes/type-dashicons.php:67 includes/type-elusive.php:347
 msgid "Network"
 msgstr ""
 
@@ -269,7 +269,7 @@ msgstr ""
 
 #: includes/type-dashicons.php:83 includes/type-dashicons.php:140
 #: includes/type-dashicons.php:270 includes/type-dashicons.php:284
-#: includes/type-elusive.php:190 includes/type-elusive.php:191
+#: includes/type-elusive.php:199 includes/type-elusive.php:200
 #: includes/type-genericons.php:83
 msgid "Video"
 msgstr ""
@@ -329,7 +329,7 @@ msgid "Write Blog"
 msgstr ""
 
 #: includes/type-dashicons.php:107 includes/type-dashicons.php:163
-#: includes/type-elusive.php:106 includes/type-fontawesome.php:396
+#: includes/type-elusive.php:115 includes/type-fontawesome.php:396
 #: includes/type-genericons.php:165
 msgid "Edit"
 msgstr ""
@@ -366,12 +366,12 @@ msgstr ""
 msgid "Editor"
 msgstr ""
 
-#: includes/type-dashicons.php:122 includes/type-elusive.php:87
+#: includes/type-dashicons.php:122 includes/type-elusive.php:96
 #: includes/type-fontawesome.php:267 includes/type-genericons.php:148
 msgid "Bold"
 msgstr ""
 
-#: includes/type-dashicons.php:123 includes/type-elusive.php:88
+#: includes/type-dashicons.php:123 includes/type-elusive.php:97
 #: includes/type-fontawesome.php:278 includes/type-genericons.php:177
 msgid "Italic"
 msgstr ""
@@ -385,17 +385,17 @@ msgid "Ordered List"
 msgstr ""
 
 #: includes/type-dashicons.php:127 includes/type-dashicons.php:154
-#: includes/type-elusive.php:72 includes/type-fontawesome.php:263
+#: includes/type-elusive.php:81 includes/type-fontawesome.php:263
 msgid "Align Left"
 msgstr ""
 
 #: includes/type-dashicons.php:128 includes/type-dashicons.php:156
-#: includes/type-elusive.php:73 includes/type-fontawesome.php:264
+#: includes/type-elusive.php:82 includes/type-fontawesome.php:264
 msgid "Align Center"
 msgstr ""
 
 #: includes/type-dashicons.php:129 includes/type-dashicons.php:155
-#: includes/type-elusive.php:74 includes/type-fontawesome.php:266
+#: includes/type-elusive.php:83 includes/type-fontawesome.php:266
 msgid "Align Right"
 msgstr ""
 
@@ -419,7 +419,7 @@ msgstr ""
 msgid "Underline"
 msgstr ""
 
-#: includes/type-dashicons.php:135 includes/type-elusive.php:75
+#: includes/type-dashicons.php:135 includes/type-elusive.php:84
 #: includes/type-fontawesome.php:265
 msgid "Justify"
 msgstr ""
@@ -476,13 +476,13 @@ msgstr ""
 msgid "Align None"
 msgstr ""
 
-#: includes/type-dashicons.php:158 includes/type-elusive.php:118
-#: includes/type-elusive.php:119 includes/type-fontawesome.php:459
+#: includes/type-dashicons.php:158 includes/type-elusive.php:127
+#: includes/type-elusive.php:128 includes/type-fontawesome.php:459
 #: includes/type-genericons.php:180
 msgid "Lock"
 msgstr ""
 
-#: includes/type-dashicons.php:159 includes/type-elusive.php:214
+#: includes/type-dashicons.php:159 includes/type-elusive.php:223
 #: includes/type-fontawesome.php:351 includes/type-fontawesome.php:352
 msgid "Calendar"
 msgstr ""
@@ -499,8 +499,8 @@ msgstr ""
 msgid "Post Trash"
 msgstr ""
 
-#: includes/type-dashicons.php:164 includes/type-elusive.php:165
-#: includes/type-elusive.php:166 includes/type-fontawesome.php:575
+#: includes/type-dashicons.php:164 includes/type-elusive.php:174
+#: includes/type-elusive.php:175 includes/type-fontawesome.php:575
 #: includes/type-genericons.php:215
 msgid "Trash"
 msgstr ""
@@ -573,13 +573,13 @@ msgstr ""
 msgid "Excerpt View"
 msgstr ""
 
-#: includes/type-dashicons.php:191 includes/type-elusive.php:346
+#: includes/type-dashicons.php:191 includes/type-elusive.php:355
 #: includes/type-genericons.php:108
 msgid "Social"
 msgstr ""
 
-#: includes/type-dashicons.php:193 includes/type-elusive.php:156
-#: includes/type-elusive.php:157 includes/type-fontawesome.php:514
+#: includes/type-dashicons.php:193 includes/type-elusive.php:165
+#: includes/type-elusive.php:166 includes/type-fontawesome.php:514
 #: includes/type-fontawesome.php:515 includes/type-fontawesome.php:516
 #: includes/type-fontawesome.php:517 includes/type-fontawesome.php:518
 #: includes/type-genericons.php:203
@@ -650,7 +650,7 @@ msgstr ""
 msgid "Screen Options"
 msgstr ""
 
-#: includes/type-dashicons.php:226 includes/type-elusive.php:278
+#: includes/type-dashicons.php:226 includes/type-elusive.php:287
 #: includes/type-fontawesome.php:445 includes/type-fontawesome.php:446
 #: includes/type-genericons.php:176
 msgid "Info"
@@ -664,8 +664,8 @@ msgstr ""
 msgid "Feedback"
 msgstr ""
 
-#: includes/type-dashicons.php:229 includes/type-elusive.php:350
-#: includes/type-elusive.php:351 includes/type-fontawesome.php:372
+#: includes/type-dashicons.php:229 includes/type-elusive.php:359
+#: includes/type-elusive.php:360 includes/type-fontawesome.php:372
 #: includes/type-genericons.php:154
 msgid "Cloud"
 msgstr ""
@@ -678,7 +678,7 @@ msgstr ""
 msgid "Taxonomies"
 msgstr ""
 
-#: includes/type-dashicons.php:237 includes/type-elusive.php:158
+#: includes/type-dashicons.php:237 includes/type-elusive.php:167
 #: includes/type-fontawesome.php:555 includes/type-genericons.php:97
 msgid "Tag"
 msgstr ""
@@ -695,13 +695,13 @@ msgstr ""
 msgid "No #2"
 msgstr ""
 
-#: includes/type-dashicons.php:248 includes/type-elusive.php:137
+#: includes/type-dashicons.php:248 includes/type-elusive.php:146
 #: includes/type-fontawesome.php:488 includes/type-fontawesome.php:489
 #: includes/type-fontawesome.php:490 includes/type-fontawesome.php:491
 msgid "Plus"
 msgstr ""
 
-#: includes/type-dashicons.php:249 includes/type-elusive.php:124
+#: includes/type-dashicons.php:249 includes/type-elusive.php:133
 #: includes/type-fontawesome.php:470 includes/type-fontawesome.php:471
 #: includes/type-fontawesome.php:472 includes/type-fontawesome.php:473
 msgid "Minus"
@@ -727,8 +727,8 @@ msgstr ""
 msgid "Star: Empty"
 msgstr ""
 
-#: includes/type-dashicons.php:255 includes/type-elusive.php:244
-#: includes/type-elusive.php:245 includes/type-fontawesome.php:418
+#: includes/type-dashicons.php:255 includes/type-elusive.php:253
+#: includes/type-elusive.php:254 includes/type-fontawesome.php:418
 #: includes/type-fontawesome.php:419 includes/type-fontawesome.php:420
 #: includes/type-genericons.php:170
 msgid "Flag"
@@ -783,7 +783,7 @@ msgstr ""
 msgid "Location #2"
 msgstr ""
 
-#: includes/type-dashicons.php:281 includes/type-elusive.php:216
+#: includes/type-dashicons.php:281 includes/type-elusive.php:225
 #: includes/type-fontawesome.php:353
 msgid "Camera"
 msgstr ""
@@ -820,8 +820,8 @@ msgstr ""
 msgid "S.O.S."
 msgstr ""
 
-#: includes/type-dashicons.php:291 includes/type-elusive.php:154
-#: includes/type-elusive.php:155 includes/type-fontawesome.php:511
+#: includes/type-dashicons.php:291 includes/type-elusive.php:163
+#: includes/type-elusive.php:164 includes/type-fontawesome.php:511
 #: includes/type-genericons.php:200
 msgid "Search"
 msgstr ""
@@ -886,7 +886,7 @@ msgstr ""
 msgid "Portfolio"
 msgstr ""
 
-#: includes/type-dashicons.php:307 includes/type-elusive.php:207
+#: includes/type-dashicons.php:307 includes/type-elusive.php:216
 #: includes/type-fontawesome.php:341 includes/type-genericons.php:149
 msgid "Book"
 msgstr ""
@@ -895,12 +895,12 @@ msgstr ""
 msgid "Book #2"
 msgstr ""
 
-#: includes/type-dashicons.php:309 includes/type-elusive.php:104
-#: includes/type-elusive.php:105 includes/type-fontawesome.php:395
+#: includes/type-dashicons.php:309 includes/type-elusive.php:113
+#: includes/type-elusive.php:114 includes/type-fontawesome.php:395
 msgid "Download"
 msgstr ""
 
-#: includes/type-dashicons.php:310 includes/type-elusive.php:167
+#: includes/type-dashicons.php:310 includes/type-elusive.php:176
 #: includes/type-fontawesome.php:583
 msgid "Upload"
 msgstr ""
@@ -930,768 +930,768 @@ msgstr ""
 msgid "Smartphone"
 msgstr ""
 
-#: includes/type-dashicons.php:317 includes/type-elusive.php:312
-#: includes/type-elusive.php:313
+#: includes/type-dashicons.php:317 includes/type-elusive.php:321
+#: includes/type-elusive.php:322
 msgid "Smiley"
 msgstr ""
 
-#: includes/type-elusive.php:68
+#: includes/type-elusive.php:77
 msgid "Actions"
 msgstr ""
 
-#: includes/type-elusive.php:70 includes/type-elusive.php:71
+#: includes/type-elusive.php:79 includes/type-elusive.php:80
 #: includes/type-fontawesome.php:326
 msgid "Adjust"
 msgstr ""
 
-#: includes/type-elusive.php:76 includes/type-fontawesome.php:196
+#: includes/type-elusive.php:85 includes/type-fontawesome.php:196
 #: includes/type-genericons.php:144
 msgid "Arrow Up"
 msgstr ""
 
-#: includes/type-elusive.php:77 includes/type-fontawesome.php:193
+#: includes/type-elusive.php:86 includes/type-fontawesome.php:193
 #: includes/type-genericons.php:145
 msgid "Arrow Down"
 msgstr ""
 
-#: includes/type-elusive.php:78 includes/type-fontawesome.php:194
+#: includes/type-elusive.php:87 includes/type-fontawesome.php:194
 #: includes/type-genericons.php:146
 msgid "Arrow Left"
 msgstr ""
 
-#: includes/type-elusive.php:79 includes/type-fontawesome.php:195
+#: includes/type-elusive.php:88 includes/type-fontawesome.php:195
 #: includes/type-genericons.php:147
 msgid "Arrow Right"
 msgstr ""
 
-#: includes/type-elusive.php:80 includes/type-fontawesome.php:309
+#: includes/type-elusive.php:89 includes/type-fontawesome.php:309
 msgid "Fast Backward"
 msgstr ""
 
-#: includes/type-elusive.php:81 includes/type-fontawesome.php:316
+#: includes/type-elusive.php:90 includes/type-fontawesome.php:316
 msgid "Step Backward"
 msgstr ""
 
-#: includes/type-elusive.php:82 includes/type-fontawesome.php:305
+#: includes/type-elusive.php:91 includes/type-fontawesome.php:305
 msgid "Backward"
 msgstr ""
 
-#: includes/type-elusive.php:83 includes/type-elusive.php:84
+#: includes/type-elusive.php:92 includes/type-elusive.php:93
 #: includes/type-fontawesome.php:311
 msgid "Forward"
 msgstr ""
 
-#: includes/type-elusive.php:85 includes/type-fontawesome.php:317
+#: includes/type-elusive.php:94 includes/type-fontawesome.php:317
 msgid "Step Forward"
 msgstr ""
 
-#: includes/type-elusive.php:86 includes/type-fontawesome.php:310
+#: includes/type-elusive.php:95 includes/type-fontawesome.php:310
 msgid "Fast Forward"
 msgstr ""
 
-#: includes/type-elusive.php:89 includes/type-fontawesome.php:279
+#: includes/type-elusive.php:98 includes/type-fontawesome.php:279
 #: includes/type-genericons.php:86
 msgid "Link"
 msgstr ""
 
-#: includes/type-elusive.php:90 includes/type-fontawesome.php:204
+#: includes/type-elusive.php:99 includes/type-fontawesome.php:204
 #: includes/type-fontawesome.php:208 includes/type-fontawesome.php:359
 msgid "Caret Up"
 msgstr ""
 
-#: includes/type-elusive.php:91 includes/type-fontawesome.php:201
+#: includes/type-elusive.php:100 includes/type-fontawesome.php:201
 #: includes/type-fontawesome.php:205 includes/type-fontawesome.php:356
 msgid "Caret Down"
 msgstr ""
 
-#: includes/type-elusive.php:92 includes/type-fontawesome.php:202
+#: includes/type-elusive.php:101 includes/type-fontawesome.php:202
 #: includes/type-fontawesome.php:206 includes/type-fontawesome.php:357
 msgid "Caret Left"
 msgstr ""
 
-#: includes/type-elusive.php:93 includes/type-fontawesome.php:203
+#: includes/type-elusive.php:102 includes/type-fontawesome.php:203
 #: includes/type-fontawesome.php:207 includes/type-fontawesome.php:358
 msgid "Caret Right"
 msgstr ""
 
-#: includes/type-elusive.php:94 includes/type-fontawesome.php:361
+#: includes/type-elusive.php:103 includes/type-fontawesome.php:361
 #: includes/type-fontawesome.php:362 includes/type-fontawesome.php:363
 #: includes/type-fontawesome.php:364 includes/type-fontawesome.php:365
 msgid "Check"
 msgstr ""
 
-#: includes/type-elusive.php:95
+#: includes/type-elusive.php:104
 msgid "Check Empty"
 msgstr ""
 
-#: includes/type-elusive.php:96 includes/type-fontawesome.php:216
+#: includes/type-elusive.php:105 includes/type-fontawesome.php:216
 msgid "Chevron Up"
 msgstr ""
 
-#: includes/type-elusive.php:97 includes/type-fontawesome.php:213
+#: includes/type-elusive.php:106 includes/type-fontawesome.php:213
 msgid "Chevron Down"
 msgstr ""
 
-#: includes/type-elusive.php:98 includes/type-fontawesome.php:214
+#: includes/type-elusive.php:107 includes/type-fontawesome.php:214
 msgid "Chevron Left"
 msgstr ""
 
-#: includes/type-elusive.php:99 includes/type-fontawesome.php:215
+#: includes/type-elusive.php:108 includes/type-fontawesome.php:215
 msgid "Chevron Right"
 msgstr ""
 
-#: includes/type-elusive.php:100
+#: includes/type-elusive.php:109
 msgid "Circle Arrow Up"
 msgstr ""
 
-#: includes/type-elusive.php:101
+#: includes/type-elusive.php:110
 msgid "Circle Arrow Down"
 msgstr ""
 
-#: includes/type-elusive.php:102
+#: includes/type-elusive.php:111
 msgid "Circle Arrow Left"
 msgstr ""
 
-#: includes/type-elusive.php:103
+#: includes/type-elusive.php:112
 msgid "Circle Arrow Right"
 msgstr ""
 
-#: includes/type-elusive.php:107 includes/type-fontawesome.php:307
+#: includes/type-elusive.php:116 includes/type-fontawesome.php:307
 msgid "Eject"
 msgstr ""
 
-#: includes/type-elusive.php:108 includes/type-elusive.php:109
+#: includes/type-elusive.php:117 includes/type-elusive.php:118
 msgid "File New"
 msgstr ""
 
-#: includes/type-elusive.php:110 includes/type-elusive.php:111
+#: includes/type-elusive.php:119 includes/type-elusive.php:120
 msgid "File Edit"
 msgstr ""
 
-#: includes/type-elusive.php:112
+#: includes/type-elusive.php:121
 msgid "Fork"
 msgstr ""
 
-#: includes/type-elusive.php:113 includes/type-genericons.php:171
+#: includes/type-elusive.php:122 includes/type-genericons.php:171
 msgid "Fullscreen"
 msgstr ""
 
-#: includes/type-elusive.php:114
+#: includes/type-elusive.php:123
 msgid "Indent Left"
 msgstr ""
 
-#: includes/type-elusive.php:115
+#: includes/type-elusive.php:124
 msgid "Indent Right"
 msgstr ""
 
-#: includes/type-elusive.php:116 includes/type-elusive.php:117
+#: includes/type-elusive.php:125 includes/type-elusive.php:126
 #: includes/type-fontawesome.php:281 includes/type-fontawesome.php:282
 msgid "List"
 msgstr ""
 
-#: includes/type-elusive.php:120 includes/type-elusive.php:121
+#: includes/type-elusive.php:129 includes/type-elusive.php:130
 #: includes/type-fontawesome.php:580 includes/type-fontawesome.php:581
 msgid "Unlock"
 msgstr ""
 
-#: includes/type-elusive.php:122 includes/type-elusive.php:123
+#: includes/type-elusive.php:131 includes/type-elusive.php:132
 #: includes/type-fontawesome.php:466
 msgid "Map Marker"
 msgstr ""
 
-#: includes/type-elusive.php:125
+#: includes/type-elusive.php:134
 msgid "Minus Sign"
 msgstr ""
 
-#: includes/type-elusive.php:126
+#: includes/type-elusive.php:135
 msgid "Move"
 msgstr ""
 
-#: includes/type-elusive.php:127
+#: includes/type-elusive.php:136
 msgid "Off"
 msgstr ""
 
-#: includes/type-elusive.php:128
+#: includes/type-elusive.php:137
 msgid "OK"
 msgstr ""
 
-#: includes/type-elusive.php:129
+#: includes/type-elusive.php:138
 msgid "OK Circle"
 msgstr ""
 
-#: includes/type-elusive.php:130
+#: includes/type-elusive.php:139
 msgid "OK Sign"
 msgstr ""
 
-#: includes/type-elusive.php:131 includes/type-elusive.php:132
+#: includes/type-elusive.php:140 includes/type-elusive.php:141
 #: includes/type-fontawesome.php:313 includes/type-fontawesome.php:314
 #: includes/type-fontawesome.php:315 includes/type-genericons.php:190
 msgid "Play"
 msgstr ""
 
-#: includes/type-elusive.php:133 includes/type-elusive.php:134
+#: includes/type-elusive.php:142 includes/type-elusive.php:143
 #: includes/type-fontawesome.php:312 includes/type-genericons.php:187
 msgid "Pause"
 msgstr ""
 
-#: includes/type-elusive.php:135 includes/type-elusive.php:136
+#: includes/type-elusive.php:144 includes/type-elusive.php:145
 #: includes/type-fontawesome.php:318 includes/type-genericons.php:209
 msgid "Stop"
 msgstr ""
 
-#: includes/type-elusive.php:138
+#: includes/type-elusive.php:147
 msgid "Plus Sign"
 msgstr ""
 
-#: includes/type-elusive.php:139 includes/type-fontawesome.php:493
+#: includes/type-elusive.php:148 includes/type-fontawesome.php:493
 #: includes/type-genericons.php:194
 msgid "Print"
 msgstr ""
 
-#: includes/type-elusive.php:140 includes/type-fontawesome.php:496
+#: includes/type-elusive.php:149 includes/type-fontawesome.php:496
 #: includes/type-fontawesome.php:497
 msgid "Question"
 msgstr ""
 
-#: includes/type-elusive.php:141
+#: includes/type-elusive.php:150
 msgid "Question Sign"
 msgstr ""
 
-#: includes/type-elusive.php:142
+#: includes/type-elusive.php:151
 msgid "Record"
 msgstr ""
 
-#: includes/type-elusive.php:143 includes/type-fontawesome.php:503
+#: includes/type-elusive.php:152 includes/type-fontawesome.php:503
 #: includes/type-genericons.php:195
 msgid "Refresh"
 msgstr ""
 
-#: includes/type-elusive.php:145 includes/type-elusive.php:146
+#: includes/type-elusive.php:154 includes/type-elusive.php:155
 #: includes/type-fontawesome.php:287
 msgid "Repeat"
 msgstr ""
 
-#: includes/type-elusive.php:147
+#: includes/type-elusive.php:156
 msgid "Resize Vertical"
 msgstr ""
 
-#: includes/type-elusive.php:148
+#: includes/type-elusive.php:157
 msgid "Resize Horizontal"
 msgstr ""
 
-#: includes/type-elusive.php:149
+#: includes/type-elusive.php:158
 msgid "Resize Full"
 msgstr ""
 
-#: includes/type-elusive.php:150
+#: includes/type-elusive.php:159
 msgid "Resize Small"
 msgstr ""
 
-#: includes/type-elusive.php:151
+#: includes/type-elusive.php:160
 msgid "Return"
 msgstr ""
 
-#: includes/type-elusive.php:152 includes/type-fontawesome.php:506
+#: includes/type-elusive.php:161 includes/type-fontawesome.php:506
 msgid "Retweet"
 msgstr ""
 
-#: includes/type-elusive.php:153
+#: includes/type-elusive.php:162
 msgid "Reverse"
 msgstr ""
 
-#: includes/type-elusive.php:159 includes/type-fontawesome.php:557
+#: includes/type-elusive.php:168 includes/type-fontawesome.php:557
 msgid "Tasks"
 msgstr ""
 
-#: includes/type-elusive.php:160 includes/type-fontawesome.php:292
+#: includes/type-elusive.php:169 includes/type-fontawesome.php:292
 msgid "Text Height"
 msgstr ""
 
-#: includes/type-elusive.php:161 includes/type-fontawesome.php:293
+#: includes/type-elusive.php:170 includes/type-fontawesome.php:293
 msgid "Text Width"
 msgstr ""
 
-#: includes/type-elusive.php:162 includes/type-fontawesome.php:562
+#: includes/type-elusive.php:171 includes/type-fontawesome.php:562
 #: includes/type-fontawesome.php:564
 msgid "Thumbs Up"
 msgstr ""
 
-#: includes/type-elusive.php:163 includes/type-fontawesome.php:561
+#: includes/type-elusive.php:172 includes/type-fontawesome.php:561
 #: includes/type-fontawesome.php:563
 msgid "Thumbs Down"
 msgstr ""
 
-#: includes/type-elusive.php:164 includes/type-fontawesome.php:569
+#: includes/type-elusive.php:173 includes/type-fontawesome.php:569
 msgid "Tint"
 msgstr ""
 
-#: includes/type-elusive.php:168
+#: includes/type-elusive.php:177
 msgid "View Mode"
 msgstr ""
 
-#: includes/type-elusive.php:169 includes/type-fontawesome.php:589
+#: includes/type-elusive.php:178 includes/type-fontawesome.php:589
 msgid "Volume Up"
 msgstr ""
 
-#: includes/type-elusive.php:170 includes/type-fontawesome.php:587
+#: includes/type-elusive.php:179 includes/type-fontawesome.php:587
 msgid "Volume Down"
 msgstr ""
 
-#: includes/type-elusive.php:171
+#: includes/type-elusive.php:180
 msgid "Mute"
 msgstr ""
 
-#: includes/type-elusive.php:172
+#: includes/type-elusive.php:181
 msgid "Warning Sign"
 msgstr ""
 
-#: includes/type-elusive.php:173
+#: includes/type-elusive.php:182
 msgid "Zoom In"
 msgstr ""
 
-#: includes/type-elusive.php:174
+#: includes/type-elusive.php:183
 msgid "Zoom Out"
 msgstr ""
 
-#: includes/type-elusive.php:179 includes/type-fontawesome.php:159
+#: includes/type-elusive.php:188 includes/type-fontawesome.php:159
 msgid "Currency"
 msgstr ""
 
-#: includes/type-elusive.php:196 includes/type-genericons.php:140
+#: includes/type-elusive.php:205 includes/type-genericons.php:140
 msgid "Misc."
 msgstr ""
 
-#: includes/type-elusive.php:198
+#: includes/type-elusive.php:207
 msgid "Adult"
 msgstr ""
 
-#: includes/type-elusive.php:199 includes/type-elusive.php:200
+#: includes/type-elusive.php:208 includes/type-elusive.php:209
 msgid "Address Book"
 msgstr ""
 
-#: includes/type-elusive.php:201
+#: includes/type-elusive.php:210
 msgid "ASL"
 msgstr ""
 
-#: includes/type-elusive.php:202 includes/type-fontawesome.php:332
+#: includes/type-elusive.php:211 includes/type-fontawesome.php:332
 msgid "Asterisk"
 msgstr ""
 
-#: includes/type-elusive.php:203
+#: includes/type-elusive.php:212
 msgid "Ban Circle"
 msgstr ""
 
-#: includes/type-elusive.php:204 includes/type-fontawesome.php:335
+#: includes/type-elusive.php:213 includes/type-fontawesome.php:335
 msgid "Barcode"
 msgstr ""
 
-#: includes/type-elusive.php:205 includes/type-fontawesome.php:338
+#: includes/type-elusive.php:214 includes/type-fontawesome.php:338
 #: includes/type-fontawesome.php:339
 msgid "Bell"
 msgstr ""
 
-#: includes/type-elusive.php:206
+#: includes/type-elusive.php:215
 msgid "Blind"
 msgstr ""
 
-#: includes/type-elusive.php:208
+#: includes/type-elusive.php:217
 msgid "Braille"
 msgstr ""
 
-#: includes/type-elusive.php:209 includes/type-fontawesome.php:345
+#: includes/type-elusive.php:218 includes/type-fontawesome.php:345
 msgid "Briefcase"
 msgstr ""
 
-#: includes/type-elusive.php:210
+#: includes/type-elusive.php:219
 msgid "Broom"
 msgstr ""
 
-#: includes/type-elusive.php:211
+#: includes/type-elusive.php:220
 msgid "Brush"
 msgstr ""
 
-#: includes/type-elusive.php:212
+#: includes/type-elusive.php:221
 msgid "Bulb"
 msgstr ""
 
-#: includes/type-elusive.php:213 includes/type-fontawesome.php:349
+#: includes/type-elusive.php:222 includes/type-fontawesome.php:349
 msgid "Bullhorn"
 msgstr ""
 
-#: includes/type-elusive.php:215
+#: includes/type-elusive.php:224
 msgid "Calendar Sign"
 msgstr ""
 
-#: includes/type-elusive.php:217 includes/type-fontawesome.php:355
+#: includes/type-elusive.php:226 includes/type-fontawesome.php:355
 msgid "Car"
 msgstr ""
 
-#: includes/type-elusive.php:218
+#: includes/type-elusive.php:227
 msgid "CC"
 msgstr ""
 
-#: includes/type-elusive.php:219 includes/type-fontawesome.php:360
+#: includes/type-elusive.php:228 includes/type-fontawesome.php:360
 msgid "Certificate"
 msgstr ""
 
-#: includes/type-elusive.php:220 includes/type-fontawesome.php:366
+#: includes/type-elusive.php:229 includes/type-fontawesome.php:366
 msgid "Child"
 msgstr ""
 
-#: includes/type-elusive.php:221 includes/type-elusive.php:222
+#: includes/type-elusive.php:230 includes/type-elusive.php:231
 #: includes/type-fontawesome.php:378 includes/type-genericons.php:158
 msgid "Cog"
 msgstr ""
 
-#: includes/type-elusive.php:223 includes/type-fontawesome.php:379
+#: includes/type-elusive.php:232 includes/type-fontawesome.php:379
 msgid "Cogs"
 msgstr ""
 
-#: includes/type-elusive.php:224 includes/type-elusive.php:225
+#: includes/type-elusive.php:233 includes/type-elusive.php:234
 #: includes/type-fontawesome.php:380 includes/type-fontawesome.php:381
 #: includes/type-genericons.php:95
 msgid "Comment"
 msgstr ""
 
-#: includes/type-elusive.php:226 includes/type-elusive.php:227
+#: includes/type-elusive.php:235 includes/type-elusive.php:236
 #: includes/type-fontawesome.php:384
 msgid "Compass"
 msgstr ""
 
-#: includes/type-elusive.php:228 includes/type-fontawesome.php:385
+#: includes/type-elusive.php:237 includes/type-fontawesome.php:385
 msgid "Credit Card"
 msgstr ""
 
-#: includes/type-elusive.php:230 includes/type-elusive.php:231
+#: includes/type-elusive.php:239 includes/type-elusive.php:240
 #: includes/type-fontawesome.php:399 includes/type-fontawesome.php:400
 #: includes/type-fontawesome.php:401
 msgid "Envelope"
 msgstr ""
 
-#: includes/type-elusive.php:232 includes/type-elusive.php:233
+#: includes/type-elusive.php:241 includes/type-elusive.php:242
 msgid "Error"
 msgstr ""
 
-#: includes/type-elusive.php:234
+#: includes/type-elusive.php:243
 msgid "Exclamation Sign"
 msgstr ""
 
-#: includes/type-elusive.php:235
+#: includes/type-elusive.php:244
 msgid "Eye Close"
 msgstr ""
 
-#: includes/type-elusive.php:236
+#: includes/type-elusive.php:245
 msgid "Eye Open"
 msgstr ""
 
-#: includes/type-elusive.php:237 includes/type-fontawesome.php:465
+#: includes/type-elusive.php:246 includes/type-fontawesome.php:465
 msgid "Male"
 msgstr ""
 
-#: includes/type-elusive.php:238 includes/type-fontawesome.php:412
+#: includes/type-elusive.php:247 includes/type-fontawesome.php:412
 msgid "Female"
 msgstr ""
 
-#: includes/type-elusive.php:239 includes/type-elusive.php:240
+#: includes/type-elusive.php:248 includes/type-elusive.php:249
 #: includes/type-fontawesome.php:231 includes/type-fontawesome.php:232
 msgid "File"
 msgstr ""
 
-#: includes/type-elusive.php:241 includes/type-fontawesome.php:414
+#: includes/type-elusive.php:250 includes/type-fontawesome.php:414
 msgid "Film"
 msgstr ""
 
-#: includes/type-elusive.php:242 includes/type-fontawesome.php:415
+#: includes/type-elusive.php:251 includes/type-fontawesome.php:415
 msgid "Filter"
 msgstr ""
 
-#: includes/type-elusive.php:243 includes/type-fontawesome.php:416
+#: includes/type-elusive.php:252 includes/type-fontawesome.php:416
 msgid "Fire"
 msgstr ""
 
-#: includes/type-elusive.php:246 includes/type-fontawesome.php:423
+#: includes/type-elusive.php:255 includes/type-fontawesome.php:423
 #: includes/type-fontawesome.php:425
 msgid "Folder"
 msgstr ""
 
-#: includes/type-elusive.php:247 includes/type-fontawesome.php:424
+#: includes/type-elusive.php:256 includes/type-fontawesome.php:424
 #: includes/type-fontawesome.php:426
 msgid "Folder Open"
 msgstr ""
 
-#: includes/type-elusive.php:248
+#: includes/type-elusive.php:257
 msgid "Folder Close"
 msgstr ""
 
-#: includes/type-elusive.php:249
+#: includes/type-elusive.php:258
 msgid "Folder Sign"
 msgstr ""
 
-#: includes/type-elusive.php:250 includes/type-fontawesome.php:275
+#: includes/type-elusive.php:259 includes/type-fontawesome.php:275
 msgid "Font"
 msgstr ""
 
-#: includes/type-elusive.php:252 includes/type-fontawesome.php:432
+#: includes/type-elusive.php:261 includes/type-fontawesome.php:432
 msgid "Gift"
 msgstr ""
 
-#: includes/type-elusive.php:253 includes/type-fontawesome.php:433
+#: includes/type-elusive.php:262 includes/type-fontawesome.php:433
 msgid "Glass"
 msgstr ""
 
-#: includes/type-elusive.php:254
+#: includes/type-elusive.php:263
 msgid "Glasses"
 msgstr ""
 
-#: includes/type-elusive.php:255 includes/type-elusive.php:256
+#: includes/type-elusive.php:264 includes/type-elusive.php:265
 #: includes/type-fontawesome.php:434
 msgid "Globe"
 msgstr ""
 
-#: includes/type-elusive.php:257 includes/type-elusive.php:258
+#: includes/type-elusive.php:266 includes/type-elusive.php:267
 msgid "Graph"
 msgstr ""
 
-#: includes/type-elusive.php:259 includes/type-elusive.php:260
+#: includes/type-elusive.php:268 includes/type-elusive.php:269
 #: includes/type-fontawesome.php:436
 msgid "Group"
 msgstr ""
 
-#: includes/type-elusive.php:261
+#: includes/type-elusive.php:270
 msgid "Guide Dog"
 msgstr ""
 
-#: includes/type-elusive.php:262 includes/type-fontawesome.php:220
+#: includes/type-elusive.php:271 includes/type-fontawesome.php:220
 msgid "Hand Up"
 msgstr ""
 
-#: includes/type-elusive.php:263 includes/type-fontawesome.php:217
+#: includes/type-elusive.php:272 includes/type-fontawesome.php:217
 msgid "Hand Down"
 msgstr ""
 
-#: includes/type-elusive.php:264 includes/type-fontawesome.php:218
+#: includes/type-elusive.php:273 includes/type-fontawesome.php:218
 msgid "Hand Left"
 msgstr ""
 
-#: includes/type-elusive.php:265 includes/type-fontawesome.php:219
+#: includes/type-elusive.php:274 includes/type-fontawesome.php:219
 msgid "Hand Right"
 msgstr ""
 
-#: includes/type-elusive.php:266 includes/type-fontawesome.php:437
+#: includes/type-elusive.php:275 includes/type-fontawesome.php:437
 msgid "HDD"
 msgstr ""
 
-#: includes/type-elusive.php:267 includes/type-fontawesome.php:439
+#: includes/type-elusive.php:276 includes/type-fontawesome.php:439
 msgid "Headphones"
 msgstr ""
 
-#: includes/type-elusive.php:268
+#: includes/type-elusive.php:277
 msgid "Hearing Impaired"
 msgstr ""
 
-#: includes/type-elusive.php:269 includes/type-elusive.php:270
+#: includes/type-elusive.php:278 includes/type-elusive.php:279
 #: includes/type-fontawesome.php:440 includes/type-fontawesome.php:441
 #: includes/type-genericons.php:172
 msgid "Heart"
 msgstr ""
 
-#: includes/type-elusive.php:271
+#: includes/type-elusive.php:280
 msgid "Heart Empty"
 msgstr ""
 
-#: includes/type-elusive.php:272
+#: includes/type-elusive.php:281
 msgid "Hourglass"
 msgstr ""
 
-#: includes/type-elusive.php:273 includes/type-elusive.php:274
+#: includes/type-elusive.php:282 includes/type-elusive.php:283
 msgid "Idea"
 msgstr ""
 
-#: includes/type-elusive.php:275 includes/type-elusive.php:276
-#: includes/type-elusive.php:277 includes/type-fontawesome.php:444
+#: includes/type-elusive.php:284 includes/type-elusive.php:285
+#: includes/type-elusive.php:286 includes/type-fontawesome.php:444
 msgid "Inbox"
 msgstr ""
 
-#: includes/type-elusive.php:279 includes/type-fontawesome.php:447
+#: includes/type-elusive.php:288 includes/type-fontawesome.php:447
 #: includes/type-genericons.php:178
 msgid "Key"
 msgstr ""
 
-#: includes/type-elusive.php:280 includes/type-elusive.php:281
+#: includes/type-elusive.php:289 includes/type-elusive.php:290
 #: includes/type-fontawesome.php:450
 msgid "Laptop"
 msgstr ""
 
-#: includes/type-elusive.php:282 includes/type-fontawesome.php:451
+#: includes/type-elusive.php:291 includes/type-fontawesome.php:451
 msgid "Leaf"
 msgstr ""
 
-#: includes/type-elusive.php:283
+#: includes/type-elusive.php:292
 msgid "Lines"
 msgstr ""
 
-#: includes/type-elusive.php:284 includes/type-fontawesome.php:460
+#: includes/type-elusive.php:293 includes/type-fontawesome.php:460
 msgid "Magic"
 msgstr ""
 
-#: includes/type-elusive.php:285 includes/type-fontawesome.php:461
+#: includes/type-elusive.php:294 includes/type-fontawesome.php:461
 msgid "Magnet"
 msgstr ""
 
-#: includes/type-elusive.php:286
+#: includes/type-elusive.php:295
 msgid "Mic"
 msgstr ""
 
-#: includes/type-elusive.php:287 includes/type-fontawesome.php:477
+#: includes/type-elusive.php:296 includes/type-fontawesome.php:477
 msgid "Music"
 msgstr ""
 
-#: includes/type-elusive.php:288 includes/type-elusive.php:289
+#: includes/type-elusive.php:297 includes/type-elusive.php:298
 msgid "Paper Clip"
 msgstr ""
 
-#: includes/type-elusive.php:290 includes/type-elusive.php:291
+#: includes/type-elusive.php:299 includes/type-elusive.php:300
 #: includes/type-fontawesome.php:481 includes/type-fontawesome.php:482
 #: includes/type-fontawesome.php:483
 msgid "Pencil"
 msgstr ""
 
-#: includes/type-elusive.php:292
+#: includes/type-elusive.php:301
 msgid "Person"
 msgstr ""
 
-#: includes/type-elusive.php:293 includes/type-elusive.php:294
+#: includes/type-elusive.php:302 includes/type-elusive.php:303
 #: includes/type-fontawesome.php:484 includes/type-fontawesome.php:485
 #: includes/type-genericons.php:188
 msgid "Phone"
 msgstr ""
 
-#: includes/type-elusive.php:295 includes/type-elusive.php:296
+#: includes/type-elusive.php:304 includes/type-elusive.php:305
 msgid "Photo"
 msgstr ""
 
-#: includes/type-elusive.php:297 includes/type-fontawesome.php:486
+#: includes/type-elusive.php:306 includes/type-fontawesome.php:486
 #: includes/type-genericons.php:189
 msgid "Picture"
 msgstr ""
 
-#: includes/type-elusive.php:298 includes/type-fontawesome.php:487
+#: includes/type-elusive.php:307 includes/type-fontawesome.php:487
 msgid "Plane"
 msgstr ""
 
-#: includes/type-elusive.php:299
+#: includes/type-elusive.php:308
 msgid "Podcast"
 msgstr ""
 
-#: includes/type-elusive.php:300
+#: includes/type-elusive.php:309
 msgid "Puzzle"
 msgstr ""
 
-#: includes/type-elusive.php:301 includes/type-fontawesome.php:495
+#: includes/type-elusive.php:310 includes/type-fontawesome.php:495
 msgid "QR Code"
 msgstr ""
 
-#: includes/type-elusive.php:302 includes/type-elusive.php:303
+#: includes/type-elusive.php:311 includes/type-elusive.php:312
 msgid "Quotes"
 msgstr ""
 
-#: includes/type-elusive.php:304 includes/type-fontawesome.php:500
+#: includes/type-elusive.php:313 includes/type-fontawesome.php:500
 msgid "Random"
 msgstr ""
 
-#: includes/type-elusive.php:305
+#: includes/type-elusive.php:314
 msgid "Scissors"
 msgstr ""
 
-#: includes/type-elusive.php:306 includes/type-elusive.php:307
+#: includes/type-elusive.php:315 includes/type-elusive.php:316
 msgid "Screen"
 msgstr ""
 
-#: includes/type-elusive.php:308
+#: includes/type-elusive.php:317
 msgid "Screenshot"
 msgstr ""
 
-#: includes/type-elusive.php:309 includes/type-fontawesome.php:520
+#: includes/type-elusive.php:318 includes/type-fontawesome.php:520
 msgid "Shopping Cart"
 msgstr ""
 
-#: includes/type-elusive.php:310
+#: includes/type-elusive.php:319
 msgid "Shopping Cart Sign"
 msgstr ""
 
-#: includes/type-elusive.php:311 includes/type-fontawesome.php:523
+#: includes/type-elusive.php:320 includes/type-fontawesome.php:523
 msgid "Signal"
 msgstr ""
 
-#: includes/type-elusive.php:314
+#: includes/type-elusive.php:323
 msgid "Speaker"
 msgstr ""
 
-#: includes/type-elusive.php:315 includes/type-fontawesome.php:584
+#: includes/type-elusive.php:324 includes/type-fontawesome.php:584
 #: includes/type-genericons.php:99
 msgid "User"
 msgstr ""
 
-#: includes/type-elusive.php:316
+#: includes/type-elusive.php:325
 msgid "Thumbnails"
 msgstr ""
 
-#: includes/type-elusive.php:317
+#: includes/type-elusive.php:326
 msgid "Thumbnails (Large)"
 msgstr ""
 
-#: includes/type-elusive.php:318
+#: includes/type-elusive.php:327
 msgid "Thumbnails (List)"
 msgstr ""
 
-#: includes/type-elusive.php:319 includes/type-elusive.php:320
+#: includes/type-elusive.php:328 includes/type-elusive.php:329
 #: includes/type-genericons.php:98
 msgid "Time"
 msgstr ""
 
-#: includes/type-elusive.php:321
+#: includes/type-elusive.php:330
 msgid "Torso"
 msgstr ""
 
-#: includes/type-elusive.php:322 includes/type-fontawesome.php:256
+#: includes/type-elusive.php:331 includes/type-fontawesome.php:256
 msgid "Wheelchair"
 msgstr ""
 
-#: includes/type-elusive.php:323 includes/type-elusive.php:324
+#: includes/type-elusive.php:332 includes/type-elusive.php:333
 #: includes/type-fontawesome.php:591
 msgid "Wrench"
 msgstr ""
 
-#: includes/type-elusive.php:325
+#: includes/type-elusive.php:334
 msgid "Universal Access"
 msgstr ""
 
-#: includes/type-elusive.php:330
+#: includes/type-elusive.php:339
 msgid "Places"
 msgstr ""
 
-#: includes/type-elusive.php:332 includes/type-fontawesome.php:342
+#: includes/type-elusive.php:341 includes/type-fontawesome.php:342
 #: includes/type-fontawesome.php:343
 msgid "Bookmark"
 msgstr ""
 
-#: includes/type-elusive.php:333
+#: includes/type-elusive.php:342
 msgid "Bookmark Empty"
 msgstr ""
 
-#: includes/type-elusive.php:337
+#: includes/type-elusive.php:346
 msgid "Home (iPhone)"
 msgstr ""
 
-#: includes/type-elusive.php:339 includes/type-fontawesome.php:556
+#: includes/type-elusive.php:348 includes/type-fontawesome.php:556
 msgid "Tags"
 msgstr ""
 
-#: includes/type-elusive.php:340 includes/type-elusive.php:341
+#: includes/type-elusive.php:349 includes/type-elusive.php:350
 msgid "Website"
 msgstr ""
 
-#: includes/type-elusive.php:370
+#: includes/type-elusive.php:379
 msgid "Open Source"
 msgstr ""
 
@@ -2649,9 +2649,9 @@ msgstr ""
 msgid "Menu Icons"
 msgstr ""
 
-#. #-#-#-#-#  menu-icons.pot (Menu Icons 0.3.1)  #-#-#-#-#
+#. #-#-#-#-#  menu-icons.pot (Menu Icons 0.3.2)  #-#-#-#-#
 #. Plugin URI of the plugin/theme
-#. #-#-#-#-#  menu-icons.pot (Menu Icons 0.3.1)  #-#-#-#-#
+#. #-#-#-#-#  menu-icons.pot (Menu Icons 0.3.2)  #-#-#-#-#
 #. Author URI of the plugin/theme
 msgid "http://kucrut.org/"
 msgstr ""
