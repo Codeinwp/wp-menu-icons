@@ -56,6 +56,7 @@ abstract class Kucrut_Form_Field {
 		'textarea'        => 'Kucrut_Form_Field_Textarea',
 		'select'          => 'Kucrut_Form_Field_Select',
 		'select_multiple' => 'Kucrut_Form_Field_Select_Multiple',
+		'select_pages'    => 'Kucrut_Form_Field_Select_Pages',
 		'special'         => 'Kucrut_Form_Field_Special',
 	);
 
@@ -493,6 +494,56 @@ class Kucrut_Form_Field_Select_Multiple extends Kucrut_Form_Field_Select {
 
 	protected function selected( $value ) {
 		return selected( in_array( $value, $this->field['value'] ), true, false );
+	}
+}
+
+
+/**
+ * Field: Select Pages
+ */
+class Kucrut_Form_Field_Select_Pages extends Kucrut_Form_Field_Select {
+
+	protected $wp_dropdown_pages_args = array(
+		'depth'             => 0,
+		'child_of'          => 0,
+		'option_none_value' => '',
+	);
+
+
+	public function __construct( $field, $args ) {
+		$this->wp_dropdown_pages_args['show_option_none'] = __( '&mdash; Select &mdash;', 'postmedia' );
+		parent::__construct( $field, $args );
+	}
+
+
+	public function set_properties() {
+		parent::set_properties();
+
+		if ( empty( $this->args->wp_dropdown_pages_args ) ) {
+			$this->args->wp_dropdown_pages_args = array();
+		}
+
+		// Apply defeaults
+		$this->args->wp_dropdown_pages_args = wp_parse_args(
+			$this->args->wp_dropdown_pages_args,
+			$this->wp_dropdown_pages_args
+		);
+
+		// Force some args
+		$this->args->wp_dropdown_pages_args = array_merge(
+			$this->args->wp_dropdown_pages_args,
+			array(
+				'echo'     => true,
+				'name'     => $this->attributes['name'],
+				'id'       => $this->attributes['id'],
+				'selected' => $this->field['value'],
+			)
+		);
+	}
+
+
+	public function render() {
+		wp_dropdown_pages( $this->args->wp_dropdown_pages_args );
 	}
 }
 
