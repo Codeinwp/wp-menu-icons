@@ -10,9 +10,8 @@
 require_once dirname( __FILE__ ) . '/type-fonts.php';
 
 /**
- * Icon type: Genericons
+ * Icon type: Font Awesome
  *
- * @since 0.1.0
  */
 class Menu_Icons_Type_Fontawesome extends Menu_Icons_Type_Fonts {
 
