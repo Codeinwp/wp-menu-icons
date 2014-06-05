@@ -89,7 +89,8 @@
 	max-width: 5em;
 	float: none;
 }
-.media-sidebar .mi-settings .setting input {
+.media-sidebar .mi-settings .setting input,
+.media-sidebar .mi-settings span.description {
 	float: none;
 }
 .mi-settings ._info {

@@ -433,7 +433,7 @@ final class Menu_Icons_Admin_Nav_Menus {
 				<label class="setting">
 					<span>%4$s</span>
 					<input type="number" min="0.1" step="0.1" data-setting="font_size" value="{{ data.font_size }}" />
-					em
+					<span class="description">em</span>
 				</label>
 				<label class="setting">
 					<span>%5$s</span>
