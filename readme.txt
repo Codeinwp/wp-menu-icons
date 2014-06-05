@@ -23,8 +23,8 @@ This plugin gives you the ability to add icons to your menu items, similar to th
 
 = Supported icon types =
 - Dashicons (WordPress core icon fonts)
-- [Font Awesome](http://fontawesome.io/) by [Dave Gandy](http://twitter.com/davegandy)
 - [Elusive Icons](http://shoestrap.org/downloads/elusive-icons-webfont/) by [Aristeides Stathopoulos](http://shoestrap.org/blog/author/aristath/)
+- [Font Awesome](http://fontawesome.io/) by [Dave Gandy](http://twitter.com/davegandy)
 - [Genericons](http://genericons.com/) by [Automattic](http://automattic.com/)
 
 = Planned supported icon types =
