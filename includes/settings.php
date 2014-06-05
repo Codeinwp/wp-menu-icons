@@ -309,6 +309,17 @@ final class Menu_Icons_Settings {
 						'value'   => $menu_settings['position'],
 					),
 					array(
+						'id'          => 'font_size',
+						'type'        => 'number',
+						'label'       => __( 'Font Size', 'menu-icons' ),
+						'description' => 'em',
+						'attributes'  => array(
+							'min'  => '0.1',
+							'step' => '0.1',
+						),
+						'value'   => $menu_settings['font_size'],
+					),
+					array(
 						'id'      => 'vertical_align',
 						'type'    => 'select',
 						'label'   => __( 'Vertical Align', 'menu-icons' ),
@@ -323,17 +334,6 @@ final class Menu_Icons_Settings {
 							'sub'         => __( 'Sub', 'menu-icons' ),
 						),
 						'value'   => $menu_settings['vertical_align'],
-					),
-					array(
-						'id'          => 'font_size',
-						'type'        => 'number',
-						'label'       => __( 'Font Size', 'menu-icons' ),
-						'description' => 'em',
-						'attributes'  => array(
-							'min'  => '0.1',
-							'step' => '0.1',
-						),
-						'value'   => $menu_settings['font_size'],
 					),
 					array(
 						'id'      => 'hide_label',
