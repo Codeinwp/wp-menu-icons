@@ -1,4 +1,4 @@
-/* global jQuery */
+/* global jQuery, window: false, log: false, document: false, console: false */
 /**
  * Input dependencies
  *
@@ -26,18 +26,12 @@
 	};
 
 	var getState = function ( $el, depOn ) {
-		var currentValue = $el.val();
+		var value    = $el.val();
+		var eqString = ('string' === typeof depOn && depOn === value );
+		var eqNumber = ('number' === typeof depOn && depOn === value );
+		var inObject = ('object' === typeof depOn && $.inArray(value, depOn) > -1);
 
-		if (
-			! $el.prop('disabled')
-			&& (
-				(
-					('string' === typeof depOn || 'number' === typeof depOn)
-					&& (depOn == currentValue || $.inArray(depOn, currentValue) > -1)
-				)
-				|| ('object' === typeof depOn && $.inArray(currentValue, depOn) > -1)
-			)
-		) {
+		if ( ! $el.prop('disabled') && ( eqString || eqNumber || inObject ) ) {
 			return true;
 		}
 		else {
@@ -47,16 +41,19 @@
 
 	var getChildren = function( $el, options ) {
 		var childrenSelector = $el.data('dep-children');
+
 		if ( !childrenSelector ) {
 			window.log( 'jQuery.inputDependencies', 'childrenSelector is not valid.', options, $el );
 			return false;
 		}
 
 		var childrenScope = $el.data('dep-scope');
-		if ( childrenScope  )
+		if ( childrenScope  ) {
 			return $el.closest( childrenScope ).find( childrenSelector );
-		else
+		}
+		else {
 			return $( childrenSelector );
+		}
 	};
 
 	var onChange = function( e ) {
@@ -65,26 +62,30 @@
 		// If this input is already initialized, do nothing
 		// This is to prevent unnecessary actions when the change event is
 		// triggered by our ajaxComplete callback
-		if ( e.inputDependenciesInit && $el.data('inputDependenciesInit') )
+		if ( e.inputDependenciesInit && $el.data('inputDependenciesInit') ) {
 			return;
-		else
+		}
+		else {
 			$el.data('inputDependenciesInit', true );
+		}
 
 		var options   = e.data;
 		var $children = getChildren( $el, options );
 
-		if ( ! $children.length )
+		if ( ! $children.length ) {
 			return false;
+		}
 
 		$children.each(function() {
 			var $child = $(this);
 			var depOn  = $child.data('dep-on');
-			if ( ! depOn )
+
+			if ( ! depOn ) {
 				return false;
+			}
 
 			var show  = getState( $el, depOn );
 			$child.toggle( show );
-
 
 			if ( true === options.disable ) {
 				$child.filter(':input')

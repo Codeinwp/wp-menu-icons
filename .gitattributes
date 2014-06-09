@@ -2,3 +2,5 @@
 .gitignore export-ignore
 assets export-ignore
 readme.md export-ignore
+Gruntfile.js export-ignore
+package.json export-ignore

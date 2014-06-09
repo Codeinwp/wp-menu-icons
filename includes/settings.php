@@ -453,15 +453,17 @@ final class Menu_Icons_Settings {
 	 * @wp_hook action admin_enqueue_scripts
 	 */
 	public static function _enqueue_assets() {
+		$suffix = Menu_Icons::get_script_suffix();
+
 		wp_enqueue_style(
 			'menu-icons',
-			Menu_Icons::get( 'url' ) . 'css/admin' . Menu_Icons::get_script_suffix() . '.css',
+			Menu_Icons::get( 'url' ) . 'css/admin' . $suffix . '.css',
 			false,
 			Menu_Icons::VERSION
 		);
 		wp_register_script(
 			'kucrut-jquery-input-dependencies',
-			Menu_Icons::get( 'url' ) . 'js/input-dependencies' . Menu_Icons::get_script_suffix() . '.js',
+			Menu_Icons::get( 'url' ) . 'js/input-dependencies' . $suffix . '.js',
 			array( 'jquery' ),
 			'0.1.0',
 			true
@@ -471,10 +473,9 @@ final class Menu_Icons_Settings {
 			wp_enqueue_media();
 		}
 
-		// TODO: WHY U NO WANT MINIFY?
 		wp_enqueue_script(
 			'menu-icons',
-			Menu_Icons::get( 'url' ) . 'js/admin.js',
+			Menu_Icons::get( 'url' ) . 'js/admin' . $suffix . '.js',
 			array( 'kucrut-jquery-input-dependencies' ),
 			Menu_Icons::VERSION,
 			true

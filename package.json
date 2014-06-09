@@ -1,0 +1,43 @@
+{
+  "name": "menu-icons",
+  "title": "Menu Icons",
+  "description": "Easily add icons to your nav menu items.",
+  "version": "0.3.2",
+  "homepage": "http://wordpress.org/plugins/menu-icons/",
+  "author": {
+    "name": "Dzikri Aziz",
+    "email": "kvcrvt@gmail.com",
+    "url": "http://kucrut.org/"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.5",
+    "grunt-contrib-uglify": "~0.4.0",
+    "grunt-contrib-cssmin": "~0.9.0",
+    "grunt-contrib-jshint": "~0.10.0",
+    "grunt-contrib-nodeunit": "~0.1.2",
+    "grunt-contrib-watch": "~0.6.1",
+    "grunt-contrib-clean": "~0.5.0",
+    "grunt-contrib-copy": "~0.5.0",
+    "grunt-contrib-compress": "~0.9.1"
+  },
+  "keywords": [
+    "menu",
+    "nav-menu",
+    "icons",
+    "navigation",
+    "font-icons",
+    "font-awesome",
+    "elusive",
+    "dashicons",
+    "genericons"
+  ],
+  "main": "Gruntfile.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/kucrut/wp-menu-icons.git"
+  },
+  "license": "GPLv2",
+  "bugs": {
+    "url": "https://github.com/kucrut/wp-menu-icons/issues"
+  }
+}
