@@ -1,4 +1,4 @@
-/* global jQuery, wp, menuIcons */
+/* global jQuery, wp, window: false, Backbone: false, _: false */
 /**
  * Menu Icons
  *
@@ -41,7 +41,7 @@
 		.find('a.mi-settings-nav-tab').first().trigger('click');
 
 
-	if ( 'undefined' === typeof menuIcons ) {
+	if ( 'undefined' === typeof window.menuIcons ) {
 		return;
 	}
 
@@ -49,7 +49,7 @@
 		return;
 	}
 
-	menuIcons = _.defaults({
+	window.menuIcons = _.defaults({
 		frame       : '',
 		currentItem : {},
 
@@ -84,13 +84,13 @@
 				attrs[ key ] = input.value;
 			});
 
-			menuIcons.currentItem = attrs;
+			window.menuIcons.currentItem = attrs;
 
-			if ( ! ( menuIcons.frame instanceof media.view.MediaFrame.menuIcons ) ) {
-				menuIcons.frame = new media.view.MediaFrame.menuIcons;
+			if ( ! ( window.menuIcons.frame instanceof media.view.MediaFrame.menuIcons ) ) {
+				window.menuIcons.frame = new media.view.MediaFrame.menuIcons();
 			}
 
-			menuIcons.frame.open();
+			window.menuIcons.frame.open();
 		},
 
 		removeIcon : function(e) {
@@ -101,7 +101,7 @@
 
 			$('#menu-icons-'+ id +'-type').val('').trigger('change');
 		}
-	}, menuIcons);
+	}, window.menuIcons);
 
 
 	// WP Media
@@ -137,7 +137,7 @@
 		},
 
 		createTitle : function() {
-			this.views.add( new media.view.miSidebar.Title );
+			this.views.add( new media.view.miSidebar.Title() );
 		},
 	});
 
@@ -340,12 +340,7 @@
 
 			singleView = this.getView( single );
 			if ( singleView && ! this.isInView( singleView.$el ) ) {
-				this.$el.scrollTop(
-					singleView.$el.offset().top
-					- this.$el.offset().top
-					+ this.$el.scrollTop()
-					- parseInt( this.$el.css('paddingTop') )
-				);
+				this.$el.scrollTop( singleView.$el.offset().top - this.$el.offset().top + this.$el.scrollTop() - parseInt( this.$el.css('paddingTop') ) );
 			}
 		},
 
@@ -354,7 +349,7 @@
 		},
 
 		isInView: function( $elem ) {
-			var $window       = $(window)
+			var $window       = $(window);
 			var docViewTop    = $window.scrollTop();
 			var docViewBottom = docViewTop + $window.height();
 			var elemTop       = $elem.offset().top;
@@ -370,7 +365,7 @@
 		createFilters : function() {
 			this.filters = {
 				all : {
-					text  : menuIcons.text.all,
+					text  : window.menuIcons.text.all,
 					props : {
 						group : 'all'
 					}
@@ -430,7 +425,7 @@
 
 		initialize : function() {
 			this.model.on( 'change', this.render, this );
-			media.View.prototype.initialize.apply( this, arguments )
+			media.View.prototype.initialize.apply( this, arguments );
 		},
 
 		render : function() {
@@ -497,11 +492,7 @@
 						group : function( icon ) {
 							var group = this;
 
-							return (
-								'all' === group
-								|| icon.group === group
-								|| '' === icon.group // fallback
-							);
+							return ( 'all' === group || icon.group === group || '' === icon.group );
 						},
 						search : function( icon ) {
 							var term = this;
@@ -610,26 +601,26 @@
 				toolbar   : 'mi-select'
 			});
 
-			this.miMenuItems = new media.model.miMenuItems;
+			this.miMenuItems = new media.model.miMenuItems();
 			this.createStates();
 			this.bindHandlers();
 		},
 
 		createStates : function() {
 			var options = this.options;
-			var controller;
+			var Controller;
 
 			if ( options.states ) {
 				return;
 			}
 
-			_.each( menuIcons.iconTypes, function( props, type ) {
+			_.each( window.menuIcons.iconTypes, function( props, type ) {
 				if ( ! media.controller.hasOwnProperty( props.data.controller ) ) {
-					delete menuIcons.iconTypes[ type ];
+					delete window.menuIcons.iconTypes[ type ];
 					return;
 				}
 
-				controller = media.controller[ props.data.controller ];
+				Controller = media.controller[ props.data.controller ];
 
 				_.defaults( props, {
 					content   : props.id,
@@ -637,7 +628,7 @@
 				} );
 
 				// States
-				this.states.add( new controller( props ) );
+				this.states.add( new Controller( props ) );
 			}, this );
 		},
 
@@ -646,7 +637,7 @@
 			this.on( 'toolbar:render:mi-select', this.miSelectToolbar, this );
 			this.on( 'open', this.miInitialize, this );
 
-			_.each( menuIcons.iconTypes, function( props, type ) {
+			_.each( window.menuIcons.iconTypes, function( props, type ) {
 				this.on( 'content:activate:'+props.id, this.miContentRender, this, props );
 			}, this );
 		},
@@ -660,7 +651,7 @@
 			view.set( state.id, {
 				style    : 'primary',
 				priority : 80,
-				text     : menuIcons.text.select,
+				text     : window.menuIcons.text.select,
 				requires : {
 					selection : true
 				},
@@ -674,9 +665,9 @@
 		// Content
 		miContentRender : function() {
 			var state = this.state();
-			var view  = media.view[ state.get('data').controller ];
+			var View  = media.view[ state.get('data').controller ];
 
-			this.content.set( new view({
+			this.content.set( new View({
 				controller : this,
 				model      : state,
 				collection : state.get('library'),
@@ -686,38 +677,34 @@
 		},
 
 		miGetState : function() {
-			var item = menuIcons.currentItem;
+			var item = window.menuIcons.currentItem;
 			var type;
 
-			if (
-				! _.isUndefined( item.type )
-				&& '' !== item.type
-				&& menuIcons.iconTypes.hasOwnProperty( item.type )
-			) {
+			if ( ! _.isUndefined( item.type ) && '' !== item.type && window.menuIcons.iconTypes.hasOwnProperty( item.type ) ) {
 				type = item.type;
 			}
 			else {
-				type = menuIcons.typeNames[0];
+				type = window.menuIcons.typeNames[0];
 			}
 
 			return 'mi-'+type;
 		},
 
 		miGetCurrentItem : function() {
-			return this.miMenuItems.get( menuIcons.currentItem.id )
+			return this.miMenuItems.get( window.menuIcons.currentItem.id );
 		},
 
 		miUpdateMenuItems : function() {
 			var item = this.miGetCurrentItem();
 
 			if ( _.isUndefined( item ) ) {
-				this.miMenuItems.add( _.extend({ group : 'all' }, menuIcons.currentItem ) );
+				this.miMenuItems.add( _.extend({ group : 'all' }, window.menuIcons.currentItem ) );
 			}
 			else {
-				item.set( menuIcons.currentItem );
+				item.set( window.menuIcons.currentItem );
 			}
 
-			this.miMenuItems.props.set( 'item', menuIcons.currentItem.id );
+			this.miMenuItems.props.set( 'item', window.menuIcons.currentItem.id );
 		},
 
 		miInitialize : function() {
@@ -760,9 +747,9 @@
 
 
 	$('body')
-		.on( 'click', 'div.menu-icons-wrap a._select', menuIcons.selectIcon )
-		.on( 'click', 'div.menu-icons-wrap a._remove', menuIcons.removeIcon )
-		.on( 'change', 'div.menu-icons-wrap select._type', menuIcons.toggleSelect );
+		.on( 'click', 'div.menu-icons-wrap a._select', window.menuIcons.selectIcon )
+		.on( 'click', 'div.menu-icons-wrap a._remove', window.menuIcons.removeIcon )
+		.on( 'change', 'div.menu-icons-wrap select._type', window.menuIcons.toggleSelect );
 
 	$('div.menu-icons-wrap select._type').trigger('change');
 }(jQuery));
