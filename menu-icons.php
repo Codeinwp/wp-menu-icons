@@ -153,7 +153,7 @@ final class Menu_Icons {
 			'dashicons',
 			'elusive',
 			'fontawesome',
-			'genericons',
+			'genericons'
 		);
 
 		foreach ( $builtin_types as $type ) {
@@ -162,6 +162,30 @@ final class Menu_Icons {
 			$class_name    = sprintf( 'Menu_Icons_Type_%s', ucfirst( $type ) );
 			$type_instance = new $class_name;
 			$icon_types    = $type_instance->register( $icon_types );
+		}
+
+		//added fontpack options
+		require_once sprintf( '%s/includes/type-fontpack.php', self::$data['dir'] );
+		$fontpack_class_name    = 'Menu_Icons_Type_Fontpack';
+			
+		$path = self::$data['dir'] . 'fontpacks';
+		foreach (new DirectoryIterator($path) as $file)
+		{
+			if($file->isDot()) continue;
+			if($file->isDir()) {
+				$config_path = $path . '/' . $file . '/config.json';
+				//test if valid fontpack
+				if (is_file($config_path)) {
+					/* TODO: 
+					 - Validate the "config.json" file to verify it has all the properties of a "fontello" config file.
+					 - Some validation on pack_name to see if it's already been registered to prevent duplicate package names.
+					 - Determine if we want to fuss with modifying the config.json for adding "version" and "type" and "label"?
+					*/
+					$type_instance = new $fontpack_class_name($file);
+					
+					$icon_types    = $type_instance->register( $icon_types );
+				}
+			}
 		}
 
 		return $icon_types;

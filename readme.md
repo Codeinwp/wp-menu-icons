@@ -31,7 +31,7 @@ Easily add icons to your nav menu items.
 
 ### Planned features ###
 1. Provide menus preview on the front end
-1. Provide setting page
+2. Provide setting page
 
 Development of this plugin is done on [GitHub](https://github.com/kucrut/wp-menu-icons). **Pull requests welcome**. Please see [issues reported](https://github.com/kucrut/wp-menu-icons/issues) there before going to the plugin forum.
 
