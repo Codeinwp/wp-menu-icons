@@ -85,6 +85,7 @@ final class Menu_Icons {
 		require_once self::$data['dir'] . 'includes/library/functions.php';
 
 		add_filter( 'menu_icons_types', array( __CLASS__, '_register_icon_types' ), 7 );
+		add_filter( 'menu_icons_types', array( __CLASS__, '_register_font_packs' ), 7 );
 		add_filter( 'is_protected_meta', array( __CLASS__, '_protect_meta_key' ), 10, 3 );
 		add_action( 'wp_loaded', array( __CLASS__, '_init' ), 9 );
 		add_action( 'get_header', array( __CLASS__, '_load_front_end' ) );
@@ -164,28 +165,48 @@ final class Menu_Icons {
 			$icon_types    = $type_instance->register( $icon_types );
 		}
 
-		//added fontpack options
+		return $icon_types;
+	}
+
+
+	/**
+	 * Register font packs
+	 *
+	 * Each directory under menu-icons/fontpacks/ will be scanned. When a <code>config.json</code>
+	 * file is found it'll be read and the font pack will be registered.
+	 *
+	 * Font packs can be obtained from Fontello ({@link http://fontello.com/})
+	 *
+	 * @since   %ver%
+	 * @access  protected
+	 * @wp_hook filter    menu_icons_types
+	 * @link    http://fontello.com/ Fontello
+	 *
+	 * @param   array     $icon_types      Current icon types
+	 * @return  array
+	 */
+	public static function _register_font_packs( $icon_types ) {
 		require_once sprintf( '%s/includes/type-fontpack.php', self::$data['dir'] );
-		$fontpack_class_name    = 'Menu_Icons_Type_Fontpack';
-			
+		$class_name = 'Menu_Icons_Type_Fontpack';
+
 		$path = self::$data['dir'] . 'fontpacks';
-		foreach (new DirectoryIterator($path) as $file)
-		{
-			if($file->isDot()) continue;
-			if($file->isDir()) {
-				$config_path = $path . '/' . $file . '/config.json';
-				//test if valid fontpack
-				if (is_file($config_path)) {
-					/* TODO: 
-					 - Validate the "config.json" file to verify it has all the properties of a "fontello" config file.
-					 - Some validation on pack_name to see if it's already been registered to prevent duplicate package names.
-					 - Determine if we want to fuss with modifying the config.json for adding "version" and "type" and "label"?
-					*/
-					$type_instance = new $fontpack_class_name($file);
-					
-					$icon_types    = $type_instance->register( $icon_types );
-				}
+		foreach ( new DirectoryIterator( $path ) as $file ) {
+			if ( ! $file->isDir() ) {
+				continue;
 			}
+
+			$config_path = sprintf( '%s/%s/config.json', $path, $file, '/config.json' );
+			if ( ! is_readable( $config_path ) ) {
+				continue;
+			}
+
+			/* TODO:
+				- Validate the "config.json" file to verify it has all the properties of a "fontello" config file.
+				- Some validation on pack_name to see if it's already been registered to prevent duplicate package names.
+				- Determine if we want to fuss with modifying the config.json for adding "version" and "type" and "label"?
+			*/
+			$type_instance = new $class_name( $file );
+			$icon_types    = $type_instance->register( $icon_types );
 		}
 
 		return $icon_types;
