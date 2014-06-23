@@ -110,6 +110,7 @@ class Menu_Icons_Type_Fontpack extends Menu_Icons_Type_Fonts {
 		$this->messages = array(
 			'no_config' => __( 'Menu Icons: %1$s was not found in %2$s.', 'menu-icons' ),
 			'invalid'   => __( 'Menu Icons: %1$s is not set or invalid in %2$s.', 'menu-icons' ),
+			'duplicate' => __( 'Menu Icons: %1$s is already registered. Please check your font pack config file: %2$s.', 'menu-icons' ),
 		);
 
 		$this->dir = sprintf( '%sfontpacks/%s', Menu_Icons::get( 'dir' ), $pack );
@@ -132,17 +133,6 @@ class Menu_Icons_Type_Fontpack extends Menu_Icons_Type_Fonts {
 
 		if ( false === $this->is_config_valid ) {
 			return;
-		}
-
-		$this->type       = sprintf( 'pack-%s', $this->config['name'] );
-		$this->label      = sprintf( __( 'Pack: %s', 'menu-icons' ), $this->config['name'] );
-		$this->stylesheet = sprintf( '%s/css/%s.css', $this->url, $this->config['name'] );
-
-		if ( ! empty( $this->config['version'] ) ) {
-			$this->version = $this->config['version'];
-		}
-		else {
-			$this->version = filemtime( sprintf( '%s/css/%s.css', $this->dir, $this->config['name'] ) );
 		}
 
 		parent::__construct();
@@ -183,6 +173,7 @@ class Menu_Icons_Type_Fontpack extends Menu_Icons_Type_Fonts {
 			}
 		}
 
+		// Validate & get all glyphs
 		if ( ! is_array( $this->config['glyphs'] ) ) {
 			return;
 		}
@@ -206,14 +197,49 @@ class Menu_Icons_Type_Fontpack extends Menu_Icons_Type_Fonts {
 	}
 
 
-	public function register( $icon_types ) {
-		if ( true === $this->is_config_valid ) {
-			$icon_types = parent::register( $icon_types );
+	/**
+	 * Set class properties
+	 *
+	 * @since %ver%
+	 * @access protected
+	 */
+	protected function set_properties() {
+		$this->label      = sprintf( __( 'Pack: %s', 'menu-icons' ), $this->config['name'] );
+		$this->stylesheet = sprintf( '%s/css/%s.css', $this->url, $this->config['name'] );
+
+		if ( ! empty( $this->config['version'] ) ) {
+			$this->version = $this->config['version'];
 		}
+		else {
+			$this->version = filemtime( sprintf( '%s/css/%s.css', $this->dir, $this->config['name'] ) );
+		}
+	}
+
+
+	public function register( $icon_types ) {
+		if ( true !== $this->is_config_valid ) {
+			return $icon_types;
+		}
+
+		// Check for duplicate packs
+		$this->type = sprintf( 'pack-%s', $this->config['name'] );
+		if ( isset( $icon_types[ $this->type ] ) ) {
+			trigger_error(
+				sprintf(
+					$this->messages['duplicate'],
+					sprintf( '<strong>%s</strong>', $this->config['name'] ),
+					sprintf( '<code><em>%s/config.json</em></code>', $this->dir )
+				)
+			);
+
+			return $icon_types;
+		}
+
+		$this->set_properties();
+		$icon_types = parent::register( $icon_types );
 
 		return $icon_types;
 	}
-
 
 
 	/**
