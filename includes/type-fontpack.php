@@ -50,7 +50,25 @@ class Menu_Icons_Type_Fontpack extends Menu_Icons_Type_Fonts {
 	 * @access protected
 	 * @var    string
 	 */
-	protected $path = '';
+	protected $dir = '';
+
+	/**
+	 * Holds fontpack url path
+	 *
+	 * @since  %ver%
+	 * @access protected
+	 * @var    string
+	 */
+	protected $url = '';
+
+	/**
+	 * Holds error messages
+	 *
+	 * @since  %ver%
+	 * @access protected
+	 * @var    array
+	 */
+	protected $messages = array();
 
 	/**
 	 * Holds config array
@@ -60,6 +78,24 @@ class Menu_Icons_Type_Fontpack extends Menu_Icons_Type_Fonts {
 	 * @var    array
 	 */
 	protected $config = array();
+
+	/**
+	 * Holds config validation status
+	 *
+	 * @since  %ver%
+	 * @access protected
+	 * @var    bool
+	 */
+	protected $is_config_valid = false;
+
+	/**
+	 * Holds icon names
+	 *
+	 * @since  %ver%
+	 * @access protected
+	 * @var    array
+	 */
+	protected $icons = array();
 	
 	/**
 	 * Class constructor
@@ -70,58 +106,124 @@ class Menu_Icons_Type_Fontpack extends Menu_Icons_Type_Fonts {
 	 * @param array $types Icon Types
 	 * @return array
 	 */
-	public function __construct($pack_folder_name) {
-		$this->path = dirname(dirname( __FILE__ )) . '/fontpacks/' . $pack_folder_name;
-		
-		//read in config.json
-		$this->read_config();
-		$this->type = $this->config['name'];
-		$this->label = $this->config['name'];
-		$this->version = '0.0.1'; //need to be able to pull version from somewhere... possibly fontello later?
-		//read_config();
-		$this->stylesheet = sprintf(
-			'%sfontpacks/%s/css/%s.css',
-			Menu_Icons::get( 'url' ),
-			$pack_folder_name,
-			$this->config['name']
+	public function __construct( $pack ) {
+		$this->messages = array(
+			'no_config' => __( 'Menu Icons: %1$s was not found in %2$s.', 'menu-icons' ),
+			'invalid'   => __( 'Menu Icons: %1$s is not set or invalid in %2$s.', 'menu-icons' ),
 		);
+
+		$this->dir = sprintf( '%sfontpacks/%s', Menu_Icons::get( 'dir' ), $pack );
+		$this->url = sprintf( '%sfontpacks/%s', Menu_Icons::get( 'url' ), $pack );
+
+		if ( ! is_readable( $this->dir . '/config.json' ) ) {
+			trigger_error(
+				sprintf(
+					$this->messages['no_config'],
+					'<code><em>config.json</em></code>',
+					sprintf( '<code>%s</code>', $this->dir )
+				)
+			);
+
+			return;
+		}
+
+		$this->read_config();
+		$this->validate();
+
+		if ( false === $this->is_config_valid ) {
+			return;
+		}
+
+		$this->type       = $this->config['name'];
+		$this->label      = $this->config['name'];
+		$this->version    = '0.0.1'; //need to be able to pull version from somewhere... possibly fontello later?
+		$this->stylesheet = sprintf( '%s/css/%s.css', $this->url, $this->config['name'] );
 
 		parent::__construct();
 	}
 
+
 	/**
 	 * Read in config and store for later.
-	 * @since 0.3.3
-	 * @return boolean
+	 *
+	 * @since %ver%
 	 */
-	private function read_config() {
-		$config_path = $this->path . '/config.json';
-		$config_json = file_get_contents($config_path);
-		$this->config = json_decode($config_json, TRUE);
+	protected function read_config() {
+		$config_path  = $this->dir . '/config.json';
+		$config_json  = file_get_contents( $config_path );
+		$this->config = json_decode( $config_json, true );
 	}
-	/*
+
+
+	/**
+	 * Validate config file
+	 *
+	 * @since %ver%
+	 */
+	protected function validate() {
+		$keys = array( 'name', 'glyphs', 'css_prefix_text' );
+
+		foreach ( $keys as $key ) {
+			if ( empty( $this->config[ $key ] ) ) {
+				trigger_error(
+					sprintf(
+						$this->messages['invalid'],
+						sprintf( '<code><em>%s</em></code>', $key ),
+						sprintf( '<code>%s/config.json</code>', $this->dir )
+					)
+				);
+
+				return;
+			}
+		}
+
+		if ( ! is_array( $this->config['glyphs'] ) ) {
+			return;
+		}
+
+		$icons = array();
+		foreach ( $this->config['glyphs'] as $glyph ) {
+			if ( ! empty( $glyph['css'] ) ) {
+				$class = $this->config['css_prefix_text'] . $glyph['css'];
+				$label = $glyph['css'];
+
+				$icons[ $class ] = $label;
+			}
+		}
+
+		if ( empty( $icons ) ) {
+			return;
+		}
+
+		$this->icons           = $icons;
+		$this->is_config_valid = true;
+	}
+
+
+	public function register( $icon_types ) {
+		if ( true === $this->is_config_valid ) {
+			$icon_types = parent::register( $icon_types );
+		}
+
+		return $icon_types;
+	}
+
+
+
+	/**
 	 * Read fontpacks directory for config.json's and find icons names
 	 *
 	 * @since 0.1.0
 	 * @return array
 	 */
 	public function get_names() {
-		$response = array();
-		$pack_glyphs = $this->config['glyphs'];
-		$fontpackItem = array(
-			'key'   => __( $pack_name, 'menu-icons' ),
-			'label' => __( $pack_name, 'menu-icons' ),
-			'items' => array(),
+		$glyphs = $this->config['glyphs'];
+		$names  = array(
+			'key'   => 'all',
+			'label' => __( 'All', 'menu-icons' ),
+			'items' => $this->icons,
 		);
 
-		foreach ($pack_glyphs as $key => $val) {
-			$icon_class_name = $this->config['css_prefix_text'] . $val['css'];
-			$icon_label = $val['css'];
-			$fontpackItem['items'][$icon_class_name] = $icon_label;
-		}
-
-		$response[] = $fontpackItem;
-
-		return $response;
+		return array( $names );
 	}
 }
