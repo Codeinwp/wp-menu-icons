@@ -13,6 +13,7 @@ require_once dirname( __FILE__ ) . '/type-fonts.php';
 /**
  * Icon type: Font Packs
  *
+ * @version 0.1.0
  */
 class Menu_Icons_Type_Fontpack extends Menu_Icons_Type_Fonts {
 
@@ -46,7 +47,7 @@ class Menu_Icons_Type_Fontpack extends Menu_Icons_Type_Fonts {
 	/**
 	 * Holds fontpack dir
 	 *
-	 * @since  0.3.2
+	 * @since  0.1.0
 	 * @access protected
 	 * @var    string
 	 */
@@ -55,7 +56,7 @@ class Menu_Icons_Type_Fontpack extends Menu_Icons_Type_Fonts {
 	/**
 	 * Holds fontpack url path
 	 *
-	 * @since  %ver%
+	 * @since  0.1.0
 	 * @access protected
 	 * @var    string
 	 */
@@ -64,7 +65,7 @@ class Menu_Icons_Type_Fontpack extends Menu_Icons_Type_Fonts {
 	/**
 	 * Holds error messages
 	 *
-	 * @since  %ver%
+	 * @since  0.1.0
 	 * @access protected
 	 * @var    array
 	 */
@@ -73,7 +74,7 @@ class Menu_Icons_Type_Fontpack extends Menu_Icons_Type_Fonts {
 	/**
 	 * Holds config array
 	 *
-	 * @since  0.3.2
+	 * @since  0.1.0
 	 * @access protected
 	 * @var    array
 	 */
@@ -82,7 +83,7 @@ class Menu_Icons_Type_Fontpack extends Menu_Icons_Type_Fonts {
 	/**
 	 * Holds config validation status
 	 *
-	 * @since  %ver%
+	 * @since  0.1.0
 	 * @access protected
 	 * @var    bool
 	 */
@@ -91,7 +92,7 @@ class Menu_Icons_Type_Fontpack extends Menu_Icons_Type_Fonts {
 	/**
 	 * Holds icon names
 	 *
-	 * @since  %ver%
+	 * @since  0.1.0
 	 * @access protected
 	 * @var    array
 	 */
@@ -142,7 +143,8 @@ class Menu_Icons_Type_Fontpack extends Menu_Icons_Type_Fonts {
 	/**
 	 * Read in config and store for later.
 	 *
-	 * @since %ver%
+	 * @since 0.1.0
+	 * @access protected
 	 */
 	protected function read_config() {
 		$config_path  = $this->dir . '/config.json';
@@ -154,7 +156,8 @@ class Menu_Icons_Type_Fontpack extends Menu_Icons_Type_Fonts {
 	/**
 	 * Validate config file
 	 *
-	 * @since %ver%
+	 * @since 0.1.0
+	 * @access protected
 	 */
 	protected function validate() {
 		$keys = array( 'name', 'glyphs', 'css_prefix_text' );
@@ -200,7 +203,7 @@ class Menu_Icons_Type_Fontpack extends Menu_Icons_Type_Fonts {
 	/**
 	 * Set class properties
 	 *
-	 * @since %ver%
+	 * @since 0.1.0
 	 * @access protected
 	 */
 	protected function set_properties() {
@@ -216,6 +219,13 @@ class Menu_Icons_Type_Fontpack extends Menu_Icons_Type_Fonts {
 	}
 
 
+	/**
+	 * Register our type
+	 *
+	 * @since  0.1.0
+	 * @param  array $types Icon Types
+	 * @return array
+	 */
 	public function register( $icon_types ) {
 		if ( true !== $this->is_config_valid ) {
 			return $icon_types;
