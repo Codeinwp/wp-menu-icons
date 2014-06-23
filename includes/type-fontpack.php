@@ -136,8 +136,14 @@ class Menu_Icons_Type_Fontpack extends Menu_Icons_Type_Fonts {
 
 		$this->type       = sprintf( 'pack-%s', $this->config['name'] );
 		$this->label      = sprintf( __( 'Pack: %s', 'menu-icons' ), $this->config['name'] );
-		$this->version    = '0.0.1'; //need to be able to pull version from somewhere... possibly fontello later?
 		$this->stylesheet = sprintf( '%s/css/%s.css', $this->url, $this->config['name'] );
+
+		if ( ! empty( $this->config['version'] ) ) {
+			$this->version = $this->config['version'];
+		}
+		else {
+			$this->version = filemtime( sprintf( '%s/css/%s.css', $this->dir, $this->config['name'] ) );
+		}
 
 		parent::__construct();
 	}
