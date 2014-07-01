@@ -85,6 +85,7 @@ final class Menu_Icons {
 		require_once self::$data['dir'] . 'includes/library/functions.php';
 
 		add_filter( 'menu_icons_types', array( __CLASS__, '_register_icon_types' ), 7 );
+		add_filter( 'menu_icons_types', array( __CLASS__, '_register_font_packs' ), 8 );
 		add_filter( 'is_protected_meta', array( __CLASS__, '_protect_meta_key' ), 10, 3 );
 		add_action( 'wp_loaded', array( __CLASS__, '_init' ), 9 );
 		add_action( 'get_header', array( __CLASS__, '_load_front_end' ) );
@@ -162,6 +163,46 @@ final class Menu_Icons {
 			$class_name    = sprintf( 'Menu_Icons_Type_%s', ucfirst( $type ) );
 			$type_instance = new $class_name;
 			$icon_types    = $type_instance->register( $icon_types );
+		}
+
+		return $icon_types;
+	}
+
+
+	/**
+	 * Register font packs
+	 *
+	 * Each directory under menu-icons/fontpacks/ will be scanned. When a <code>config.json</code>
+	 * file is found it'll be read and the font pack will be registered.
+	 *
+	 * Font packs can be obtained from Fontello ({@link http://fontello.com/})
+	 *
+	 * @since   %ver%
+	 * @access  protected
+	 * @wp_hook filter    menu_icons_types
+	 * @link    http://fontello.com/ Fontello
+	 *
+	 * @param   array     $icon_types      Current icon types
+	 * @return  array
+	 */
+	public static function _register_font_packs( $icon_types ) {
+		$path = self::$data['dir'] . 'fontpacks';
+		if ( ! is_dir( $path ) ) {
+			return $icon_types;
+		}
+
+		require_once sprintf( '%s/includes/type-fontpack.php', self::$data['dir'] );
+		$class_name = 'Menu_Icons_Type_Fontpack';
+		$iterator   = new DirectoryIterator( $path );
+
+		foreach ( $iterator as $item ) {
+			if ( $item->isDot() || ! $item->isDir() ) {
+				continue;
+			}
+
+			$pack       = $item->getFilename();
+			$instance   = new $class_name( $pack );
+			$icon_types = $instance->register( $icon_types );
 		}
 
 		return $icon_types;
