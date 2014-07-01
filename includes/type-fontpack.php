@@ -136,6 +136,8 @@ class Menu_Icons_Type_Fontpack extends Menu_Icons_Type_Fonts {
 			return;
 		}
 
+		$this->set_properties();
+
 		parent::__construct();
 	}
 
@@ -207,6 +209,7 @@ class Menu_Icons_Type_Fontpack extends Menu_Icons_Type_Fonts {
 	 * @access protected
 	 */
 	protected function set_properties() {
+		$this->type       = sprintf( 'pack-%s', $this->config['name'] );
 		$this->label      = sprintf( __( 'Pack: %s', 'menu-icons' ), $this->config['name'] );
 		$this->stylesheet = sprintf( '%s/css/%s.css', $this->url, $this->config['name'] );
 
@@ -232,7 +235,6 @@ class Menu_Icons_Type_Fontpack extends Menu_Icons_Type_Fonts {
 		}
 
 		// Check for duplicate packs
-		$this->type = sprintf( 'pack-%s', $this->config['name'] );
 		if ( isset( $icon_types[ $this->type ] ) ) {
 			trigger_error(
 				sprintf(
@@ -245,7 +247,6 @@ class Menu_Icons_Type_Fontpack extends Menu_Icons_Type_Fonts {
 			return $icon_types;
 		}
 
-		$this->set_properties();
 		$icon_types = parent::register( $icon_types );
 
 		return $icon_types;
