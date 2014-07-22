@@ -114,8 +114,8 @@ class Menu_Icons_Type_Fontpack extends Menu_Icons_Type_Fonts {
 			'duplicate' => __( 'Menu Icons: %1$s is already registered. Please check your font pack config file: %2$s.', 'menu-icons' ),
 		);
 
-		$this->dir = sprintf( '%sfontpacks/%s', Menu_Icons::get( 'dir' ), $pack );
-		$this->url = sprintf( '%sfontpacks/%s', Menu_Icons::get( 'url' ), $pack );
+		$this->dir = sprintf( '%s/%s', Menu_Icons::get( 'fontpacks_dir_path' ), $pack );
+		$this->url = sprintf( '%s/%s', Menu_Icons::get( 'fontpacks_dir_url' ), $pack );
 
 		if ( ! is_readable( $this->dir . '/config.json' ) ) {
 			trigger_error(

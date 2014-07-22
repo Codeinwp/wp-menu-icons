@@ -72,14 +72,32 @@ final class Menu_Icons {
 	public static function _load() {
 		load_plugin_textdomain( 'menu-icons', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 
+		/**
+		 * Allow different system path for fontpacks
+		 *
+		 * @since %ver%
+		 * @param string Directory path, defaults to /wp-content/fontpacks
+		 */
+		$fontpacks_dir_path = apply_filters( 'menu_icons_fontpacks_dir_path', WP_CONTENT_DIR . '/fontpacks' );
+
+		/**
+		 * Allow different URL path for fontpacks
+		 *
+		 * @since %ver%
+		 * @param string URL path, defaults to /wp-content/fontpacks
+		 */
+		$fontpacks_dir_url = apply_filters( 'menu_icons_fontpacks_dir_url', WP_CONTENT_URL . '/fontpacks' );
+
 		self::$data = array(
-			'dir'           => plugin_dir_path( __FILE__ ),
-			'url'           => plugin_dir_url( __FILE__ ),
-			'icon_types'    => array(),
-			'default_style' => array(
+			'dir'                => plugin_dir_path( __FILE__ ),
+			'url'                => plugin_dir_url( __FILE__ ),
+			'icon_types'         => array(),
+			'default_style'      => array(
 				'font-size'      => '1.2em',
 				'vertical-align' => 'middle',
 			),
+			'fontpacks_dir_path' => $fontpacks_dir_path,
+			'fontpacks_dir_url'  => $fontpacks_dir_url,
 		);
 
 		require_once self::$data['dir'] . 'includes/library/functions.php';
@@ -172,7 +190,7 @@ final class Menu_Icons {
 	/**
 	 * Register font packs
 	 *
-	 * Each directory under menu-icons/fontpacks/ will be scanned. When a <code>config.json</code>
+	 * Each directory under <code>fontpacks/</code> will be scanned. When a <code>config.json</code>
 	 * file is found it'll be read and the font pack will be registered.
 	 *
 	 * Font packs can be obtained from Fontello ({@link http://fontello.com/})
@@ -186,7 +204,7 @@ final class Menu_Icons {
 	 * @return  array
 	 */
 	public static function _register_font_packs( $icon_types ) {
-		$path = self::$data['dir'] . 'fontpacks';
+		$path = self::$data['fontpacks_dir_path'];
 		if ( ! is_dir( $path ) ) {
 			return $icon_types;
 		}
