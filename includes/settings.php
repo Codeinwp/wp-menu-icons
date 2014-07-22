@@ -144,11 +144,23 @@ final class Menu_Icons_Settings {
 	 * @wp_hook load-nav-menus.php
 	 */
 	public static function _load_nav_menus() {
+		add_action( 'admin_enqueue_scripts', array( __CLASS__, '_enqueue_assets' ), 99 );
+
+		/**
+		 * Allow settings meta box to be disabled.
+		 *
+		 * @since %ver%
+		 * @param bool $disabled Defaults to FALSE
+		 */
+		$settings_disabled = apply_filters( 'menu_icons_disable_settings', false );
+		if ( true === $settings_disabled ) {
+			return;
+		}
+
 		self::_maybe_update_settings();
 		self::_add_settings_meta_box();
 
 		add_action( 'admin_notices', array( __CLASS__, '_admin_notices' ) );
-		add_action( 'admin_enqueue_scripts', array( __CLASS__, '_enqueue_assets' ), 99 );
 	}
 
 

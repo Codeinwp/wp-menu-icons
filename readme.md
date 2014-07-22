@@ -29,10 +29,6 @@ Easily add icons to your nav menu items.
 ### Planned supported icon types ###
 - Image (attachment file & URL)
 
-### Planned features ###
-1. Provide menus preview on the front end
-2. Provide setting page
-
 Development of this plugin is done on [GitHub](https://github.com/kucrut/wp-menu-icons). **Pull requests welcome**. Please see [issues reported](https://github.com/kucrut/wp-menu-icons/issues) there before going to the plugin forum.
 
 
@@ -98,6 +94,12 @@ add_filter( 'menu_icons_types', 'myplugin_remove_menu_icons_type' );
 ```
 
 To add a new icon type, take a look at the `type-*.php` files inside the `includes` directory of this plugin.
+
+### I don't want the settings meta box. How do I remove/disable it? ###
+Add this line to your [mu-plugin file](http://codex.wordpress.org/Must_Use_Plugins):
+```php
+add_filter( 'menu_icons_disable_settings', '__return_true' );
+```
 
 ### Can you please add X icon font? ###
 Let me know via [GitHub issues](https://github.com/kucrut/wp-menu-icons/issues) and I'll see what I can do.
