@@ -114,9 +114,10 @@ final class Menu_Icons_Admin_Nav_Menus {
 
 		$data = array(
 			'text'         => array(
-				'title'  => __( 'Select Icon', 'menu-icons' ),
-				'select' => __( 'Select', 'menu-icons' ),
-				'all'    => __( 'All', 'menu-icons' ),
+				'title'   => __( 'Select Icon', 'menu-icons' ),
+				'select'  => __( 'Select', 'menu-icons' ),
+				'all'     => __( 'All', 'menu-icons' ),
+				'preview' => __( 'Preview', 'menu-icons' ),
 			),
 			'base_url'     => untrailingslashit( Menu_Icons::get( 'url' ) ),
 			'admin_url'    => untrailingslashit( admin_url() ),
@@ -418,10 +419,6 @@ final class Menu_Icons_Admin_Nav_Menus {
 
 		// Common templates
 		$templates = array(
-			'sidebar-title' => sprintf(
-				'<h3>%s</h3>',
-				esc_html__( 'Preview', 'menu-icons' )
-			),
 			'settings' => sprintf(
 				'<label class="setting">
 					<span>%1$s</span>

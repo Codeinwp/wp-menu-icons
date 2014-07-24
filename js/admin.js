@@ -133,20 +133,18 @@
 		initialize : function() {
 			media.view.Sidebar.prototype.initialize.apply( this, arguments );
 
-			this.createTitle();
-		},
-
-		createTitle : function() {
 			this.views.add( new media.view.miSidebar.Title() );
-		},
+		}
 	});
 
 
 	// All: Sidebar title
 	media.view.miSidebar.Title = media.View.extend({
-		initialize : function() {
-			this.template = media.template( 'menu-icons-sidebar-title' );
-			media.View.prototype.initialize.apply( this, arguments );
+		tagName : 'h3',
+		render  : function() {
+			this.$el.text( menuIcons.text.preview );
+
+			return this;
 		}
 	});
 
@@ -170,20 +168,19 @@
 		update: function( key ) {
 			media.view.Settings.prototype.update.call( this, key );
 
-			var id     = this.model.id;
-			var mValue = this.model.get( key );
-			var $field = $('#menu-icons-'+ id +'-'+ key +'._setting');
-			var fValue;
+			var $field     = $('#menu-icons-'+ this.model.id +'-'+ key +'._setting');
+			var modelValue = this.model.get( key );
+			var fieldValue;
 
 			// Bail if we didn't find a matching field.
 			if ( ! $field.length ) {
 				return;
 			}
 
-			fValue = $field.val();
+			fieldValue = $field.val();
 			// Only update as needed
-			if ( fValue !== mValue ) {
-				$field.val( mValue ).trigger('change');
+			if ( fieldValue !== modelValue ) {
+				$field.val( modelValue ).trigger('change');
 			}
 		}
 	});
@@ -424,8 +421,8 @@
 		},
 
 		initialize : function() {
-			this.model.on( 'change', this.render, this );
 			media.View.prototype.initialize.apply( this, arguments );
+			this.model.on( 'change', this.render, this );
 		},
 
 		render : function() {
