@@ -458,67 +458,17 @@
 		},
 
 		initialize : function() {
-			var state = this;
+			var icons = this.get('data').items;
 
 			if ( ! this.get('library') ) {
-				var Icons = Backbone.Collection.extend({
-					props : new Backbone.Model({
-						group  : 'all',
-						search : ''
-					}),
-
-					initialize : function( models ) {
-						this.original = new Backbone.Collection(models);
-					},
-
-					reInitialize : function() {
-						var library  = this;
-						var icons    = state.get('data').items;
-						var props    = this.props.toJSON();
-
-						_.each( props, function( val, filter ) {
-							if ( library.filters[ filter ] ) {
-								icons = _.filter( icons, library.filters[ filter ], val );
-							}
-						}, this);
-
-						this.reset( icons );
-					},
-
-					filters : {
-						group : function( icon ) {
-							var group = this;
-
-							return ( 'all' === group || icon.group === group || '' === icon.group );
-						},
-						search : function( icon ) {
-							var term = this;
-							var result;
-
-							if ( '' === term ) {
-								result = true;
-							}
-							else {
-								result = _.any(['id','label'], function( key ) {
-									var value = icon[key];
-
-									return value && -1 !== value.search( this );
-								}, term );
-							}
-
-							return result;
-						}
-					}
-				});
-
-				var library = new Icons( this.get('data').items );
+				var library = new media.controller.miFont.Library( icons );
 				library.props.on( 'change', this.miResetLibrary, this );
 
 				this.set( 'library', library );
 			}
 
 			var selection = this.get('selection');
-			if ( ! (selection instanceof media.model.Selection) ) {
+			if ( ! ( selection instanceof media.model.Selection ) ) {
 				this.set( 'selection', new media.model.Selection( selection, {
 					multiple : false
 				}) );
@@ -582,6 +532,58 @@
 			var single = this.get('selection').single();
 
 			return single ? single.id : '';
+		}
+	});
+
+
+	// Font icon: Library collection
+	media.controller.miFont.Library = Backbone.Collection.extend({
+		props : new Backbone.Model({
+			group  : 'all',
+			search : ''
+		}),
+
+		initialize : function( models ) {
+			this.icons = new Backbone.Collection( models );
+		},
+
+		reInitialize : function() {
+			var library = this;
+			var icons   = this.icons.toJSON();
+			var props   = this.props.toJSON();
+
+			_.each( props, function( val, filter ) {
+				if ( library.filters[ filter ] ) {
+					icons = _.filter( icons, library.filters[ filter ], val );
+				}
+			}, this);
+
+			this.reset( icons );
+		},
+
+		filters : {
+			group : function( icon ) {
+				var group = this;
+
+				return ( 'all' === group || icon.group === group || '' === icon.group );
+			},
+			search : function( icon ) {
+				var term = this;
+				var result;
+
+				if ( '' === term ) {
+					result = true;
+				}
+				else {
+					result = _.any(['id','label'], function( key ) {
+						var value = icon[key];
+
+						return value && -1 !== value.search( this );
+					}, term );
+				}
+
+				return result;
+			}
 		}
 	});
 
