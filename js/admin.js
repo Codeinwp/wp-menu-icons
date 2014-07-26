@@ -113,6 +113,7 @@
 	media.model.miMenuItem = Backbone.Model.extend({
 		defaults : {
 			type           : '',
+			group          : 'all',
 			icon           : '',
 			font_size      : '1.2',
 			vertical_align : 'middle',
@@ -697,7 +698,7 @@
 			var item = this.miGetCurrentItem();
 
 			if ( _.isUndefined( item ) ) {
-				this.miMenuItems.add( _.extend({ group : 'all' }, window.menuIcons.currentItem ) );
+				this.miMenuItems.add( window.menuIcons.currentItem );
 			}
 			else {
 				item.set( window.menuIcons.currentItem );
