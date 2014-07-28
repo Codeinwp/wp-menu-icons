@@ -109,80 +109,107 @@
 	var Attachment = media.model.Attachment;
 
 
-	// Font icon: Menu Items
-	media.model.miMenuItem = Backbone.Model.extend({
-		defaults : {
-			type           : '',
-			group          : 'all',
-			icon           : '',
-			font_size      : '1.2',
-			vertical_align : 'middle',
-			hide_label     : ''
-		}
-	});
+	// Models
+	media.model.mi = {};
 
-	media.model.miMenuItems = Backbone.Collection.extend({
-		model : media.model.miMenuItem,
-		props : new Backbone.Model({
-			item : ''
+	// Models: Menu Items
+	media.model.mi.MenuItems = Backbone.Collection.extend({
+		props : new Backbone.Model({ item : '' }),
+		model : Backbone.Model.extend({
+			defaults : {
+				type           : '',
+				group          : 'all',
+				icon           : '',
+				font_size      : '1.2',
+				vertical_align : 'middle',
+				hide_label     : ''
+			}
 		})
 	});
 
+	// Models: Settings fields
+	media.model.mi.MenuItems.Settings = Backbone.Collection.extend({
+		model : Backbone.Model.extend({
+			defaults : {
+				id    : '',
+				label : '',
+				value : '',
+				type  : 'text'
+			}
+		})
+	});
 
 	// All: Sidebar
 	media.view.miSidebar = media.view.Sidebar.extend({
 		initialize : function() {
+			var title = new media.View({
+				tagName  : 'h3',
+				priority : -10
+			});
+			var info  = new media.View({
+				tagName   : 'p',
+				className : '_info',
+				priority  : 1000
+			});
+
 			media.view.Sidebar.prototype.initialize.apply( this, arguments );
 
-			this.views.add( new media.view.miSidebar.Title() );
-		}
-	});
+			title.$el.text( window.menuIcons.text.preview );
+			this.set( 'title', title );
 
-
-	// All: Sidebar title
-	media.view.miSidebar.Title = media.View.extend({
-		tagName : 'h3',
-		render  : function() {
-			this.$el.text( menuIcons.text.preview );
-
-			return this;
+			info.$el.html( window.menuIcons.text.settingsInfo );
+			this.set( 'info', info );
 		}
 	});
 
 
 	// All: Settings
-	media.view.miSidebar.Settings = media.view.Settings.extend({
+	media.view.miSidebar.Settings = media.view.PriorityList.extend({
 		className : 'mi-settings attachment-info',
 
+		prepare : function() {
+			_.each( this.collection.map( this.createField, this ), function( view ) {
+				this.set( view.model.id, view );
+			}, this );
+		},
+
+		createField : function( model ) {
+			var field = new media.view.miSidebar.Settings.Field({
+				item       : this.model,
+				model      : model,
+				collection : this.collection
+			});
+
+			return field;
+		}
+	});
+
+	media.view.miSidebar.Settings.Field = media.View.extend({
+		tagName   : 'label',
+		className : 'setting',
+		events    : {
+			'change :input' : '_update'
+		},
+
 		initialize : function() {
-			this.template = media.template( 'menu-icons-settings' );
-			media.view.Settings.prototype.initialize.apply( this, arguments );
+			media.View.prototype.initialize.apply( this, arguments );
+			this.template = media.template( 'menu-icons-settings-field-'+this.model.get('type') );
+			this.model.on( 'change:value', this._updateDeps, this );
 		},
 
-		render : function() {
-			this.$el.html( this.template( this.model.toJSON() ) );
-			_( this.model.attributes ).chain().keys().each( this.update, this );
-
-			return this;
+		prepare : function() {
+			return this.model.toJSON();
 		},
 
-		update: function( key ) {
-			media.view.Settings.prototype.update.call( this, key );
+		_update : function(e) {
+			var item   = this.options.item;
+			var $input = $(e.currentTarget);
+			var value  = $input.val();
+			var $field = $('#menu-icons-'+ item.id +'-'+ this.model.id +'._setting');
 
-			var $field     = $('#menu-icons-'+ this.model.id +'-'+ key +'._setting');
-			var modelValue = this.model.get( key );
-			var fieldValue;
-
-			// Bail if we didn't find a matching field.
-			if ( ! $field.length ) {
-				return;
-			}
-
-			fieldValue = $field.val();
-			// Only update as needed
-			if ( fieldValue !== modelValue ) {
-				$field.val( modelValue ).trigger('change');
-			}
+			this.model.set( 'value', value );
+			item.set( this.model.id, value );
+			$field.val( value ).trigger('change');
 		}
 	});
 
@@ -250,8 +277,9 @@
 		createSingle : function() {
 			this.controller.miUpdateItemProps();
 
-			var sidebar = this.sidebar;
-			var item    = this.controller.miGetCurrentItem();
+			var sidebar    = this.sidebar;
+			var controller = this.controller;
+			var item       = controller.miGetCurrentItem();
 
 			sidebar.set( 'preview', new media.view.miFont.Icon.Preview({
 				controller : this.controller,
@@ -260,20 +288,36 @@
 				priority   : 80
 			}) );
 
-			sidebar.set( 'settings', new media.view.miSidebar.Settings({
+			this.createSettings();
+		},
+
+		disposeSingle : function() {
+			var sidebar = this.sidebar;
+
+			this.controller.miUpdateItemProps();
+			sidebar.unset('preview');
+			sidebar.unset('settings');
+		},
+
+		createSettings : function() {
+			var item   = this.controller.miGetCurrentItem();
+			var fields = this.controller.state().get('settings');
+
+			if ( ! fields.length ) {
+				return;
+			}
+
+			_.each( fields, function( field ) {
+				field.value = item.get( field.id );
+			} );
+
+			this.sidebar.set( 'settings', new media.view.miSidebar.Settings({
 				controller : this.controller,
+				collection : new media.model.mi.MenuItems.Settings( fields ),
 				model      : item,
 				type       : this.options.type,
 				priority   : 120
 			}) );
-		},
-
-		disposeSingle : function() {
-			this.controller.miUpdateItemProps();
-
-			var sidebar = this.sidebar;
-			sidebar.unset('preview');
-			sidebar.unset('settings');
 		}
 	});
 
@@ -452,32 +496,40 @@
 	// Font icon: Controller
 	media.controller.miFont = media.controller.State.extend({
 		defaults : {
-			id      : 'mi-font',
-			menu    : 'default',
-			toolbar : 'mi-select',
-			type    : ''
+			id       : 'mi-font',
+			menu     : 'default',
+			toolbar  : 'mi-select',
+			type     : '',
+			settings : [ 'hide_label', 'position', 'font_size', 'vertical_align' ]
 		},
 
 		initialize : function() {
-			var icons = this.get('data').items;
+			var icons     = this.get('data').items;
+			var library   = this.get('library');
+			var selection = this.get('selection');
+			var fieldIds  = this.get('settings');
+			var fields;
 
-			if ( ! this.get('library') ) {
-				var library = new media.controller.miFont.Library( icons );
+			if ( ! ( library instanceof media.controller.miFont.Library ) ) {
+				library = new media.controller.miFont.Library( icons );
 				library.props.on( 'change', this.miResetLibrary, this );
 
 				this.set( 'library', library );
 			}
 
-			var selection = this.get('selection');
 			if ( ! ( selection instanceof media.model.Selection ) ) {
 				this.set( 'selection', new media.model.Selection( selection, {
 					multiple : false
 				}) );
 			}
+
+			fields = _.filter( window.menuIcons.settingsFields, function( field ) {
+				return ( -1 !== $.inArray( field.id, fieldIds ) );
+			});
+			this.set( 'settings', fields );
 		},
 
 		activate : function() {
-			media.controller.State.prototype.activate.apply( this, arguments );
 			this.frame.on( 'open', this.refresh, this );
 			this.miUpdateSelection();
 		},
@@ -601,7 +653,7 @@
 				toolbar   : 'mi-select'
 			});
 
-			this.miMenuItems = new media.model.miMenuItems();
+			this.miMenuItems = new media.model.mi.MenuItems();
 			this.createStates();
 			this.bindHandlers();
 		},

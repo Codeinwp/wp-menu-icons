@@ -24,6 +24,74 @@ abstract class Menu_Icons_Type_Fonts extends Menu_Icons_Type {
 
 
 	/**
+	 * Settings fields
+	 *
+	 * @since  %ver%
+	 * @param  array $fields
+	 * @uses   apply_filters() Calls 'menu_icons_{type}_settings_sections'.
+	 * @return array
+	 */
+	public function _settings_fields( $fields ) {
+		$_fields = array(
+			'font_size'      => array(
+				'id'          => 'font_size',
+				'type'        => 'number',
+				'label'       => __( 'Font Size', 'menu-icons' ),
+				'description' => 'em',
+				'attributes'  => array(
+					'min'  => '0.1',
+					'step' => '0.1',
+				),
+			),
+			'vertical_align' => array(
+				'id'      => 'vertical_align',
+				'type'    => 'select',
+				'label'   => __( 'Vertical Align', 'menu-icons' ),
+				'choices' => array(
+					array(
+						'value' => 'super',
+						'label' => __( 'Super', 'menu-icons' ),
+					),
+					array(
+						'value' => 'top',
+						'label' => __( 'Top', 'menu-icons' ),
+					),
+					array(
+						'value' => 'text-top',
+						'label' => __( 'Text Top', 'menu-icons' ),
+					),
+					array(
+						'value' => 'middle',
+						'label' => __( 'Middle', 'menu-icons' ),
+					),
+					array(
+						'value' => 'baseline',
+						'label' => __( 'Baseline', 'menu-icons' ),
+					),
+					array(
+						'value' => 'text-bottom',
+						'label' => __( 'Text Bottom', 'menu-icons' ),
+					),
+					array(
+						'value' => 'bottom',
+						'label' => __( 'Bottom', 'menu-icons' ),
+					),
+					array(
+						'value' => 'sub',
+						'label' => __( 'Sub', 'menu-icons' ),
+					),
+				),
+			),
+		);
+
+		$_fields = apply_filters( sprintf( 'menu_icons_%s_settings_fields', $this->type ), $_fields );
+		$fields  = wp_parse_args( $_fields, $fields );
+
+		return $fields;
+	}
+
+
+	/**
 	 * Print field for icons selection
 	 *
 	 * @since 0.1.0

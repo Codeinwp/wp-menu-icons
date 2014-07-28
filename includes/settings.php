@@ -269,8 +269,62 @@ final class Menu_Icons_Settings {
 	/**
 	 * Get settings fields
 	 *
-	 * @since  0.3.0
+	 * @since  %ver%
+	 * @param  array $values Values to be applied to each field
 	 * @uses   apply_filters() Calls 'menu_icons_settings_fields'.
+	 * @return array
+	 */
+	public static function get_settings_fields( Array $values = array() ) {
+		$fields = array(
+			'hide_label' => array(
+				'id'      => 'hide_label',
+				'type'    => 'select',
+				'label'   => __( 'Hide Label', 'menu-icons' ),
+				'choices' => array(
+					array(
+						'value' => '',
+						'label' => __( 'No', 'menu-icons' ),
+					),
+					array(
+						'value' => '1',
+						'label' => __( 'Yes', 'menu-icons' ),
+					),
+				),
+			),
+			'position'   => array(
+				'id'      => 'position',
+				'type'    => 'select',
+				'label'   => __( 'Position', 'menu-icons' ),
+				'choices' => array(
+					array(
+						'value' => 'before',
+						'label' => __( 'Before', 'menu-icons' ),
+					),
+					array(
+						'value' => 'after',
+						'label' => __( 'After', 'menu-icons' ),
+					),
+				),
+			),
+		);
+
+		$fields = apply_filters( 'menu_icons_settings_fields', $fields );
+
+		foreach ( $fields as &$field ) {
+			if ( isset( $values[ $field['id'] ] ) ) {
+				$field['value'] = $values[ $field['id'] ];
+			}
+		}
+
+		return $fields;
+	}
+
+
+	/**
+	 * Get settings sections
+	 *
+	 * @since  0.3.0
+	 * @uses   apply_filters() Calls 'menu_icons_settings_sections'.
 	 * @return array
 	 */
 	public static function get_fields() {
@@ -280,7 +334,7 @@ final class Menu_Icons_Settings {
 			$icon_types[ $id ] = $props['label'];
 		}
 
-		$fields = array(
+		$sections = array(
 			'global' => array(
 				'id'          => 'global',
 				'title'       => __( 'Global', 'menu-icons' ),
@@ -302,69 +356,19 @@ final class Menu_Icons_Settings {
 			$menu_term      = get_term( $menu_id, 'nav_menu' );
 			$menu_key       = sprintf( 'menu_%d', $menu_id );
 			$menu_settings  = self::get_menu_settings( $menu_id );
-			$fields['menu'] = array(
+			$sections['menu'] = array(
 				'id'          => $menu_key,
 				'title'       => __( 'Current Menu', 'menu-icons' ),
 				'description' => sprintf(
 					__( '"%s" menu settings', 'menu-icons' ),
 					apply_filters( 'single_term_title', $menu_term->name )
 				),
-				'fields'      => array(
-					array(
-						'id'      => 'position',
-						'type'    => 'select',
-						'label'   => __( 'Position', 'menu-icons' ),
-						'choices' => array(
-							'before' => __( 'Before', 'menu-icons' ),
-							'after'  => __( 'After', 'menu-icons' ),
-						),
-						'value'   => $menu_settings['position'],
-					),
-					array(
-						'id'          => 'font_size',
-						'type'        => 'number',
-						'label'       => __( 'Font Size', 'menu-icons' ),
-						'description' => 'em',
-						'attributes'  => array(
-							'min'  => '0.1',
-							'step' => '0.1',
-						),
-						'value'   => $menu_settings['font_size'],
-					),
-					array(
-						'id'      => 'vertical_align',
-						'type'    => 'select',
-						'label'   => __( 'Vertical Align', 'menu-icons' ),
-						'choices' => array(
-							'super'       => __( 'Super', 'menu-icons' ),
-							'top'         => __( 'Top', 'menu-icons' ),
-							'text-top'    => __( 'Text Top', 'menu-icons' ),
-							'middle'      => __( 'Middle', 'menu-icons' ),
-							'baseline'    => __( 'Baseline', 'menu-icons' ),
-							'text-bottom' => __( 'Text Bottom', 'menu-icons' ),
-							'bottom'      => __( 'Bottom', 'menu-icons' ),
-							'sub'         => __( 'Sub', 'menu-icons' ),
-						),
-						'value'   => $menu_settings['vertical_align'],
-					),
-					array(
-						'id'      => 'hide_label',
-						'type'    => 'select',
-						'label'   => __( 'Hide Label', 'menu-icons' ),
-						'choices' => array(
-							''  => __( 'No', 'menu-icons' ),
-							'1' => __( 'Yes', 'menu-icons' ),
-						),
-						'value'   => $menu_settings['hide_label'],
-					),
-				),
-				'args' => array(
-					'inline_description' => true,
-				),
+				'fields'      => self::get_settings_fields( $menu_settings ),
+				'args'        => array( 'inline_description' => true ),
 			);
 		}
 
-		return apply_filters( 'menu_icons_settings_fields', $fields, $menu_id );
+		return apply_filters( 'menu_icons_settings_sections', $sections, $menu_id );
 	}
 
 
