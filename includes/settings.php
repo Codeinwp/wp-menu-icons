@@ -316,6 +316,8 @@ final class Menu_Icons_Settings {
 			}
 		}
 
+		unset( $field );
+
 		return $fields;
 	}
 
@@ -392,7 +394,11 @@ final class Menu_Icons_Settings {
 			foreach ( $section['fields'] as &$field ) {
 				$field = Kucrut_Form_Field::create( $field, $_args );
 			}
+
+			unset( $field );
 		}
+
+		unset( $section );
 
 		return $sections;
 	}

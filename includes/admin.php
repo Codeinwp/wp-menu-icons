@@ -226,6 +226,8 @@ final class Menu_Icons_Admin_Nav_Menus {
 			);
 		}
 
+		unset( $field );
+
 		return $fields;
 	}
 
