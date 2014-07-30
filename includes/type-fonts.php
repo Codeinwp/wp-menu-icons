@@ -171,6 +171,7 @@ abstract class Menu_Icons_Type_Fonts extends Menu_Icons_Type {
 
 			foreach ( $group['items'] as $id => $label ) {
 				$data['items'][] = array(
+					'type'  => $this->type,
 					'group' => $group['key'],
 					'id'    => $id,
 					'label' => $label,
@@ -189,40 +190,21 @@ abstract class Menu_Icons_Type_Fonts extends Menu_Icons_Type {
 	 * @return array
 	 */
 	public function templates() {
-		$icon = sprintf(
-			'<i class="_icon %s {{ data.icon }} _{{ data.position }}" style="
-				font-size:{{ data.font_size }}em;
-				vertical-align:{{ data.vertical_align }};
-			"></i>',
-			esc_attr( $this->type )
-		);
+		$icon = '<i class="_icon {{ data.type }} {{ data.icon }} _{{ data.position }}" style="font-size:{{ data.font_size }}em; vertical-align:{{ data.vertical_align }};"></i>';
 
 		$templates = array(
-			'field' => sprintf(
-				'<i class="_icon %1$s {{ data["%1$s-icon"] }}"></i>',
-				esc_attr( $this->type )
-			),
-			'item' => sprintf(
+			'field' => '<i class="_icon {{ data.type }} {{ data.icon }}"></i>',
+			'item'  => sprintf(
 				'<div class="attachment-preview">
-					<span class="_icon"><i class="%s {{ data.id }}"></i></span>
+					<span class="_icon"><i class="{{ data.type }} {{ data.id }}"></i></span>
 					<div class="filename"><div>{{ data.label }}</div></div>
 					<a class="check" href="#" title="%s"><div class="media-modal-icon"></div></a>
 				</div>',
-				esc_attr( $this->type ),
 				esc_attr__( 'Deselect', 'menu-icons' )
 			),
-			'preview-before' => sprintf(
-				'<a href="#">%s <span>{{ data.title }}</span></a>',
-				$icon
-			),
-			'preview-after' => sprintf(
-				'<a href="#"><span>{{ data.title }}</span> %s</i></a>',
-				$icon
-			),
-			'preview-hide_label' => sprintf(
-				'<a href="#">%s</i></a>',
-				$icon
-			),
+			'preview-before'     => sprintf( '<a href="#">%s <span>{{ data.title }}</span></a>', $icon ),
+			'preview-after'      => sprintf( '<a href="#"><span>{{ data.title }}</span> %s</a>', $icon ),
+			'preview-hide_label' => sprintf( '<a href="#">%s</a>', $icon ),
 		);
 
 		return $templates;
