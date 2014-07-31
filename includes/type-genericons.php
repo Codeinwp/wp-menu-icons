@@ -41,7 +41,7 @@ class Menu_Icons_Type_Genericons extends Menu_Icons_Type_Fonts {
 	 * @access protected
 	 * @var    string
 	 */
-	protected $version = '3.0.3';
+	protected $version = '3.1';
 
 
 	/**
@@ -109,6 +109,7 @@ class Menu_Icons_Type_Genericons extends Menu_Icons_Type_Fonts {
 					'genericon-unapprove'      => __( 'Unapprove', 'menu-icons' ),
 					'genericon-zoom'           => __( 'Zoom', 'menu-icons' ),
 					'genericon-unzoom'         => __( 'Unzoom', 'menu-icons' ),
+					'genericon-xpost'          => __( 'X-Post', 'menu-icons' ),
 				),
 			),
 			array(
@@ -128,15 +129,16 @@ class Menu_Icons_Type_Genericons extends Menu_Icons_Type_Fonts {
 				'key'   => 'meta',
 				'label' => __( 'Meta', 'menu-icons' ),
 				'items' => array(
-					'genericon-comment'  => __( 'Comment', 'menu-icons' ),
-					'genericon-category' => __( 'Category', 'menu-icons' ),
-					'genericon-tag'      => __( 'Tag', 'menu-icons' ),
-					'genericon-time'     => __( 'Time', 'menu-icons' ),
-					'genericon-user'     => __( 'User', 'menu-icons' ),
-					'genericon-day'      => __( 'Day', 'menu-icons' ),
-					'genericon-week'     => __( 'Week', 'menu-icons' ),
-					'genericon-month'    => __( 'Month', 'menu-icons' ),
-					'genericon-pinned'   => __( 'Pinned', 'menu-icons' ),
+					'genericon-comment'   => __( 'Comment', 'menu-icons' ),
+					'genericon-category'  => __( 'Category', 'menu-icons' ),
+					'genericon-hierarchy' => __( 'Hierarchy', 'menu-icons' ),
+					'genericon-tag'       => __( 'Tag', 'menu-icons' ),
+					'genericon-time'      => __( 'Time', 'menu-icons' ),
+					'genericon-user'      => __( 'User', 'menu-icons' ),
+					'genericon-day'       => __( 'Day', 'menu-icons' ),
+					'genericon-week'      => __( 'Week', 'menu-icons' ),
+					'genericon-month'     => __( 'Month', 'menu-icons' ),
+					'genericon-pinned'    => __( 'Pinned', 'menu-icons' ),
 				),
 			),
 			array(
@@ -149,12 +151,13 @@ class Menu_Icons_Type_Genericons extends Menu_Icons_Type_Fonts {
 					'genericon-rightarrow'     => __( 'Arrow Right', 'menu-icons' ),
 					'genericon-book'           => __( 'Book', 'menu-icons' ),
 					'genericon-cart'           => __( 'Cart', 'menu-icons' ),
-					'genericon-cloud-download' => __( 'Cloud download', 'menu-icons' ),
-					'genericon-cloud-upload'   => __( 'Cloud upload', 'menu-icons' ),
+					'genericon-cloud-download' => __( 'Cloud Download', 'menu-icons' ),
+					'genericon-cloud-upload'   => __( 'Cloud Upload', 'menu-icons' ),
 					'genericon-cog'            => __( 'Cog', 'menu-icons' ),
 					'genericon-document'       => __( 'Document', 'menu-icons' ),
 					'genericon-dot'            => __( 'Dot', 'menu-icons' ),
 					'genericon-draggable'      => __( 'Draggable', 'menu-icons' ),
+					'genericon-ellipsis'       => __( 'Ellipsis', 'menu-icons' ),
 					'genericon-external'       => __( 'External', 'menu-icons' ),
 					'genericon-feed'           => __( 'Feed', 'menu-icons' ),
 					'genericon-flag'           => __( 'Flag', 'menu-icons' ),
@@ -164,6 +167,7 @@ class Menu_Icons_Type_Genericons extends Menu_Icons_Type_Fonts {
 					'genericon-mail'           => __( 'Mail', 'menu-icons' ),
 					'genericon-menu'           => __( 'Menu', 'menu-icons' ),
 					'genericon-notice'         => __( 'Notice', 'menu-icons' ),
+					'genericon-paintbrush'     => __( 'Paint Brush', 'menu-icons' ),
 					'genericon-phone'          => __( 'Phone', 'menu-icons' ),
 					'genericon-picture'        => __( 'Picture', 'menu-icons' ),
 					'genericon-plugin'         => __( 'Plugin', 'menu-icons' ),
@@ -183,6 +187,8 @@ class Menu_Icons_Type_Genericons extends Menu_Icons_Type_Fonts {
 					'genericon-cloud'    => __( 'Cloud', 'menu-icons' ),
 					'genericon-home'     => __( 'Home', 'menu-icons' ),
 					'genericon-location' => __( 'Location', 'menu-icons' ),
+					'genericon-sitemap'  => __( 'Sitemap', 'menu-icons' ),
+					'genericon-website'  => __( 'Website', 'menu-icons' ),
 				),
 			),
 			array(
@@ -223,6 +229,7 @@ class Menu_Icons_Type_Genericons extends Menu_Icons_Type_Fonts {
 					'genericon-facebook'       => 'Facebook',
 					'genericon-facebook-alt'   => 'Facebook',
 					'genericon-flickr'         => 'Flickr',
+					'genericon-foursquare'     => 'Foursquare',
 					'genericon-github'         => 'GitHub',
 					'genericon-googleplus'     => 'Google+',
 					'genericon-googleplus-alt' => 'Google+',
