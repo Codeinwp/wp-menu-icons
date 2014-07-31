@@ -466,7 +466,17 @@ class Kucrut_Form_Field_Select extends Kucrut_Form_Field {
 	public function render() {
 		?>
 		<select<?php echo $this->build_attributes() // xss ok ?>>
-			<?php foreach ( $this->field['choices'] as $value => $label ) : ?>
+			<?php foreach ( $this->field['choices'] as $index => $choice ) : ?>
+				<?php
+					if ( is_array( $choice ) ) {
+						$value = $choice['value'];
+						$label = $choice['label'];
+					}
+					else {
+						$value = $index;
+						$label = $choice;
+					}
+				?>
 				<?php printf(
 					$this->template,
 					esc_attr( $value ),

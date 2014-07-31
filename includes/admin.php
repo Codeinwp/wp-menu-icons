@@ -113,14 +113,20 @@ final class Menu_Icons_Admin_Nav_Menus {
 		global $nav_menu_selected_id;
 
 		$data = array(
-			'text'         => array(
-				'title'  => __( 'Select Icon', 'menu-icons' ),
-				'select' => __( 'Select', 'menu-icons' ),
-				'all'    => __( 'All', 'menu-icons' ),
+			'text'           => array(
+				'title'        => __( 'Select Icon', 'menu-icons' ),
+				'select'       => __( 'Select', 'menu-icons' ),
+				'all'          => __( 'All', 'menu-icons' ),
+				'preview'      => __( 'Preview', 'menu-icons' ),
+				'settingsInfo' => sprintf(
+					esc_html__( "Please note that the actual look of the icons on the front-end will also be affected by your active theme's style. You can use %s if you need to override it.", 'menu-icons' ),
+					'<a target="_blank" href="http://wordpress.org/plugins/simple-custom-css/">Simple Custom CSS</a>'
+				),
 			),
-			'base_url'     => untrailingslashit( Menu_Icons::get( 'url' ) ),
-			'admin_url'    => untrailingslashit( admin_url() ),
-			'menuSettings' => Menu_Icons_Settings::get_menu_settings( $nav_menu_selected_id ),
+			'base_url'       => untrailingslashit( Menu_Icons::get( 'url' ) ),
+			'admin_url'      => untrailingslashit( admin_url() ),
+			'settingsFields' => Menu_Icons_Settings::get_settings_fields(),
+			'menuSettings'   => Menu_Icons_Settings::get_menu_settings( $nav_menu_selected_id ),
 		);
 
 		foreach ( self::$_icon_types as $id => $props ) {
@@ -219,6 +225,8 @@ final class Menu_Icons_Admin_Nav_Menus {
 				isset( $field['attributes'] ) ? $field['attributes'] : array()
 			);
 		}
+
+		unset( $field );
 
 		return $fields;
 	}
@@ -415,72 +423,7 @@ final class Menu_Icons_Admin_Nav_Menus {
 	 */
 	public static function _media_templates() {
 		$id_prefix = 'tmpl-menu-icons';
-
-		// Common templates
-		$templates = array(
-			'sidebar-title' => sprintf(
-				'<h3>%s</h3>',
-				esc_html__( 'Preview', 'menu-icons' )
-			),
-			'settings' => sprintf(
-				'<label class="setting">
-					<span>%1$s</span>
-					<select data-setting="position">
-						<option value="before">%2$s</option>
-						<option value="after">%3$s</option>
-					</select>
-				</label>
-				<label class="setting">
-					<span>%4$s</span>
-					<input type="number" min="0.1" step="0.1" data-setting="font_size" value="{{ data.font_size }}" />
-					<span class="description">em</span>
-				</label>
-				<label class="setting">
-					<span>%5$s</span>
-					<select data-setting="vertical_align">
-						<option value="">%6$s</option>
-						<option value="super">%7$s</option>
-						<option value="top">%8$s</option>
-						<option value="text-top">%9$s</option>
-						<option value="middle">%10$s</option>
-						<option value="baseline">%11$s</option>
-						<option value="text-bottom">%12$s</option>
-						<option value="bottom">%13$s</option>
-						<option value="sub">%14$s</option>
-					</select>
-				</label>
-				<label class="setting">
-					<span>%15$s</span>
-					<select data-setting="hide_label">
-						<option value="">%16$s</option>
-						<option value="1">%17$s</option>
-					</select>
-				</label>
-				<p class="_info"><em>%18$s</em></p>',
-				esc_html__( 'Position', 'menu-icons' ),
-				esc_html__( 'Before', 'menu-icons' ),
-				esc_html__( 'After', 'menu-icons' ),
-				esc_html__( 'Font Size', 'menu-icons' ),
-				esc_html__( 'Vertical Align', 'menu-icons' ),
-				esc_html__( '&ndash; Select &ndash;', 'menu-icons' ),
-				esc_html__( 'Super', 'menu-icons' ),
-				esc_html__( 'Top', 'menu-icons' ),
-				esc_html__( 'Text Top', 'menu-icons' ),
-				esc_html__( 'Middle', 'menu-icons' ),
-				esc_html__( 'Baseline', 'menu-icons' ),
-				esc_html__( 'Bottom', 'menu-icons' ),
-				esc_html__( 'Text Bottom', 'menu-icons' ),
-				esc_html__( 'Sub', 'menu-icons' ),
-				esc_html__( 'Hide Label', 'menu-icons' ),
-				esc_html__( 'No', 'menu-icons' ),
-				esc_html__( 'Yes', 'menu-icons' ),
-				sprintf(
-					esc_html__( "Please note that the actual look of the icons on the front-end will also be affected by your active theme's style. You can use %s if you need to override it.", 'menu-icons' ),
-					'<a target="_blank" href="http://wordpress.org/plugins/simple-custom-css/">Simple Custom CSS</a>'
-				)
-			),
-		);
-		$templates = apply_filters( 'menu_icons_media_templates', $templates );
+		$templates = apply_filters( 'menu_icons_media_templates', array() );
 
 		foreach ( $templates as $key => $template ) {
 			$id = sprintf( '%s-%s', $id_prefix, $key );
@@ -496,6 +439,8 @@ final class Menu_Icons_Admin_Nav_Menus {
 				}
 			}
 		}
+
+		require_once dirname( __FILE__ ) . '/media-template.php';
 	}
 
 

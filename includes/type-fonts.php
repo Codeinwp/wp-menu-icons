@@ -24,6 +24,74 @@ abstract class Menu_Icons_Type_Fonts extends Menu_Icons_Type {
 
 
 	/**
+	 * Settings fields
+	 *
+	 * @since  %ver%
+	 * @param  array $fields
+	 * @uses   apply_filters() Calls 'menu_icons_{type}_settings_sections'.
+	 * @return array
+	 */
+	public function _settings_fields( $fields ) {
+		$_fields = array(
+			'font_size'      => array(
+				'id'          => 'font_size',
+				'type'        => 'number',
+				'label'       => __( 'Font Size', 'menu-icons' ),
+				'description' => 'em',
+				'attributes'  => array(
+					'min'  => '0.1',
+					'step' => '0.1',
+				),
+			),
+			'vertical_align' => array(
+				'id'      => 'vertical_align',
+				'type'    => 'select',
+				'label'   => __( 'Vertical Align', 'menu-icons' ),
+				'choices' => array(
+					array(
+						'value' => 'super',
+						'label' => __( 'Super', 'menu-icons' ),
+					),
+					array(
+						'value' => 'top',
+						'label' => __( 'Top', 'menu-icons' ),
+					),
+					array(
+						'value' => 'text-top',
+						'label' => __( 'Text Top', 'menu-icons' ),
+					),
+					array(
+						'value' => 'middle',
+						'label' => __( 'Middle', 'menu-icons' ),
+					),
+					array(
+						'value' => 'baseline',
+						'label' => __( 'Baseline', 'menu-icons' ),
+					),
+					array(
+						'value' => 'text-bottom',
+						'label' => __( 'Text Bottom', 'menu-icons' ),
+					),
+					array(
+						'value' => 'bottom',
+						'label' => __( 'Bottom', 'menu-icons' ),
+					),
+					array(
+						'value' => 'sub',
+						'label' => __( 'Sub', 'menu-icons' ),
+					),
+				),
+			),
+		);
+
+		$_fields = apply_filters( sprintf( 'menu_icons_%s_settings_fields', $this->type ), $_fields );
+		$fields  = wp_parse_args( $_fields, $fields );
+
+		return $fields;
+	}
+
+
+	/**
 	 * Print field for icons selection
 	 *
 	 * @since 0.1.0
@@ -103,6 +171,7 @@ abstract class Menu_Icons_Type_Fonts extends Menu_Icons_Type {
 
 			foreach ( $group['items'] as $id => $label ) {
 				$data['items'][] = array(
+					'type'  => $this->type,
 					'group' => $group['key'],
 					'id'    => $id,
 					'label' => $label,
@@ -121,40 +190,21 @@ abstract class Menu_Icons_Type_Fonts extends Menu_Icons_Type {
 	 * @return array
 	 */
 	public function templates() {
-		$icon = sprintf(
-			'<i class="_icon %s {{ data.icon }} _{{ data.position }}" style="
-				font-size:{{ data.font_size }}em;
-				vertical-align:{{ data.vertical_align }};
-			"></i>',
-			esc_attr( $this->type )
-		);
+		$icon = '<i class="_icon {{ data.type }} {{ data.icon }} _{{ data.position }}" style="font-size:{{ data.font_size }}em; vertical-align:{{ data.vertical_align }};"></i>';
 
 		$templates = array(
-			'field' => sprintf(
-				'<i class="_icon %1$s {{ data["%1$s-icon"] }}"></i>',
-				esc_attr( $this->type )
-			),
-			'item' => sprintf(
+			'field' => '<i class="_icon {{ data.type }} {{ data.icon }}"></i>',
+			'item'  => sprintf(
 				'<div class="attachment-preview">
-					<span class="_icon"><i class="%s {{ data.id }}"></i></span>
+					<span class="_icon"><i class="{{ data.type }} {{ data.id }}"></i></span>
 					<div class="filename"><div>{{ data.label }}</div></div>
 					<a class="check" href="#" title="%s"><div class="media-modal-icon"></div></a>
 				</div>',
-				esc_attr( $this->type ),
 				esc_attr__( 'Deselect', 'menu-icons' )
 			),
-			'preview-before' => sprintf(
-				'<a href="#">%s <span>{{ data.title }}</span></a>',
-				$icon
-			),
-			'preview-after' => sprintf(
-				'<a href="#"><span>{{ data.title }}</span> %s</i></a>',
-				$icon
-			),
-			'preview-hide_label' => sprintf(
-				'<a href="#">%s</i></a>',
-				$icon
-			),
+			'preview-before'     => sprintf( '<a href="#">%s <span>{{ data.title }}</span></a>', $icon ),
+			'preview-after'      => sprintf( '<a href="#"><span>{{ data.title }}</span> %s</a>', $icon ),
+			'preview-hide_label' => sprintf( '<a href="#">%s</a>', $icon ),
 		);
 
 		return $templates;
