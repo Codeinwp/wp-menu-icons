@@ -236,10 +236,15 @@
 		},
 
 		createToolbar : function() {
+			var library = this.collection;
+			var group = library.props.get('group');
+
 			this.toolbar = new media.view.Toolbar({
 				controller : this.controller
 			});
 			this.views.add( this.toolbar );
+
+
 
 			// Dropdown filter
 			this.toolbar.set( 'filters', new media.view.miFont.Filters({
@@ -540,17 +545,20 @@
 		},
 
 		refresh : function() {
-			var library = this.get('library');
-			var item    = this.frame.miGetCurrentItem();
-			var groups  = this.get('data').groups;
-			var group   = item.get('group');
-
-			if ( _.isUndefined( groups[ group ] ) ) {
-				group = 'all';
-			}
-
-			library.props.set( 'group', group );
+			this.miResetFilter();
 			this.miUpdateSelection();
+		},
+
+		miGetContent : function() {
+			this.miResetFilter();
+
+			return new media.view.miFont({
+				controller : this.frame,
+				model      : this,
+				collection : this.get('library'),
+				selection  : this.get('selection'),
+				type       : this.get('type')
+			});
 		},
 
 		miResetLibrary : function() {
@@ -564,6 +572,19 @@
 			this.set( 'library', library );
 
 			this.miUpdateSelection();
+		},
+
+		miResetFilter : function() {
+			var library = this.get('library');
+			var item    = this.frame.miGetCurrentItem();
+			var groups  = this.get('data').groups;
+			var group   = item.get('group');
+
+			if ( _.isUndefined( groups[ group ] ) ) {
+				group = 'all';
+			}
+
+			library.props.set( 'group', group );
 		},
 
 		miUpdateSelection : function() {
@@ -641,6 +662,76 @@
 	});
 
 
+	// Image icon
+	media.controller.miImage = media.controller.Library.extend({
+		defaults : _.defaults({
+			id       : 'browse',
+			menu     : 'default',
+			router   : 'browse',
+			toolbar  : 'mi-select',
+			filterable : 'uploaded',
+			settings : [ 'hide_label', 'position', 'image_size', 'vertical_align' ]
+		}, media.controller.Library.prototype.defaults),
+
+		initialize : function() {
+			var library = media.query({ type: 'image' });
+			this.set( 'library', library );
+
+			this.routers = {
+				upload : {
+					text:     media.view.l10n.uploadFilesTitle,
+					priority: 20
+				},
+				browse : {
+					text:     media.view.l10n.mediaLibraryTitle,
+					priority: 40
+				}
+			};
+
+			media.controller.Library.prototype.initialize.apply( this, arguments );
+		},
+
+		miGetContent : function( mode ) {
+			var content = ( 'upload' === mode ) ? this.uploadContent() : this.browseContent();
+
+			this.frame.$el.removeClass('hide-toolbar');
+
+			return content;
+		},
+
+		browseContent: function() {
+			var state = this;
+
+			// Browse our library of attachments.
+			return new media.view.AttachmentsBrowser({
+				controller: this.frame,
+				collection: state.get('library'),
+				selection:  state.get('selection'),
+				model:      state,
+				sortable:   state.get('sortable'),
+				search:     state.get('searchable'),
+				filters:    state.get('filterable'),
+				display:    state.get('displaySettings'),
+				dragInfo:   state.get('dragInfo')
+				/*,
+
+				suggestedWidth:  state.get('suggestedWidth'),
+				suggestedHeight: state.get('suggestedHeight'),
+
+				AttachmentView: state.get('AttachmentView')*/
+			});
+		},
+
+		/**
+		 * Render callback for the content region in the `upload` mode.
+		 */
+		uploadContent: function() {
+			return new media.view.UploaderInline({
+				controller: this.frame
+			});
+		},
+	});
+
 	// Frame
 	media.view.MediaFrame.menuIcons = media.view.MediaFrame.extend({
 		initialize : function() {
@@ -650,7 +741,7 @@
 				selection : [],
 				multiple  : false,
 				editing   : false,
-				toolbar   : 'mi-select'
+				toolbar   : 'mi-select',
 			});
 
 			this.miMenuItems = new media.model.mi.MenuItems();
@@ -685,13 +776,28 @@
 		},
 
 		bindHandlers : function() {
+			this.on( 'router:create:browse', this.createRouter, this );
+			this.on( 'router:render:browse', this.browseRouter, this );
+			this.on( 'content:render', this.miRenderContent, this );
 			this.on( 'toolbar:create:mi-select', this.createToolbar, this );
 			this.on( 'toolbar:render:mi-select', this.miSelectToolbar, this );
 			this.on( 'open', this.miInitialize, this );
+		},
 
-			_.each( window.menuIcons.iconTypes, function( props, type ) {
-				this.on( 'content:activate:'+props.id, this.miContentRender, this, props );
-			}, this );
+		browseRouter : function( routerView ) {
+			var routers = this.state().routers;
+
+			if ( routers ) {
+				routerView.set( routers );
+			}
+		},
+
+		miRenderContent : function() {
+			var state   = this.state();
+			var mode    = this.content.mode();
+			var content = state.miGetContent( mode );
+
+			this.content.set( content );
 		},
 
 		// Toolbars
@@ -716,16 +822,10 @@
 
 		// Content
 		miContentRender : function() {
-			var state = this.state();
-			var View  = media.view[ state.get('data').controller ];
+			var state   = this.state();
+			var content = state.miGetContent();
 
-			this.content.set( new View({
-				controller : this,
-				model      : state,
-				collection : state.get('library'),
-				selection  : state.get('selection'),
-				type       : state.get('type')
-			}) );
+			this.content.set( content );
 		},
 
 		miGetState : function() {

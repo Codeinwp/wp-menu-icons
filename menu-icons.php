@@ -169,6 +169,7 @@ final class Menu_Icons {
 	 */
 	public static function _register_icon_types( $icon_types ) {
 		$builtin_types = array(
+			'image',
 			'dashicons',
 			'elusive',
 			'fontawesome',
