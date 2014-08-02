@@ -147,6 +147,13 @@ class Menu_Icons_Type_Image extends Menu_Icons_Type {
 			esc_attr( $this->type )
 		) ?>
 			<label for="<?php echo esc_attr( $input_id ) ?>"><?php echo esc_html( $this->label ); ?></label>
+			<?php printf(
+				'<input type="text" id="%s" name="%s" data-key="%s" value="%s" />',
+				esc_attr( $input_id ),
+				esc_attr( $input_name ),
+				esc_attr( $this->key ),
+				esc_attr( $current )
+			) ?>
 		</p>
 		<?php
 	}

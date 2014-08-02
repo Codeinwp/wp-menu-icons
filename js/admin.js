@@ -116,12 +116,14 @@
 	media.model.mi.MenuItems = Backbone.Collection.extend({
 		props : new Backbone.Model({ item : '' }),
 		model : Backbone.Model.extend({
+			// TODO: Get these from settings fields defaults
 			defaults : {
 				type           : '',
 				group          : 'all',
 				icon           : '',
 				font_size      : '1.2',
 				vertical_align : 'middle',
+				image_size     : 'full',
 				hide_label     : ''
 			}
 		})
@@ -299,7 +301,6 @@
 		disposeSingle : function() {
 			var sidebar = this.sidebar;
 
-			this.controller.miUpdateItemProps();
 			sidebar.unset('preview');
 			sidebar.unset('settings');
 		},
@@ -665,17 +666,19 @@
 	// Image icon
 	media.controller.miImage = media.controller.Library.extend({
 		defaults : _.defaults({
-			id       : 'browse',
-			menu     : 'default',
-			router   : 'browse',
-			toolbar  : 'mi-select',
-			filterable : 'uploaded',
-			settings : [ 'hide_label', 'position', 'image_size', 'vertical_align' ]
+			id            : 'browse',
+			menu          : 'default',
+			router        : 'browse',
+			toolbar       : 'mi-select',
+			filterable    : 'uploaded',
+			settings      : [ 'hide_label', 'position', 'image_size', 'vertical_align' ],
+			syncSelection : false
 		}, media.controller.Library.prototype.defaults),
 
 		initialize : function() {
-			var library = media.query({ type: 'image' });
-			this.set( 'library', library );
+			var selection = this.get('selection');
+
+			this.set( 'library', media.query({ type: 'image' }) );
 
 			this.routers = {
 				upload : {
@@ -688,7 +691,34 @@
 				}
 			};
 
+			if ( ! ( selection instanceof media.model.Selection ) ) {
+				this.set( 'selection', new media.model.Selection( selection, {
+					multiple : false
+				}) );
+			}
+
 			media.controller.Library.prototype.initialize.apply( this, arguments );
+		},
+
+		activate : function() {
+			media.controller.Library.prototype.activate.apply( this, arguments );
+			this.miUpdateSelection();
+		},
+
+		miUpdateSelection : function() {
+			var selection = this.get('selection');
+			var type      = this.get('type');
+			var key       = type+'-icon';
+			var item      = this.frame.miGetCurrentItem();
+			var icon      = item.get(key);
+			var attachment;
+
+			if ( type === item.get('type') && icon ) {
+				attachment = media.model.Attachment.get( icon );
+				attachment.fetch();
+			}
+
+			selection.reset( attachment ? attachment : [] );
 		},
 
 		miGetContent : function( mode ) {
@@ -703,22 +733,16 @@
 			var state = this;
 
 			// Browse our library of attachments.
-			return new media.view.AttachmentsBrowser({
-				controller: this.frame,
-				collection: state.get('library'),
-				selection:  state.get('selection'),
-				model:      state,
-				sortable:   state.get('sortable'),
-				search:     state.get('searchable'),
-				filters:    state.get('filterable'),
-				display:    state.get('displaySettings'),
-				dragInfo:   state.get('dragInfo')
-				/*,
-
-				suggestedWidth:  state.get('suggestedWidth'),
-				suggestedHeight: state.get('suggestedHeight'),
-
-				AttachmentView: state.get('AttachmentView')*/
+			return new media.view.AttachmentsBrowser.miImage({
+				controller : this.frame,
+				collection : state.get('library'),
+				selection  : state.get('selection'),
+				model      : state,
+				sortable   : state.get('sortable'),
+				search     : state.get('searchable'),
+				filters    : state.get('filterable'),
+				display    : state.get('displaySettings'),
+				dragInfo   : state.get('dragInfo')
 			});
 		},
 
@@ -731,6 +755,14 @@
 			});
 		},
 	});
+
+	media.view.AttachmentsBrowser.miImage = media.view.AttachmentsBrowser.extend({
+		createSingle : function() {
+			this.controller.miUpdateItemProps();
+			media.view.AttachmentsBrowser.prototype.createSingle.apply( this, arguments );
+		}
+	});
+
 
 	// Frame
 	media.view.MediaFrame.menuIcons = media.view.MediaFrame.extend({
@@ -874,7 +906,7 @@
 
 			item.set( 'type', type );
 			item.set( type+'-icon', icon );
-			item.set( 'icon', state.miGetIcon() );
+			item.set( 'icon', icon );
 		},
 
 		miUpdateItem : function() {
