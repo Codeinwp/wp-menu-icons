@@ -601,12 +601,6 @@
 			}
 
 			selection.reset( selected ? selected : [] );
-		},
-
-		miGetIcon : function() {
-			var single = this.get('selection').single();
-
-			return single ? single.id : '';
 		}
 	});
 
@@ -753,7 +747,7 @@
 			return new media.view.UploaderInline({
 				controller: this.frame
 			});
-		},
+		}
 	});
 
 	media.view.AttachmentsBrowser.miImage = media.view.AttachmentsBrowser.extend({
@@ -910,9 +904,12 @@
 		},
 
 		miUpdateItem : function() {
-			var attrs = this.miGetCurrentItem().toJSON();
-			var id    = attrs.id;
-			var field = media.template( 'menu-icons-'+ attrs.type +'-field' );
+			var attrs    = this.miGetCurrentItem().toJSON();
+			var id       = attrs.id;
+			var state    = this.state();
+			var selected = state.get('selection').single();
+			var template = media.template( 'menu-icons-'+ attrs.type +'-field' );
+			var preview  = template( selected.toJSON() );
 			var $el;
 
 			delete attrs.id;
@@ -925,7 +922,7 @@
 				}
 			});
 
-			$('#menu-icons-'+ id +'-select').html( field(attrs) );
+			$('#menu-icons-'+ id +'-select').html( preview );
 		}
 	});
 

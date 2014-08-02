@@ -193,7 +193,7 @@ abstract class Menu_Icons_Type_Fonts extends Menu_Icons_Type {
 		$icon = '<i class="_icon {{ data.type }} {{ data.icon }} _{{ data.position }}" style="font-size:{{ data.font_size }}em; vertical-align:{{ data.vertical_align }};"></i>';
 
 		$templates = array(
-			'field' => '<i class="_icon {{ data.type }} {{ data.icon }}"></i>',
+			'field' => '<i class="_icon {{ data.type }} {{ data.id }}"></i>',
 			'item'  => sprintf(
 				'<div class="attachment-preview">
 					<span class="_icon"><i class="{{ data.type }} {{ data.id }}"></i></span>
