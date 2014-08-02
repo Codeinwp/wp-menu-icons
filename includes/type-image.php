@@ -54,7 +54,7 @@ class Menu_Icons_Type_Image extends Menu_Icons_Type {
 		$_sizes = apply_filters( 'image_size_names_choose', $_sizes );
 
 		$sizes = array();
-		foreach ( $sizes as $value => $label ) {
+		foreach ( $_sizes as $value => $label ) {
 			$sizes[] = array(
 				'value' => $value,
 				'label' => $label,
@@ -78,12 +78,14 @@ class Menu_Icons_Type_Image extends Menu_Icons_Type {
 				'id'      => 'image_size',
 				'type'    => 'select',
 				'label'   => __( 'Image Size', 'menu-icons' ),
+				'default' => 'full',
 				'choices' => self::get_image_sizes(),
 			),
 			'vertical_align' => array(
 				'id'      => 'vertical_align',
 				'type'    => 'select',
 				'label'   => __( 'Vertical Align', 'menu-icons' ),
+				'default' => 'middle',
 				'choices' => array(
 					array(
 						'value' => 'super',

@@ -29,12 +29,6 @@ final class Menu_Icons_Settings {
 		'global' => array(
 			'icon_types' => array(),
 		),
-		'menu'   => array(
-			'position'       => 'before',
-			'vertical_align' => 'middle',
-			'font_size'      => '1.2',
-			'hide_label'     => false,
-		)
 	);
 
 	/**
@@ -107,17 +101,10 @@ final class Menu_Icons_Settings {
 	 * @return array
 	 */
 	public static function get_menu_settings( $menu_id ) {
-		$defaults      = self::$defaults['menu'];
 		$menu_settings = self::get( sprintf( 'menu_%d', $menu_id ) );
+		$menu_settings = apply_filters( 'menu_icons_menu_settings', $menu_settings, $menu_id );
 
-		if ( is_null( $menu_settings ) ) {
-			$menu_settings = $defaults;
-		}
-		else {
-			$menu_settings = wp_parse_args( $menu_settings, $defaults );
-		}
-
-		return apply_filters( 'menu_icons_menu_settings', $menu_settings, $menu_id );
+		return $menu_settings;
 	}
 
 
@@ -280,6 +267,7 @@ final class Menu_Icons_Settings {
 				'id'      => 'hide_label',
 				'type'    => 'select',
 				'label'   => __( 'Hide Label', 'menu-icons' ),
+				'default' => '',
 				'choices' => array(
 					array(
 						'value' => '',
@@ -295,6 +283,7 @@ final class Menu_Icons_Settings {
 				'id'      => 'position',
 				'type'    => 'select',
 				'label'   => __( 'Position', 'menu-icons' ),
+				'default' => 'before',
 				'choices' => array(
 					array(
 						'value' => 'before',
@@ -313,6 +302,10 @@ final class Menu_Icons_Settings {
 		foreach ( $fields as &$field ) {
 			if ( isset( $values[ $field['id'] ] ) ) {
 				$field['value'] = $values[ $field['id'] ];
+			}
+
+			if ( ! isset( $field['value'] ) && isset( $field['default'] ) ) {
+				$field['value'] = $field['default'];
 			}
 		}
 

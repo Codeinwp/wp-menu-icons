@@ -211,12 +211,10 @@ final class Menu_Icons_Admin_Nav_Menus {
 	 * @access private
 	 * @return array
 	 */
-	private static function _get_fields() {
-		$sections = Menu_Icons_Settings::get_fields();
-		$fields   = $sections['menu']['fields'];
+	private static function _get_fields( Array $values = array() ) {
+		$fields = Menu_Icons_Settings::get_settings_fields( $values );
 
 		foreach ( $fields as &$field ) {
-			$field['default']    = $field['value'];
 			$field['attributes'] = array_merge(
 				array(
 					'class'    => '_setting',
@@ -315,8 +313,7 @@ final class Menu_Icons_Admin_Nav_Menus {
 						<?php endif; ?>
 					<?php endforeach; ?>
 
-					<?php foreach ( self::_get_fields() as $field ) :
-						$field['value'] = $current[ $field['id'] ];
+					<?php foreach ( self::_get_fields( $current ) as $field ) :
 						$field = Kucrut_Form_Field::create(
 							$field,
 							array(
