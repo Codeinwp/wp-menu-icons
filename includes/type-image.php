@@ -227,20 +227,40 @@ class Menu_Icons_Type_Image extends Menu_Icons_Type {
 	 * @return string
 	 */
 	protected function add_icon( $title, $values ) {
-		$class = ! empty( $values['hide_label'] ) ? 'visuallyhidden' : '';
-		$title = sprintf(
+		if ( empty( $values['image-icon'] ) ) {
+			return $title;
+		}
+
+		$icon = get_post( $values['image-icon'] );
+		if ( ! is_a( $icon, 'WP_Post' ) || 'attachment' !== $icon->post_type ) {
+			return $title;
+		}
+
+		$t_class = ! empty( $values['hide_label'] ) ? 'visuallyhidden' : '';
+		$title   = sprintf(
 			'<span%s>%s</span>',
-			( ! empty( $class ) ) ? sprintf( ' class="%s"', esc_attr( $class ) ) : '',
+			( ! empty( $t_class ) ) ? sprintf( ' class="%s"', esc_attr( $t_class ) ) : '',
 			$title
 		);
 
+		$i_class  = '_mi';
+		$i_class .= empty( $values['hide_label'] ) ? " _{$values['position']}" : '';
+		$i_style  = $this->get_style( $values );
+		$i_attrs  = array( 'class' => $i_class );
+
+		if ( ! empty( $i_style ) ) {
+			$i_attrs['style'] = $i_style;
+		}
+
 		$title = sprintf(
-			'%s<i class="_mi%s %s %s"%s></i>%s',
+			'%s%s%s',
 			'before' === $values['position'] ? '' : $title,
-			( empty( $values['hide_label'] ) ) ? esc_attr( " _{$values['position']}" ) : '',
-			esc_attr( $this->type ),
-			esc_attr( $values[ $this->key ] ),
-			$this->get_style( $values ),
+			wp_get_attachment_image(
+				$icon->ID,
+				$values['image_size'],
+				false,
+				$i_attrs
+			),
 			'after' === $values['position'] ? '' : $title
 		);
 
@@ -272,7 +292,6 @@ class Menu_Icons_Type_Image extends Menu_Icons_Type {
 			foreach ( $style_a as $key => $value ) {
 				$style_s .= sprintf( '%s:%s;', esc_attr( $key ), esc_attr( $value ) );
 			}
-			$style_s = sprintf( ' style="%s"', $style_s );
 		}
 
 		return $style_s;

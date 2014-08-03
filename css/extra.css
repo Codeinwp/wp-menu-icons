@@ -1,21 +1,30 @@
-.menu i._mi,
-.nav-menu i._mi {
+.menu-item i._mi,
+.menu-item img._mi {
 	display: inline-block;
 	vertical-align: middle;
+}
+.menu-item i._mi {
 	margin-top: -.265em;
 	width: auto;
 	height: auto;
 	font-size: 1.2em;
 	line-height: 1;
 }
-.menu i._before,
-.nav-menu i._before {
+
+.menu-item i._before {
 	margin-right: .25em;
 }
-.menu i._after,
-.nav-menu i._after{
+.menu-item i._after {
 	margin-left: .25em;
 }
+
+.menu-item img._before {
+	margin-right: .5em;
+}
+.menu-item img._after {
+	margin-left: .5em;
+}
+
 
 .visuallyhidden {
 	border: 0;
@@ -28,8 +37,7 @@
 	width: 1px;
 }
 
-.menu i.elusive,
-.nav-menu i.elusive {
+.menu-item i.elusive {
 	margin-top: -.3em;
 }
 
