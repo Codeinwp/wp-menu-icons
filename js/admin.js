@@ -196,7 +196,7 @@
 		initialize : function() {
 			media.View.prototype.initialize.apply( this, arguments );
 			this.template = media.template( 'menu-icons-settings-field-'+this.model.get('type') );
-			this.model.on( 'change:value', this._updateDeps, this );
+			this.model.on( 'change', this.render, this );
 		},
 
 		prepare : function() {
@@ -269,8 +269,8 @@
 		},
 
 		createSingle : function() {
-			this.createPreview();
 			this.createSettings();
+			this.createPreview();
 		},
 
 		createSettings : function() {
@@ -794,6 +794,7 @@
 
 			this.sidebar.set( 'preview', new media.view.miPreview.miImage({
 				controller : controller,
+				settings   : this.sidebar.get('settings'),
 				model      : menuItem,
 				data       : {
 					type  : this.model.get('type'),
@@ -810,14 +811,24 @@
 	// Image: Preview
 	media.view.miPreview.miImage = media.view.miPreview.extend({
 		render : function() {
-			var size = this.options.model.get('image_size');
+			var size       = this.options.model.get('image_size');
+			var imageSizes = this.options.data.sizes;
+			var sizeField  = this.options.settings.get('image_size');
+			var newChoices = [];
 
-			if ( ! this.options.data.sizes.hasOwnProperty( size ) ) {
+			if ( ! imageSizes.hasOwnProperty( size ) ) {
 				size = 'full';
 			}
 
-			this.options.model.set( 'image_size', size );
-			this.options.data.url = this.options.data.sizes[ size ].url;
+			_.each( sizeField.model.get('choices'), function( choice ) {
+				if ( imageSizes.hasOwnProperty( choice.value ) ) {
+					newChoices.push( choice );
+				}
+			} );
+
+			sizeField.model.set( 'choices', newChoices );
+			this.options.model.set( 'image_size', size, { silent: true } );
+			this.options.data.url = imageSizes[ size ].url;
 
 			return media.view.miPreview.prototype.render.apply( this, arguments );
 		}
