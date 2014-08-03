@@ -215,6 +215,85 @@
 		}
 	});
 
+	media.view.miPreview = media.View.extend({
+		tagName   : 'p',
+		className : 'mi-preview menu-item attachment-info',
+		events    : {
+			'click a' : 'preventDefault'
+		},
+
+		initialize : function() {
+			media.View.prototype.initialize.apply( this, arguments );
+			this.model.on( 'change', this.render, this );
+		},
+
+		render : function() {
+			var data     = _.extend( this.model.toJSON(), this.options.data );
+			var template = 'menu-icons-' + data.type + '-preview-';
+
+			if ( data.hide_label ) {
+				template += 'hide_label';
+			}
+			else {
+				template += data.position;
+			}
+
+			this.template = media.template( template );
+			this.$el.html( this.template( data ) );
+
+			return this;
+		},
+
+		preventDefault: function(e) {
+			e.preventDefault();
+		}
+	});
+
+	media.view.miBrowser = {
+		createSidebar : function() {
+			var options   = this.options;
+			var selection = options.selection;
+			var sidebar   = this.sidebar = new media.view.miSidebar({
+				controller : this.controller,
+				type       : options.type
+			});
+
+			this.views.add( sidebar );
+
+			selection.on( 'selection:single', this.createSingle, this );
+			selection.on( 'selection:unsingle', this.disposeSingle, this );
+
+			if ( selection.single() ) {
+				this.createSingle();
+			}
+		},
+
+		createSingle : function() {
+			this.createPreview();
+			this.createSettings();
+		},
+
+		createSettings : function() {
+			var item   = this.controller.miGetCurrentItem();
+			var fields = this.model.get('settings');
+
+			if ( ! fields.length ) {
+				return;
+			}
+
+			_.each( fields, function( field ) {
+				field.value = item.get( field.id );
+			} );
+
+			this.sidebar.set( 'settings', new media.view.miSidebar.Settings({
+				controller : this.controller,
+				collection : new media.model.mi.MenuItems.Settings( fields ),
+				model      : item,
+				type       : this.options.type,
+				priority   : 120
+			}) );
+		}
+	};
 
 	// Font icon: Browser
 	media.view.miFont = media.View.extend({
@@ -263,37 +342,20 @@
 			}).render() );
 		},
 
-		createSidebar : function() {
-			var options   = this.options;
-			var selection = options.selection;
-			var sidebar   = this.sidebar = new media.view.miSidebar({
-				controller : this.controller,
-				type       : options.type
-			});
-
-			this.views.add( sidebar );
-
-			selection.on( 'selection:single', this.createSingle, this );
-			selection.on( 'selection:unsingle', this.disposeSingle, this );
-
-			if ( selection.single() ) {
-				this.createSingle();
-			}
-		},
-
-		createSingle : function() {
-			var sidebar    = this.sidebar;
+		createPreview : function() {
 			var controller = this.controller;
-			var item       = controller.miGetCurrentItem();
+			var menuItem   = controller.miGetCurrentItem();
+			var selected   = this.model.get('selection').single();
 
-			sidebar.set( 'preview', new media.view.miFont.Icon.Preview({
-				controller : this.controller,
-				model      : item,
-				type       : this.options.type,
+			this.sidebar.set( 'preview', new media.view.miPreview({
+				controller : controller,
+				model      : menuItem,
+				data       : {
+					type : selected.get('type'),
+					icon : selected.id
+				},
 				priority   : 80
 			}) );
-
-			this.createSettings();
 		},
 
 		disposeSingle : function() {
@@ -301,29 +363,10 @@
 
 			sidebar.unset('preview');
 			sidebar.unset('settings');
-		},
-
-		createSettings : function() {
-			var item   = this.controller.miGetCurrentItem();
-			var fields = this.controller.state().get('settings');
-
-			if ( ! fields.length ) {
-				return;
-			}
-
-			_.each( fields, function( field ) {
-				field.value = item.get( field.id );
-			} );
-
-			this.sidebar.set( 'settings', new media.view.miSidebar.Settings({
-				controller : this.controller,
-				collection : new media.model.mi.MenuItems.Settings( fields ),
-				model      : item,
-				type       : this.options.type,
-				priority   : 120
-			}) );
 		}
 	});
+
+	_.extend( media.view.miFont.prototype, media.view.miBrowser );
 
 
 	// Font icon: Library
@@ -457,42 +500,6 @@
 			this.updateSelect();
 
 			return this;
-		}
-	});
-
-
-	// Font icon: Preview
-	media.view.miFont.Icon.Preview = media.View.extend({
-		tagName   : 'p',
-		className : 'mi-preview menu-item attachment-info',
-		events    : {
-			'click a' : 'preventDefault'
-		},
-
-		initialize : function() {
-			media.View.prototype.initialize.apply( this, arguments );
-			this.model.on( 'change', this.render, this );
-		},
-
-		render : function() {
-			var data     = this.model.toJSON();
-			var template = 'menu-icons-' + this.options.type + '-preview-';
-
-			if ( data.hide_label ) {
-				template += 'hide_label';
-			}
-			else {
-				template += data.position;
-			}
-
-			this.template = media.template( template );
-			this.$el.html( this.template( data ) );
-
-			return this;
-		},
-
-		preventDefault: function(e) {
-			e.preventDefault();
 		}
 	});
 
@@ -669,6 +676,8 @@
 
 		initialize : function() {
 			var selection = this.get('selection');
+			var fieldIds  = this.get('settings');
+			var fields;
 
 			this.set( 'library', media.query({ type: 'image' }) );
 
@@ -688,6 +697,11 @@
 					multiple : false
 				}) );
 			}
+
+			fields = _.filter( window.menuIcons.settingsFields, function( field ) {
+				return ( -1 !== $.inArray( field.id, fieldIds ) );
+			});
+			this.set( 'settings', fields );
 
 			media.controller.Library.prototype.initialize.apply( this, arguments );
 		},
@@ -712,8 +726,8 @@
 			var attachment;
 
 			if ( type === item.get('type') && icon ) {
-				attachment = media.model.Attachment.get( icon );
-				attachment.fetch();
+				attachment = Attachment.get( icon );
+				this.dfd = attachment.fetch();
 			}
 
 			selection.reset( attachment ? attachment : [] );
@@ -731,7 +745,8 @@
 			var state = this;
 
 			// Browse our library of attachments.
-			return new media.view.AttachmentsBrowser({
+			return new media.view.AttachmentsBrowser.miImage({
+				type       : state.get('type'),
 				controller : state.frame,
 				collection : state.get('library'),
 				selection  : state.get('selection'),
@@ -753,6 +768,44 @@
 			});
 		}
 	});
+
+	media.view.AttachmentsBrowser.miImage = media.view.AttachmentsBrowser.extend({
+		disposeSingle : function() {
+			media.view.AttachmentsBrowser.prototype.disposeSingle.apply( this, arguments );
+			this.sidebar.unset('preview');
+			this.sidebar.unset('settings');
+		},
+
+		createPreview : function() {
+			var self  = this;
+			var state = this.model;
+
+			if ( 'pending' === state.dfd.state() ) {
+				this.model.dfd.done( function() {
+					self.createPreview();
+				} );
+
+				return;
+			}
+
+			var controller = this.controller;
+			var menuItem   = controller.miGetCurrentItem();
+			var selected   = state.get('selection').single();
+
+			this.sidebar.set( 'preview', new media.view.miPreview({
+				controller : controller,
+				model      : menuItem,
+				data       : {
+					type  : this.model.get('type'),
+					alt   : selected.get('alt'),
+					sizes : selected.get('sizes')
+				},
+				priority   : 80
+			}) );
+		}
+	});
+
+	_.extend( media.view.AttachmentsBrowser.miImage.prototype, media.view.miBrowser );
 
 	// Frame
 	media.view.MediaFrame.menuIcons = media.view.MediaFrame.extend({
