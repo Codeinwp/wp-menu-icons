@@ -282,8 +282,6 @@
 		},
 
 		createSingle : function() {
-			this.controller.miUpdateItemProps();
-
 			var sidebar    = this.sidebar;
 			var controller = this.controller;
 			var item       = controller.miGetCurrentItem();
@@ -696,7 +694,13 @@
 
 		activate : function() {
 			media.controller.Library.prototype.activate.apply( this, arguments );
+			this.frame.on( 'open', this.miUpdateSelection, this );
 			this.miUpdateSelection();
+		},
+
+		deactivate : function() {
+			media.controller.Library.prototype.deactivate.apply( this, arguments );
+			this.frame.off( 'open', this.miUpdateSelection, this );
 		},
 
 		miUpdateSelection : function() {
@@ -727,8 +731,8 @@
 			var state = this;
 
 			// Browse our library of attachments.
-			return new media.view.AttachmentsBrowser.miImage({
-				controller : this.frame,
+			return new media.view.AttachmentsBrowser({
+				controller : state.frame,
 				collection : state.get('library'),
 				selection  : state.get('selection'),
 				model      : state,
@@ -749,14 +753,6 @@
 			});
 		}
 	});
-
-	media.view.AttachmentsBrowser.miImage = media.view.AttachmentsBrowser.extend({
-		createSingle : function() {
-			this.controller.miUpdateItemProps();
-			media.view.AttachmentsBrowser.prototype.createSingle.apply( this, arguments );
-		}
-	});
-
 
 	// Frame
 	media.view.MediaFrame.menuIcons = media.view.MediaFrame.extend({
@@ -841,6 +837,7 @@
 				},
 				click    : function() {
 					frame.close();
+					frame.miUpdateItemProps();
 					frame.miUpdateItem();
 				}
 			});
@@ -895,8 +892,8 @@
 			var type      = state.get('type');
 			var selection = state.get('selection');
 			var single    = selection.single();
-			var item      = this.miGetCurrentItem();
 			var icon      = single ? single.id : '';
+			var item      = this.miGetCurrentItem();
 
 			item.set( 'type', type );
 			item.set( type+'-icon', icon );

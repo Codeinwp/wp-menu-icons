@@ -168,7 +168,16 @@ class Menu_Icons_Type_Image extends Menu_Icons_Type {
 	 * @return array
 	 */
 	public function preview_cb( $id, $meta_value ) {
-		return null;
+		if ( empty( $meta_value['image-icon'] ) ) {
+			return null;
+		}
+
+		return wp_get_attachment_image(
+			$meta_value['image-icon'],
+			$meta_value['image_size'],
+			false,
+			array( 'class' => '_icon' )
+		);
 	}
 
 
@@ -198,7 +207,7 @@ class Menu_Icons_Type_Image extends Menu_Icons_Type {
 		$icon = '<i class="_icon {{ data.type }} {{ data.icon }} _{{ data.position }}" style="font-size:{{ data.font_size }}em; vertical-align:{{ data.vertical_align }};"></i>';
 
 		$templates = array(
-			'field' => '<img src="{{ data.sizes.full.url }}" alt="{{ data.alt }}" width="32" height="auto" />',
+			'field' => '<img src="{{ data.sizes.full.url }}" alt="{{ data.alt }}" class="_icon" />',
 			'preview-before'     => sprintf( '<a href="#">%s <span>{{ data.title }}</span></a>', $icon ),
 			'preview-after'      => sprintf( '<a href="#"><span>{{ data.title }}</span> %s</a>', $icon ),
 			'preview-hide_label' => sprintf( '<a href="#">%s</a>', $icon ),
