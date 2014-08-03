@@ -792,7 +792,7 @@
 			var menuItem   = controller.miGetCurrentItem();
 			var selected   = state.get('selection').single();
 
-			this.sidebar.set( 'preview', new media.view.miPreview({
+			this.sidebar.set( 'preview', new media.view.miPreview.miImage({
 				controller : controller,
 				model      : menuItem,
 				data       : {
@@ -806,6 +806,22 @@
 	});
 
 	_.extend( media.view.AttachmentsBrowser.miImage.prototype, media.view.miBrowser );
+
+	// Image: Preview
+	media.view.miPreview.miImage = media.view.miPreview.extend({
+		render : function() {
+			var size = this.options.model.get('image_size');
+
+			if ( ! this.options.data.sizes.hasOwnProperty( size ) ) {
+				size = 'full';
+			}
+
+			this.options.model.set( 'image_size', size );
+			this.options.data.url = this.options.data.sizes[ size ].url;
+
+			return media.view.miPreview.prototype.render.apply( this, arguments );
+		}
+	});
 
 	// Frame
 	media.view.MediaFrame.menuIcons = media.view.MediaFrame.extend({

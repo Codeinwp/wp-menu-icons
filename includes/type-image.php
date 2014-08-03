@@ -204,7 +204,7 @@ class Menu_Icons_Type_Image extends Menu_Icons_Type {
 	 * @return array
 	 */
 	public function templates() {
-		$icon = '<img src="{{ data.sizes.full.url }}" alt="{{ data.alt }}" class="_icon {{ data.type }} _{{ data.position }}" style="vertical-align:{{ data.vertical_align }};" />';
+		$icon = '<img src="{{ data.url }}" alt="{{ data.alt }}" class="_icon {{ data.type }} _{{ data.position }}" style="vertical-align:{{ data.vertical_align }};" />';
 
 		$templates = array(
 			'field' => '<img src="{{ data.sizes.full.url }}" alt="{{ data.alt }}" class="_icon" />',
