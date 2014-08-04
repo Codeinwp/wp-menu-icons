@@ -4,14 +4,14 @@
  * Menu Icons
  *
  * @package Menu_Icons
- * @version 0.3.5
+ * @version 0.4.0
  * @author Dzikri Aziz <kvcrvt@gmail.com>
  *
  *
  * Plugin name: Menu Icons
  * Plugin URI: http://kucrut.org/
  * Description: Easily add icons to your navigation menu items
- * Version: 0.3.5
+ * Version: 0.4.0
  * Author: Dzikri Aziz
  * Author URI: http://kucrut.org/
  * License: GPLv2
@@ -24,7 +24,7 @@
  */
 final class Menu_Icons {
 
-	const VERSION = '0.3.5';
+	const VERSION = '0.4.0';
 
 	/**
 	 * Holds plugin data
@@ -75,7 +75,7 @@ final class Menu_Icons {
 		/**
 		 * Allow different system path for fontpacks
 		 *
-		 * @since 0.3.5
+		 * @since 0.4.0
 		 * @param string Directory path, defaults to /wp-content/fontpacks
 		 */
 		$fontpacks_dir_path = apply_filters( 'menu_icons_fontpacks_dir_path', WP_CONTENT_DIR . '/fontpacks' );
@@ -83,7 +83,7 @@ final class Menu_Icons {
 		/**
 		 * Allow different URL path for fontpacks
 		 *
-		 * @since 0.3.5
+		 * @since 0.4.0
 		 * @param string URL path, defaults to /wp-content/fontpacks
 		 */
 		$fontpacks_dir_url = apply_filters( 'menu_icons_fontpacks_dir_url', WP_CONTENT_URL . '/fontpacks' );
@@ -196,7 +196,7 @@ final class Menu_Icons {
 	 *
 	 * Font packs can be obtained from Fontello ({@link http://fontello.com/})
 	 *
-	 * @since   0.3.5
+	 * @since   0.4.0
 	 * @access  protected
 	 * @wp_hook filter    menu_icons_types
 	 * @link    http://fontello.com/ Fontello
