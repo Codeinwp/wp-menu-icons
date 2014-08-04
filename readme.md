@@ -106,6 +106,11 @@ add_filter( 'menu_icons_disable_settings', '__return_true' );
 ### Can you please add X icon font? ###
 Let me know via [GitHub issues](https://github.com/kucrut/wp-menu-icons/issues) and I'll see what I can do.
 
+### How do I add an icon pack from Fontello? ###
+1. Create a new directory called `fontpacks` in `wp-content`.
+1. Grab the zip of the pack, extract, and upload it to the newly created directory.
+1. Enable the icon type from the Settings meta box.
+
 ### I can't select a custom image size from the *Image Size* dropdown ###
 Read [this blog post](http://kucrut.org/add-custom-image-sizes-right-way/).
 
