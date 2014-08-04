@@ -110,8 +110,6 @@ final class Menu_Icons_Admin_Nav_Menus {
 	 * @wp_hook admin_enqueue_scripts
 	 */
 	public static function _enqueue_assets() {
-		global $nav_menu_selected_id;
-
 		$data = array(
 			'text'           => array(
 				'title'        => __( 'Select Icon', 'menu-icons' ),
@@ -126,7 +124,6 @@ final class Menu_Icons_Admin_Nav_Menus {
 			'base_url'       => untrailingslashit( Menu_Icons::get( 'url' ) ),
 			'admin_url'      => untrailingslashit( admin_url() ),
 			'settingsFields' => Menu_Icons_Settings::get_settings_fields(),
-			'menuSettings'   => Menu_Icons_Settings::get_menu_settings( $nav_menu_selected_id ),
 		);
 
 		foreach ( self::$_icon_types as $id => $props ) {

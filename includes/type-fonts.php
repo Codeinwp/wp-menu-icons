@@ -37,6 +37,7 @@ abstract class Menu_Icons_Type_Fonts extends Menu_Icons_Type {
 				'id'          => 'font_size',
 				'type'        => 'number',
 				'label'       => __( 'Font Size', 'menu-icons' ),
+				'default'     => '1.2',
 				'description' => 'em',
 				'attributes'  => array(
 					'min'  => '0.1',
@@ -47,6 +48,7 @@ abstract class Menu_Icons_Type_Fonts extends Menu_Icons_Type {
 				'id'      => 'vertical_align',
 				'type'    => 'select',
 				'label'   => __( 'Vertical Align', 'menu-icons' ),
+				'default' => 'middle',
 				'choices' => array(
 					array(
 						'value' => 'super',

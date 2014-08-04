@@ -104,6 +104,10 @@ final class Menu_Icons_Settings {
 		$menu_settings = self::get( sprintf( 'menu_%d', $menu_id ) );
 		$menu_settings = apply_filters( 'menu_icons_menu_settings', $menu_settings, $menu_id );
 
+		if ( ! is_array( $menu_settings ) ) {
+			$menu_settings = array();
+		}
+
 		return $menu_settings;
 	}
 
@@ -351,6 +355,7 @@ final class Menu_Icons_Settings {
 			$menu_term      = get_term( $menu_id, 'nav_menu' );
 			$menu_key       = sprintf( 'menu_%d', $menu_id );
 			$menu_settings  = self::get_menu_settings( $menu_id );
+
 			$sections['menu'] = array(
 				'id'          => $menu_key,
 				'title'       => __( 'Current Menu', 'menu-icons' ),
