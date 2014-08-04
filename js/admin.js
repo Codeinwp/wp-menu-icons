@@ -38,7 +38,7 @@
 					.addClass('tabs-panel-inactive')
 					.removeClass('tabs-panel-active');
 		})
-		.find('a.mi-settings-nav-tab').first().trigger('click');
+		.find('a.mi-settings-nav-tab').first().click();
 
 
 	if ( 'undefined' === typeof window.menuIcons ) {
@@ -99,7 +99,7 @@
 
 			var id = $(this).data('id');
 
-			$('#menu-icons-'+ id +'-type').val('').trigger('change');
+			$('#menu-icons-'+ id +'-type').val('').trigger('change-mi');
 		}
 	}, window.menuIcons);
 
@@ -206,7 +206,7 @@
 
 			this.model.set( 'value', value );
 			item.set( this.model.id, value );
-			$field.val( value ).trigger('change');
+			$field.val( value ).trigger('change-mi');
 		}
 	});
 
@@ -998,7 +998,7 @@
 			_.each( attrs, function( value, key ) {
 				$el = $('#menu-icons-'+ id +'-'+ key).not('._setting');
 				if ( $el.length ) {
-					$el.val( value ).trigger('change');
+					$el.val( value ).trigger('change-mi');
 				}
 			});
 
@@ -1010,7 +1010,7 @@
 	$('body')
 		.on( 'click', 'div.menu-icons-wrap a._select', window.menuIcons.selectIcon )
 		.on( 'click', 'div.menu-icons-wrap a._remove', window.menuIcons.removeIcon )
-		.on( 'change', 'div.menu-icons-wrap select._type', window.menuIcons.toggleSelect );
+		.on( 'change-mi', 'div.menu-icons-wrap select._type', window.menuIcons.toggleSelect );
 
-	$('div.menu-icons-wrap select._type').trigger('change');
+	$('div.menu-icons-wrap select._type').trigger('change-mi');
 }(jQuery));
