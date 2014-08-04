@@ -1,5 +1,5 @@
 === Menu Icons ===
-Contributors: kucrut
+Contributors: kucrut, joshuairl
 Donate Link: http://kucrut.org/#coffee
 Tags: menu, nav-menu, icons, navigation
 Requires at least: 3.8

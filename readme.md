@@ -3,7 +3,7 @@
 
 Easily add icons to your nav menu items.
 
-**Contributors:** [kucrut](http://profiles.wordpress.org/kucrut)  
+**Contributors:** [kucrut](http://profiles.wordpress.org/kucrut), [joshuairl](http://profiles.wordpress.org/joshuairl)  
 **Tags:** [menu](http://wordpress.org/plugins/tags/menu), [nav-menu](http://wordpress.org/plugins/tags/nav-menu), [icons](http://wordpress.org/plugins/tags/icons), [navigation](http://wordpress.org/plugins/tags/navigation)  
 **Requires at least:** 3.8  
 **Tested up to:** 3.9  
