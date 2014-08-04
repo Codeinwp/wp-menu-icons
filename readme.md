@@ -117,7 +117,7 @@ Read [this blog post](http://kucrut.org/add-custom-image-sizes-right-way/).
 
 ## Changelog ##
 
-### 0.3.5 ###
+### 0.4.0 ###
 * Fontello icon packs support
 * New icon type: Image (attachments)
 
