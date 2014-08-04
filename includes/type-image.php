@@ -1,6 +1,6 @@
 <?php
 /**
- * Icon fonts handler
+ * Image icon handler
  *
  * @package Menu_Icons
  * @author Dzikri Aziz <kvcrvt@gmail.com>
@@ -9,19 +9,59 @@
 require_once dirname( __FILE__ ) . '/type.php';
 
 /**
- * Generic handler for icon fonts
+ * Image icons
  *
  */
-abstract class Menu_Icons_Type_Fonts extends Menu_Icons_Type {
+class Menu_Icons_Type_Image extends Menu_Icons_Type {
 
 	/**
-	 * Get icon names
+	 * Holds icon type
 	 *
-	 * @since  0.1.0
+	 * @since  %ver%
+	 * @access protected
+	 * @var    string
+	 */
+	protected $type = 'image';
+
+	/**
+	 * Class constructor
+	 *
+	 * This simply sets $label
+	 *
+	 * @since %ver%
+	 */
+	function __construct() {
+		$this->label = __( 'Image', 'menu-icons' );
+		parent::__construct();
+	}
+
+	/**
+	 * Get image sizes
+	 *
+	 * @since  %ver%
+	 * @access protected
 	 * @return array
 	 */
-	abstract function get_names();
+	protected function get_image_sizes() {
+		$_sizes = array(
+			'thumbnail' => __( 'Thumbnail', 'menu-icons' ),
+			'medium'    => __( 'Medium', 'menu-icons' ),
+			'large'     => __( 'Large', 'menu-icons' ),
+			'full'      => __( 'Full Size', 'menu-icons' ),
+		);
 
+		$_sizes = apply_filters( 'image_size_names_choose', $_sizes );
+
+		$sizes = array();
+		foreach ( $_sizes as $value => $label ) {
+			$sizes[] = array(
+				'value' => $value,
+				'label' => $label,
+			);
+		}
+
+		return $sizes;
+	}
 
 	/**
 	 * Settings fields
@@ -33,16 +73,12 @@ abstract class Menu_Icons_Type_Fonts extends Menu_Icons_Type {
 	 */
 	public function _settings_fields( $fields ) {
 		$_fields = array(
-			'font_size'      => array(
-				'id'          => 'font_size',
-				'type'        => 'number',
-				'label'       => __( 'Font Size', 'menu-icons' ),
-				'default'     => '1.2',
-				'description' => 'em',
-				'attributes'  => array(
-					'min'  => '0.1',
-					'step' => '0.1',
-				),
+			'image_size'     => array(
+				'id'      => 'image_size',
+				'type'    => 'select',
+				'label'   => __( 'Image Size', 'menu-icons' ),
+				'default' => 'full',
+				'choices' => self::get_image_sizes(),
 			),
 			'vertical_align' => array(
 				'id'      => 'vertical_align',
@@ -96,7 +132,7 @@ abstract class Menu_Icons_Type_Fonts extends Menu_Icons_Type {
 	/**
 	 * Print field for icons selection
 	 *
-	 * @since 0.1.0
+	 * @since %ver%
 	 * @param int   $id         Menu item ID
 	 * @param array $meta_value Current value of 'menu-icons' metadata
 	 */
@@ -111,29 +147,12 @@ abstract class Menu_Icons_Type_Fonts extends Menu_Icons_Type {
 		) ?>
 			<label for="<?php echo esc_attr( $input_id ) ?>"><?php echo esc_html( $this->label ); ?></label>
 			<?php printf(
-				'<select id="%s" name="%s" data-key="%s">',
+				'<input type="text" id="%s" name="%s" data-key="%s" value="%s" />',
 				esc_attr( $input_id ),
-				esc_attr( esc_attr( $input_name ) ),
-				esc_attr( $this->key )
+				esc_attr( $input_name ),
+				esc_attr( $this->key ),
+				esc_attr( $current )
 			) ?>
-				<?php printf(
-					'<option value=""%s>%s</option>',
-					selected( empty( $current ), true, false ),
-					esc_html__( '&mdash; Select &mdash;', 'menu-icons' )
-				) ?>
-				<?php foreach ( $this->get_names() as $group ) : ?>
-					<optgroup label="<?php echo esc_attr( $group['label'] ) ?>">
-						<?php foreach ( $group['items'] as $value => $label ) : ?>
-							<?php printf(
-								'<option value="%s"%s>%s</option>',
-								esc_attr( $value ),
-								selected( $current, $value, false ),
-								esc_html( $label )
-							) ?>
-						<?php endforeach; ?>
-					</optgroup>
-				<?php endforeach; ?>
-			</select>
 		</p>
 		<?php
 	}
@@ -142,16 +161,21 @@ abstract class Menu_Icons_Type_Fonts extends Menu_Icons_Type {
 	/**
 	 * Preview
 	 *
-	 * @since  0.2.0
+	 * @since  %ver%
 	 * @param  string $id         Menu item ID
 	 * @param  array  $meta_value Menu item metadata value
 	 * @return array
 	 */
 	public function preview_cb( $id, $meta_value ) {
-		return sprintf(
-			'<i class="_icon %s %s"></i>',
-			esc_attr( $this->type ),
-			esc_attr( $meta_value[ $this->key ] )
+		if ( empty( $meta_value['image-icon'] ) ) {
+			return null;
+		}
+
+		return wp_get_attachment_image(
+			$meta_value['image-icon'],
+			$meta_value['image_size'],
+			false,
+			array( 'class' => '_icon' )
 		);
 	}
 
@@ -159,27 +183,14 @@ abstract class Menu_Icons_Type_Fonts extends Menu_Icons_Type {
 	/**
 	 * Media frame data
 	 *
-	 * @since 0.2.0
+	 * @since  %ver%
 	 * @param  string $id Icon type ID
 	 * @return array
 	 */
 	public function frame_cb( $id ) {
 		$data = array(
-			'controller' => 'miFont',
+			'controller' => 'miImage',
 		);
-
-		foreach ( $this->get_names() as $group ) {
-			$data['groups'][ $group['key'] ] = $group['label'];
-
-			foreach ( $group['items'] as $id => $label ) {
-				$data['items'][] = array(
-					'type'  => $this->type,
-					'group' => $group['key'],
-					'id'    => $id,
-					'label' => $label,
-				);
-			}
-		}
 
 		return $data;
 	}
@@ -188,22 +199,14 @@ abstract class Menu_Icons_Type_Fonts extends Menu_Icons_Type {
 	/**
 	 * Media frame templates
 	 *
-	 * @since 0.2.0
+	 * @since %ver%
 	 * @return array
 	 */
 	public function templates() {
-		$icon = '<i class="_icon {{ data.type }} {{ data.icon }} _{{ data.position }}" style="font-size:{{ data.font_size }}em; vertical-align:{{ data.vertical_align }};"></i>';
+		$icon = '<img src="{{ data.url }}" alt="{{ data.alt }}" class="_icon {{ data.type }} _{{ data.position }}" style="vertical-align:{{ data.vertical_align }};" />';
 
 		$templates = array(
-			'field' => '<i class="_icon {{ data.type }} {{ data.id }}"></i>',
-			'item'  => sprintf(
-				'<div class="attachment-preview">
-					<span class="_icon"><i class="{{ data.type }} {{ data.id }}"></i></span>
-					<div class="filename"><div>{{ data.label }}</div></div>
-					<a class="check" href="#" title="%s"><div class="media-modal-icon"></div></a>
-				</div>',
-				esc_attr__( 'Deselect', 'menu-icons' )
-			),
+			'field' => '<img src="{{ data.sizes.full.url }}" alt="{{ data.alt }}" class="_icon" />',
 			'preview-before'     => sprintf( '<a href="#">%s <span>{{ data.title }}</span></a>', $icon ),
 			'preview-after'      => sprintf( '<a href="#"><span>{{ data.title }}</span> %s</a>', $icon ),
 			'preview-hide_label' => sprintf( '<a href="#">%s</a>', $icon ),
@@ -216,29 +219,48 @@ abstract class Menu_Icons_Type_Fonts extends Menu_Icons_Type {
 	/**
 	 * Add icon to menu title
 	 *
-	 * Icon types should override this method if they want to provide different markup.
-	 *
-	 * @since 0.1.0
-	 * @param string $title  Menu item title
-	 * @param array  $values Menu item metadata value
+	 * @since  %ver%
+	 * @access protected
+	 * @param  string $title  Menu item title
+	 * @param  array  $values Menu item metadata value
 	 *
 	 * @return string
 	 */
 	protected function add_icon( $title, $values ) {
-		$class = ! empty( $values['hide_label'] ) ? 'visuallyhidden' : '';
-		$title = sprintf(
+		if ( empty( $values['image-icon'] ) ) {
+			return $title;
+		}
+
+		$icon = get_post( $values['image-icon'] );
+		if ( ! is_a( $icon, 'WP_Post' ) || 'attachment' !== $icon->post_type ) {
+			return $title;
+		}
+
+		$t_class = ! empty( $values['hide_label'] ) ? 'visuallyhidden' : '';
+		$title   = sprintf(
 			'<span%s>%s</span>',
-			( ! empty( $class ) ) ? sprintf( ' class="%s"', esc_attr( $class ) ) : '',
+			( ! empty( $t_class ) ) ? sprintf( ' class="%s"', esc_attr( $t_class ) ) : '',
 			$title
 		);
 
+		$i_class  = '_mi';
+		$i_class .= empty( $values['hide_label'] ) ? " _{$values['position']}" : '';
+		$i_style  = $this->get_style( $values );
+		$i_attrs  = array( 'class' => $i_class );
+
+		if ( ! empty( $i_style ) ) {
+			$i_attrs['style'] = $i_style;
+		}
+
 		$title = sprintf(
-			'%s<i class="_mi%s %s %s"%s></i>%s',
+			'%s%s%s',
 			'before' === $values['position'] ? '' : $title,
-			( empty( $values['hide_label'] ) ) ? esc_attr( " _{$values['position']}" ) : '',
-			esc_attr( $this->type ),
-			esc_attr( $values[ $this->key ] ),
-			$this->get_style( $values ),
+			wp_get_attachment_image(
+				$icon->ID,
+				$values['image_size'],
+				false,
+				$i_attrs
+			),
 			'after' === $values['position'] ? '' : $title
 		);
 
@@ -249,7 +271,7 @@ abstract class Menu_Icons_Type_Fonts extends Menu_Icons_Type {
 	/**
 	 * Inline style for icon size, etc
 	 *
-	 * @since  0.2.0
+	 * @since  %ver%
 	 * @param  array  $values Menu item metadata value
 	 * @return string
 	 */
@@ -258,9 +280,6 @@ abstract class Menu_Icons_Type_Fonts extends Menu_Icons_Type {
 		$style_a = array();
 		$style_s = '';
 
-		if ( ! empty( $values['font_size'] ) ) {
-			$style_a['font-size'] = sprintf( '%sem', $values['font_size'] );
-		}
 		if ( ! empty( $values['vertical_align'] ) ) {
 			$style_a['vertical-align'] = $values['vertical_align'];
 		}
@@ -271,7 +290,6 @@ abstract class Menu_Icons_Type_Fonts extends Menu_Icons_Type {
 			foreach ( $style_a as $key => $value ) {
 				$style_s .= sprintf( '%s:%s;', esc_attr( $key ), esc_attr( $value ) );
 			}
-			$style_s = sprintf( ' style="%s"', $style_s );
 		}
 
 		return $style_s;

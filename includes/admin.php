@@ -110,8 +110,6 @@ final class Menu_Icons_Admin_Nav_Menus {
 	 * @wp_hook admin_enqueue_scripts
 	 */
 	public static function _enqueue_assets() {
-		global $nav_menu_selected_id;
-
 		$data = array(
 			'text'           => array(
 				'title'        => __( 'Select Icon', 'menu-icons' ),
@@ -126,7 +124,6 @@ final class Menu_Icons_Admin_Nav_Menus {
 			'base_url'       => untrailingslashit( Menu_Icons::get( 'url' ) ),
 			'admin_url'      => untrailingslashit( admin_url() ),
 			'settingsFields' => Menu_Icons_Settings::get_settings_fields(),
-			'menuSettings'   => Menu_Icons_Settings::get_menu_settings( $nav_menu_selected_id ),
 		);
 
 		foreach ( self::$_icon_types as $id => $props ) {
@@ -211,12 +208,10 @@ final class Menu_Icons_Admin_Nav_Menus {
 	 * @access private
 	 * @return array
 	 */
-	private static function _get_fields() {
-		$sections = Menu_Icons_Settings::get_fields();
-		$fields   = $sections['menu']['fields'];
+	private static function _get_fields( Array $values = array() ) {
+		$fields = Menu_Icons_Settings::get_settings_fields( $values );
 
 		foreach ( $fields as &$field ) {
-			$field['default']    = $field['value'];
 			$field['attributes'] = array_merge(
 				array(
 					'class'    => '_setting',
@@ -315,8 +310,7 @@ final class Menu_Icons_Admin_Nav_Menus {
 						<?php endif; ?>
 					<?php endforeach; ?>
 
-					<?php foreach ( self::_get_fields() as $field ) :
-						$field['value'] = $current[ $field['id'] ];
+					<?php foreach ( self::_get_fields( $current ) as $field ) :
 						$field = Kucrut_Form_Field::create(
 							$field,
 							array(

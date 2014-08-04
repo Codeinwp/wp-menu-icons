@@ -38,7 +38,7 @@
 					.addClass('tabs-panel-inactive')
 					.removeClass('tabs-panel-active');
 		})
-		.find('a.mi-settings-nav-tab').first().trigger('click');
+		.find('a.mi-settings-nav-tab').first().click();
 
 
 	if ( 'undefined' === typeof window.menuIcons ) {
@@ -99,7 +99,7 @@
 
 			var id = $(this).data('id');
 
-			$('#menu-icons-'+ id +'-type').val('').trigger('change');
+			$('#menu-icons-'+ id +'-type').val('').trigger('change-mi');
 		}
 	}, window.menuIcons);
 
@@ -112,22 +112,19 @@
 	// Models
 	media.model.mi = {};
 
-	// Models: Menu Items
+	// Model: Menu Items
 	media.model.mi.MenuItems = Backbone.Collection.extend({
 		props : new Backbone.Model({ item : '' }),
 		model : Backbone.Model.extend({
 			defaults : {
-				type           : '',
-				group          : 'all',
-				icon           : '',
-				font_size      : '1.2',
-				vertical_align : 'middle',
-				hide_label     : ''
-			}
+				type  : '',
+				group : 'all',
+				icon  : ''
+			},
 		})
 	});
 
-	// Models: Settings fields
+	// Model: Settings fields
 	media.model.mi.MenuItems.Settings = Backbone.Collection.extend({
 		model : Backbone.Model.extend({
 			defaults : {
@@ -162,8 +159,7 @@
 		}
 	});
 
-
-	// All: Settings
+	// View: Settings wrapper
 	media.view.miSidebar.Settings = media.view.PriorityList.extend({
 		className : 'mi-settings attachment-info',
 
@@ -184,6 +180,7 @@
 		}
 	});
 
+	// View: Settings field
 	media.view.miSidebar.Settings.Field = media.View.extend({
 		tagName   : 'label',
 		className : 'setting',
@@ -194,7 +191,7 @@
 		initialize : function() {
 			media.View.prototype.initialize.apply( this, arguments );
 			this.template = media.template( 'menu-icons-settings-field-'+this.model.get('type') );
-			this.model.on( 'change:value', this._updateDeps, this );
+			this.model.on( 'change', this.render, this );
 		},
 
 		prepare : function() {
@@ -209,12 +206,92 @@
 
 			this.model.set( 'value', value );
 			item.set( this.model.id, value );
-			$field.val( value ).trigger('change');
+			$field.val( value ).trigger('change-mi');
 		}
 	});
 
+	// View: Item preview on the sidebar
+	media.view.miPreview = media.View.extend({
+		tagName   : 'p',
+		className : 'mi-preview menu-item attachment-info',
+		events    : {
+			'click a' : 'preventDefault'
+		},
 
-	// Font icon: Browser
+		initialize : function() {
+			media.View.prototype.initialize.apply( this, arguments );
+			this.model.on( 'change', this.render, this );
+		},
+
+		render : function() {
+			var data     = _.extend( this.model.toJSON(), this.options.data );
+			var template = 'menu-icons-' + data.type + '-preview-';
+
+			if ( data.hide_label ) {
+				template += 'hide_label';
+			}
+			else {
+				template += data.position;
+			}
+
+			this.template = media.template( template );
+			this.$el.html( this.template( data ) );
+
+			return this;
+		},
+
+		preventDefault: function(e) {
+			e.preventDefault();
+		}
+	});
+
+	// Methods for the browser view
+	media.view.miBrowser = {
+		createSidebar : function() {
+			var options   = this.options;
+			var selection = options.selection;
+			var sidebar   = this.sidebar = new media.view.miSidebar({
+				controller : this.controller,
+				type       : options.type
+			});
+
+			this.views.add( sidebar );
+
+			selection.on( 'selection:single', this.createSingle, this );
+			selection.on( 'selection:unsingle', this.disposeSingle, this );
+
+			if ( selection.single() ) {
+				this.createSingle();
+			}
+		},
+
+		createSingle : function() {
+			this.createPreview();
+		},
+
+		createSettings : function() {
+			var item     = this.controller.miGetCurrentItem();
+			var fields   = this.model.get('settings');
+
+			if ( ! fields.length ) {
+				return;
+			}
+
+			_.each( fields, function( field ) {
+				field.value = item.get( field.id );
+			} );
+
+			this.sidebar.set( 'settings', new media.view.miSidebar.Settings({
+				controller : this.controller,
+				collection : new media.model.mi.MenuItems.Settings( fields ),
+				model      : item,
+				type       : this.options.type,
+				priority   : 120
+			}) );
+		}
+	};
+
+	// View: Font icon: Browser
 	media.view.miFont = media.View.extend({
 		className : 'attachments-browser mi-items-wrap',
 
@@ -236,10 +313,15 @@
 		},
 
 		createToolbar : function() {
+			var library = this.collection;
+			var group = library.props.get('group');
+
 			this.toolbar = new media.view.Toolbar({
 				controller : this.controller
 			});
 			this.views.add( this.toolbar );
+
+
 
 			// Dropdown filter
 			this.toolbar.set( 'filters', new media.view.miFont.Filters({
@@ -256,73 +338,34 @@
 			}).render() );
 		},
 
-		createSidebar : function() {
-			var options   = this.options;
-			var selection = options.selection;
-			var sidebar   = this.sidebar = new media.view.miSidebar({
-				controller : this.controller,
-				type       : options.type
-			});
-
-			this.views.add( sidebar );
-
-			selection.on( 'selection:single', this.createSingle, this );
-			selection.on( 'selection:unsingle', this.disposeSingle, this );
-
-			if ( selection.single() ) {
-				this.createSingle();
-			}
-		},
-
-		createSingle : function() {
-			this.controller.miUpdateItemProps();
-
-			var sidebar    = this.sidebar;
+		createPreview : function() {
 			var controller = this.controller;
-			var item       = controller.miGetCurrentItem();
-
-			sidebar.set( 'preview', new media.view.miFont.Icon.Preview({
-				controller : this.controller,
-				model      : item,
-				type       : this.options.type,
-				priority   : 80
-			}) );
+			var menuItem   = controller.miGetCurrentItem();
+			var selected   = this.model.get('selection').single();
 
 			this.createSettings();
+			this.sidebar.set( 'preview', new media.view.miPreview({
+				controller : controller,
+				model      : menuItem,
+				data       : {
+					type : selected.get('type'),
+					icon : selected.id
+				},
+				priority   : 80
+			}) );
 		},
 
 		disposeSingle : function() {
 			var sidebar = this.sidebar;
 
-			this.controller.miUpdateItemProps();
 			sidebar.unset('preview');
 			sidebar.unset('settings');
-		},
-
-		createSettings : function() {
-			var item   = this.controller.miGetCurrentItem();
-			var fields = this.controller.state().get('settings');
-
-			if ( ! fields.length ) {
-				return;
-			}
-
-			_.each( fields, function( field ) {
-				field.value = item.get( field.id );
-			} );
-
-			this.sidebar.set( 'settings', new media.view.miSidebar.Settings({
-				controller : this.controller,
-				collection : new media.model.mi.MenuItems.Settings( fields ),
-				model      : item,
-				type       : this.options.type,
-				priority   : 120
-			}) );
 		}
 	});
 
+	_.extend( media.view.miFont.prototype, media.view.miBrowser );
 
-	// Font icon: Library
+	// View: Font icon: Library
 	media.view.miFont.Library = media.View.extend({
 		tagName   : 'ul',
 		className : 'attachments mi-items clearfix',
@@ -401,8 +444,7 @@
 		}
 	});
 
-
-	// Font icon: Dropdown filter
+	// View: Font icon: Dropdown filter
 	media.view.miFont.Filters = media.view.AttachmentFilters.extend({
 		createFilters : function() {
 			this.filters = {
@@ -434,8 +476,7 @@
 		}
 	});
 
-
-	// Font icon: Item
+	// View: Font icon: Item
 	media.view.miFont.Icon = media.view.Attachment.extend({
 		className : 'attachment mi-item',
 		events    : {
@@ -457,43 +498,7 @@
 	});
 
 
-	// Font icon: Preview
-	media.view.miFont.Icon.Preview = media.View.extend({
-		tagName   : 'p',
-		className : 'mi-preview menu-item attachment-info',
-		events    : {
-			'click a' : 'preventDefault'
-		},
-
-		initialize : function() {
-			media.View.prototype.initialize.apply( this, arguments );
-			this.model.on( 'change', this.render, this );
-		},
-
-		render : function() {
-			var data     = this.model.toJSON();
-			var template = 'menu-icons-' + this.options.type + '-preview-';
-
-			if ( data.hide_label ) {
-				template += 'hide_label';
-			}
-			else {
-				template += data.position;
-			}
-
-			this.template = media.template( template );
-			this.$el.html( this.template( data ) );
-
-			return this;
-		},
-
-		preventDefault: function(e) {
-			e.preventDefault();
-		}
-	});
-
-
-	// Font icon: Controller
+	// Font icon state
 	media.controller.miFont = media.controller.State.extend({
 		defaults : {
 			id       : 'mi-font',
@@ -540,17 +545,20 @@
 		},
 
 		refresh : function() {
-			var library = this.get('library');
-			var item    = this.frame.miGetCurrentItem();
-			var groups  = this.get('data').groups;
-			var group   = item.get('group');
-
-			if ( _.isUndefined( groups[ group ] ) ) {
-				group = 'all';
-			}
-
-			library.props.set( 'group', group );
+			this.miResetFilter();
 			this.miUpdateSelection();
+		},
+
+		miGetContent : function() {
+			this.miResetFilter();
+
+			return new media.view.miFont({
+				controller : this.frame,
+				model      : this,
+				collection : this.get('library'),
+				selection  : this.get('selection'),
+				type       : this.get('type')
+			});
 		},
 
 		miResetLibrary : function() {
@@ -566,6 +574,19 @@
 			this.miUpdateSelection();
 		},
 
+		miResetFilter : function() {
+			var library = this.get('library');
+			var item    = this.frame.miGetCurrentItem();
+			var groups  = this.get('data').groups;
+			var group   = item.get('group');
+
+			if ( _.isUndefined( groups[ group ] ) ) {
+				group = 'all';
+			}
+
+			library.props.set( 'group', group );
+		},
+
 		miUpdateSelection : function() {
 			var selection = this.get('selection');
 			var type      = this.get('type');
@@ -579,17 +600,10 @@
 			}
 
 			selection.reset( selected ? selected : [] );
-		},
-
-		miGetIcon : function() {
-			var single = this.get('selection').single();
-
-			return single ? single.id : '';
 		}
 	});
 
-
-	// Font icon: Library collection
+	// Font icon collection
 	media.controller.miFont.Library = Backbone.Collection.extend({
 		props : new Backbone.Model({
 			group  : 'all',
@@ -641,6 +655,196 @@
 	});
 
 
+	// Image icon state
+	media.controller.miImage = media.controller.Library.extend({
+		defaults : _.defaults({
+			id            : 'browse',
+			menu          : 'default',
+			router        : 'browse',
+			toolbar       : 'mi-select',
+			filterable    : 'uploaded',
+			settings      : [ 'hide_label', 'position', 'image_size', 'vertical_align' ],
+			syncSelection : false
+		}, media.controller.Library.prototype.defaults),
+
+		initialize : function() {
+			var selection = this.get('selection');
+			var fieldIds  = this.get('settings');
+			var fields;
+
+			this.set( 'library', media.query({ type: 'image' }) );
+
+			this.routers = {
+				upload : {
+					text:     media.view.l10n.uploadFilesTitle,
+					priority: 20
+				},
+				browse : {
+					text:     media.view.l10n.mediaLibraryTitle,
+					priority: 40
+				}
+			};
+
+			if ( ! ( selection instanceof media.model.Selection ) ) {
+				this.set( 'selection', new media.model.Selection( selection, {
+					multiple : false
+				}) );
+			}
+
+			fields = _.filter( window.menuIcons.settingsFields, function( field ) {
+				return ( -1 !== $.inArray( field.id, fieldIds ) );
+			});
+			this.set( 'settings', fields );
+
+			media.controller.Library.prototype.initialize.apply( this, arguments );
+		},
+
+		activate : function() {
+			media.controller.Library.prototype.activate.apply( this, arguments );
+			this.frame.on( 'open', this.miUpdateSelection, this );
+			this.miUpdateSelection();
+		},
+
+		deactivate : function() {
+			media.controller.Library.prototype.deactivate.apply( this, arguments );
+			this.frame.off( 'open', this.miUpdateSelection, this );
+		},
+
+		miUpdateSelection : function() {
+			var selection = this.get('selection');
+			var type      = this.get('type');
+			var key       = type+'-icon';
+			var item      = this.frame.miGetCurrentItem();
+			var icon      = item.get(key);
+			var attachment;
+
+			if ( type === item.get('type') && icon ) {
+				attachment = Attachment.get( icon );
+				this.dfd = attachment.fetch();
+			}
+
+			selection.reset( attachment ? attachment : [] );
+		},
+
+		miGetContent : function( mode ) {
+			var content = ( 'upload' === mode ) ? this.uploadContent() : this.browseContent();
+
+			this.frame.$el.removeClass('hide-toolbar');
+
+			return content;
+		},
+
+		browseContent: function() {
+			var state = this;
+
+			// Browse our library of attachments.
+			return new media.view.AttachmentsBrowser.miImage({
+				type       : state.get('type'),
+				controller : state.frame,
+				collection : state.get('library'),
+				selection  : state.get('selection'),
+				model      : state,
+				sortable   : state.get('sortable'),
+				search     : state.get('searchable'),
+				filters    : state.get('filterable'),
+				display    : state.get('displaySettings'),
+				dragInfo   : state.get('dragInfo')
+			});
+		},
+
+		/**
+		 * Render callback for the content region in the `upload` mode.
+		 */
+		uploadContent: function() {
+			return new media.view.UploaderInline({
+				controller: this.frame
+			});
+		}
+	});
+
+	// View: Image Icon: Browser
+	media.view.AttachmentsBrowser.miImage = media.view.AttachmentsBrowser.extend({
+		disposeSingle : function() {
+			media.view.AttachmentsBrowser.prototype.disposeSingle.apply( this, arguments );
+			this.sidebar.unset('preview');
+			this.sidebar.unset('settings');
+		},
+
+		createPreview : function() {
+			var self  = this;
+			var state = this.model;
+			var selected, controller, menuItem;
+
+			if ( state.dfd && 'pending' === state.dfd.state() ) {
+				state.dfd.done( function() {
+					self.createPreview();
+				} );
+
+				return;
+			}
+
+			selected = state.get('selection').single();
+
+			// Disallow anything but image
+			if ( 'image' !== selected.get('type') ) {
+				state.get('selection').reset();
+
+				return;
+			}
+
+			// Wait for the upload process to finish
+			if ( selected.get('uploading') ) {
+				selected.on( 'change:uploading', self.createPreview, this );
+
+				return;
+			}
+
+			controller = this.controller;
+			menuItem   = controller.miGetCurrentItem();
+
+			this.createSettings();
+			this.sidebar.set( 'preview', new media.view.miPreview.miImage({
+				controller : controller,
+				settings   : this.sidebar.get('settings'),
+				model      : menuItem,
+				data       : {
+					type  : state.get('type'),
+					alt   : selected.get('alt'),
+					sizes : selected.get('sizes')
+				},
+				priority   : 80
+			}) );
+		}
+	});
+
+	_.extend( media.view.AttachmentsBrowser.miImage.prototype, media.view.miBrowser );
+
+	// View: Image Icon: Preview on the sidebar
+	media.view.miPreview.miImage = media.view.miPreview.extend({
+		render : function() {
+			var size       = this.options.model.get('image_size');
+			var imageSizes = this.options.data.sizes;
+			var sizeField  = this.options.settings.get('image_size');
+			var newChoices = [];
+
+			if ( ! imageSizes.hasOwnProperty( size ) ) {
+				size = 'full';
+			}
+
+			_.each( sizeField.model.get('choices'), function( choice ) {
+				if ( imageSizes.hasOwnProperty( choice.value ) ) {
+					newChoices.push( choice );
+				}
+			} );
+
+			sizeField.model.set( 'choices', newChoices );
+			this.options.model.set( 'image_size', size, { silent: true } );
+			this.options.data.url = imageSizes[ size ].url;
+
+			return media.view.miPreview.prototype.render.apply( this, arguments );
+		}
+	});
+
 	// Frame
 	media.view.MediaFrame.menuIcons = media.view.MediaFrame.extend({
 		initialize : function() {
@@ -650,7 +854,7 @@
 				selection : [],
 				multiple  : false,
 				editing   : false,
-				toolbar   : 'mi-select'
+				toolbar   : 'mi-select',
 			});
 
 			this.miMenuItems = new media.model.mi.MenuItems();
@@ -685,13 +889,28 @@
 		},
 
 		bindHandlers : function() {
+			this.on( 'router:create:browse', this.createRouter, this );
+			this.on( 'router:render:browse', this.browseRouter, this );
+			this.on( 'content:render', this.miRenderContent, this );
 			this.on( 'toolbar:create:mi-select', this.createToolbar, this );
 			this.on( 'toolbar:render:mi-select', this.miSelectToolbar, this );
 			this.on( 'open', this.miInitialize, this );
+		},
 
-			_.each( window.menuIcons.iconTypes, function( props, type ) {
-				this.on( 'content:activate:'+props.id, this.miContentRender, this, props );
-			}, this );
+		browseRouter : function( routerView ) {
+			var routers = this.state().routers;
+
+			if ( routers ) {
+				routerView.set( routers );
+			}
+		},
+
+		miRenderContent : function() {
+			var state   = this.state();
+			var mode    = this.content.mode();
+			var content = state.miGetContent( mode );
+
+			this.content.set( content );
 		},
 
 		// Toolbars
@@ -709,6 +928,7 @@
 				},
 				click    : function() {
 					frame.close();
+					frame.miUpdateItemProps();
 					frame.miUpdateItem();
 				}
 			});
@@ -716,16 +936,10 @@
 
 		// Content
 		miContentRender : function() {
-			var state = this.state();
-			var View  = media.view[ state.get('data').controller ];
+			var state   = this.state();
+			var content = state.miGetContent();
 
-			this.content.set( new View({
-				controller : this,
-				model      : state,
-				collection : state.get('library'),
-				selection  : state.get('selection'),
-				type       : state.get('type')
-			}) );
+			this.content.set( content );
 		},
 
 		miGetState : function() {
@@ -769,18 +983,21 @@
 			var type      = state.get('type');
 			var selection = state.get('selection');
 			var single    = selection.single();
-			var item      = this.miGetCurrentItem();
 			var icon      = single ? single.id : '';
+			var item      = this.miGetCurrentItem();
 
 			item.set( 'type', type );
 			item.set( type+'-icon', icon );
-			item.set( 'icon', state.miGetIcon() );
+			item.set( 'icon', icon );
 		},
 
 		miUpdateItem : function() {
-			var attrs = this.miGetCurrentItem().toJSON();
-			var id    = attrs.id;
-			var field = media.template( 'menu-icons-'+ attrs.type +'-field' );
+			var attrs    = this.miGetCurrentItem().toJSON();
+			var id       = attrs.id;
+			var state    = this.state();
+			var selected = state.get('selection').single();
+			var template = media.template( 'menu-icons-'+ attrs.type +'-field' );
+			var preview  = template( selected.toJSON() );
 			var $el;
 
 			delete attrs.id;
@@ -789,11 +1006,11 @@
 			_.each( attrs, function( value, key ) {
 				$el = $('#menu-icons-'+ id +'-'+ key).not('._setting');
 				if ( $el.length ) {
-					$el.val( value ).trigger('change');
+					$el.val( value ).trigger('change-mi');
 				}
 			});
 
-			$('#menu-icons-'+ id +'-select').html( field(attrs) );
+			$('#menu-icons-'+ id +'-select').html( preview );
 		}
 	});
 
@@ -801,7 +1018,7 @@
 	$('body')
 		.on( 'click', 'div.menu-icons-wrap a._select', window.menuIcons.selectIcon )
 		.on( 'click', 'div.menu-icons-wrap a._remove', window.menuIcons.removeIcon )
-		.on( 'change', 'div.menu-icons-wrap select._type', window.menuIcons.toggleSelect );
+		.on( 'change-mi', 'div.menu-icons-wrap select._type', window.menuIcons.toggleSelect );
 
-	$('div.menu-icons-wrap select._type').trigger('change');
+	$('div.menu-icons-wrap select._type').trigger('change-mi');
 }(jQuery));
