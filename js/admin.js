@@ -116,16 +116,11 @@
 	media.model.mi.MenuItems = Backbone.Collection.extend({
 		props : new Backbone.Model({ item : '' }),
 		model : Backbone.Model.extend({
-			// TODO: Get these from settings fields defaults
-			defaults : {
-				type           : '',
-				group          : 'all',
-				icon           : '',
-				font_size      : '1.2',
-				vertical_align : 'middle',
-				image_size     : 'full',
-				hide_label     : ''
-			}
+			defaults : _.extend( {
+				type  : '',
+				group : 'all',
+				icon  : ''
+			}, menuIcons.menuSettings ),
 		})
 	});
 
