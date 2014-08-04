@@ -264,13 +264,12 @@
 		},
 
 		createSingle : function() {
-			this.createSettings();
 			this.createPreview();
 		},
 
 		createSettings : function() {
-			var item   = this.controller.miGetCurrentItem();
-			var fields = this.model.get('settings');
+			var item     = this.controller.miGetCurrentItem();
+			var fields   = this.model.get('settings');
 
 			if ( ! fields.length ) {
 				return;
@@ -342,6 +341,7 @@
 			var menuItem   = controller.miGetCurrentItem();
 			var selected   = this.model.get('selection').single();
 
+			this.createSettings();
 			this.sidebar.set( 'preview', new media.view.miPreview({
 				controller : controller,
 				model      : menuItem,
@@ -774,25 +774,33 @@
 		createPreview : function() {
 			var self  = this;
 			var state = this.model;
+			var selected, controller, menuItem;
 
-			if ( 'pending' === state.dfd.state() ) {
-				this.model.dfd.done( function() {
+			if ( state.dfd && 'pending' === state.dfd.state() ) {
+				state.dfd.done( function() {
 					self.createPreview();
 				} );
 
 				return;
 			}
 
-			var controller = this.controller;
-			var menuItem   = controller.miGetCurrentItem();
-			var selected   = state.get('selection').single();
+			selected = state.get('selection').single();
 
+			if ( selected.get('uploading') ) {
+				selected.on( 'change:uploading', self.createPreview, this );
+				return;
+			}
+
+			controller = this.controller;
+			menuItem   = controller.miGetCurrentItem();
+
+			this.createSettings();
 			this.sidebar.set( 'preview', new media.view.miPreview.miImage({
 				controller : controller,
 				settings   : this.sidebar.get('settings'),
 				model      : menuItem,
 				data       : {
-					type  : this.model.get('type'),
+					type  : state.get('type'),
 					alt   : selected.get('alt'),
 					sizes : selected.get('sizes')
 				},
