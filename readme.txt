@@ -4,7 +4,7 @@ Donate Link: http://kucrut.org/#coffee
 Tags: menu, nav-menu, icons, navigation
 Requires at least: 3.8
 Tested up to: 3.9
-Stable tag: 0.3.2
+Stable tag: 0.3.5
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -26,9 +26,11 @@ This plugin gives you the ability to add icons to your menu items, similar to th
 - [Elusive Icons](http://shoestrap.org/downloads/elusive-icons-webfont/) by [Aristeides Stathopoulos](http://shoestrap.org/blog/author/aristath/)
 - [Font Awesome](http://fontawesome.io/) by [Dave Gandy](http://twitter.com/davegandy)
 - [Genericons](http://genericons.com/) by [Automattic](http://automattic.com/)
+- Fontello icon packs
+- Image (attachments)
 
 = Planned supported icon types =
-- Image (attachment file & URL)
+- Image (URL)
 
 Development of this plugin is done on [GitHub](https://github.com/kucrut/wp-menu-icons). **Pull requests welcome**. Please see [issues reported](https://github.com/kucrut/wp-menu-icons/issues) there before going to the plugin forum.
 
@@ -83,8 +85,14 @@ add_filter( 'menu_icons_disable_settings', '__return_true' );
 = Can you please add X icon font? =
 Let me know via [GitHub issues](https://github.com/kucrut/wp-menu-icons/issues) and I'll see what I can do.
 
+= I can't select a custom image size from the *Image Size* dropdown =
+Read [this blog post](http://kucrut.org/add-custom-image-sizes-right-way/).
 
 == Changelog ==
+= 0.3.5 =
+* Fontello icon packs support
+* New icon type: Image (attachments)
+
 = 0.3.2 =
 * Add missing minified CSS for Elusive font icon, props [zazou83](http://profiles.wordpress.org/zazou83)
 
