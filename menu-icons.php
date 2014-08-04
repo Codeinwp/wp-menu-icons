@@ -4,14 +4,14 @@
  * Menu Icons
  *
  * @package Menu_Icons
- * @version 0.3.2
+ * @version 0.4.0
  * @author Dzikri Aziz <kvcrvt@gmail.com>
  *
  *
  * Plugin name: Menu Icons
  * Plugin URI: http://kucrut.org/
  * Description: Easily add icons to your navigation menu items
- * Version: 0.3.2
+ * Version: 0.4.0
  * Author: Dzikri Aziz
  * Author URI: http://kucrut.org/
  * License: GPLv2
@@ -24,7 +24,7 @@
  */
 final class Menu_Icons {
 
-	const VERSION = '0.3.2';
+	const VERSION = '0.4.0';
 
 	/**
 	 * Holds plugin data
@@ -72,19 +72,38 @@ final class Menu_Icons {
 	public static function _load() {
 		load_plugin_textdomain( 'menu-icons', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 
+		/**
+		 * Allow different system path for fontpacks
+		 *
+		 * @since 0.4.0
+		 * @param string Directory path, defaults to /wp-content/fontpacks
+		 */
+		$fontpacks_dir_path = apply_filters( 'menu_icons_fontpacks_dir_path', WP_CONTENT_DIR . '/fontpacks' );
+
+		/**
+		 * Allow different URL path for fontpacks
+		 *
+		 * @since 0.4.0
+		 * @param string URL path, defaults to /wp-content/fontpacks
+		 */
+		$fontpacks_dir_url = apply_filters( 'menu_icons_fontpacks_dir_url', WP_CONTENT_URL . '/fontpacks' );
+
 		self::$data = array(
-			'dir'           => plugin_dir_path( __FILE__ ),
-			'url'           => plugin_dir_url( __FILE__ ),
-			'icon_types'    => array(),
-			'default_style' => array(
+			'dir'                => plugin_dir_path( __FILE__ ),
+			'url'                => plugin_dir_url( __FILE__ ),
+			'icon_types'         => array(),
+			'default_style'      => array(
 				'font-size'      => '1.2em',
 				'vertical-align' => 'middle',
 			),
+			'fontpacks_dir_path' => $fontpacks_dir_path,
+			'fontpacks_dir_url'  => $fontpacks_dir_url,
 		);
 
 		require_once self::$data['dir'] . 'includes/library/functions.php';
 
 		add_filter( 'menu_icons_types', array( __CLASS__, '_register_icon_types' ), 7 );
+		add_filter( 'menu_icons_types', array( __CLASS__, '_register_font_packs' ), 8 );
 		add_filter( 'is_protected_meta', array( __CLASS__, '_protect_meta_key' ), 10, 3 );
 		add_action( 'wp_loaded', array( __CLASS__, '_init' ), 9 );
 		add_action( 'get_header', array( __CLASS__, '_load_front_end' ) );
@@ -150,6 +169,7 @@ final class Menu_Icons {
 	 */
 	public static function _register_icon_types( $icon_types ) {
 		$builtin_types = array(
+			'image',
 			'dashicons',
 			'elusive',
 			'fontawesome',
@@ -162,6 +182,46 @@ final class Menu_Icons {
 			$class_name    = sprintf( 'Menu_Icons_Type_%s', ucfirst( $type ) );
 			$type_instance = new $class_name;
 			$icon_types    = $type_instance->register( $icon_types );
+		}
+
+		return $icon_types;
+	}
+
+
+	/**
+	 * Register font packs
+	 *
+	 * Each directory under <code>fontpacks/</code> will be scanned. When a <code>config.json</code>
+	 * file is found it'll be read and the font pack will be registered.
+	 *
+	 * Font packs can be obtained from Fontello ({@link http://fontello.com/})
+	 *
+	 * @since   0.4.0
+	 * @access  protected
+	 * @wp_hook filter    menu_icons_types
+	 * @link    http://fontello.com/ Fontello
+	 *
+	 * @param   array     $icon_types      Current icon types
+	 * @return  array
+	 */
+	public static function _register_font_packs( $icon_types ) {
+		$path = self::$data['fontpacks_dir_path'];
+		if ( ! is_dir( $path ) ) {
+			return $icon_types;
+		}
+
+		require_once sprintf( '%s/includes/type-fontpack.php', self::$data['dir'] );
+		$class_name = 'Menu_Icons_Type_Fontpack';
+		$iterator   = new DirectoryIterator( $path );
+
+		foreach ( $iterator as $item ) {
+			if ( $item->isDot() || ! $item->isDir() ) {
+				continue;
+			}
+
+			$pack       = $item->getFilename();
+			$instance   = new $class_name( $pack );
+			$icon_types = $instance->register( $icon_types );
 		}
 
 		return $icon_types;

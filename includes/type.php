@@ -83,6 +83,8 @@ abstract class Menu_Icons_Type {
 		if ( is_null( $this->version ) ) {
 			$this->version = get_bloginfo( 'version' );
 		}
+
+		add_filter( 'menu_icons_settings_fields', array( $this, '_settings_fields' ) );
 	}
 
 
@@ -126,6 +128,18 @@ abstract class Menu_Icons_Type {
 	 * @param array $meta_value Current value of 'menu-icons' metadata
 	 */
 	abstract public function the_field( $id, $meta_value );
+
+
+	/**
+	 * Settings fields
+	 *
+	 * @since  0.4.0
+	 * @param  array $fields
+	 * @return array
+	 */
+	public function _settings_fields( $fields ) {
+		return $fields;
+	}
 
 
 	/**

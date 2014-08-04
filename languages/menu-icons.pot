@@ -2,9 +2,9 @@
 # This file is distributed under the same license as the Menu Icons package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Menu Icons 0.3.2\n"
+"Project-Id-Version: Menu Icons 0.4.0\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/menu-icons\n"
-"POT-Creation-Date: 2014-06-05 16:02:29+00:00\n"
+"POT-Creation-Date: 2014-08-04 09:28:38+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -12,171 +12,124 @@ msgstr ""
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 
-#: includes/admin.php:95 includes/library/form-fields.php:514
-#: includes/type-fonts.php:52
+#: includes/admin.php:95 includes/library/form-fields.php:524
+#: includes/type-fonts.php:122
 msgid "&mdash; Select &mdash;"
 msgstr ""
 
-#: includes/admin.php:117
+#: includes/admin.php:115
 msgid "Select Icon"
 msgstr ""
 
-#: includes/admin.php:118 includes/admin.php:168
+#: includes/admin.php:116 includes/admin.php:171
 msgid "Select"
 msgstr ""
 
-#: includes/admin.php:119
+#: includes/admin.php:117 includes/type-fontpack.php:266
 msgid "All"
 msgstr ""
 
-#: includes/admin.php:271
-msgid "Icon:"
-msgstr ""
-
-#: includes/admin.php:275
-msgid "Select icon"
-msgstr ""
-
-#: includes/admin.php:281 includes/type-elusive.php:153
-msgid "Remove"
-msgstr ""
-
-#: includes/admin.php:287
-msgid "Icon type"
-msgstr ""
-
-#: includes/admin.php:359
-msgid "Icon"
-msgstr ""
-
-#: includes/admin.php:423
+#: includes/admin.php:118
 msgid "Preview"
 msgstr ""
 
-#: includes/admin.php:460 includes/settings.php:304
-msgid "Position"
-msgstr ""
-
-#: includes/admin.php:461 includes/settings.php:306
-msgid "Before"
-msgstr ""
-
-#: includes/admin.php:462 includes/settings.php:307
-msgid "After"
-msgstr ""
-
-#: includes/admin.php:463 includes/settings.php:314
-#: includes/type-elusive.php:260
-msgid "Font Size"
-msgstr ""
-
-#: includes/admin.php:464 includes/settings.php:325
-msgid "Vertical Align"
-msgstr ""
-
-#: includes/admin.php:465
-msgid "&ndash; Select &ndash;"
-msgstr ""
-
-#: includes/admin.php:466 includes/settings.php:327
-msgid "Super"
-msgstr ""
-
-#: includes/admin.php:467 includes/settings.php:328
-#: includes/type-genericons.php:108
-msgid "Top"
-msgstr ""
-
-#: includes/admin.php:468 includes/settings.php:329
-msgid "Text Top"
-msgstr ""
-
-#: includes/admin.php:469 includes/settings.php:330
-msgid "Middle"
-msgstr ""
-
-#: includes/admin.php:470 includes/settings.php:331
-msgid "Baseline"
-msgstr ""
-
-#: includes/admin.php:471 includes/settings.php:333
-msgid "Bottom"
-msgstr ""
-
-#: includes/admin.php:472 includes/settings.php:332
-msgid "Text Bottom"
-msgstr ""
-
-#: includes/admin.php:473 includes/settings.php:334
-msgid "Sub"
-msgstr ""
-
-#: includes/admin.php:474 includes/settings.php:341
-msgid "Hide Label"
-msgstr ""
-
-#: includes/admin.php:475 includes/settings.php:343
-#: includes/type-dashicons.php:246 includes/type-dashicons.php:247
-msgid "No"
-msgstr ""
-
-#: includes/admin.php:476 includes/settings.php:344
-#: includes/type-dashicons.php:245
-msgid "Yes"
-msgstr ""
-
-#: includes/admin.php:478
+#: includes/admin.php:120
 msgid ""
 "Please note that the actual look of the icons on the front-end will also be "
 "affected by your active theme's style. You can use %s if you need to "
 "override it."
 msgstr ""
 
+#: includes/admin.php:274
+msgid "Icon:"
+msgstr ""
+
+#: includes/admin.php:278
+msgid "Select icon"
+msgstr ""
+
+#: includes/admin.php:284 includes/type-elusive.php:153
+msgid "Remove"
+msgstr ""
+
+#: includes/admin.php:290
+msgid "Icon type"
+msgstr ""
+
+#: includes/admin.php:361
+msgid "Icon"
+msgstr ""
+
 #: includes/library/form-fields.php:149
 msgid "%1$s: Type %2$s is not supported, reverting to text."
 msgstr ""
 
-#: includes/settings.php:204
+#: includes/settings.php:207
 msgid "<strong>Menu Icons Settings</strong> have been successfully updated."
 msgstr ""
 
-#: includes/settings.php:205
+#: includes/settings.php:208
 msgid "<strong>Menu Icons Settings</strong> have been successfully reset."
 msgstr ""
 
-#: includes/settings.php:227
+#: includes/settings.php:230
 msgid "Menu Icons Settings"
 msgstr ""
 
-#: includes/settings.php:274
+#: includes/settings.php:273
+msgid "Hide Label"
+msgstr ""
+
+#: includes/settings.php:278 includes/type-dashicons.php:246
+#: includes/type-dashicons.php:247
+msgid "No"
+msgstr ""
+
+#: includes/settings.php:282 includes/type-dashicons.php:245
+msgid "Yes"
+msgstr ""
+
+#: includes/settings.php:289
+msgid "Position"
+msgstr ""
+
+#: includes/settings.php:294
+msgid "Before"
+msgstr ""
+
+#: includes/settings.php:298
+msgid "After"
+msgstr ""
+
+#: includes/settings.php:339
 msgid "Global"
 msgstr ""
 
-#: includes/settings.php:275
+#: includes/settings.php:340
 msgid "Global settings"
 msgstr ""
 
-#: includes/settings.php:280
+#: includes/settings.php:345
 msgid "Icon Types"
 msgstr ""
 
-#: includes/settings.php:295
+#: includes/settings.php:361
 msgid "Current Menu"
 msgstr ""
 
-#: includes/settings.php:297
+#: includes/settings.php:363
 msgid "\"%s\" menu settings"
 msgstr ""
 
-#: includes/settings.php:431
+#: includes/settings.php:451
 msgid "Discard all changes and reset to default state"
 msgstr ""
 
-#: includes/settings.php:432
+#: includes/settings.php:452
 msgid "Reset"
 msgstr ""
 
-#: includes/settings.php:438
+#: includes/settings.php:458
 msgid "Save Settings"
 msgstr ""
 
@@ -208,7 +161,7 @@ msgstr ""
 
 #: includes/type-dashicons.php:64 includes/type-elusive.php:344
 #: includes/type-elusive.php:345 includes/type-fontawesome.php:441
-#: includes/type-genericons.php:184
+#: includes/type-genericons.php:188
 msgid "Home"
 msgstr ""
 
@@ -217,7 +170,7 @@ msgstr ""
 msgid "Media"
 msgstr ""
 
-#: includes/type-dashicons.php:66 includes/type-genericons.php:165
+#: includes/type-dashicons.php:66 includes/type-genericons.php:168
 msgid "Menu"
 msgstr ""
 
@@ -249,19 +202,20 @@ msgstr ""
 msgid "Users"
 msgstr ""
 
-#: includes/type-dashicons.php:78 includes/type-genericons.php:190
+#: includes/type-dashicons.php:78 includes/type-genericons.php:196
 msgid "Post Formats"
 msgstr ""
 
-#: includes/type-dashicons.php:80 includes/type-genericons.php:192
+#: includes/type-dashicons.php:80 includes/type-genericons.php:198
 msgid "Standard"
 msgstr ""
 
-#: includes/type-dashicons.php:81 includes/type-genericons.php:193
+#: includes/type-dashicons.php:81 includes/type-genericons.php:199
 msgid "Aside"
 msgstr ""
 
-#: includes/type-dashicons.php:82 includes/type-genericons.php:194
+#: includes/type-dashicons.php:82 includes/type-genericons.php:200
+#: includes/type-image.php:34
 msgid "Image"
 msgstr ""
 
@@ -269,21 +223,21 @@ msgstr ""
 #: includes/type-dashicons.php:270 includes/type-dashicons.php:284
 #: includes/type-dashicons.php:285 includes/type-dashicons.php:286
 #: includes/type-elusive.php:199 includes/type-elusive.php:200
-#: includes/type-genericons.php:196
+#: includes/type-genericons.php:202
 msgid "Video"
 msgstr ""
 
 #: includes/type-dashicons.php:84 includes/type-dashicons.php:263
-#: includes/type-genericons.php:201
+#: includes/type-genericons.php:207
 msgid "Audio"
 msgstr ""
 
 #: includes/type-dashicons.php:85 includes/type-dashicons.php:126
-#: includes/type-genericons.php:198
+#: includes/type-genericons.php:204
 msgid "Quote"
 msgstr ""
 
-#: includes/type-dashicons.php:86 includes/type-genericons.php:195
+#: includes/type-dashicons.php:86 includes/type-genericons.php:201
 msgid "Gallery"
 msgstr ""
 
@@ -291,11 +245,11 @@ msgstr ""
 msgid "Links"
 msgstr ""
 
-#: includes/type-dashicons.php:88 includes/type-genericons.php:197
+#: includes/type-dashicons.php:88 includes/type-genericons.php:203
 msgid "Status"
 msgstr ""
 
-#: includes/type-dashicons.php:89 includes/type-genericons.php:200
+#: includes/type-dashicons.php:89 includes/type-genericons.php:206
 msgid "Chat"
 msgstr ""
 
@@ -329,7 +283,7 @@ msgstr ""
 
 #: includes/type-dashicons.php:107 includes/type-dashicons.php:163
 #: includes/type-elusive.php:115 includes/type-fontawesome.php:395
-#: includes/type-genericons.php:209
+#: includes/type-genericons.php:215
 msgid "Edit"
 msgstr ""
 
@@ -366,12 +320,12 @@ msgid "Editor"
 msgstr ""
 
 #: includes/type-dashicons.php:122 includes/type-elusive.php:96
-#: includes/type-fontawesome.php:266 includes/type-genericons.php:211
+#: includes/type-fontawesome.php:266 includes/type-genericons.php:217
 msgid "Bold"
 msgstr ""
 
 #: includes/type-dashicons.php:123 includes/type-elusive.php:97
-#: includes/type-fontawesome.php:277 includes/type-genericons.php:212
+#: includes/type-fontawesome.php:277 includes/type-genericons.php:218
 msgid "Italic"
 msgstr ""
 
@@ -500,7 +454,7 @@ msgstr ""
 
 #: includes/type-dashicons.php:164 includes/type-elusive.php:174
 #: includes/type-elusive.php:175 includes/type-fontawesome.php:574
-#: includes/type-genericons.php:182
+#: includes/type-genericons.php:186
 msgid "Trash"
 msgstr ""
 
@@ -545,7 +499,7 @@ msgid "Excerpt View"
 msgstr ""
 
 #: includes/type-dashicons.php:191 includes/type-elusive.php:355
-#: includes/type-genericons.php:217
+#: includes/type-genericons.php:223
 msgid "Social"
 msgstr ""
 
@@ -608,7 +562,7 @@ msgstr ""
 msgid "Info"
 msgstr ""
 
-#: includes/type-dashicons.php:227 includes/type-genericons.php:151
+#: includes/type-dashicons.php:227 includes/type-genericons.php:153
 msgid "Cart"
 msgstr ""
 
@@ -618,7 +572,7 @@ msgstr ""
 
 #: includes/type-dashicons.php:229 includes/type-elusive.php:359
 #: includes/type-elusive.php:360 includes/type-fontawesome.php:371
-#: includes/type-genericons.php:183
+#: includes/type-genericons.php:187
 msgid "Cloud"
 msgstr ""
 
@@ -631,11 +585,11 @@ msgid "Taxonomies"
 msgstr ""
 
 #: includes/type-dashicons.php:237 includes/type-elusive.php:167
-#: includes/type-fontawesome.php:554 includes/type-genericons.php:133
+#: includes/type-fontawesome.php:554 includes/type-genericons.php:135
 msgid "Tag"
 msgstr ""
 
-#: includes/type-dashicons.php:238 includes/type-genericons.php:132
+#: includes/type-dashicons.php:238 includes/type-genericons.php:133
 msgid "Category"
 msgstr ""
 
@@ -678,7 +632,7 @@ msgstr ""
 #: includes/type-dashicons.php:255 includes/type-elusive.php:253
 #: includes/type-elusive.php:254 includes/type-fontawesome.php:417
 #: includes/type-fontawesome.php:418 includes/type-fontawesome.php:419
-#: includes/type-genericons.php:160
+#: includes/type-genericons.php:163
 msgid "Flag"
 msgstr ""
 
@@ -687,7 +641,7 @@ msgid "Archive"
 msgstr ""
 
 #: includes/type-dashicons.php:264 includes/type-fontawesome.php:374
-#: includes/type-genericons.php:210
+#: includes/type-genericons.php:216
 msgid "Code"
 msgstr ""
 
@@ -695,7 +649,7 @@ msgstr ""
 msgid "Default"
 msgstr ""
 
-#: includes/type-dashicons.php:266 includes/type-genericons.php:155
+#: includes/type-dashicons.php:266 includes/type-genericons.php:157
 msgid "Document"
 msgstr ""
 
@@ -724,7 +678,7 @@ msgid "Misc./Post Types"
 msgstr ""
 
 #: includes/type-dashicons.php:279 includes/type-dashicons.php:280
-#: includes/type-genericons.php:185
+#: includes/type-genericons.php:189
 msgid "Location"
 msgstr ""
 
@@ -808,13 +762,13 @@ msgstr ""
 msgid "Testimonial"
 msgstr ""
 
-#: includes/type-dashicons.php:306 includes/type-genericons.php:170
+#: includes/type-dashicons.php:306 includes/type-genericons.php:174
 msgid "Portfolio"
 msgstr ""
 
 #: includes/type-dashicons.php:307 includes/type-dashicons.php:308
 #: includes/type-elusive.php:216 includes/type-fontawesome.php:340
-#: includes/type-genericons.php:150
+#: includes/type-genericons.php:152
 msgid "Book"
 msgstr ""
 
@@ -845,7 +799,7 @@ msgid "Desktop"
 msgstr ""
 
 #: includes/type-dashicons.php:315 includes/type-fontawesome.php:552
-#: includes/type-genericons.php:173
+#: includes/type-genericons.php:177
 msgid "Tablet"
 msgstr ""
 
@@ -868,22 +822,22 @@ msgid "Adjust"
 msgstr ""
 
 #: includes/type-elusive.php:85 includes/type-fontawesome.php:195
-#: includes/type-genericons.php:146
+#: includes/type-genericons.php:148
 msgid "Arrow Up"
 msgstr ""
 
 #: includes/type-elusive.php:86 includes/type-fontawesome.php:192
-#: includes/type-genericons.php:147
+#: includes/type-genericons.php:149
 msgid "Arrow Down"
 msgstr ""
 
 #: includes/type-elusive.php:87 includes/type-fontawesome.php:193
-#: includes/type-genericons.php:148
+#: includes/type-genericons.php:150
 msgid "Arrow Left"
 msgstr ""
 
 #: includes/type-elusive.php:88 includes/type-fontawesome.php:194
-#: includes/type-genericons.php:149
+#: includes/type-genericons.php:151
 msgid "Arrow Right"
 msgstr ""
 
@@ -909,12 +863,12 @@ msgid "Step Forward"
 msgstr ""
 
 #: includes/type-elusive.php:95 includes/type-fontawesome.php:309
-#: includes/type-genericons.php:123
+#: includes/type-genericons.php:124
 msgid "Fast Forward"
 msgstr ""
 
 #: includes/type-elusive.php:98 includes/type-fontawesome.php:278
-#: includes/type-genericons.php:199
+#: includes/type-genericons.php:205
 msgid "Link"
 msgstr ""
 
@@ -996,7 +950,7 @@ msgstr ""
 msgid "Fork"
 msgstr ""
 
-#: includes/type-elusive.php:122 includes/type-genericons.php:161
+#: includes/type-elusive.php:122 includes/type-genericons.php:164
 msgid "Fullscreen"
 msgstr ""
 
@@ -1049,17 +1003,17 @@ msgstr ""
 
 #: includes/type-elusive.php:140 includes/type-elusive.php:141
 #: includes/type-fontawesome.php:312 includes/type-fontawesome.php:313
-#: includes/type-fontawesome.php:314 includes/type-genericons.php:120
+#: includes/type-fontawesome.php:314 includes/type-genericons.php:121
 msgid "Play"
 msgstr ""
 
 #: includes/type-elusive.php:142 includes/type-elusive.php:143
-#: includes/type-fontawesome.php:311 includes/type-genericons.php:121
+#: includes/type-fontawesome.php:311 includes/type-genericons.php:122
 msgid "Pause"
 msgstr ""
 
 #: includes/type-elusive.php:144 includes/type-elusive.php:145
-#: includes/type-fontawesome.php:317 includes/type-genericons.php:122
+#: includes/type-fontawesome.php:317 includes/type-genericons.php:123
 msgid "Stop"
 msgstr ""
 
@@ -1181,7 +1135,7 @@ msgstr ""
 msgid "Currency"
 msgstr ""
 
-#: includes/type-elusive.php:205 includes/type-genericons.php:144
+#: includes/type-elusive.php:205 includes/type-genericons.php:146
 msgid "Misc."
 msgstr ""
 
@@ -1263,7 +1217,7 @@ msgid "Child"
 msgstr ""
 
 #: includes/type-elusive.php:230 includes/type-elusive.php:231
-#: includes/type-fontawesome.php:377 includes/type-genericons.php:154
+#: includes/type-fontawesome.php:377 includes/type-genericons.php:156
 msgid "Cog"
 msgstr ""
 
@@ -1273,7 +1227,7 @@ msgstr ""
 
 #: includes/type-elusive.php:233 includes/type-elusive.php:234
 #: includes/type-fontawesome.php:379 includes/type-fontawesome.php:380
-#: includes/type-genericons.php:131
+#: includes/type-genericons.php:132
 msgid "Comment"
 msgstr ""
 
@@ -1355,6 +1309,10 @@ msgstr ""
 msgid "Font"
 msgstr ""
 
+#: includes/type-elusive.php:260 includes/type-fonts.php:39
+msgid "Font Size"
+msgstr ""
+
 #: includes/type-elusive.php:261 includes/type-fontawesome.php:431
 msgid "Gift"
 msgstr ""
@@ -1415,7 +1373,7 @@ msgstr ""
 
 #: includes/type-elusive.php:278 includes/type-elusive.php:279
 #: includes/type-fontawesome.php:439 includes/type-fontawesome.php:440
-#: includes/type-genericons.php:162
+#: includes/type-genericons.php:165
 msgid "Heart"
 msgstr ""
 
@@ -1437,7 +1395,7 @@ msgid "Inbox"
 msgstr ""
 
 #: includes/type-elusive.php:288 includes/type-fontawesome.php:446
-#: includes/type-genericons.php:163
+#: includes/type-genericons.php:166
 msgid "Key"
 msgstr ""
 
@@ -1486,7 +1444,7 @@ msgstr ""
 
 #: includes/type-elusive.php:302 includes/type-elusive.php:303
 #: includes/type-fontawesome.php:483 includes/type-fontawesome.php:484
-#: includes/type-genericons.php:167
+#: includes/type-genericons.php:171
 msgid "Phone"
 msgstr ""
 
@@ -1495,7 +1453,7 @@ msgid "Photo"
 msgstr ""
 
 #: includes/type-elusive.php:306 includes/type-fontawesome.php:485
-#: includes/type-genericons.php:168
+#: includes/type-genericons.php:172
 msgid "Picture"
 msgstr ""
 
@@ -1552,7 +1510,7 @@ msgid "Speaker"
 msgstr ""
 
 #: includes/type-elusive.php:324 includes/type-fontawesome.php:583
-#: includes/type-genericons.php:135
+#: includes/type-genericons.php:137
 msgid "User"
 msgstr ""
 
@@ -1569,7 +1527,7 @@ msgid "Thumbnails (List)"
 msgstr ""
 
 #: includes/type-elusive.php:328 includes/type-elusive.php:329
-#: includes/type-genericons.php:134
+#: includes/type-genericons.php:136
 msgid "Time"
 msgstr ""
 
@@ -1590,7 +1548,7 @@ msgstr ""
 msgid "Universal Access"
 msgstr ""
 
-#: includes/type-elusive.php:339 includes/type-genericons.php:179
+#: includes/type-elusive.php:339 includes/type-genericons.php:183
 msgid "Places"
 msgstr ""
 
@@ -1612,6 +1570,7 @@ msgid "Tags"
 msgstr ""
 
 #: includes/type-elusive.php:349 includes/type-elusive.php:350
+#: includes/type-genericons.php:191
 msgid "Website"
 msgstr ""
 
@@ -1830,7 +1789,7 @@ msgstr ""
 msgid "User MD"
 msgstr ""
 
-#: includes/type-fontawesome.php:260 includes/type-genericons.php:206
+#: includes/type-fontawesome.php:260 includes/type-genericons.php:212
 msgid "Text Editor"
 msgstr ""
 
@@ -1959,11 +1918,11 @@ msgstr ""
 msgid "Circle"
 msgstr ""
 
-#: includes/type-fontawesome.php:372
+#: includes/type-fontawesome.php:372 includes/type-genericons.php:154
 msgid "Cloud Download"
 msgstr ""
 
-#: includes/type-fontawesome.php:373
+#: includes/type-fontawesome.php:373 includes/type-genericons.php:155
 msgid "Cloud Upload"
 msgstr ""
 
@@ -1995,11 +1954,12 @@ msgstr ""
 msgid "Database"
 msgstr ""
 
-#: includes/type-fontawesome.php:393 includes/type-genericons.php:156
+#: includes/type-fontawesome.php:393 includes/type-genericons.php:158
 msgid "Dot"
 msgstr ""
 
 #: includes/type-fontawesome.php:396 includes/type-fontawesome.php:397
+#: includes/type-genericons.php:160
 msgid "Ellipsis"
 msgstr ""
 
@@ -2204,7 +2164,7 @@ msgstr ""
 msgid "Sign Out"
 msgstr ""
 
-#: includes/type-fontawesome.php:523
+#: includes/type-fontawesome.php:523 includes/type-genericons.php:190
 msgid "Sitemap"
 msgstr ""
 
@@ -2273,7 +2233,7 @@ msgid "Square"
 msgstr ""
 
 #: includes/type-fontawesome.php:542 includes/type-fontawesome.php:547
-#: includes/type-genericons.php:171
+#: includes/type-genericons.php:175
 msgid "Star"
 msgstr ""
 
@@ -2378,11 +2338,66 @@ msgstr ""
 msgid "Volume Of"
 msgstr ""
 
-#: includes/type-fontawesome.php:589 includes/type-genericons.php:174
+#: includes/type-fontawesome.php:589 includes/type-genericons.php:178
 msgid "Warning"
 msgstr ""
 
-#: includes/type-fonts.php:144
+#: includes/type-fontpack.php:112
+msgid "Menu Icons: %1$s was not found in %2$s."
+msgstr ""
+
+#: includes/type-fontpack.php:113
+msgid "Menu Icons: %1$s is not set or invalid in %2$s."
+msgstr ""
+
+#: includes/type-fontpack.php:114
+msgid ""
+"Menu Icons: %1$s is already registered. Please check your font pack config "
+"file: %2$s."
+msgstr ""
+
+#: includes/type-fontpack.php:213
+msgid "Pack: %s"
+msgstr ""
+
+#: includes/type-fonts.php:50 includes/type-image.php:86
+msgid "Vertical Align"
+msgstr ""
+
+#: includes/type-fonts.php:55 includes/type-image.php:91
+msgid "Super"
+msgstr ""
+
+#: includes/type-fonts.php:59 includes/type-genericons.php:108
+#: includes/type-image.php:95
+msgid "Top"
+msgstr ""
+
+#: includes/type-fonts.php:63 includes/type-image.php:99
+msgid "Text Top"
+msgstr ""
+
+#: includes/type-fonts.php:67 includes/type-image.php:103
+msgid "Middle"
+msgstr ""
+
+#: includes/type-fonts.php:71 includes/type-image.php:107
+msgid "Baseline"
+msgstr ""
+
+#: includes/type-fonts.php:75 includes/type-image.php:111
+msgid "Text Bottom"
+msgstr ""
+
+#: includes/type-fonts.php:79 includes/type-image.php:115
+msgid "Bottom"
+msgstr ""
+
+#: includes/type-fonts.php:83 includes/type-image.php:119
+msgid "Sub"
+msgstr ""
+
+#: includes/type-fonts.php:205
 msgid "Deselect"
 msgstr ""
 
@@ -2466,96 +2481,120 @@ msgstr ""
 msgid "Unzoom"
 msgstr ""
 
-#: includes/type-genericons.php:116
+#: includes/type-genericons.php:112
+msgid "X-Post"
+msgstr ""
+
+#: includes/type-genericons.php:117
 msgid "Media Player"
 msgstr ""
 
-#: includes/type-genericons.php:118
+#: includes/type-genericons.php:119
 msgid "Skip back"
 msgstr ""
 
-#: includes/type-genericons.php:119
+#: includes/type-genericons.php:120
 msgid "Rewind"
 msgstr ""
 
-#: includes/type-genericons.php:124
+#: includes/type-genericons.php:125
 msgid "Skip ahead"
 msgstr ""
 
-#: includes/type-genericons.php:129
+#: includes/type-genericons.php:130
 msgid "Meta"
 msgstr ""
 
-#: includes/type-genericons.php:136
-msgid "Day"
-msgstr ""
-
-#: includes/type-genericons.php:137
-msgid "Week"
+#: includes/type-genericons.php:134
+msgid "Hierarchy"
 msgstr ""
 
 #: includes/type-genericons.php:138
-msgid "Month"
+msgid "Day"
 msgstr ""
 
 #: includes/type-genericons.php:139
+msgid "Week"
+msgstr ""
+
+#: includes/type-genericons.php:140
+msgid "Month"
+msgstr ""
+
+#: includes/type-genericons.php:141
 msgid "Pinned"
 msgstr ""
 
-#: includes/type-genericons.php:152
-msgid "Cloud download"
-msgstr ""
-
-#: includes/type-genericons.php:153
-msgid "Cloud upload"
-msgstr ""
-
-#: includes/type-genericons.php:157
+#: includes/type-genericons.php:159
 msgid "Draggable"
 msgstr ""
 
-#: includes/type-genericons.php:158
+#: includes/type-genericons.php:161
 msgid "External"
 msgstr ""
 
-#: includes/type-genericons.php:159
+#: includes/type-genericons.php:162
 msgid "Feed"
 msgstr ""
 
-#: includes/type-genericons.php:164
+#: includes/type-genericons.php:167
 msgid "Mail"
 msgstr ""
 
-#: includes/type-genericons.php:166
+#: includes/type-genericons.php:169
 msgid "Notice"
 msgstr ""
 
-#: includes/type-genericons.php:169
+#: includes/type-genericons.php:170
+msgid "Paint Brush"
+msgstr ""
+
+#: includes/type-genericons.php:173
 msgid "Plugin"
 msgstr ""
 
-#: includes/type-genericons.php:172
+#: includes/type-genericons.php:176
 msgid "Summary"
 msgstr ""
 
-#: includes/type-genericons.php:181
+#: includes/type-genericons.php:185
 msgid "404"
 msgstr ""
 
-#: includes/type-genericons.php:208
+#: includes/type-genericons.php:214
 msgid "Attachment"
 msgstr ""
 
-#: menu-icons.php:130
+#: includes/type-image.php:47
+msgid "Thumbnail"
+msgstr ""
+
+#: includes/type-image.php:48
+msgid "Medium"
+msgstr ""
+
+#: includes/type-image.php:49
+msgid "Large"
+msgstr ""
+
+#: includes/type-image.php:50
+msgid "Full Size"
+msgstr ""
+
+#: includes/type-image.php:79
+msgid "Image Size"
+msgstr ""
+
+#: menu-icons.php:149
 msgid "Menu Icons: No registered icon types found."
 msgstr ""
 
-#: menu-icons.php:190
+#: menu-icons.php:250
 msgctxt "1: Property key, 2: Icon type ID"
 msgid "%1$s cannot be empty, %2$s has been disabled."
 msgstr ""
 
-#: menu-icons.php:195
+#: menu-icons.php:255
 msgctxt "1: Property key, 2: Icon type ID"
 msgid "%1$s must be callable, %2$s has been disabled."
 msgstr ""
@@ -2564,9 +2603,9 @@ msgstr ""
 msgid "Menu Icons"
 msgstr ""
 
-#. #-#-#-#-#  menu-icons.pot (Menu Icons 0.3.2)  #-#-#-#-#
+#. #-#-#-#-#  menu-icons.pot (Menu Icons 0.4.0)  #-#-#-#-#
 #. Plugin URI of the plugin/theme
-#. #-#-#-#-#  menu-icons.pot (Menu Icons 0.3.2)  #-#-#-#-#
+#. #-#-#-#-#  menu-icons.pot (Menu Icons 0.4.0)  #-#-#-#-#
 #. Author URI of the plugin/theme
 msgid "http://kucrut.org/"
 msgstr ""
