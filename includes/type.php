@@ -133,7 +133,7 @@ abstract class Menu_Icons_Type {
 	/**
 	 * Settings fields
 	 *
-	 * @since  0.3.5
+	 * @since  0.4.0
 	 * @param  array $fields
 	 * @return array
 	 */
