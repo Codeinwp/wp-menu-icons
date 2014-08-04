@@ -140,7 +140,7 @@ final class Menu_Icons_Settings {
 		/**
 		 * Allow settings meta box to be disabled.
 		 *
-		 * @since %ver%
+		 * @since 0.3.5
 		 * @param bool $disabled Defaults to FALSE
 		 */
 		$settings_disabled = apply_filters( 'menu_icons_disable_settings', false );
@@ -260,7 +260,7 @@ final class Menu_Icons_Settings {
 	/**
 	 * Get settings fields
 	 *
-	 * @since  %ver%
+	 * @since  0.3.5
 	 * @param  array $values Values to be applied to each field
 	 * @uses   apply_filters() Calls 'menu_icons_settings_fields'.
 	 * @return array

@@ -26,7 +26,7 @@ abstract class Menu_Icons_Type_Fonts extends Menu_Icons_Type {
 	/**
 	 * Settings fields
 	 *
-	 * @since  %ver%
+	 * @since  0.3.5
 	 * @param  array $fields
 	 * @uses   apply_filters() Calls 'menu_icons_{type}_settings_sections'.
 	 * @return array

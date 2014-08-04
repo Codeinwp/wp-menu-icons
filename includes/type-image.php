@@ -17,7 +17,7 @@ class Menu_Icons_Type_Image extends Menu_Icons_Type {
 	/**
 	 * Holds icon type
 	 *
-	 * @since  %ver%
+	 * @since  0.3.5
 	 * @access protected
 	 * @var    string
 	 */
@@ -28,7 +28,7 @@ class Menu_Icons_Type_Image extends Menu_Icons_Type {
 	 *
 	 * This simply sets $label
 	 *
-	 * @since %ver%
+	 * @since 0.3.5
 	 */
 	function __construct() {
 		$this->label = __( 'Image', 'menu-icons' );
@@ -38,7 +38,7 @@ class Menu_Icons_Type_Image extends Menu_Icons_Type {
 	/**
 	 * Get image sizes
 	 *
-	 * @since  %ver%
+	 * @since  0.3.5
 	 * @access protected
 	 * @return array
 	 */
@@ -66,7 +66,7 @@ class Menu_Icons_Type_Image extends Menu_Icons_Type {
 	/**
 	 * Settings fields
 	 *
-	 * @since  %ver%
+	 * @since  0.3.5
 	 * @param  array $fields
 	 * @uses   apply_filters() Calls 'menu_icons_{type}_settings_sections'.
 	 * @return array
@@ -132,7 +132,7 @@ class Menu_Icons_Type_Image extends Menu_Icons_Type {
 	/**
 	 * Print field for icons selection
 	 *
-	 * @since %ver%
+	 * @since 0.3.5
 	 * @param int   $id         Menu item ID
 	 * @param array $meta_value Current value of 'menu-icons' metadata
 	 */
@@ -161,7 +161,7 @@ class Menu_Icons_Type_Image extends Menu_Icons_Type {
 	/**
 	 * Preview
 	 *
-	 * @since  %ver%
+	 * @since  0.3.5
 	 * @param  string $id         Menu item ID
 	 * @param  array  $meta_value Menu item metadata value
 	 * @return array
@@ -183,7 +183,7 @@ class Menu_Icons_Type_Image extends Menu_Icons_Type {
 	/**
 	 * Media frame data
 	 *
-	 * @since  %ver%
+	 * @since  0.3.5
 	 * @param  string $id Icon type ID
 	 * @return array
 	 */
@@ -199,7 +199,7 @@ class Menu_Icons_Type_Image extends Menu_Icons_Type {
 	/**
 	 * Media frame templates
 	 *
-	 * @since %ver%
+	 * @since 0.3.5
 	 * @return array
 	 */
 	public function templates() {
@@ -219,7 +219,7 @@ class Menu_Icons_Type_Image extends Menu_Icons_Type {
 	/**
 	 * Add icon to menu title
 	 *
-	 * @since  %ver%
+	 * @since  0.3.5
 	 * @access protected
 	 * @param  string $title  Menu item title
 	 * @param  array  $values Menu item metadata value
@@ -271,7 +271,7 @@ class Menu_Icons_Type_Image extends Menu_Icons_Type {
 	/**
 	 * Inline style for icon size, etc
 	 *
-	 * @since  %ver%
+	 * @since  0.3.5
 	 * @param  array  $values Menu item metadata value
 	 * @return string
 	 */
