@@ -786,8 +786,17 @@
 
 			selected = state.get('selection').single();
 
+			// Disallow anything but image
+			if ( 'image' !== selected.get('type') ) {
+				state.get('selection').reset();
+
+				return;
+			}
+
+			// Wait for the upload process to finish
 			if ( selected.get('uploading') ) {
 				selected.on( 'change:uploading', self.createPreview, this );
+
 				return;
 			}
 
