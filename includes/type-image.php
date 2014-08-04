@@ -17,7 +17,7 @@ class Menu_Icons_Type_Image extends Menu_Icons_Type {
 	/**
 	 * Holds icon type
 	 *
-	 * @since  0.1.0
+	 * @since  %ver%
 	 * @access protected
 	 * @var    string
 	 */
@@ -28,7 +28,7 @@ class Menu_Icons_Type_Image extends Menu_Icons_Type {
 	 *
 	 * This simply sets $label
 	 *
-	 * @since  0.1.0
+	 * @since %ver%
 	 */
 	function __construct() {
 		$this->label = __( 'Image', 'menu-icons' );
@@ -38,9 +38,8 @@ class Menu_Icons_Type_Image extends Menu_Icons_Type {
 	/**
 	 * Get image sizes
 	 *
-	 * TODO: Include custom image sizes
-	 *
 	 * @since  %ver%
+	 * @access protected
 	 * @return array
 	 */
 	protected function get_image_sizes() {
@@ -133,7 +132,7 @@ class Menu_Icons_Type_Image extends Menu_Icons_Type {
 	/**
 	 * Print field for icons selection
 	 *
-	 * @since 0.1.0
+	 * @since %ver%
 	 * @param int   $id         Menu item ID
 	 * @param array $meta_value Current value of 'menu-icons' metadata
 	 */
@@ -162,7 +161,7 @@ class Menu_Icons_Type_Image extends Menu_Icons_Type {
 	/**
 	 * Preview
 	 *
-	 * @since  0.2.0
+	 * @since  %ver%
 	 * @param  string $id         Menu item ID
 	 * @param  array  $meta_value Menu item metadata value
 	 * @return array
@@ -184,7 +183,7 @@ class Menu_Icons_Type_Image extends Menu_Icons_Type {
 	/**
 	 * Media frame data
 	 *
-	 * @since 0.2.0
+	 * @since  %ver%
 	 * @param  string $id Icon type ID
 	 * @return array
 	 */
@@ -200,7 +199,7 @@ class Menu_Icons_Type_Image extends Menu_Icons_Type {
 	/**
 	 * Media frame templates
 	 *
-	 * @since 0.2.0
+	 * @since %ver%
 	 * @return array
 	 */
 	public function templates() {
@@ -220,9 +219,10 @@ class Menu_Icons_Type_Image extends Menu_Icons_Type {
 	/**
 	 * Add icon to menu title
 	 *
-	 * @since 0.1.0
-	 * @param string $title  Menu item title
-	 * @param array  $values Menu item metadata value
+	 * @since  %ver%
+	 * @access protected
+	 * @param  string $title  Menu item title
+	 * @param  array  $values Menu item metadata value
 	 *
 	 * @return string
 	 */
@@ -271,9 +271,7 @@ class Menu_Icons_Type_Image extends Menu_Icons_Type {
 	/**
 	 * Inline style for icon size, etc
 	 *
-	 * TODO: Move this to Menu_Icons_Type?
-	 *
-	 * @since  0.2.0
+	 * @since  %ver%
 	 * @param  array  $values Menu item metadata value
 	 * @return string
 	 */
