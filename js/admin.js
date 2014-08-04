@@ -112,7 +112,7 @@
 	// Models
 	media.model.mi = {};
 
-	// Models: Menu Items
+	// Model: Menu Items
 	media.model.mi.MenuItems = Backbone.Collection.extend({
 		props : new Backbone.Model({ item : '' }),
 		model : Backbone.Model.extend({
@@ -124,7 +124,7 @@
 		})
 	});
 
-	// Models: Settings fields
+	// Model: Settings fields
 	media.model.mi.MenuItems.Settings = Backbone.Collection.extend({
 		model : Backbone.Model.extend({
 			defaults : {
@@ -159,8 +159,7 @@
 		}
 	});
 
-
-	// All: Settings
+	// View: Settings wrapper
 	media.view.miSidebar.Settings = media.view.PriorityList.extend({
 		className : 'mi-settings attachment-info',
 
@@ -181,6 +180,7 @@
 		}
 	});
 
+	// View: Settings field
 	media.view.miSidebar.Settings.Field = media.View.extend({
 		tagName   : 'label',
 		className : 'setting',
@@ -210,6 +210,7 @@
 		}
 	});
 
+	// View: Item preview on the sidebar
 	media.view.miPreview = media.View.extend({
 		tagName   : 'p',
 		className : 'mi-preview menu-item attachment-info',
@@ -244,6 +245,7 @@
 		}
 	});
 
+	// Methods for the browser view
 	media.view.miBrowser = {
 		createSidebar : function() {
 			var options   = this.options;
@@ -289,7 +291,7 @@
 		}
 	};
 
-	// Font icon: Browser
+	// View: Font icon: Browser
 	media.view.miFont = media.View.extend({
 		className : 'attachments-browser mi-items-wrap',
 
@@ -363,8 +365,7 @@
 
 	_.extend( media.view.miFont.prototype, media.view.miBrowser );
 
-
-	// Font icon: Library
+	// View: Font icon: Library
 	media.view.miFont.Library = media.View.extend({
 		tagName   : 'ul',
 		className : 'attachments mi-items clearfix',
@@ -443,8 +444,7 @@
 		}
 	});
 
-
-	// Font icon: Dropdown filter
+	// View: Font icon: Dropdown filter
 	media.view.miFont.Filters = media.view.AttachmentFilters.extend({
 		createFilters : function() {
 			this.filters = {
@@ -476,8 +476,7 @@
 		}
 	});
 
-
-	// Font icon: Item
+	// View: Font icon: Item
 	media.view.miFont.Icon = media.view.Attachment.extend({
 		className : 'attachment mi-item',
 		events    : {
@@ -499,7 +498,7 @@
 	});
 
 
-	// Font icon: Controller
+	// Font icon state
 	media.controller.miFont = media.controller.State.extend({
 		defaults : {
 			id       : 'mi-font',
@@ -604,8 +603,7 @@
 		}
 	});
 
-
-	// Font icon: Library collection
+	// Font icon collection
 	media.controller.miFont.Library = Backbone.Collection.extend({
 		props : new Backbone.Model({
 			group  : 'all',
@@ -657,7 +655,7 @@
 	});
 
 
-	// Image icon
+	// Image icon state
 	media.controller.miImage = media.controller.Library.extend({
 		defaults : _.defaults({
 			id            : 'browse',
@@ -764,6 +762,7 @@
 		}
 	});
 
+	// View: Image Icon: Browser
 	media.view.AttachmentsBrowser.miImage = media.view.AttachmentsBrowser.extend({
 		disposeSingle : function() {
 			media.view.AttachmentsBrowser.prototype.disposeSingle.apply( this, arguments );
@@ -820,7 +819,7 @@
 
 	_.extend( media.view.AttachmentsBrowser.miImage.prototype, media.view.miBrowser );
 
-	// Image: Preview
+	// View: Image Icon: Preview on the sidebar
 	media.view.miPreview.miImage = media.view.miPreview.extend({
 		render : function() {
 			var size       = this.options.model.get('image_size');
