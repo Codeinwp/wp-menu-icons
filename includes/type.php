@@ -91,8 +91,9 @@ abstract class Menu_Icons_Type {
 	/**
 	 * Register our type
 	 *
-	 * @since 0.1.0
-	 * @param array $types Icon Types
+	 * @since  0.1.0
+	 * @param  array $types Icon Types
+	 * @uses   apply_filters() Calls 'menu_icons_{type}_props' on type properties.
 	 * @return array
 	 */
 	public function register( $types ) {
@@ -114,7 +115,19 @@ abstract class Menu_Icons_Type {
 			}
 		}
 
-		$types[ $this->type ] = $props;
+		/**
+		 * Allow plugins/themes to filter icon type properties
+		 *
+		 * @since  %ver%
+		 * @param  array  $props Icon type properties
+		 * @param  object $this  Icon type class object
+		 * @return array
+		 */
+		$types[ $this->type ] = apply_filters(
+			sprintf( 'menu_icons_%s_props', $this->type ),
+			$props,
+			$this
+		);
 
 		return $types;
 	}
