@@ -40,7 +40,7 @@ class Menu_Icons_Type_Fontawesome extends Menu_Icons_Type_Fonts {
 	 * @access protected
 	 * @var    string
 	 */
-	protected $version = '4.1';
+	protected $version = '4.1.0';
 
 
 	/**
