@@ -195,13 +195,15 @@ abstract class Menu_Icons_Type_Fonts extends Menu_Icons_Type {
 		$icon = '<i class="_icon {{ data.type }} {{ data.icon }} _{{ data.position }}" style="font-size:{{ data.font_size }}em; vertical-align:{{ data.vertical_align }};"></i>';
 
 		$templates = array(
-			'field' => '<i class="_icon {{ data.type }} {{ data.id }}"></i>',
-			'item'  => sprintf(
-				'<div class="attachment-preview">
-					<span class="_icon"><i class="{{ data.type }} {{ data.id }}"></i></span>
-					<div class="filename"><div>{{ data.label }}</div></div>
-					<a class="check" href="#" title="%s"><div class="media-modal-icon"></div></a>
-				</div>',
+			'field'              => '<i class="_icon {{ data.type }} {{ data.id }}"></i>',
+			'item'               => sprintf(
+				'<div class="attachment-preview js--select-attachment">
+					<div class="thumbnail">
+						<span class="_icon"><i class="{{ data.type }} {{ data.id }}"></i></span>
+						<div class="filename"><div>{{ data.label }}</div></div>
+					</div>
+				</div>
+				<a class="check" href="#" title="%s"><div class="media-modal-icon"></div></a>',
 				esc_attr__( 'Deselect', 'menu-icons' )
 			),
 			'preview-before'     => sprintf( '<a href="#">%s <span>{{ data.title }}</span></a>', $icon ),

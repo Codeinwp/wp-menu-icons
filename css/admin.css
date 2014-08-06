@@ -56,6 +56,10 @@
 	height: 100%;
 	vertical-align: middle;
 }
+.branch-4 .mi-items .mi-item {
+	width: 126px;
+	height: 141px;
+}
 .menu-icons-wrap a._select:focus ._icon,
 .menu-icons-wrap a._select:hover ._icon,
 .mi-item:hover ._icon,
