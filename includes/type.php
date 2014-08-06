@@ -89,6 +89,24 @@ abstract class Menu_Icons_Type {
 
 
 	/**
+	 * __get() Magic method
+	 *
+	 * @since  %ver%
+	 * @param  string $name Property name
+	 * @return mixed  NULL if attribute doesn't exist
+	 */
+	public function __get( $name ) {
+		$props = get_object_vars( $this );
+
+		if ( array_key_exists( $name, $props ) ) {
+			return $props[ $name ];
+		}
+
+		return null;
+	}
+
+
+	/**
 	 * Register our type
 	 *
 	 * @since  0.1.0
