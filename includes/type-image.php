@@ -232,7 +232,7 @@ class Menu_Icons_Type_Image extends Menu_Icons_Type {
 		}
 
 		$icon = get_post( $values['image-icon'] );
-		if ( ! is_a( $icon, 'WP_Post' ) || 'attachment' !== $icon->post_type ) {
+		if ( ! ( $icon instanceof WP_Post ) || 'attachment' !== $icon->post_type ) {
 			return $title;
 		}
 
