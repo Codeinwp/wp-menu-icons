@@ -87,7 +87,7 @@
 .mi-preview.menu-item ._icon {
 	margin-right: .25em;
 }
-.mi-settings input[type="number"],
+.media-sidebar .mi-settings .setting input[type="number"],
 .menu-icons-settings input[type="number"] {
 	width: auto;
 	max-width: 5em;
