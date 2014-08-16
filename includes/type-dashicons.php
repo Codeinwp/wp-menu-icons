@@ -191,7 +191,6 @@ class Menu_Icons_Type_Dashicons extends Menu_Icons_Type_Fonts {
 				'label' => __( 'Social', 'menu-icons' ),
 				'items' => array(
 					'dashicons-share'        => __( 'Share', 'menu-icons' ),
-					'dashicons-share1'       => __( 'Share', 'menu-icons' ),
 					'dashicons-share-alt'    => __( 'Share', 'menu-icons' ),
 					'dashicons-share-alt2'   => __( 'Share', 'menu-icons' ),
 					'dashicons-twitter'      => 'Twitter',
