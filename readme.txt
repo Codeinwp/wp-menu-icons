@@ -60,7 +60,8 @@ Make sure that your active theme is using the default walker for displaying the 
 
 = The icon positions don't look right =
 If you're comfortable with editing your theme stylesheet, then you can override the styles from there.
-Otherwise, I recommend you to use the [Simple Custom CSS plugin](http://wordpress.org/plugins/simple-custom-css/)
+If you have [Jetpack](http://wordpress.org/plugins/jetpack) installed, you can also use its **Custom CSS** module.
+Otherwise, I recommend you to use the [Simple Custom CSS plugin](http://wordpress.org/plugins/simple-custom-css/).
 
 = Some font icons are not rendering correctly =
 This is a bug with the font icon itself. When the font is updated, this plugin will update its font too.
