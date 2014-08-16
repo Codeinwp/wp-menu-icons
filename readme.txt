@@ -25,6 +25,7 @@ This plugin gives you the ability to add icons to your menu items, similar to th
 - Dashicons (WordPress core icon fonts)
 - [Elusive Icons](http://shoestrap.org/downloads/elusive-icons-webfont/) by [Aristeides Stathopoulos](http://shoestrap.org/blog/author/aristath/)
 - [Font Awesome](http://fontawesome.io/) by [Dave Gandy](http://twitter.com/davegandy)
+- [Foundation Icons](http://zurb.com/playground/foundation-icon-fonts-3/) by [Zurb](http://zurb.com/)
 - [Genericons](http://genericons.com/) by [Automattic](http://automattic.com/)
 - Fontello icon packs
 - Image (attachments)
@@ -94,6 +95,9 @@ Let me know via [GitHub issues](https://github.com/kucrut/wp-menu-icons/issues) 
 Read [this blog post](http://kucrut.org/add-custom-image-sizes-right-way/).
 
 == Changelog ==
+= 0.5.0 =
+* New Icon type: Foundation Icons
+
 = 0.4.0 =
 * Fontello icon packs support
 * New icon type: Image (attachments)

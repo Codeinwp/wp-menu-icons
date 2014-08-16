@@ -46,6 +46,7 @@ module.exports = function( grunt ) {
 					'elusive.css',
 					'extra.css',
 					'font-awesome.css',
+					'foundation-icons.css',
 					'genericons.css'
 				],
 				
