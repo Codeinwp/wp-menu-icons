@@ -173,6 +173,7 @@ final class Menu_Icons {
 			'dashicons',
 			'elusive',
 			'fontawesome',
+			'foundation',
 			'genericons',
 		);
 
