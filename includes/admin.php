@@ -275,7 +275,7 @@ final class Menu_Icons_Admin_Nav_Menus {
 						<?php printf(
 							'<a id="menu-icons-%1$d-select" class="_select" title="%2$s" data-id="%1$d" data-text="%2$s">%3$s</a>',
 							esc_attr__( $item->ID ),
-							esc_attr__( 'Select icon', 'menu-icons' ),
+							esc_attr__( 'Select', 'menu-icons' ),
 							self::_get_preview( $item->ID, $current )
 						) ?>
 						<?php printf(
