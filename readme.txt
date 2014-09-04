@@ -8,7 +8,7 @@ Stable tag: 0.5.0
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Easily add icons to your nav menu items.
+Spice up your navigation menus with sexy icons, easily.
 
 
 == Description ==
