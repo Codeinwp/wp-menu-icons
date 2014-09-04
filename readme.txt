@@ -98,6 +98,7 @@ Read [this blog post](http://kucrut.org/add-custom-image-sizes-right-way/).
 == Changelog ==
 = 0.5.0 =
 * New Icon type: Foundation Icons
+* various fixes & enhancements
 
 = 0.4.0 =
 * Fontello icon packs support
