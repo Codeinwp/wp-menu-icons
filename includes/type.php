@@ -91,7 +91,7 @@ abstract class Menu_Icons_Type {
 	/**
 	 * __get() Magic method
 	 *
-	 * @since  %ver%
+	 * @since  0.5.0
 	 * @param  string $name Property name
 	 * @return mixed  NULL if attribute doesn't exist
 	 */
@@ -136,7 +136,7 @@ abstract class Menu_Icons_Type {
 		/**
 		 * Allow plugins/themes to filter icon type properties
 		 *
-		 * @since  %ver%
+		 * @since  0.5.0
 		 * @param  array  $props Icon type properties
 		 * @param  object $this  Icon type class object
 		 * @return array

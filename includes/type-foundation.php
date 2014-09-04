@@ -12,7 +12,7 @@ require_once dirname( __FILE__ ) . '/type-fonts.php';
 /**
  * Icon type: Foundation Icons
  *
- * @since %ver%
+ * @since   0.5.0
  * @version 0.1.0
  */
 class Menu_Icons_Type_Foundation extends Menu_Icons_Type_Fonts {
