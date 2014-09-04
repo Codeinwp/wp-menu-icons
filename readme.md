@@ -6,8 +6,8 @@ Easily add icons to your nav menu items.
 **Contributors:** [kucrut](http://profiles.wordpress.org/kucrut), [joshuairl](http://profiles.wordpress.org/joshuairl)  
 **Tags:** [menu](http://wordpress.org/plugins/tags/menu), [nav-menu](http://wordpress.org/plugins/tags/nav-menu), [icons](http://wordpress.org/plugins/tags/icons), [navigation](http://wordpress.org/plugins/tags/navigation)  
 **Requires at least:** 3.8  
-**Tested up to:** 3.9  
-**Stable tag:** 0.4.0  
+**Tested up to:** 4.0  
+**Stable tag:** 0.5.0  
 **License:** [GPLv2](http://www.gnu.org/licenses/gpl-2.0.html)  
 **Donate Link:** http://kucrut.org/#coffee  
 
@@ -24,6 +24,7 @@ Easily add icons to your nav menu items.
 - Dashicons (WordPress core icon fonts)
 - [Elusive Icons](http://shoestrap.org/downloads/elusive-icons-webfont/) by [Aristeides Stathopoulos](http://shoestrap.org/blog/author/aristath/)
 - [Font Awesome](http://fontawesome.io/) by [Dave Gandy](http://twitter.com/davegandy)
+- [Foundation Icons](http://zurb.com/playground/foundation-icon-fonts-3/) by [Zurb](http://zurb.com/)
 - [Genericons](http://genericons.com/) by [Automattic](http://automattic.com/)
 - Fontello icon packs
 - Image (attachments)
@@ -80,7 +81,8 @@ Make sure that your active theme is using the default walker for displaying the 
 
 ### The icon positions don't look right ###
 If you're comfortable with editing your theme stylesheet, then you can override the styles from there.
-Otherwise, I recommend you to use the [Simple Custom CSS plugin](http://wordpress.org/plugins/simple-custom-css/)
+If you have [Jetpack](http://wordpress.org/plugins/jetpack) installed, you can also use its **Custom CSS** module.
+Otherwise, I recommend you to use the [Simple Custom CSS plugin](http://wordpress.org/plugins/simple-custom-css/).
 
 ### Some font icons are not rendering correctly ###
 This is a bug with the font icon itself. When the font is updated, this plugin will update its font too.
@@ -103,6 +105,20 @@ Add this line to your [mu-plugin file](http://codex.wordpress.org/Must_Use_Plugi
 add_filter( 'menu_icons_disable_settings', '__return_true' );
 ```
 
+### How can I use CSS file for a font type from a CDN instead of the bundled one? ###
+You can filter the icon type property from your plugin/theme:
+```php
+function _my_fontawesome_props( $props, $instance ) {
+	$props['stylesheet'] = sprintf(
+		'//maxcdn.bootstrapcdn.com/font-awesome/%s/css/font-awesome.min.css',
+		$instance->version
+	);
+
+	return $props;
+}
+add_filter( 'menu_icons_fa_props', '_my_fontawesome_props', 10, 2 );
+```
+
 ### Can you please add X icon font? ###
 Let me know via [GitHub issues](https://github.com/kucrut/wp-menu-icons/issues) and I'll see what I can do.
 
@@ -116,6 +132,11 @@ Read [this blog post](http://kucrut.org/add-custom-image-sizes-right-way/).
 
 
 ## Changelog ##
+
+### 0.5.0 ###
+* New Icon type: Foundation Icons
+* Add new Dashicons icons
+* Various fixes & enhancements
 
 ### 0.4.0 ###
 * Fontello icon packs support
