@@ -21,12 +21,12 @@ Spice up your navigation menus with sexy icons, easily.
 1. Save the menu
 
 ### Supported icon types ###
-- Dashicons (WordPress core icon fonts)
+- Dashicons (WordPress core icons)
 - [Elusive Icons](http://shoestrap.org/downloads/elusive-icons-webfont/) by [Aristeides Stathopoulos](http://shoestrap.org/blog/author/aristath/)
 - [Font Awesome](http://fontawesome.io/) by [Dave Gandy](http://twitter.com/davegandy)
 - [Foundation Icons](http://zurb.com/playground/foundation-icon-fonts-3/) by [Zurb](http://zurb.com/)
 - [Genericons](http://genericons.com/) by [Automattic](http://automattic.com/)
-- Fontello icon packs
+- [Fontello](http://fontello.com/) icon packs
 - Image (attachments)
 
 ### Planned supported icon types ###
@@ -101,9 +101,9 @@ To add a new icon type, take a look at the `type-*.php` files inside the `includ
 
 ### I don't want the settings meta box. How do I remove/disable it? ###
 Add this line to your [mu-plugin file](http://codex.wordpress.org/Must_Use_Plugins):
-```php
-add_filter( 'menu_icons_disable_settings', '__return_true' );
 ```
+add_filter( 'menu_icons_disable_settings', '__return_true' );
+```php
 
 ### How can I use CSS file for a font type from a CDN instead of the bundled one? ###
 You can filter the icon type property from your plugin/theme:

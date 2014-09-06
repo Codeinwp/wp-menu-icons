@@ -22,12 +22,12 @@ This plugin gives you the ability to add icons to your menu items, similar to th
 1. Save the menu
 
 = Supported icon types =
-- Dashicons (WordPress core icon fonts)
+- Dashicons (WordPress core icons)
 - [Elusive Icons](http://shoestrap.org/downloads/elusive-icons-webfont/) by [Aristeides Stathopoulos](http://shoestrap.org/blog/author/aristath/)
 - [Font Awesome](http://fontawesome.io/) by [Dave Gandy](http://twitter.com/davegandy)
 - [Foundation Icons](http://zurb.com/playground/foundation-icon-fonts-3/) by [Zurb](http://zurb.com/)
 - [Genericons](http://genericons.com/) by [Automattic](http://automattic.com/)
-- Fontello icon packs
+- [Fontello](http://fontello.com/) icon packs
 - Image (attachments)
 
 = Planned supported icon types =
