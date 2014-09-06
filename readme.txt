@@ -33,6 +33,9 @@ This plugin gives you the ability to add icons to your menu items, similar to th
 = Planned supported icon types =
 - Image (URL)
 
+= Extensions =
+- [IcoMoon](http://wordpress.org/plugins/menu-icons-icomoon/) by [IcoMoon.io](http://icomoon.io/)
+
 Development of this plugin is done on [GitHub](https://github.com/kucrut/wp-menu-icons). **Pull requests welcome**. Please see [issues reported](https://github.com/kucrut/wp-menu-icons/issues) there before going to the plugin forum.
 
 

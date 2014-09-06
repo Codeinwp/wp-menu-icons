@@ -32,6 +32,9 @@ Spice up your navigation menus with sexy icons, easily.
 ### Planned supported icon types ###
 - Image (URL)
 
+### Extensions ###
+- [IcoMoon](http://wordpress.org/plugins/menu-icons-icomoon/) by [IcoMoon.io](http://icomoon.io/)
+
 Development of this plugin is done on [GitHub](https://github.com/kucrut/wp-menu-icons). **Pull requests welcome**. Please see [issues reported](https://github.com/kucrut/wp-menu-icons/issues) there before going to the plugin forum.
 
 
@@ -101,9 +104,9 @@ To add a new icon type, take a look at the `type-*.php` files inside the `includ
 
 ### I don't want the settings meta box. How do I remove/disable it? ###
 Add this line to your [mu-plugin file](http://codex.wordpress.org/Must_Use_Plugins):
-```
-add_filter( 'menu_icons_disable_settings', '__return_true' );
 ```php
+add_filter( 'menu_icons_disable_settings', '__return_true' );
+```
 
 ### How can I use CSS file for a font type from a CDN instead of the bundled one? ###
 You can filter the icon type property from your plugin/theme:
