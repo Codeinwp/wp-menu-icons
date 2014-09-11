@@ -37,7 +37,7 @@ final class Menu_Icons_Admin_Nav_Menus {
 		self::_collect_icon_types();
 
 		add_filter( 'wp_edit_nav_menu_walker', array( __CLASS__, '_filter_wp_edit_nav_menu_walker' ), 99 );
-		add_filter( 'menu_item_custom_fields', array( __CLASS__, '_fields' ), 10, 3 );
+		add_filter( 'wp_nav_menu_item_custom_fields', array( __CLASS__, '_fields' ), 10, 4 );
 		add_action( 'admin_enqueue_scripts', array( __CLASS__, '_enqueue_assets' ), 101 );
 		add_action( 'print_media_templates', array( __CLASS__, '_media_templates' ) );
 
@@ -243,7 +243,7 @@ final class Menu_Icons_Admin_Nav_Menus {
 	 *
 	 * @return string Form fields
 	 */
-	public static function _fields( $item, $depth, $args = array(), $id = 0 ) {
+	public static function _fields( $id, $item, $depth, $args ) {
 		require_once Menu_Icons::get( 'dir' ) . 'includes/library/form-fields.php';
 
 		$type_ids   = array_values( array_filter( array_keys( self::_get_types() ) ) );

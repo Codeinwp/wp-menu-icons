@@ -997,9 +997,10 @@
 			var state    = this.state();
 			var selected = state.get('selection').single();
 			var template = media.template( 'menu-icons-'+ attrs.type +'-field' );
-			var preview  = template( selected.toJSON() );
+			var data     = selected.toJSON();
 			var $el;
 
+			data._settings = attrs;
 			delete attrs.id;
 			delete attrs.title;
 
@@ -1010,7 +1011,7 @@
 				}
 			});
 
-			$('#menu-icons-'+ id +'-select').html( preview );
+			$('#menu-icons-'+ id +'-select').html( template( data ) );
 		}
 	});
 

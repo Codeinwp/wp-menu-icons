@@ -12,7 +12,6 @@
 }
 .menu-icons-wrap .easy p > * {
 	display: inline-block;
-	height: 100%;
 	vertical-align: middle;
 }
 .menu-icons-wrap .easy a {
@@ -21,6 +20,7 @@
 }
 .menu-icons-wrap .easy .submitdelete {
 	float: none;
+	display: none;
 }
 .menu-icons-wrap .easy img {
 	max-width: 32px;
@@ -39,6 +39,11 @@
 .mi-items-wrap .mi-items {
 	padding-top: 10px;
 }
+.media-frame-content .mi-items .attachment,
+.media-frame-content[data-columns] .mi-items .attachment {
+	width: 126px;
+	height: 141px;
+}
 .mi-item .attachment-preview {
 	width: 110px;
 	height: 125px;
@@ -55,10 +60,6 @@
 	width: 100%;
 	height: 100%;
 	vertical-align: middle;
-}
-.branch-4 .mi-items .mi-item {
-	width: 126px;
-	height: 141px;
 }
 .menu-icons-wrap a._select:focus ._icon,
 .menu-icons-wrap a._select:hover ._icon,

@@ -206,7 +206,7 @@ class Menu_Icons_Type_Image extends Menu_Icons_Type {
 		$icon = '<img src="{{ data.url }}" alt="{{ data.alt }}" class="_icon {{ data.type }} _{{ data.position }}" style="vertical-align:{{ data.vertical_align }};" />';
 
 		$templates = array(
-			'field'              => '<img src="{{ data.sizes.full.url }}" alt="{{ data.alt }}" class="_icon" />',
+			'field'              => '<img src="{{ data.sizes[data._settings.image_size].url }}" alt="{{ data.alt }}" class="_icon" />',
 			'preview-before'     => sprintf( '<a href="#">%s <span>{{ data.title }}</span></a>', $icon ),
 			'preview-after'      => sprintf( '<a href="#"><span>{{ data.title }}</span> %s</a>', $icon ),
 			'preview-hide_label' => sprintf( '<a href="#">%s</a>', $icon ),
