@@ -7,7 +7,7 @@ Spice up your navigation menus with sexy icons, easily.
 **Tags:** [menu](http://wordpress.org/plugins/tags/menu), [nav-menu](http://wordpress.org/plugins/tags/nav-menu), [icons](http://wordpress.org/plugins/tags/icons), [navigation](http://wordpress.org/plugins/tags/navigation)  
 **Requires at least:** 3.8  
 **Tested up to:** 4.0  
-**Stable tag:** 0.5.0  
+**Stable tag:** 0.5.1  
 **License:** [GPLv2](http://www.gnu.org/licenses/gpl-2.0.html)  
 **Donate Link:** http://kucrut.org/#coffee  
 
@@ -135,6 +135,11 @@ Read [this blog post](http://kucrut.org/add-custom-image-sizes-right-way/).
 
 
 ## Changelog ##
+
+### 0.5.1 ###
+* Update Menu Item Custom Fields to play nice with other plugins.
+* Add missing Foundation Icons stylesheet, props [John](http://wordpress.org/support/profile/dsl225)
+* JS & CSS fixes
 
 ### 0.5.0 ###
 * New Icon type: Foundation Icons
