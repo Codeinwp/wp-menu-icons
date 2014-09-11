@@ -20,6 +20,7 @@
 }
 .menu-icons-wrap .easy .submitdelete {
 	float: none;
+	display: none;
 }
 .menu-icons-wrap .easy img {
 	max-width: 32px;
