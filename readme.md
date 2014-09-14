@@ -96,7 +96,7 @@ This is a bug with the font icon itself. When the font is updated, this plugin w
 /**
  * Remove one or more icon types
  *
- * Uncomment one more line to remove icon types
+ * Uncomment one or more line to remove icon types
  *
  * @param  array $types Registered icon types
  * @return array
