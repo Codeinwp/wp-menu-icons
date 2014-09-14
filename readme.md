@@ -93,8 +93,33 @@ This is a bug with the font icon itself. When the font is updated, this plugin w
 ### Is this plugin extendable? ###
 **Certainly!** Here's how you can remove an icon type from your plugin/theme:
 ```php
+/**
+ * Remove one or more icon types
+ *
+ * Uncomment one more line to remove icon types
+ *
+ * @param  array $types Registered icon types
+ * @return array
+ */
 function myplugin_remove_menu_icons_type( $types ) {
-	unset( $types['genericon'] );
+	# Dashicons
+	//unset( $types['dashicons'] );
+
+	# Elusive
+	//unset( $types['elusive'] );
+
+	# Font Awesome
+	//unset( $types['fa'] );
+
+	# Foundation
+	//unset( $types['foundation-icons'] );
+
+	# Genericons
+	//unset( $types['genericon'] );
+
+	# Image
+	//unset( $types['image'] );
+
 	return $types;
 }
 add_filter( 'menu_icons_types', 'myplugin_remove_menu_icons_type' );
@@ -106,11 +131,20 @@ To add a new icon type, take a look at the `type-*.php` files inside the `includ
 Add this line to your [mu-plugin file](http://codex.wordpress.org/Must_Use_Plugins):
 ```php
 add_filter( 'menu_icons_disable_settings', '__return_true' );
-```
+`
 
 ### How can I use CSS file for a font type from a CDN instead of the bundled one? ###
-You can filter the icon type property from your plugin/theme:
+You can filter the icon type properties from your plugin/theme:
 ```php
+/**
+ * Modify icon type properties
+ *
+ * See myplugin_remove_menu_icons_type() above for the icon type keys
+ *
+ * @param  array  $props    Icon type properties
+ * @param  object $instance Icon type registration instance
+ * @return array
+ */
 function _my_fontawesome_props( $props, $instance ) {
 	$props['stylesheet'] = sprintf(
 		'//maxcdn.bootstrapcdn.com/font-awesome/%s/css/font-awesome.min.css',
