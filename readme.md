@@ -131,7 +131,7 @@ To add a new icon type, take a look at the `type-*.php` files inside the `includ
 Add this line to your [mu-plugin file](http://codex.wordpress.org/Must_Use_Plugins):
 ```php
 add_filter( 'menu_icons_disable_settings', '__return_true' );
-`
+```
 
 ### How can I use CSS file for a font type from a CDN instead of the bundled one? ###
 You can filter the icon type properties from your plugin/theme:
