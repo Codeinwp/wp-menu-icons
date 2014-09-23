@@ -271,7 +271,7 @@ final class Menu_Icons_Admin_Nav_Menus {
 				?>
 				<div class="easy">
 					<p class="description submitbox">
-						<label><?php esc_html_e( 'Icon:' ) ?></label>
+						<label><?php esc_html_e( 'Icon:', 'menu-icons' ) ?></label>
 						<?php printf(
 							'<a id="menu-icons-%1$d-select" class="_select" title="%2$s" data-id="%1$d" data-text="%2$s">%3$s</a>',
 							esc_attr__( $item->ID ),
