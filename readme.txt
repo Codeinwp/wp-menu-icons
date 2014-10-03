@@ -8,7 +8,7 @@ Stable tag: 0.6.0
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Spice up your navigation menus with sexy icons, easily.
+Spice up your navigation menus with pretty icons, easily.
 
 
 == Description ==

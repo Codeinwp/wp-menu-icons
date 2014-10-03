@@ -10,7 +10,7 @@
  *
  * Plugin name: Menu Icons
  * Plugin URI: http://kucrut.org/
- * Description: Spice up your navigation menus with sexy icons, easily.
+ * Description: Spice up your navigation menus with pretty icons, easily.
  * Version: 0.6.0
  * Author: Dzikri Aziz
  * Author URI: http://kucrut.org/
