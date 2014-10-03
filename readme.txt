@@ -147,6 +147,10 @@ Let me know via [GitHub issues](https://github.com/kucrut/wp-menu-icons/issues) 
 Read [this blog post](http://kucrut.org/add-custom-image-sizes-right-way/).
 
 == Changelog ==
+= 0.6.0 =
+* Update Genericons to [3.2](http://genericons.com/2014/10/03/3-2/)
+* Update Font Awesome to [4.2.0](http://fontawesome.io/whats-new/)
+
 = 0.5.1 =
 * Update Menu Item Custom Fields to play nice with other plugins.
 * Add missing Foundation Icons stylesheet, props [John](http://wordpress.org/support/profile/dsl225)
