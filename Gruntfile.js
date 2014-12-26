@@ -129,6 +129,8 @@ module.exports = function( grunt ) {
 	
 	// Default task.
 	
+	grunt.registerTask( 'css', ['cssmin'] );
+	grunt.registerTask( 'js', ['jshint', 'uglify'] );
 	grunt.registerTask( 'default', ['jshint', 'uglify', 'cssmin'] );
 	
 	
