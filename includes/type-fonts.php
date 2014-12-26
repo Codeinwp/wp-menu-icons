@@ -227,6 +227,10 @@ abstract class Menu_Icons_Type_Fonts extends Menu_Icons_Type {
 	 * @return string
 	 */
 	protected function add_icon( $title, $values ) {
+		if ( empty( $values['position'] ) ) {
+			$values['position'] = 'before';
+		}
+
 		$class = ! empty( $values['hide_label'] ) ? 'visuallyhidden' : '';
 		$title = sprintf(
 			'<span%s>%s</span>',

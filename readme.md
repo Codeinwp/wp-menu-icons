@@ -5,13 +5,15 @@ Spice up your navigation menus with pretty icons, easily.
 
 **Contributors:** [kucrut](http://profiles.wordpress.org/kucrut), [joshuairl](http://profiles.wordpress.org/joshuairl)  
 **Tags:** [menu](http://wordpress.org/plugins/tags/menu), [nav-menu](http://wordpress.org/plugins/tags/nav-menu), [icons](http://wordpress.org/plugins/tags/icons), [navigation](http://wordpress.org/plugins/tags/navigation)  
-**Requires at least:** 3.8  
-**Tested up to:** 4.0  
-**Stable tag:** 0.6.0  
+**Requires at least:** 4.1  
+**Tested up to:** 4.1  
+**Stable tag:** 0.7.0  
 **License:** [GPLv2](http://www.gnu.org/licenses/gpl-2.0.html)  
 **Donate Link:** http://kucrut.org/#coffee  
 
 ## Description ##
+
+This plugin gives you the ability to add icons to your menu items, similar to the look of the latest dashboard menu.
 
 ### Usage ###
 1. After the plugin is activated, go to *Appearance* > *Menus* to edit your menus
@@ -169,6 +171,11 @@ Read [this blog post](http://kucrut.org/add-custom-image-sizes-right-way/).
 
 
 ## Changelog ##
+
+### 0.7.0 ###
+* Update Dashicons
+* Fix annoying browser popup when navigating away from Nav Menus screen
+* Work-around settings update with ajax
 
 ### 0.6.0 ###
 * Update Genericons to [3.2](http://genericons.com/2014/10/03/3-2/)

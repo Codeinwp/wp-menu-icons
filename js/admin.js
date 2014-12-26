@@ -99,7 +99,7 @@
 
 			var id = $(this).data('id');
 
-			$('#menu-icons-'+ id +'-type').val('').trigger('change-mi');
+			$('#menu-icons-'+ id +'-type').val('').trigger('mi:update');
 		}
 	}, window.menuIcons);
 
@@ -206,7 +206,7 @@
 
 			this.model.set( 'value', value );
 			item.set( this.model.id, value );
-			$field.val( value ).trigger('change-mi');
+			$field.val( value ).trigger('mi:update');
 		}
 	});
 
@@ -1007,7 +1007,7 @@
 			_.each( attrs, function( value, key ) {
 				$el = $('#menu-icons-'+ id +'-'+ key).not('._setting');
 				if ( $el.length ) {
-					$el.val( value ).trigger('change-mi');
+					$el.val( value ).trigger('mi:update');
 				}
 			});
 
@@ -1019,7 +1019,37 @@
 	$('body')
 		.on( 'click', 'div.menu-icons-wrap a._select', window.menuIcons.selectIcon )
 		.on( 'click', 'div.menu-icons-wrap a._remove', window.menuIcons.removeIcon )
-		.on( 'change-mi', 'div.menu-icons-wrap select._type', window.menuIcons.toggleSelect );
+		.on( 'mi:update', 'div.menu-icons-wrap select._type', window.menuIcons.toggleSelect );
 
-	$('div.menu-icons-wrap select._type').trigger('change-mi');
+	$('div.menu-icons-wrap select._type').trigger('mi:update');
+
+
+	// Settings meta box
+	$('#menu-item-settings-save').on('click', function(e) {
+		var $button  = $(this).prop( 'disabled', true );
+		var $spinner = $button.siblings('span.spinner');
+
+		e.preventDefault();
+
+		$spinner.css( 'display', 'inline-block' );
+
+		$.ajax({
+			type    : 'POST',
+			url     : window.menuIcons.ajaxUrls.update,
+			data    : $('#menu-icons-settings :input').serialize(),
+			success : function( response, xhr ) {
+				if ( true === response.success && response.data.redirectUrl ) {
+					window.location = response.data.redirectUrl;
+				}
+				else {
+					$button.prop( 'disabled', false );
+				}
+			},
+			always  : function() {
+				$spinner.hide();
+			}
+		});
+	});
+
+
 }(jQuery));

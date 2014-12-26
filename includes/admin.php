@@ -110,7 +110,8 @@ final class Menu_Icons_Admin_Nav_Menus {
 	 * @wp_hook admin_enqueue_scripts
 	 */
 	public static function _enqueue_assets() {
-		$data = array(
+		$ajax_url = admin_url( '/admin-ajax.php' );
+		$data     = array(
 			'text'           => array(
 				'title'        => __( 'Select Icon', 'menu-icons' ),
 				'select'       => __( 'Select', 'menu-icons' ),
@@ -121,9 +122,10 @@ final class Menu_Icons_Admin_Nav_Menus {
 					'<a target="_blank" href="http://wordpress.org/plugins/simple-custom-css/">Simple Custom CSS</a>'
 				),
 			),
-			'base_url'       => untrailingslashit( Menu_Icons::get( 'url' ) ),
-			'admin_url'      => untrailingslashit( admin_url() ),
 			'settingsFields' => Menu_Icons_Settings::get_settings_fields(),
+			'ajaxUrls'       => array(
+				'update' => add_query_arg( 'action', 'menu_icons_update_settings', $ajax_url ),
+			)
 		);
 
 		foreach ( self::$_icon_types as $id => $props ) {
@@ -138,21 +140,8 @@ final class Menu_Icons_Admin_Nav_Menus {
 			}
 		}
 
-		/**
-		 * WP 3.8 bug, fixed in 3.9
-		 *
-		 * We need to dequeue and re-enqueue this one later,
-		 * otherwise we won't get the dashboard's colors
-		 *
-		 * @todo Remove in 4.0.1
-		 */
-		wp_dequeue_style( 'colors' );
-
 		$data['iconTypes'] = $icon_types;
 		$data['typeNames'] = array_keys( self::$_icon_types );
-
-		// re-enqueue color style
-		wp_enqueue_style( 'colors' );
 
 		wp_localize_script( 'menu-icons', 'menuIcons', $data );
 	}
@@ -244,7 +233,9 @@ final class Menu_Icons_Admin_Nav_Menus {
 	 * @return string Form fields
 	 */
 	public static function _fields( $id, $item, $depth, $args ) {
-		require_once Menu_Icons::get( 'dir' ) . 'includes/library/form-fields.php';
+		if ( ! class_exists( 'Kucrut_Form_Field' ) ) {
+			require_once Menu_Icons::get( 'dir' ) . 'includes/library/form-fields.php';
+		}
 
 		$type_ids   = array_values( array_filter( array_keys( self::_get_types() ) ) );
 		$input_id   = sprintf( 'menu-icons-%d', $item->ID );

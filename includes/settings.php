@@ -125,6 +125,7 @@ final class Menu_Icons_Settings {
 		Menu_Icons_Admin_Nav_Menus::init();
 
 		add_action( 'load-nav-menus.php', array( __CLASS__, '_load_nav_menus' ), 1 );
+		add_action( 'wp_ajax_menu_icons_update_settings', array( __CLASS__, '_ajax_menu_icons_update_settings' ) );
 	}
 
 
@@ -166,33 +167,78 @@ final class Menu_Icons_Settings {
 		if ( ! empty( $_POST['menu-icons']['settings'] ) ) {
 			check_admin_referer( self::UPDATE_KEY, self::UPDATE_KEY );
 
-			update_option(
-				'menu-icons',
-				wp_parse_args(
-					kucrut_validate( $_POST['menu-icons']['settings'] ),
-					self::$settings
-				)
-			);
-			set_transient( self::TRANSIENT_KEY, 'updated', 30 );
-			wp_redirect(
-				remove_query_arg(
-					array( 'menu-icons-reset' ),
-					wp_get_referer()
-				)
-			);
+			$redirect_url = self::_update_settings( $_POST['menu-icons']['settings'] );
+			wp_redirect( $redirect );
 		}
 		elseif ( ! empty( $_REQUEST[ self::RESET_KEY ] ) ) {
 			check_admin_referer( self::RESET_KEY, self::RESET_KEY );
-
-			delete_option( 'menu-icons' );
-			set_transient( self::TRANSIENT_KEY, 'reset', 30 );
-			wp_redirect(
-				remove_query_arg(
-					array( self::RESET_KEY, 'menu-icons-updated' ),
-					wp_get_referer()
-				)
-			);
+			wp_redirect( self::_reset_settings() );
 		}
+	}
+
+
+	/**
+	 * Update settings
+	 *
+	 * @since  0.7.0
+	 * @access protected
+	 * @param  array     $values Settings values
+	 * @return string    Redirect URL
+	 */
+	protected static function _update_settings( $values ) {
+		update_option(
+			'menu-icons',
+			wp_parse_args(
+				kucrut_validate( $values ),
+				self::$settings
+			)
+		);
+		set_transient( self::TRANSIENT_KEY, 'updated', 30 );
+
+		$redirect_url = remove_query_arg(
+			array( 'menu-icons-reset' ),
+			wp_get_referer()
+		);
+
+		return $redirect_url;
+	}
+
+
+	/**
+	 * Reset settings
+	 *
+	 * @since  0.7.0
+	 * @access protected
+	 * @return string    Redirect URL
+	 */
+	protected static function _reset_settings() {
+		delete_option( 'menu-icons' );
+		set_transient( self::TRANSIENT_KEY, 'reset', 30 );
+
+		$redirect_url = remove_query_arg(
+			array( self::RESET_KEY, 'menu-icons-updated' ),
+			wp_get_referer()
+		);
+
+		return $redirect_url;
+	}
+
+
+	/**
+	 * Update settings via ajax
+	 *
+	 * @since   0.7.0
+	 * @wp_hook action _ajax_menu_icons_update_settings
+	 */
+	public static function _ajax_menu_icons_update_settings() {
+		check_ajax_referer( self::UPDATE_KEY, self::UPDATE_KEY );
+
+		if ( empty( $_POST['menu-icons']['settings'] ) ) {
+			wp_send_json_error();
+		}
+
+		$redirect_url = self::_update_settings( $_POST['menu-icons']['settings'] );
+		wp_send_json_success( array( 'redirectUrl' => $redirect_url ) );
 	}
 
 
@@ -380,7 +426,9 @@ final class Menu_Icons_Settings {
 	 * @return array
 	 */
 	private static function _get_fields() {
-		require_once Menu_Icons::get( 'dir' ) . 'includes/library/form-fields.php';
+		if ( ! class_exists( 'Kucrut_Form_Field' ) ) {
+			require_once Menu_Icons::get( 'dir' ) . 'includes/library/form-fields.php';
+		}
 
 		$keys     = array( 'menu-icons', 'settings' );
 		$sections = self::get_fields();
@@ -464,6 +512,7 @@ final class Menu_Icons_Settings {
 				</span>
 
 				<span class="add-to-menu">
+					<span class="spinner"></span>
 					<?php submit_button(
 						__( 'Save Settings', 'menu-icons' ),
 						'secondary',
