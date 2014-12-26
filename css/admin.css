@@ -138,3 +138,8 @@
 .menu-icons-settings ._extensions ul a {
 	text-decoration: none;
 }
+.menu-icons-settings .spinner {
+	float: none;
+	margin: 0 5px 0 0;
+	vertical-align: middle;
+}

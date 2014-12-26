@@ -110,7 +110,8 @@ final class Menu_Icons_Admin_Nav_Menus {
 	 * @wp_hook admin_enqueue_scripts
 	 */
 	public static function _enqueue_assets() {
-		$data = array(
+		$ajax_url = admin_url( '/admin-ajax.php' );
+		$data     = array(
 			'text'           => array(
 				'title'        => __( 'Select Icon', 'menu-icons' ),
 				'select'       => __( 'Select', 'menu-icons' ),
@@ -121,9 +122,10 @@ final class Menu_Icons_Admin_Nav_Menus {
 					'<a target="_blank" href="http://wordpress.org/plugins/simple-custom-css/">Simple Custom CSS</a>'
 				),
 			),
-			'base_url'       => untrailingslashit( Menu_Icons::get( 'url' ) ),
-			'admin_url'      => untrailingslashit( admin_url() ),
 			'settingsFields' => Menu_Icons_Settings::get_settings_fields(),
+			'ajaxUrls'       => array(
+				'update' => add_query_arg( 'action', 'menu_icons_update_settings', $ajax_url ),
+			)
 		);
 
 		foreach ( self::$_icon_types as $id => $props ) {

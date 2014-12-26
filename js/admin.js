@@ -1022,4 +1022,34 @@
 		.on( 'mi:update', 'div.menu-icons-wrap select._type', window.menuIcons.toggleSelect );
 
 	$('div.menu-icons-wrap select._type').trigger('mi:update');
+
+
+	// Settings meta box
+	$('#menu-item-settings-save').on('click', function(e) {
+		var $button  = $(this).prop( 'disabled', true );
+		var $spinner = $button.siblings('span.spinner');
+
+		e.preventDefault();
+
+		$spinner.css( 'display', 'inline-block' );
+
+		$.ajax({
+			type    : 'POST',
+			url     : window.menuIcons.ajaxUrls.update,
+			data    : $('#menu-icons-settings :input').serialize(),
+			success : function( response, xhr ) {
+				if ( true === response.success && response.data.redirectUrl ) {
+					window.location = response.data.redirectUrl;
+				}
+				else {
+					$button.prop( 'disabled', false );
+				}
+			},
+			always  : function() {
+				$spinner.hide();
+			}
+		});
+	});
+
+
 }(jQuery));
