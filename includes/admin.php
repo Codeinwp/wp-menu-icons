@@ -138,21 +138,8 @@ final class Menu_Icons_Admin_Nav_Menus {
 			}
 		}
 
-		/**
-		 * WP 3.8 bug, fixed in 3.9
-		 *
-		 * We need to dequeue and re-enqueue this one later,
-		 * otherwise we won't get the dashboard's colors
-		 *
-		 * @todo Remove in 4.0.1
-		 */
-		wp_dequeue_style( 'colors' );
-
 		$data['iconTypes'] = $icon_types;
 		$data['typeNames'] = array_keys( self::$_icon_types );
-
-		// re-enqueue color style
-		wp_enqueue_style( 'colors' );
 
 		wp_localize_script( 'menu-icons', 'menuIcons', $data );
 	}
