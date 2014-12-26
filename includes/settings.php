@@ -172,15 +172,7 @@ final class Menu_Icons_Settings {
 		}
 		elseif ( ! empty( $_REQUEST[ self::RESET_KEY ] ) ) {
 			check_admin_referer( self::RESET_KEY, self::RESET_KEY );
-
-			delete_option( 'menu-icons' );
-			set_transient( self::TRANSIENT_KEY, 'reset', 30 );
-			wp_redirect(
-				remove_query_arg(
-					array( self::RESET_KEY, 'menu-icons-updated' ),
-					wp_get_referer()
-				)
-			);
+			wp_redirect( self::_reset_settings() );
 		}
 	}
 
@@ -205,6 +197,26 @@ final class Menu_Icons_Settings {
 
 		$redirect_url = remove_query_arg(
 			array( 'menu-icons-reset' ),
+			wp_get_referer()
+		);
+
+		return $redirect_url;
+	}
+
+
+	/**
+	 * Reset settings
+	 *
+	 * @since  0.7.0
+	 * @access protected
+	 * @return string    Redirect URL
+	 */
+	protected static function _reset_settings() {
+		delete_option( 'menu-icons' );
+		set_transient( self::TRANSIENT_KEY, 'reset', 30 );
+
+		$redirect_url = remove_query_arg(
+			array( self::RESET_KEY, 'menu-icons-updated' ),
 			wp_get_referer()
 		);
 
