@@ -114,6 +114,14 @@ module.exports = function( grunt ) {
 				src: ['**/*'],
 				dest: 'menu-icons/'
 			}
+		},
+		makepot: {
+			target: {
+				options: {
+					mainFile: 'menu-icons.php',
+					type: 'wp-plugin'
+				}
+			}
 		}
 	} );
 	
@@ -126,13 +134,14 @@ module.exports = function( grunt ) {
 	grunt.loadNpmTasks('grunt-contrib-clean');
 	grunt.loadNpmTasks('grunt-contrib-copy');
 	grunt.loadNpmTasks('grunt-contrib-compress');
-	
+
+	grunt.loadNpmTasks('grunt-wp-i18n');
 	// Default task.
 	
 	grunt.registerTask( 'css', ['cssmin'] );
 	grunt.registerTask( 'js', ['jshint', 'uglify'] );
-	grunt.registerTask( 'default', ['jshint', 'uglify', 'cssmin'] );
-	
+	grunt.registerTask( 'i18n', ['makepot'] );
+	grunt.registerTask( 'default', ['jshint', 'uglify', 'cssmin', 'i18n'] );
 	
 	grunt.registerTask( 'build', ['default', 'clean', 'copy', 'compress'] );
 
