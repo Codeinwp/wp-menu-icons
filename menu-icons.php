@@ -16,6 +16,7 @@
  * Author URI: http://kucrut.org/
  * License: GPLv2
  * Text Domain: menu-icons
+ * Domain Path: /languages
  */
 
 
