@@ -244,7 +244,9 @@ final class Menu_Icons_Admin_Nav_Menus {
 	 * @return string Form fields
 	 */
 	public static function _fields( $id, $item, $depth, $args ) {
-		require_once Menu_Icons::get( 'dir' ) . 'includes/library/form-fields.php';
+		if ( ! class_exists( 'Kucrut_Form_Field' ) ) {
+			require_once Menu_Icons::get( 'dir' ) . 'includes/library/form-fields.php';
+		}
 
 		$type_ids   = array_values( array_filter( array_keys( self::_get_types() ) ) );
 		$input_id   = sprintf( 'menu-icons-%d', $item->ID );
