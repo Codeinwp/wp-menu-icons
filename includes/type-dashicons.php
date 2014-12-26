@@ -103,8 +103,8 @@ class Menu_Icons_Type_Dashicons extends Menu_Icons_Type_Fonts {
 				),
 			),
 			array(
-				'key'   => 'edit',
-				'label' => __( 'Edit', 'menu-icons' ),
+				'key'   => 'image-editor',
+				'label' => __( 'Image Editor', 'menu-icons' ),
 				'items' => array(
 					'dashicons-image-crop'            => __( 'Crop', 'menu-icons' ),
 					'dashicons-image-rotate-left'     => __( 'Rotate Left', 'menu-icons' ),
