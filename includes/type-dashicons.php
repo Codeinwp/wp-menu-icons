@@ -116,8 +116,8 @@ class Menu_Icons_Type_Dashicons extends Menu_Icons_Type_Fonts {
 				),
 			),
 			array(
-				'key'   => 'editor',
-				'label' => __( 'Editor', 'menu-icons' ),
+				'key'   => 'text-editor',
+				'label' => __( 'Text Editor', 'menu-icons' ),
 				'items' => array(
 					'dashicons-editor-bold'             => __( 'Bold', 'menu-icons' ),
 					'dashicons-editor-italic'           => __( 'Italic', 'menu-icons' ),
