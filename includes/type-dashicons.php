@@ -286,6 +286,8 @@ class Menu_Icons_Type_Dashicons extends Menu_Icons_Type_Fonts {
 				'key'   => 'misc',
 				'label' => __( 'Misc./Post Types', 'menu-icons' ),
 				'items' => array(
+					'dashicons-album'        => __( 'Album', 'menu-icons' ),
+					'dashicons-building'     => __( 'Building', 'menu-icons' ),
 					'dashicons-location'     => __( 'Location', 'menu-icons' ),
 					'dashicons-location-alt' => __( 'Location', 'menu-icons' ),
 					'dashicons-camera'       => __( 'Camera', 'menu-icons' ),
@@ -327,6 +329,11 @@ class Menu_Icons_Type_Dashicons extends Menu_Icons_Type_Fonts {
 					'dashicons-tablet'       => __( 'Tablet', 'menu-icons' ),
 					'dashicons-smartphone'   => __( 'Smartphone', 'menu-icons' ),
 					'dashicons-smiley'       => __( 'Smiley', 'menu-icons' ),
+					'dashicons-phone'        => __( 'Phone', 'menu-icons' ),
+					'dashicons-store'        => __( 'Store', 'menu-icons' ),
+					'dashicons-palmtree'     => __( 'Palm Tree', 'menu-icons' ),
+					'dashicons-tickets-alt'  => __( 'Tickets', 'menu-icons' ),
+					'dashicons-money'        => __( 'Money', 'menu-icons' ),
 				),
 			),
 		);
