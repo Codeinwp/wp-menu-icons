@@ -2,9 +2,9 @@
 Contributors: kucrut, joshuairl
 Donate Link: http://kucrut.org/#coffee
 Tags: menu, nav-menu, icons, navigation
-Requires at least: 3.8
-Tested up to: 4.0
-Stable tag: 0.6.0
+Requires at least: 4.1
+Tested up to: 4.1
+Stable tag: 0.7.0
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -147,6 +147,11 @@ Let me know via [GitHub issues](https://github.com/kucrut/wp-menu-icons/issues) 
 Read [this blog post](http://kucrut.org/add-custom-image-sizes-right-way/).
 
 == Changelog ==
+= 0.7.0 =
+* Update Dashicons
+* Fix annoying browser popup when navigating away from Nav Menus screen
+* Work-around settings update with ajax
+
 = 0.6.0 =
 * Update Genericons to [3.2](http://genericons.com/2014/10/03/3-2/)
 * Update Font Awesome to [4.2.0](http://fontawesome.io/whats-new/)
