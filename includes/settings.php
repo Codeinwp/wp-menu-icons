@@ -380,7 +380,9 @@ final class Menu_Icons_Settings {
 	 * @return array
 	 */
 	private static function _get_fields() {
-		require_once Menu_Icons::get( 'dir' ) . 'includes/library/form-fields.php';
+		if ( ! class_exists( 'Kucrut_Form_Field' ) ) {
+			require_once Menu_Icons::get( 'dir' ) . 'includes/library/form-fields.php';
+		}
 
 		$keys     = array( 'menu-icons', 'settings' );
 		$sections = self::get_fields();
