@@ -105,6 +105,7 @@ final class Menu_Icons {
 
 		add_filter( 'menu_icons_types', array( __CLASS__, '_register_icon_types' ), 7 );
 		add_filter( 'menu_icons_types', array( __CLASS__, '_register_font_packs' ), 8 );
+		add_filter( 'upload_mimes', array( __CLASS__, '_mime_types'));
 		add_filter( 'is_protected_meta', array( __CLASS__, '_protect_meta_key' ), 10, 3 );
 		add_action( 'wp_loaded', array( __CLASS__, '_init' ), 9 );
 		add_action( 'get_header', array( __CLASS__, '_load_front_end' ) );
@@ -367,6 +368,22 @@ final class Menu_Icons {
 			false,
 			Menu_Icons::VERSION
 		);
+	}
+
+	/**
+	 * Add SVG support
+	 *
+	 * @since   proposed 0.8.0
+	 * @access  protected
+	 * @wp_hook action          upload_mimes/10
+	 * @link   https://codex.wordpress.org/Plugin_API/Filter_Reference/upload_mimes Action: upload_mimes/10
+	 * @by Ethan Clevenger (GitHub: ethanclevenger91; email: ethan.c.clevenger@gmail.com)
+	 */
+	public static function _mime_types($mimes) {
+		if(!isset($mimes['svg'])) {
+			$mimes['svg'] = 'image/svg';
+		}
+		return $mimes;
 	}
 
 

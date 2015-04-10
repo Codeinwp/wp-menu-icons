@@ -1,14 +1,14 @@
-# Copyright (C) 2014 Dzikri Aziz
+# Copyright (C) 2015 Dzikri Aziz
 # This file is distributed under the GPLv2.
 msgid ""
 msgstr ""
 "Project-Id-Version: Menu Icons 0.7.0\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/menu-icons\n"
-"POT-Creation-Date: 2014-12-26 16:13:21+00:00\n"
+"POT-Creation-Date: 2015-04-10 13:45:56+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2014-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2015-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "X-Generator: grunt-wp-i18n 0.4.9\n"
@@ -26,7 +26,7 @@ msgstr ""
 msgid "Select Icon"
 msgstr ""
 
-#: includes/admin.php:117 includes/admin.php:160 includes/admin.php:269
+#: includes/admin.php:117 includes/admin.php:161 includes/admin.php:270
 msgid "Select"
 msgstr ""
 
@@ -45,19 +45,19 @@ msgid ""
 "override it."
 msgstr ""
 
-#: includes/admin.php:265
+#: includes/admin.php:266
 msgid "Icon:"
 msgstr ""
 
-#: includes/admin.php:275 includes/type-elusive.php:153
+#: includes/admin.php:276 includes/type-elusive.php:153
 msgid "Remove"
 msgstr ""
 
-#: includes/admin.php:281
+#: includes/admin.php:282
 msgid "Icon type"
 msgstr ""
 
-#: includes/admin.php:352
+#: includes/admin.php:353
 msgid "Icon"
 msgstr ""
 
@@ -3266,6 +3266,14 @@ msgstr ""
 
 #: includes/type-image.php:79
 msgid "Image Size"
+msgstr ""
+
+#: includes/type-image.php:131
+msgid "Raster (.jpg, .png, etc.)"
+msgstr ""
+
+#: includes/type-image.php:135
+msgid "SVG"
 msgstr ""
 
 #: menu-icons.php:150

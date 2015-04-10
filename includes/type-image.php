@@ -120,6 +120,22 @@ class Menu_Icons_Type_Image extends Menu_Icons_Type {
 					),
 				),
 			),
+			'output_as' => array(
+				'id' => 'output_as',
+				'type' => 'select',
+				'label' => 'Image Format',
+				'default' => 'img',
+				'choices' => array(
+					array(
+						'value' => 'img',
+						'label' => __( 'Raster (.jpg, .png, etc.)', 'menu-icons' )
+					),
+					array(
+						'value' => 'svg',
+						'label' => __( 'SVG', 'menu-icons')
+					)
+				),
+			)
 		);
 
 		$_fields = apply_filters( sprintf( 'menu_icons_%s_settings_fields', $this->type ), $_fields );
@@ -255,12 +271,15 @@ class Menu_Icons_Type_Image extends Menu_Icons_Type {
 		$title = sprintf(
 			'%s%s%s',
 			'before' === $values['position'] ? '' : $title,
-			wp_get_attachment_image(
-				$icon->ID,
-				$values['image_size'],
-				false,
-				$i_attrs
-			),
+			'img' === $values['output_as'] ? 
+					wp_get_attachment_image(
+						$icon->ID,
+						$values['image_size'],
+						false,
+						$i_attrs
+					)
+				:
+					file_get_contents((get_attached_file($icon->ID))),
 			'after' === $values['position'] ? '' : $title
 		);
 
