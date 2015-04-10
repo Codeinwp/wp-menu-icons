@@ -125,8 +125,7 @@ final class Menu_Icons_Admin_Nav_Menus {
 			'settingsFields' => Menu_Icons_Settings::get_settings_fields(),
 			'ajaxUrls'       => array(
 				'update' => add_query_arg( 'action', 'menu_icons_update_settings', $ajax_url ),
-			),
-			'default_png' => includes_url('images/media/default.png'),
+			)
 		);
 
 		foreach ( self::$_icon_types as $id => $props ) {
