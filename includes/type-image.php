@@ -271,15 +271,15 @@ class Menu_Icons_Type_Image extends Menu_Icons_Type {
 		$title = sprintf(
 			'%s%s%s',
 			'before' === $values['position'] ? '' : $title,
-			'img' === $values['output_as'] ? 
+			'svg' === $values['output_as'] ? 
+					file_get_contents((get_attached_file($icon->ID)))
+				:
 					wp_get_attachment_image(
 						$icon->ID,
 						$values['image_size'],
 						false,
 						$i_attrs
-					)
-				:
-					file_get_contents((get_attached_file($icon->ID))),
+					),
 			'after' === $values['position'] ? '' : $title
 		);
 
