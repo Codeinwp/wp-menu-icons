@@ -107,7 +107,7 @@ final class Menu_Icons {
 		add_filter( 'menu_icons_types', array( __CLASS__, '_register_font_packs' ), 8 );
 		add_filter( 'is_protected_meta', array( __CLASS__, '_protect_meta_key' ), 10, 3 );
 		add_action( 'wp_loaded', array( __CLASS__, '_init' ), 9 );
-		add_action( 'get_header', array( __CLASS__, '_load_front_end' ) );
+		add_action( 'wp_enqueue_scripts', array( __CLASS__, '_load_front_end' ) );
 	}
 
 
