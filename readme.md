@@ -3,18 +3,19 @@
 
 Spice up your navigation menus with pretty icons, easily.
 
-**Contributors:** [kucrut](http://profiles.wordpress.org/kucrut), [joshuairl](http://profiles.wordpress.org/joshuairl)  
-**Tags:** [menu](http://wordpress.org/plugins/tags/menu), [nav-menu](http://wordpress.org/plugins/tags/nav-menu), [icons](http://wordpress.org/plugins/tags/icons), [navigation](http://wordpress.org/plugins/tags/navigation)  
+**Contributors:** [kucrut](https://profiles.wordpress.org/kucrut), [joshuairl](https://profiles.wordpress.org/joshuairl)  
+**Tags:** [menu](https://wordpress.org/plugins/tags/menu), [nav-menu](https://wordpress.org/plugins/tags/nav-menu), [icons](https://wordpress.org/plugins/tags/icons), [navigation](https://wordpress.org/plugins/tags/navigation)  
 **Requires at least:** 4.1  
 **Tested up to:** 4.1  
 **Stable tag:** 0.7.0  
 **License:** [GPLv2](http://www.gnu.org/licenses/gpl-2.0.html)  
 **Donate Link:** http://kucrut.org/#coffee  
 
+[![Build Status](https://travis-ci.org/kucrut/wp-menu-icons.png?branch=master)](https://travis-ci.org/kucrut/wp-menu-icons) 
+
 ## Description ##
 
 This plugin gives you the ability to add icons to your menu items, similar to the look of the latest dashboard menu.
-
 ### Usage ###
 1. After the plugin is activated, go to *Appearance* > *Menus* to edit your menus
 1. Enable/Disable icon types in "Menu Icons Settings" meta box
@@ -94,7 +95,7 @@ This is a bug with the font icon itself. When the font is updated, this plugin w
 
 ### Is this plugin extendable? ###
 **Certainly!** Here's how you can remove an icon type from your plugin/theme:
-```php
+`
 /**
  * Remove one or more icon types
  *
@@ -125,19 +126,19 @@ function myplugin_remove_menu_icons_type( $types ) {
 	return $types;
 }
 add_filter( 'menu_icons_types', 'myplugin_remove_menu_icons_type' );
-```
+`
 
 To add a new icon type, take a look at the `type-*.php` files inside the `includes` directory of this plugin.
 
 ### I don't want the settings meta box. How do I remove/disable it? ###
 Add this line to your [mu-plugin file](http://codex.wordpress.org/Must_Use_Plugins):
-```php
+`
 add_filter( 'menu_icons_disable_settings', '__return_true' );
-```
+`
 
 ### How can I use CSS file for a font type from a CDN instead of the bundled one? ###
 You can filter the icon type properties from your plugin/theme:
-```php
+`
 /**
  * Modify icon type properties
  *
@@ -156,7 +157,7 @@ function _my_fontawesome_props( $props, $instance ) {
 	return $props;
 }
 add_filter( 'menu_icons_fa_props', '_my_fontawesome_props', 10, 2 );
-```
+`
 
 ### Can you please add X icon font? ###
 Let me know via [GitHub issues](https://github.com/kucrut/wp-menu-icons/issues) and I'll see what I can do.
