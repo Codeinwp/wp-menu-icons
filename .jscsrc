@@ -1,1 +1,9 @@
-dev-lib/.jscsrc
+{
+	"preset": "wordpress",
+	"requireCamelCaseOrUpperCaseIdentifiers": "ignoreProperties",
+	"excludeFiles": [
+		"**/vendor/**",
+		"**/*.min.js",
+		"**/node_modules/**"
+	]
+}
