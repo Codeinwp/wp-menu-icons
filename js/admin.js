@@ -802,7 +802,7 @@
 					type:  state.get( 'type' ),
 					alt:   selected.get( 'alt' ),
 					sizes: selected.get( 'sizes' ),
-					url   : selected.get('url')
+					url: selected.get( 'url' )
 				}
 			}) );
 		}
@@ -819,7 +819,7 @@
 			    newChoices = [];
 
 			//if image sizes are defined, process as raster
-			if(typeof imageSizes !== 'undefined') {
+			if ( 'undefined' !== typeof imageSizes ) {
 				if ( ! imageSizes.hasOwnProperty( size ) ) {
 					size = 'full';
 				}
