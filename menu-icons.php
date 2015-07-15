@@ -389,7 +389,7 @@ final class Menu_Icons {
 	 * @by Ethan Clevenger (GitHub: ethanclevenger91; email: ethan.c.clevenger@gmail.com)
 	 */
 	public static function _mime_types($mimes) {
-		if ( ! isset( $mimes[ 'svg' ] ) ) {
+		if ( ! isset( $mimes['svg'] ) ) {
 			$mimes['svg'] = 'image/svg';
 		}
 		return $mimes;
