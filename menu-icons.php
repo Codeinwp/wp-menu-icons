@@ -107,7 +107,6 @@ final class Menu_Icons {
 		add_filter( 'menu_icons_types', array( __CLASS__, '_register_font_packs' ), 8 );
 		add_filter( 'is_protected_meta', array( __CLASS__, '_protect_meta_key' ), 10, 3 );
 		add_action( 'wp_loaded', array( __CLASS__, '_init' ), 9 );
-		add_action( 'get_header', array( __CLASS__, '_load_front_end' ) );
 	}
 
 
@@ -155,6 +154,10 @@ final class Menu_Icons {
 		// Load settings
 		require_once self::$data['dir'] . 'includes/settings.php';
 		Menu_Icons_Settings::init();
+
+		if ( ! is_admin() ) {
+			self::_load_front_end();
+		}
 	}
 
 
@@ -297,10 +300,9 @@ final class Menu_Icons {
 	 *
 	 * @since   0.1.0
 	 * @access  protected
-	 * @wp_hook action    load-nav-menus.php/10
-	 * @link    http://codex.wordpress.org/Plugin_API/Action_Reference/get_header Action: get_header/10
+	 * @return  void
 	 */
-	public static function _load_front_end() {
+	protected static function _load_front_end() {
 		foreach ( Menu_Icons_Settings::get( 'global', 'icon_types' ) as $id ) {
 			if ( isset( self::$data['icon_types'][ $id ] ) ) {
 				call_user_func( self::$data['icon_types'][ $id ]['front_cb'] );
