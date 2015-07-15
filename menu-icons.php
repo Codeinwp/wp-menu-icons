@@ -315,18 +315,26 @@ final class Menu_Icons {
 	 * Enqueue icon type's stylesheet
 	 *
 	 * @since 0.2.0
-	 * @param string $id    Stylesheet ID
+	 *
+	 * @param string $id    Icon type ID
 	 * @param array  $props Icon type properties
+	 *
+	 * @return void
 	 */
-	public static function enqueue_type_stylesheet( $id, $props ) {
+	public static function enqueue_type_stylesheet( $id, array $props ) {
 		if ( empty( $props['stylesheet'] ) ) {
 			return;
 		}
 
 		if ( wp_style_is( $props['stylesheet'], 'registered' ) ) {
-			wp_enqueue_style( $id );
+			wp_enqueue_style( $props['stylesheet_id'] );
 		} else {
-			wp_enqueue_style( $id, $props['stylesheet'], false, $props['version'] );
+			wp_enqueue_style(
+				$props['stylesheet_id'],
+				$props['stylesheet'],
+				false,
+				$props['version']
+			);
 		}
 	}
 

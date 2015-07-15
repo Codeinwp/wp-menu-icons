@@ -43,6 +43,15 @@ abstract class Menu_Icons_Type {
 	protected $stylesheet;
 
 	/**
+	 * Custom stylesheet ID
+	 *
+	 * @since  0.8.0
+	 * @access protected
+	 * @var    string
+	 */
+	protected $stylesheet_id;
+
+	/**
 	 * Holds icon version
 	 *
 	 * @since  0.1.0
@@ -80,6 +89,10 @@ abstract class Menu_Icons_Type {
 	function __construct() {
 		$this->key = $this->type . '-icon';
 
+		if ( empty( $this->stylesheet_id ) ) {
+			$this->stylesheet_id = $this->type;
+		}
+
 		if ( is_null( $this->version ) ) {
 			$this->version = get_bloginfo( 'version' );
 		}
@@ -116,11 +129,12 @@ abstract class Menu_Icons_Type {
 	 */
 	public function register( $types ) {
 		$props = array(
-			'label'      => $this->label,
-			'field_cb'   => array( $this, 'the_field' ),
-			'front_cb'   => array( $this, 'front' ),
-			'stylesheet' => $this->stylesheet,
-			'version'    => $this->version,
+			'label'         => $this->label,
+			'field_cb'      => array( $this, 'the_field' ),
+			'front_cb'      => array( $this, 'front' ),
+			'stylesheet_id' => $this->stylesheet_id,
+			'stylesheet'    => $this->stylesheet,
+			'version'       => $this->version,
 		);
 
 		if ( method_exists( $this, 'frame_cb' ) ) {
