@@ -15,90 +15,89 @@
  * @version 0.1.0
  *
  */
-(function($) {
+(function( $ ) {
 	'use strict';
 
 	var instances = {};
 
 	var defaults = {
-		selector : '.hasdep',
-		disable  : true
+		selector: '.hasdep',
+		disable:  true
 	};
 
-	var getState = function ( $el, depOn ) {
-		var value    = $el.val();
-		var eqString = ('string' === typeof depOn && depOn === value );
-		var eqNumber = ('number' === typeof depOn && depOn === value );
-		var inObject = ('object' === typeof depOn && $.inArray(value, depOn) > -1);
+	var getState = function( $el, depOn ) {
+		var value    = $el.val(),
+		    eqString = ( 'string' === typeof depOn && depOn === value ),
+		    eqNumber = ( 'number' === typeof depOn && depOn === value ),
+		    inObject = ( 'object' === typeof depOn && $.inArray( value, depOn ) > -1 );
 
-		if ( ! $el.prop('disabled') && ( eqString || eqNumber || inObject ) ) {
+		if ( ! $el.prop( 'disabled' ) && ( eqString || eqNumber || inObject ) ) {
 			return true;
-		}
-		else {
+		} else {
 			return false;
 		}
 	};
 
 	var getChildren = function( $el, options ) {
-		var childrenSelector = $el.data('dep-children');
+		var childrenSelector = $el.data( 'dep-children' );
 
-		if ( !childrenSelector ) {
+		if ( ! childrenSelector ) {
 			window.log( 'jQuery.inputDependencies', 'childrenSelector is not valid.', options, $el );
 			return false;
 		}
 
-		var childrenScope = $el.data('dep-scope');
+		var childrenScope = $el.data( 'dep-scope' );
 		if ( childrenScope  ) {
 			return $el.closest( childrenScope ).find( childrenSelector );
-		}
-		else {
+		} else {
 			return $( childrenSelector );
 		}
 	};
 
 	var onChange = function( e ) {
-		var $el = $(e.target);
+		var $el = $( e.target ),
+		    options, $children;
 
 		// If this input is already initialized, do nothing
 		// This is to prevent unnecessary actions when the change event is
 		// triggered by our ajaxComplete callback
-		if ( e.inputDependenciesInit && $el.data('inputDependenciesInit') ) {
+		if ( e.inputDependenciesInit && $el.data( 'inputDependenciesInit' ) ) {
 			return;
-		}
-		else {
-			$el.data('inputDependenciesInit', true );
+		} else {
+			$el.data( 'inputDependenciesInit', true );
 		}
 
-		var options   = e.data;
-		var $children = getChildren( $el, options );
+		options   = e.data;
+		$children = getChildren( $el, options );
 
 		if ( ! $children.length ) {
 			return false;
 		}
 
 		$children.each(function() {
-			var $child = $(this);
-			var depOn  = $child.data('dep-on');
+			var $child = $( this ),
+			    depOn  = $child.data( 'dep-on' ),
+			    show;
 
 			if ( ! depOn ) {
 				return false;
 			}
 
-			var show  = getState( $el, depOn );
+			show = getState( $el, depOn );
 			$child.toggle( show );
 
 			if ( true === options.disable ) {
-				$child.filter(':input')
-					.add( $child.find(':input') )
-					.prop('disabled', !show)
-					.trigger('change');
+				$child.filter( ':input' )
+					.add( $child.find( ':input' ) )
+					.prop( 'disabled', ! show )
+					.trigger( 'change' );
 			}
 		});
 	};
 
 	var init = function( selector ) {
-		$(selector).trigger({
-			type: 'change',
+		$( selector ).trigger({
+			type:                  'change',
 			inputDependenciesInit: true
 		});
 	};
@@ -106,7 +105,7 @@
 	$.inputDependencies = function( options ) {
 		options = $.extend( true, {}, defaults, options );
 
-		if ( !options.selector ) {
+		if ( ! options.selector ) {
 			window.log( 'jQuery.inputDependencies', 'Invalid selector.', options );
 			return false;
 		}
@@ -119,29 +118,29 @@
 		instances[ options.selector ] = options;
 
 		// Delegate event
-		$(document)
-			.on('change', options.selector, options, onChange)
+		$( document )
+			.on( 'change', options.selector, options, onChange )
 			.ajaxComplete(function() {
-				init(options.selector);
+				init( options.selector );
 			});
 
 		// Trigger event
-		init(options.selector);
+		init( options.selector );
 
 		return true;
 	};
-}(jQuery));
+}( jQuery ) );
 
 if ( undefined === window.log ) {
 	/**
-	 * usage: log('inside coolFunc',this,arguments);
+	 * Usage: log('inside coolFunc',this,arguments);
 	 * http://paulirish.com/2009/log-a-lightweight-wrapper-for-consolelog/
 	 */
-	window.log = function(){
-		log.history = log.history || [];   // store logs to an array for reference
-		log.history.push(arguments);
+	window.log = function() {
+		log.history = log.history || []; // store logs to an array for reference
+		log.history.push( arguments );
 		if ( this.console ) {
-			console.log( Array.prototype.slice.call(arguments) );
+			console.log( Array.prototype.slice.call( arguments ) );
 		}
 	};
 }

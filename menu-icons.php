@@ -147,7 +147,7 @@ final class Menu_Icons {
 
 		// Nothing to do if there are no icon types registered
 		if ( empty( self::$data['icon_types'] ) ) {
-			trigger_error( __( 'Menu Icons: No registered icon types found.', 'menu-icons' ) );
+			trigger_error( esc_html__( 'Menu Icons: No registered icon types found.', 'menu-icons' ) );
 
 			return;
 		}
@@ -267,8 +267,8 @@ final class Menu_Icons {
 				if ( ! in_array( $key, $optionals ) && empty( $value ) ) {
 					trigger_error(
 						'<strong>Menu Icons</strong>: ' . vsprintf(
-							$messages['empty'],
-							array( '<em>'.$key.'</em>', '<em>'.$type.'</em>' )
+							esc_html( $messages['empty'] ),
+							array( '<em>' . esc_html( $key ) . '</em>', '<em>' . esc_html( $type ) . '</em>' )
 						)
 					);
 					continue 2;
@@ -277,8 +277,8 @@ final class Menu_Icons {
 				if ( in_array( $key, $callbacks ) && ! is_callable( $value ) ) {
 					trigger_error(
 						'<strong>Menu Icons</strong>: ' . vsprintf(
-							$messages['callback'],
-							array( '<em>'.$key.'</em>', '<em>'.$type.'</em>' )
+							esc_html( $messages['callback'] ),
+							array( '<em>' . esc_html( $key ) . '</em>', '<em>' . esc_html( $type ) . '</em>' )
 						)
 					);
 					continue 2;
@@ -325,8 +325,7 @@ final class Menu_Icons {
 
 		if ( wp_style_is( $props['stylesheet'], 'registered' ) ) {
 			wp_enqueue_style( $id );
-		}
-		else {
+		} else {
 			wp_enqueue_style( $id, $props['stylesheet'], false, $props['version'] );
 		}
 	}
@@ -403,8 +402,7 @@ final class Menu_Icons {
 
 		if ( is_object( $menu ) && ! is_wp_error( $menu ) ) {
 			return $menu->term_id;
-		}
-		else {
+		} else {
 			return false;
 		}
 	}
@@ -422,8 +420,7 @@ final class Menu_Icons {
 
 		if ( empty( $values ) || ! is_array( $values ) ) {
 			$values = array();
-		}
-		elseif ( isset( $values['size'] ) && ! isset( $values['font_size'] ) ) {
+		} elseif ( isset( $values['size'] ) && ! isset( $values['font_size'] ) ) {
 			$values['font_size'] = $values['size'];
 			unset( $values['size'] );
 		}

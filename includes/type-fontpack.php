@@ -97,7 +97,7 @@ class Menu_Icons_Type_Fontpack extends Menu_Icons_Type_Fonts {
 	 * @var    array
 	 */
 	protected $icons = array();
-	
+
 	/**
 	 * Class constructor
 	 *
@@ -120,9 +120,9 @@ class Menu_Icons_Type_Fontpack extends Menu_Icons_Type_Fonts {
 		if ( ! is_readable( $this->dir . '/config.json' ) ) {
 			trigger_error(
 				sprintf(
-					$this->messages['no_config'],
+					esc_html( $this->messages['no_config'] ),
 					'<code><em>config.json</em></code>',
-					sprintf( '<code>%s</code>', $this->dir )
+					sprintf( '<code>%s</code>', esc_html( $this->dir ) )
 				)
 			);
 
@@ -168,9 +168,9 @@ class Menu_Icons_Type_Fontpack extends Menu_Icons_Type_Fonts {
 			if ( empty( $this->config[ $key ] ) ) {
 				trigger_error(
 					sprintf(
-						$this->messages['invalid'],
-						sprintf( '<code><em>%s</em></code>', $key ),
-						sprintf( '<code>%s/config.json</code>', $this->dir )
+						esc_html( $this->messages['invalid'] ),
+						sprintf( '<code><em>%s</em></code>', esc_html( $key ) ),
+						sprintf( '<code>%s/config.json</code>', esc_html( $this->dir ) )
 					)
 				);
 
@@ -215,8 +215,7 @@ class Menu_Icons_Type_Fontpack extends Menu_Icons_Type_Fonts {
 
 		if ( ! empty( $this->config['version'] ) ) {
 			$this->version = $this->config['version'];
-		}
-		else {
+		} else {
 			$this->version = filemtime( sprintf( '%s/css/%s.css', $this->dir, $this->config['name'] ) );
 		}
 	}
@@ -238,9 +237,9 @@ class Menu_Icons_Type_Fontpack extends Menu_Icons_Type_Fonts {
 		if ( isset( $icon_types[ $this->type ] ) ) {
 			trigger_error(
 				sprintf(
-					$this->messages['duplicate'],
-					sprintf( '<strong>%s</strong>', $this->config['name'] ),
-					sprintf( '<code><em>%s/config.json</em></code>', $this->dir )
+					esc_html( $this->messages['duplicate'] ),
+					sprintf( '<strong>%s</strong>', esc_html( $this->config['name'] ) ),
+					sprintf( '<code><em>%s/config.json</em></code>', esc_html( $this->dir ) )
 				)
 			);
 

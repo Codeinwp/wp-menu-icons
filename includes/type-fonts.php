@@ -105,31 +105,39 @@ abstract class Menu_Icons_Type_Fonts extends Menu_Icons_Type {
 		$input_id   = sprintf( 'menu-icons-%d-%s', $id, $this->key );
 		$input_name = sprintf( 'menu-icons[%d][%s]', $id, $this->key );
 		?>
-		<?php printf(
-			'<p class="field-icon-child description menu-icon-type-%1$s" data-dep-on="%1$s">',
-			esc_attr( $this->type )
-		) ?>
+		<?php
+			printf(
+				'<p class="field-icon-child description menu-icon-type-%1$s" data-dep-on="%1$s">',
+				esc_attr( $this->type )
+			);
+		?>
 			<label for="<?php echo esc_attr( $input_id ) ?>"><?php echo esc_html( $this->label ); ?></label>
-			<?php printf(
-				'<select id="%s" name="%s" data-key="%s">',
-				esc_attr( $input_id ),
-				esc_attr( esc_attr( $input_name ) ),
-				esc_attr( $this->key )
-			) ?>
-				<?php printf(
-					'<option value=""%s>%s</option>',
-					selected( empty( $current ), true, false ),
-					esc_html__( '&mdash; Select &mdash;', 'menu-icons' )
-				) ?>
+			<?php
+				printf(
+					'<select id="%s" name="%s" data-key="%s">',
+					esc_attr( $input_id ),
+					esc_attr( esc_attr( $input_name ) ),
+					esc_attr( $this->key )
+				);
+			?>
+				<?php
+					printf(
+						'<option value=""%s>%s</option>',
+						selected( empty( $current ), true, false ),
+						esc_html__( '&mdash; Select &mdash;', 'menu-icons' )
+					);
+				?>
 				<?php foreach ( $this->get_names() as $group ) : ?>
 					<optgroup label="<?php echo esc_attr( $group['label'] ) ?>">
 						<?php foreach ( $group['items'] as $value => $label ) : ?>
-							<?php printf(
-								'<option value="%s"%s>%s</option>',
-								esc_attr( $value ),
-								selected( $current, $value, false ),
-								esc_html( $label )
-							) ?>
+							<?php
+								printf(
+									'<option value="%s"%s>%s</option>',
+									esc_attr( $value ),
+									selected( $current, $value, false ),
+									esc_html( $label )
+								);
+							?>
 						<?php endforeach; ?>
 					</optgroup>
 				<?php endforeach; ?>

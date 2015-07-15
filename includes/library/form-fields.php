@@ -68,7 +68,11 @@ abstract class Kucrut_Form_Field {
 	 * @access protected
 	 */
 	protected static $forbidden_attributes = array(
-		'id', 'name', 'value', 'checked', 'multiple',
+		'id',
+		'name',
+		'value',
+		'checked',
+		'multiple',
 	);
 
 	/**
@@ -120,8 +124,7 @@ abstract class Kucrut_Form_Field {
 		// Set URL path for assets
 		if ( ! is_null( $url_path ) ) {
 			self::$url_path = $url_path;
-		}
-		else {
+		} else {
 			self::$url_path = plugin_dir_url( __FILE__ );
 		}
 
@@ -146,9 +149,9 @@ abstract class Kucrut_Form_Field {
 		) {
 			trigger_error(
 				sprintf(
-					__( '%1$s: Type %2$s is not supported, reverting to text.', 'menu-icons' ),
+					esc_html__( '%1$s: Type %2$s is not supported, reverting to text.', 'menu-icons' ),
 					__CLASS__,
-					$field['type']
+					esc_html( $field['type'] )
 				),
 				E_USER_WARNING
 			);
@@ -320,7 +323,7 @@ abstract class Kucrut_Form_Field {
 
 			printf(
 				'<%1$s class="description">%2$s</%1$s>',
-				$tag,
+				$tag, // xss ok
 				wp_kses( $this->field['description'], $this->allowed_html )
 			);
 		}
@@ -357,10 +360,10 @@ class Kucrut_Form_Field_Text extends Kucrut_Form_Field {
 
 	public function render() {
 		printf(
-			$this->template,
+			$this->template, // xss ok
 			esc_attr( $this->field['type'] ),
 			esc_attr( $this->field['value'] ),
-			$this->build_attributes()
+			$this->build_attributes() // xss ok
 		);
 		$this->description();
 	}
@@ -383,8 +386,8 @@ class Kucrut_Form_Field_Textarea extends Kucrut_Form_Field {
 
 	public function render() {
 		printf(
-			$this->template,
-			$this->build_attributes(),
+			$this->template, // xss ok
+			$this->build_attributes(), // xss ok
 			esc_textarea( $this->field['value'] )
 		);
 	}
@@ -413,11 +416,11 @@ class Kucrut_Form_Field_Checkbox extends Kucrut_Form_Field {
 	public function render() {
 		foreach ( $this->field['choices'] as $value => $label ) {
 			printf(
-				$this->template,
-				$this->field['type'],
+				$this->template, // xss ok
+				$this->field['type'], // xss ok
 				esc_attr( $value ),
-				$this->checked( $value ),
-				$this->build_attributes( 'id' ),
+				$this->checked( $value ), // xss ok
+				$this->build_attributes( 'id' ), // xss ok
 				esc_html( $label )
 			);
 		}
@@ -468,21 +471,22 @@ class Kucrut_Form_Field_Select extends Kucrut_Form_Field {
 		<select<?php echo $this->build_attributes() // xss ok ?>>
 			<?php foreach ( $this->field['choices'] as $index => $choice ) : ?>
 				<?php
-					if ( is_array( $choice ) ) {
-						$value = $choice['value'];
-						$label = $choice['label'];
-					}
-					else {
-						$value = $index;
-						$label = $choice;
-					}
+				if ( is_array( $choice ) ) {
+					$value = $choice['value'];
+					$label = $choice['label'];
+				} else {
+					$value = $index;
+					$label = $choice;
+				}
 				?>
-				<?php printf(
-					$this->template,
-					esc_attr( $value ),
-					$this->selected( $value ),
-					esc_html( $label )
-				) ?>
+				<?php
+					printf(
+						$this->template, // xss ok
+						esc_attr( $value ),
+						$this->selected( $value ), // xss ok
+						esc_html( $label )
+					);
+				?>
 			<?php endforeach; ?>
 		</select>
 		<?php
