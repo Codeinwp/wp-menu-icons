@@ -105,7 +105,7 @@ final class Menu_Icons {
 
 		add_filter( 'menu_icons_types', array( __CLASS__, '_register_icon_types' ), 7 );
 		add_filter( 'menu_icons_types', array( __CLASS__, '_register_font_packs' ), 8 );
-		add_filter( 'upload_mimes', array( __CLASS__, '_mime_types'));
+		add_filter( 'upload_mimes', array( __CLASS__, '_mime_types' ) );
 		add_filter( 'is_protected_meta', array( __CLASS__, '_protect_meta_key' ), 10, 3 );
 		add_action( 'wp_loaded', array( __CLASS__, '_init' ), 9 );
 	}
@@ -389,8 +389,8 @@ final class Menu_Icons {
 	 * @by Ethan Clevenger (GitHub: ethanclevenger91; email: ethan.c.clevenger@gmail.com)
 	 */
 	public static function _mime_types($mimes) {
-		if( ! isset( $mimes[ 'svg' ] ) ) {
-			$mimes[ 'svg' ] = 'image/svg';
+		if ( ! isset( $mimes[ 'svg' ] ) ) {
+			$mimes['svg'] = 'image/svg';
 		}
 		return $mimes;
 	}
