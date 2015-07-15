@@ -833,8 +833,8 @@
 			} else { //if image sizes are undefined, must be a non-raster
 				size = 'full';
 				newChoices.push({
-					label:"N/A",
-					value:"full"
+					label:'N/A',
+					value:'full'
 				});
 			}
 			sizeField.model.set( 'choices', newChoices );
