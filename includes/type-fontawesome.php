@@ -25,6 +25,15 @@ class Menu_Icons_Type_Fontawesome extends Menu_Icons_Type_Fonts {
 	protected $type = 'fa';
 
 	/**
+	 * Custom stylesheet ID
+	 *
+	 * @since  0.8.0
+	 * @access protected
+	 * @var    string
+	 */
+	protected $stylesheet_id = 'font-awesome';
+
+	/**
 	 * Holds icon label
 	 *
 	 * @since  0.1.0
