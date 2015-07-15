@@ -119,7 +119,7 @@ class Menu_Icons_Type_Image extends Menu_Icons_Type {
 						'label' => __( 'Sub', 'menu-icons' ),
 					),
 				),
-			)
+			),
 		);
 
 		$_fields = apply_filters( sprintf( 'menu_icons_%s_settings_fields', $this->type ), $_fields );
@@ -255,16 +255,18 @@ class Menu_Icons_Type_Image extends Menu_Icons_Type {
 		if ( ! empty( $i_style ) ) {
 			$i_attrs['style'] = $i_style;
 		}
-		$mime_type = get_post_mime_type($icon->ID);
-		if($mime_type == 'image/svg' || $mime_type == 'image/svg+xml')
-			$icon_output = file_get_contents((get_attached_file($icon->ID)));
-		else
+		$mime_type = get_post_mime_type( $icon->ID );
+		if ( 'image/svg' == $mime_type || 'image/svg+xml' == $mime_type ) {
+			$icon_output = file_get_contents( ( get_attached_file( $icon->ID ) ) );
+		}
+		else {
 			$icon_output = wp_get_attachment_image(
-					$icon->ID,
-					$values['image_size'],
-					false,
-					$i_attrs
-				);
+				$icon->ID,
+				$values['image_size'],
+				false,
+				$i_attrs
+			);
+		}
 		$title = sprintf(
 			'%s%s%s',
 			'before' === $values['position'] ? '' : $title,
