@@ -53,8 +53,7 @@ if ( ! function_exists( 'kucrut_validate' ) ) {
 		foreach ( $values as $key => $value ) {
 			if ( is_array( $value ) ) {
 				$values[ $key ] = kucrut_validate( $value );
-			}
-			else {
+			} else {
 				$values[ $key ] = call_user_func_array(
 					$sanitize_cb,
 					array( $value )
