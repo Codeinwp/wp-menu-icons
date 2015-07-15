@@ -268,9 +268,29 @@ abstract class Menu_Icons_Type {
 			return $title;
 		}
 
-		$title = $this->add_icon( $title, $values );
+		$title_with_icon = $this->add_icon( $title, $values );
 
-		return $title;
+		/**
+		 * Allow plugins/themes to override menu item markup
+		 *
+		 * @since 0.8.0
+		 *
+		 * @param string  $title_with_icon Menu item markup after the icon is added.
+		 * @param integer $id              Menu item ID.
+		 * @param array   $values          Menu item metadata values.
+		 * @param string  $title           Original menu item title.
+		 *
+		 * @return string
+		 */
+		$title_with_icon = apply_filters(
+			'menu_icons_item_title',
+			$title_with_icon,
+			$id,
+			$values,
+			$title
+		);
+
+		return $title_with_icon;
 	}
 
 
