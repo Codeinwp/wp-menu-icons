@@ -266,7 +266,7 @@ class Menu_Icons_Type_Image extends Menu_Icons_Type {
 				false,
 				$i_attrs
 			);
-		}  
+		}
 		$title = sprintf(
 			'%s%s%s',
 			'before' === $values['position'] ? '' : $title,
