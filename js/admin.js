@@ -714,7 +714,6 @@
 				attachment = Attachment.get( icon );
 				this.dfd   = attachment.fetch();
 			}
-
 			selection.reset( attachment ? attachment : [] );
 		},
 
@@ -793,7 +792,6 @@
 
 			controller = this.controller;
 			menuItem   = controller.miGetCurrentItem();
-
 			this.createSettings();
 			this.sidebar.set( 'preview', new media.view.miPreview.miImage({
 				controller: controller,
@@ -803,7 +801,8 @@
 				data:       {
 					type:  state.get( 'type' ),
 					alt:   selected.get( 'alt' ),
-					sizes: selected.get( 'sizes' )
+					sizes: selected.get( 'sizes' ),
+					url: selected.get( 'url' )
 				}
 			}) );
 		}
@@ -819,19 +818,27 @@
 			    sizeField  = this.options.settings.get( 'image_size' ),
 			    newChoices = [];
 
-			if ( ! imageSizes.hasOwnProperty( size ) ) {
-				size = 'full';
-			}
-
-			_.each( sizeField.model.get( 'choices' ), function( choice ) {
-				if ( imageSizes.hasOwnProperty( choice.value ) ) {
-					newChoices.push( choice );
+			//if image sizes are defined, process as raster
+			if ( 'undefined' !== typeof imageSizes ) {
+				if ( ! imageSizes.hasOwnProperty( size ) ) {
+					size = 'full';
 				}
-			} );
 
+				_.each( sizeField.model.get( 'choices' ), function( choice ) {
+					if ( imageSizes.hasOwnProperty( choice.value ) ) {
+						newChoices.push( choice );
+					}
+				} );
+				this.options.data.url = imageSizes[ size ].url;
+			} else { //if image sizes are undefined, must be a non-raster
+				size = 'full';
+				newChoices.push({
+					label:'N/A',
+					value:'full'
+				});
+			}
 			sizeField.model.set( 'choices', newChoices );
 			this.options.model.set( 'image_size', size, { silent: true } );
-			this.options.data.url = imageSizes[ size ].url;
 
 			return media.view.miPreview.prototype.render.apply( this, arguments );
 		}

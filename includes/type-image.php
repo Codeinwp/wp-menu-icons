@@ -255,16 +255,21 @@ class Menu_Icons_Type_Image extends Menu_Icons_Type {
 		if ( ! empty( $i_style ) ) {
 			$i_attrs['style'] = $i_style;
 		}
-
-		$title = sprintf(
-			'%s%s%s',
-			'before' === $values['position'] ? '' : $title,
-			wp_get_attachment_image(
+		$mime_type = get_post_mime_type( $icon->ID );
+		if ( 'image/svg' == $mime_type || 'image/svg+xml' == $mime_type ) {
+			$icon_output = file_get_contents( ( get_attached_file( $icon->ID ) ) );
+		} else {
+			$icon_output = wp_get_attachment_image(
 				$icon->ID,
 				$values['image_size'],
 				false,
 				$i_attrs
-			),
+			);
+		}
+		$title = sprintf(
+			'%s%s%s',
+			'before' === $values['position'] ? '' : $title,
+			$icon_output,
 			'after' === $values['position'] ? '' : $title
 		);
 
