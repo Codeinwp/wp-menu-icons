@@ -169,21 +169,22 @@ class Menu_Icons_Type_Image extends Menu_Icons_Type {
 	 * Preview
 	 *
 	 * @since  0.4.0
-	 * @param  string $id         Menu item ID
-	 * @param  array  $meta_value Menu item metadata value
+	 * @param  string $id          Menu item ID
+	 * @param  array  $meta_values Menu item metadata values
 	 * @return array
 	 */
-	public function preview_cb( $id, $meta_value ) {
-		if ( empty( $meta_value['image-icon'] ) ) {
+	public function preview_cb( $id, $meta_values ) {
+		$key = "{$this->type}-icon";
+
+		if ( ! empty( $meta_values[ $key ] ) ) {
+			return $this->get_icon_markup(
+				$meta_values[ $key ],
+				$meta_values,
+				array( 'class' => '_icon' )
+			);
+		} else {
 			return null;
 		}
-
-		return wp_get_attachment_image(
-			$meta_value['image-icon'],
-			$meta_value['image_size'],
-			false,
-			array( 'class' => '_icon' )
-		);
 	}
 
 

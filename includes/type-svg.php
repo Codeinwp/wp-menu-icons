@@ -89,4 +89,19 @@ class Menu_Icons_Type_SVG extends Menu_Icons_Type_Image {
 	protected function get_icon_markup( $attachment_id, array $meta_values, array $args = array() ) {
 		return file_get_contents( get_attached_file( $attachment_id ) );
 	}
+
+
+	/**
+	 * Media frame templates
+	 *
+	 * @since 0.4.0
+	 * @return array
+	 */
+	public function templates() {
+		$templates = parent::templates();
+
+		$templates['field'] = '<img src="{{ data.url }}" alt="{{ data.alt }}" class="_icon" />';
+
+		return $templates;
+	}
 }
