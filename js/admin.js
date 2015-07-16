@@ -664,7 +664,13 @@
 			    fieldIds  = this.get( 'settings' ),
 			    fields;
 
-			this.set( 'library', media.query( options.data.library || { type: 'image' } ) );
+			if ( ! options.data.browserView ) {
+				options.data.browserView = 'miImage';
+			}
+
+			this.options = options;
+
+			this.set( 'library', media.query( options.data.library ) );
 
 			this.routers = {
 				upload: {
@@ -726,11 +732,12 @@
 		},
 
 		browseContent: function() {
-			var state = this;
+			var state = this,
+			    type  = state.get( 'type' ),
+			    options;
 
-			// Browse our library of attachments.
-			return new media.view.AttachmentsBrowser.miImage({
-				type:       state.get( 'type' ),
+			options = {
+				type:       type,
 				controller: state.frame,
 				collection: state.get( 'library' ),
 				selection:  state.get( 'selection' ),
@@ -740,7 +747,13 @@
 				filters:    state.get( 'filterable' ),
 				display:    state.get( 'displaySettings' ),
 				dragInfo:   state.get( 'dragInfo' )
-			});
+			};
+
+			if ( 'svg' === type ) {
+				options.AttachmentView = media.view.Attachment.miSvg;
+			}
+
+			return new media.view.AttachmentsBrowser.miImage( options );
 		},
 
 		/**
@@ -817,6 +830,11 @@
 	});
 
 	_.extend( media.view.AttachmentsBrowser.miImage.prototype, media.view.miBrowser );
+
+	// View: SVG item
+	media.view.Attachment.miSvg = media.view.Attachment.Library.extend({
+		template: wp.template( 'menu-icons-svg-item' )
+	});
 
 	// View: Image Icon: Preview on the sidebar
 	media.view.miPreview.miImage = media.view.miPreview.extend({

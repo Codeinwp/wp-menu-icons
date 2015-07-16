@@ -98,9 +98,23 @@ class Menu_Icons_Type_SVG extends Menu_Icons_Type_Image {
 	 * @return array
 	 */
 	public function templates() {
-		$templates = parent::templates();
-
-		$templates['field'] = '<img src="{{ data.url }}" alt="{{ data.alt }}" class="_icon" />';
+		$icon      = '<img src="{{ data.url }}" alt="{{ data.alt }}" class="_icon" />';
+		$templates = array_merge(
+			parent::templates(),
+			array(
+				'field'  => $icon,
+				'item'   => sprintf(
+					'<div class="attachment-preview js--select-attachment">
+						<div class="thumbnail">
+							<div class="centered">%s</div>
+						</div>
+					</div>
+					<a class="check" href="#" title="%s"><div class="media-modal-icon"></div></a>',
+					$icon,
+					esc_attr__( 'Deselect', 'menu-icons' )
+				),
+			)
+		);
 
 		return $templates;
 	}
@@ -115,8 +129,8 @@ class Menu_Icons_Type_SVG extends Menu_Icons_Type_Image {
 	 */
 	public function frame_cb( $id ) {
 		$data = array(
-			'controller' => 'miSvg',
-			'library'    => array(
+			'controller'  => 'miSvg',
+			'library'     => array(
 				'type' => array( 'image/svg', 'image/svg+xml' ),
 			),
 		);
