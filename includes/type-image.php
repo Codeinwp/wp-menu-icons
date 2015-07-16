@@ -31,7 +31,10 @@ class Menu_Icons_Type_Image extends Menu_Icons_Type {
 	 * @since 0.4.0
 	 */
 	function __construct() {
-		$this->label = __( 'Image', 'menu-icons' );
+		if ( empty( $this->label ) ) {
+			$this->label = __( 'Image', 'menu-icons' );
+		}
+
 		parent::__construct();
 	}
 
@@ -255,6 +258,7 @@ class Menu_Icons_Type_Image extends Menu_Icons_Type {
 		if ( ! empty( $i_style ) ) {
 			$i_attrs['style'] = $i_style;
 		}
+
 		$mime_type = get_post_mime_type( $icon->ID );
 		if ( 'image/svg' == $mime_type || 'image/svg+xml' == $mime_type ) {
 			$icon_output = file_get_contents( ( get_attached_file( $icon->ID ) ) );
@@ -266,6 +270,7 @@ class Menu_Icons_Type_Image extends Menu_Icons_Type {
 				$i_attrs
 			);
 		}
+
 		$title = sprintf(
 			'%s%s%s',
 			'before' === $values['position'] ? '' : $title,
