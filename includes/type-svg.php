@@ -73,4 +73,20 @@ class Menu_Icons_Type_SVG extends Menu_Icons_Type_Image {
 
 		return $mimes;
 	}
+
+
+	/**
+	 * Get icon markup
+	 *
+	 * @since 0.8.0
+	 *
+	 * @param integer $attachment_id Attachment ID.
+	 * @param array   $meta_values   Menu item meta values.
+	 * @param array   $args          Extra arguments.
+	 *
+	 * @return string
+	 */
+	protected function get_icon_markup( $attachment_id, array $meta_values, array $args = array() ) {
+		return file_get_contents( get_attached_file( $attachment_id ) );
+	}
 }

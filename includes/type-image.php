@@ -224,6 +224,27 @@ class Menu_Icons_Type_Image extends Menu_Icons_Type {
 
 
 	/**
+	 * Get icon markup
+	 *
+	 * @since 0.8.0
+	 *
+	 * @param integer $attachment_id Attachment ID.
+	 * @param array   $meta_values   Menu item meta values.
+	 * @param array   $args          Extra arguments.
+	 *
+	 * @return string
+	 */
+	protected function get_icon_markup( $attachment_id, array $meta_values, array $args = array() ) {
+		return wp_get_attachment_image(
+			$attachment_id,
+			$meta_values['image_size'],
+			false,
+			$args
+		);
+	}
+
+
+	/**
 	 * Add icon to menu title
 	 *
 	 * @since  0.4.0
@@ -234,11 +255,13 @@ class Menu_Icons_Type_Image extends Menu_Icons_Type {
 	 * @return string
 	 */
 	protected function add_icon( $title, $values ) {
-		if ( empty( $values['image-icon'] ) ) {
+		$key = "{$this->type}-icon";
+
+		if ( empty( $values[ $key ] ) ) {
 			return $title;
 		}
 
-		$icon = get_post( $values['image-icon'] );
+		$icon = get_post( $values[ $key ] );
 		if ( ! ( $icon instanceof WP_Post ) || 'attachment' !== $icon->post_type ) {
 			return $title;
 		}
@@ -259,22 +282,10 @@ class Menu_Icons_Type_Image extends Menu_Icons_Type {
 			$i_attrs['style'] = $i_style;
 		}
 
-		$mime_type = get_post_mime_type( $icon->ID );
-		if ( 'image/svg' == $mime_type || 'image/svg+xml' == $mime_type ) {
-			$icon_output = file_get_contents( ( get_attached_file( $icon->ID ) ) );
-		} else {
-			$icon_output = wp_get_attachment_image(
-				$icon->ID,
-				$values['image_size'],
-				false,
-				$i_attrs
-			);
-		}
-
 		$title = sprintf(
 			'%s%s%s',
 			'before' === $values['position'] ? '' : $title,
-			$icon_output,
+			$this->get_icon_markup( $icon->ID, $values, $i_attrs ),
 			'after' === $values['position'] ? '' : $title
 		);
 
