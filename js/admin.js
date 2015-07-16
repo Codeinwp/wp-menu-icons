@@ -649,7 +649,7 @@
 
 	// Image icon state
 	media.controller.miImage = media.controller.Library.extend({
-		defaults: _.defaults( {
+		defaults: _.defaults({
 			id:            'browse',
 			menu:          'default',
 			router:        'browse',
@@ -659,12 +659,12 @@
 			syncSelection: false
 		}, media.controller.Library.prototype.defaults ),
 
-		initialize: function() {
+		initialize: function( options ) {
 			var selection = this.get( 'selection' ),
 			    fieldIds  = this.get( 'settings' ),
 			    fields;
 
-			this.set( 'library', media.query({ type: 'image' }) );
+			this.set( 'library', media.query( options.data.library || { type: 'image' } ) );
 
 			this.routers = {
 				upload: {
@@ -753,6 +753,13 @@
 		}
 	});
 
+	// SVG icon state
+	media.controller.miSvg = media.controller.miImage.extend({
+		defaults: _.defaults({
+			settings: [ 'hide_label', 'position', 'vertical_align' ]
+		}, media.controller.miImage.prototype.defaults )
+	});
+
 	// View: Image Icon: Browser
 	media.view.AttachmentsBrowser.miImage = media.view.AttachmentsBrowser.extend({
 		disposeSingle: function() {
@@ -819,8 +826,7 @@
 			    sizeField  = this.options.settings.get( 'image_size' ),
 			    newChoices = [];
 
-			//if image sizes are defined, process as raster
-			if ( 'undefined' !== typeof imageSizes ) {
+			if ( ! _.isUndefined( imageSizes ) && ! _.isUndefined( sizeField ) ) {
 				if ( ! imageSizes.hasOwnProperty( size ) ) {
 					size = 'full';
 				}
@@ -830,16 +836,11 @@
 						newChoices.push( choice );
 					}
 				} );
+
 				this.options.data.url = imageSizes[ size ].url;
-			} else { //if image sizes are undefined, must be a non-raster
-				size = 'full';
-				newChoices.push({
-					label:'N/A',
-					value:'full'
-				});
+				sizeField.model.set( 'choices', newChoices );
+				this.options.model.set( 'image_size', size, { silent: true } );
 			}
-			sizeField.model.set( 'choices', newChoices );
-			this.options.model.set( 'image_size', size, { silent: true } );
 
 			return media.view.miPreview.prototype.render.apply( this, arguments );
 		}
@@ -1047,4 +1048,11 @@
 			}
 		});
 	});
+
+	// A hack to prevent error because of the click callback set by wp-admin/js/nav-menu.js#811
+	$( '#update-nav-menu svg' ).bind( 'click', function() {
+		$( this ).closest( 'a' ).trigger( 'click' );
+
+		return false;
+	} );
 }( jQuery ) );

@@ -104,4 +104,23 @@ class Menu_Icons_Type_SVG extends Menu_Icons_Type_Image {
 
 		return $templates;
 	}
+
+
+	/**
+	 * Media frame data
+	 *
+	 * @since  0.4.0
+	 * @param  string $id Icon type ID
+	 * @return array
+	 */
+	public function frame_cb( $id ) {
+		$data = array(
+			'controller' => 'miSvg',
+			'library'    => array(
+				'type' => array( 'image/svg', 'image/svg+xml' ),
+			),
+		);
+
+		return $data;
+	}
 }

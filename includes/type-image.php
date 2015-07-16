@@ -196,8 +196,19 @@ class Menu_Icons_Type_Image extends Menu_Icons_Type {
 	 * @return array
 	 */
 	public function frame_cb( $id ) {
+		// We need to exclude image/svg*.
+		$mime_types = get_allowed_mime_types();
+		unset( $mime_types['svg'] );
+
+		foreach ( $mime_types as $id => $type ) {
+			if ( false === strpos( $type, 'image/' ) ) {
+				unset( $mime_types[ $id ] );
+			}
+		}
+
 		$data = array(
 			'controller' => 'miImage',
+			'library'    => array( 'type' => $mime_types ),
 		);
 
 		return $data;
