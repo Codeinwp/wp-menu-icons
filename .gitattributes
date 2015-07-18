@@ -8,6 +8,6 @@ package.json export-ignore
 .jscsrc export-ignore
 .jshintrc export-ignore
 .jshintignore export-ignore
-.travis-yml export-ignore
-.dev-lib export-ignore
+.travis.yml export-ignore
+dev-lib export-ignore
 
