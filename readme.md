@@ -95,6 +95,7 @@ This is a bug with the font icon itself. When the font is updated, this plugin w
 
 ### Is this plugin extendable? ###
 **Certainly!** Here's how you can remove an icon type from your plugin/theme:
+
 `
 /**
  * Remove one or more icon types
@@ -138,6 +139,7 @@ add_filter( 'menu_icons_disable_settings', '__return_true' );
 
 ### How can I use CSS file for a font type from a CDN instead of the bundled one? ###
 You can filter the icon type properties from your plugin/theme:
+
 `
 /**
  * Modify icon type properties
@@ -157,6 +159,18 @@ function _my_fontawesome_props( $props, $instance ) {
 	return $props;
 }
 add_filter( 'menu_icons_fa_props', '_my_fontawesome_props', 10, 2 );
+`
+
+### How can I change the CSS class for hiding the menu item labels? ###
+Add this line to your [mu-plugin file](http://codex.wordpress.org/Must_Use_Plugins):
+
+`
+function my_menu_icons_hidden_label_class( $class ) {
+	$class = 'hidden';
+
+	return $class;
+}
+add_filter( 'menu_icons_hidden_label_class', 'my_menu_icons_hidden_label_class' );
 `
 
 ### Can you please add X icon font? ###
