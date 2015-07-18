@@ -31,6 +31,7 @@ This plugin gives you the ability to add icons to your menu items, similar to th
 - [Genericons](http://genericons.com/) by [Automattic](http://automattic.com/)
 - [Fontello](http://fontello.com/) icon packs
 - Image (attachments)
+- SVG (attachments)
 
 ### Planned supported icon types ###
 - Image (URL)
@@ -162,13 +163,19 @@ add_filter( 'menu_icons_fa_props', '_my_fontawesome_props', 10, 2 );
 ### How can I change the CSS class for hiding the menu item labels? ###
 Add this block of code to your [mu-plugin file](http://codex.wordpress.org/Must_Use_Plugins):
 ```php
+/**
+ * Override default hidden label class
+ *
+ * @param  string $class CSS class.
+ * @return string
+ */
 function my_menu_icons_hidden_label_class( $class ) {
 	$class = 'hidden';
 
 	return $class;
 }
 add_filter( 'menu_icons_hidden_label_class', 'my_menu_icons_hidden_label_class' );
-````
+```
 
 ### Can you please add X icon font? ###
 Let me know via [GitHub issues](https://github.com/kucrut/wp-menu-icons/issues) and I'll see what I can do.
@@ -183,6 +190,13 @@ Read [this blog post](http://kucrut.org/add-custom-image-sizes-right-way/).
 
 
 ## Changelog ##
+
+### 0.8.0 ###
+* Update Dashicons
+* Update Font Awesome to 4.3.0
+* Add new icon type: SVG, props [Ethan Clevenger](https://github.com/ethanclevenger91)
+* Add new filter: `menu_icons_hidden_label_class`
+* Add new filter: `menu_icons_item_title`
 
 ### 0.7.0 ###
 * Update Dashicons

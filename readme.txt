@@ -29,6 +29,7 @@ This plugin gives you the ability to add icons to your menu items, similar to th
 - [Genericons](http://genericons.com/) by [Automattic](http://automattic.com/)
 - [Fontello](http://fontello.com/) icon packs
 - Image (attachments)
+- SVG (attachments)
 
 = Planned supported icon types =
 - Image (URL)
@@ -158,6 +159,14 @@ Let me know via [GitHub issues](https://github.com/kucrut/wp-menu-icons/issues) 
 Read [this blog post](http://kucrut.org/add-custom-image-sizes-right-way/).
 
 == Changelog ==
+= 0.8.0 =
+* Update Dashicons
+* Update Font Awesome to 4.3.0
+* Add new icon type: SVG, props [Ethan Clevenger](https://github.com/ethanclevenger91)
+* Add new filter: `menu_icons_hidden_label_class`
+* Add new filter: `menu_icons_item_title`
+
+
 = 0.7.0 =
 * Update Dashicons
 * Fix annoying browser popup when navigating away from Nav Menus screen
