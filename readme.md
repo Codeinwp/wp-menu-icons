@@ -96,7 +96,7 @@ This is a bug with the font icon itself. When the font is updated, this plugin w
 
 ### Is this plugin extendable? ###
 **Certainly!** Here's how you can remove an icon type from your plugin/theme:
-```php
+`
 /**
  * Remove one or more icon types
  *
@@ -106,40 +106,40 @@ This is a bug with the font icon itself. When the font is updated, this plugin w
  * @return array
  */
 function myplugin_remove_menu_icons_type( $types ) {
-	# Dashicons
+	// Dashicons
 	//unset( $types['dashicons'] );
 
-	# Elusive
+	// Elusive
 	//unset( $types['elusive'] );
 
-	# Font Awesome
+	// Font Awesome
 	//unset( $types['fa'] );
 
-	# Foundation
+	// Foundation
 	//unset( $types['foundation-icons'] );
 
-	# Genericons
+	// Genericons
 	//unset( $types['genericon'] );
 
-	# Image
+	// Image
 	//unset( $types['image'] );
 
 	return $types;
 }
 add_filter( 'menu_icons_types', 'myplugin_remove_menu_icons_type' );
-```
+`
 
 To add a new icon type, take a look at the `type-*.php` files inside the `includes` directory of this plugin.
 
 ### I don't want the settings meta box. How do I remove/disable it? ###
 Add this block of code to your [mu-plugin file](http://codex.wordpress.org/Must_Use_Plugins):
-```php
+`
 add_filter( 'menu_icons_disable_settings', '__return_true' );
-```
+`
 
 ### How can I use CSS file for a font type from a CDN instead of the bundled one? ###
 You can filter the icon type properties from your plugin/theme:
-```php
+`
 /**
  * Modify icon type properties
  *
@@ -158,24 +158,36 @@ function _my_fontawesome_props( $props, $instance ) {
 	return $props;
 }
 add_filter( 'menu_icons_fa_props', '_my_fontawesome_props', 10, 2 );
-```
+`
 
 ### How can I change the CSS class for hiding the menu item labels? ###
 Add this block of code to your [mu-plugin file](http://codex.wordpress.org/Must_Use_Plugins):
-```php
-/**
- * Override default hidden label class
- *
- * @param  string $class CSS class.
- * @return string
- */
+`
 function my_menu_icons_hidden_label_class( $class ) {
 	$class = 'hidden';
 
 	return $class;
 }
 add_filter( 'menu_icons_hidden_label_class', 'my_menu_icons_hidden_label_class' );
-```
+`
+
+### How can I modify the markup the menu items? ###
+Add this block of code to your [mu-plugin file](http://codex.wordpress.org/Must_Use_Plugins):
+`
+/**
+ * Override menu item markup
+ *
+ * @param string  $markup      Menu item title markup.
+ * @param integer $id          Menu item ID.
+ * @param array   $meta_values Menu item meta values.
+ * @param string  $title       Menu item title.
+ */
+function my_menu_icons_override_markup( $markup, $id, $meta_values, $title ) {
+	// Do your thing.
+
+	return $markup;
+}
+add_filter( 'menu_icons_item_title', 'my_menu_icons_override_markup', 10, 4 );
 
 ### Can you please add X icon font? ###
 Let me know via [GitHub issues](https://github.com/kucrut/wp-menu-icons/issues) and I'll see what I can do.
