@@ -769,7 +769,7 @@
 	// SVG icon state
 	media.controller.miSvg = media.controller.miImage.extend({
 		defaults: _.defaults({
-			settings: [ 'hide_label', 'position', 'vertical_align' ]
+			settings: [ 'hide_label', 'position', 'vertical_align', 'width' ]
 		}, media.controller.miImage.prototype.defaults )
 	});
 

@@ -83,11 +83,27 @@ class Menu_Icons_Type_SVG extends Menu_Icons_Type_Image {
 	 * @param integer $attachment_id Attachment ID.
 	 * @param array   $meta_values   Menu item meta values.
 	 * @param array   $args          Extra arguments.
+	 * @param boolean $is_preview    For preview or front-end, default false.
 	 *
 	 * @return string
 	 */
-	protected function get_icon_markup( $attachment_id, array $meta_values, array $args = array() ) {
-		return file_get_contents( get_attached_file( $attachment_id ) );
+	protected function get_icon_markup( $attachment_id, array $meta_values, array $args = array(), $is_preview = false ) {
+		if ( $is_preview ) {
+			$style = 'width:1em;';
+		} else {
+			$style = sprintf(
+				'width:%sem;vertical-align:%s',
+				esc_attr( $meta_values['width'] ),
+				esc_attr( $meta_values['vertical_align'] )
+			);
+		}
+
+		return sprintf(
+			'<img src="%s" class="%s" style="%s" />',
+			esc_url( wp_get_attachment_url( $attachment_id ) ),
+			esc_attr( $args['class'] ),
+			$style
+		);
 	}
 
 
@@ -98,22 +114,24 @@ class Menu_Icons_Type_SVG extends Menu_Icons_Type_Image {
 	 * @return array
 	 */
 	public function templates() {
-		$icon      = '<img src="{{ data.url }}" alt="{{ data.alt }}" class="_icon" />';
-		$templates = array_merge(
-			parent::templates(),
-			array(
-				'field'  => $icon,
-				'item'   => sprintf(
-					'<div class="attachment-preview js--select-attachment">
-						<div class="thumbnail">
-							<div class="centered">%s</div>
-						</div>
+		$icon         = '<img src="{{ data.url }}" alt="{{ data.alt }}" class="_icon _{{data.type}}"%s />';
+		$icon_item    = sprintf( $icon, '' );
+		$icon_preview = sprintf( $icon, ' style="width:{{data.width}}em;vertical-align:{{ data.vertical_align }}"' );
+		$templates    = array(
+			'field'              => sprintf( $icon, ' style="width:1em"' ),
+			'item'               => sprintf(
+				'<div class="attachment-preview js--select-attachment">
+					<div class="thumbnail">
+						<div class="centered">%s</div>
 					</div>
-					<a class="check" href="#" title="%s"><div class="media-modal-icon"></div></a>',
-					$icon,
-					esc_attr__( 'Deselect', 'menu-icons' )
-				),
-			)
+				</div>
+				<a class="check" href="#" title="%s"><div class="media-modal-icon"></div></a>',
+				$icon_item,
+				esc_attr__( 'Deselect', 'menu-icons' )
+			),
+			'preview-before'     => sprintf( '<a href="#">%s <span>{{ data.title }}</span></a>', $icon_preview ),
+			'preview-after'      => sprintf( '<a href="#"><span>{{ data.title }}</span> %s</a>', $icon_preview ),
+			'preview-hide_label' => sprintf( '<a href="#">%s</a>', $icon_preview ),
 		);
 
 		return $templates;
@@ -136,5 +154,35 @@ class Menu_Icons_Type_SVG extends Menu_Icons_Type_Image {
 		);
 
 		return $data;
+	}
+
+
+	/**
+	 * Settings fields
+	 *
+	 * @since  0.4.0
+	 * @param  array $fields
+	 * @uses   apply_filters() Calls 'menu_icons_{type}_settings_sections'.
+	 * @return array
+	 */
+	public function _settings_fields( $fields ) {
+		$_fields = array(
+			'width' => array(
+				'id'          => 'width',
+				'type'        => 'number',
+				'label'       => __( 'Width', 'menu-icons' ),
+				'default'     => '1',
+				'description' => 'em',
+				'attributes'  => array(
+					'min'  => '.5',
+					'step' => '.1',
+				),
+			),
+		);
+
+		$_fields = apply_filters( sprintf( 'menu_icons_%s_settings_fields', $this->type ), $_fields );
+		$fields  = wp_parse_args( $_fields, $fields );
+
+		return $fields;
 	}
 }
