@@ -95,14 +95,13 @@ This is a bug with the font icon itself. When the font is updated, this plugin w
 
 ### Is this plugin extendable? ###
 **Certainly!** Here's how you can remove an icon type from your plugin/theme:
-
-`
+```php
 /**
  * Remove one or more icon types
  *
  * Uncomment one or more line to remove icon types
  *
- * @param  array $types Registered icon types
+ * @param  array $types Registered icon types.
  * @return array
  */
 function myplugin_remove_menu_icons_type( $types ) {
@@ -127,27 +126,26 @@ function myplugin_remove_menu_icons_type( $types ) {
 	return $types;
 }
 add_filter( 'menu_icons_types', 'myplugin_remove_menu_icons_type' );
-`
+```
 
 To add a new icon type, take a look at the `type-*.php` files inside the `includes` directory of this plugin.
 
 ### I don't want the settings meta box. How do I remove/disable it? ###
-Add this line to your [mu-plugin file](http://codex.wordpress.org/Must_Use_Plugins):
-`
+Add this block of code to your [mu-plugin file](http://codex.wordpress.org/Must_Use_Plugins):
+```php
 add_filter( 'menu_icons_disable_settings', '__return_true' );
-`
+```
 
 ### How can I use CSS file for a font type from a CDN instead of the bundled one? ###
 You can filter the icon type properties from your plugin/theme:
-
-`
+```php
 /**
  * Modify icon type properties
  *
  * See myplugin_remove_menu_icons_type() above for the icon type keys
  *
- * @param  array  $props    Icon type properties
- * @param  object $instance Icon type registration instance
+ * @param  array  $props    Icon type properties.
+ * @param  object $instance Icon type registration instance.
  * @return array
  */
 function _my_fontawesome_props( $props, $instance ) {
@@ -159,19 +157,18 @@ function _my_fontawesome_props( $props, $instance ) {
 	return $props;
 }
 add_filter( 'menu_icons_fa_props', '_my_fontawesome_props', 10, 2 );
-`
+```
 
 ### How can I change the CSS class for hiding the menu item labels? ###
-Add this line to your [mu-plugin file](http://codex.wordpress.org/Must_Use_Plugins):
-
-`
+Add this block of code to your [mu-plugin file](http://codex.wordpress.org/Must_Use_Plugins):
+```php
 function my_menu_icons_hidden_label_class( $class ) {
 	$class = 'hidden';
 
 	return $class;
 }
 add_filter( 'menu_icons_hidden_label_class', 'my_menu_icons_hidden_label_class' );
-`
+````
 
 ### Can you please add X icon font? ###
 Let me know via [GitHub issues](https://github.com/kucrut/wp-menu-icons/issues) and I'll see what I can do.
