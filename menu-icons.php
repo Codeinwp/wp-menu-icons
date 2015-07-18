@@ -440,5 +440,24 @@ final class Menu_Icons {
 
 		return $values;
 	}
+
+
+	/**
+	 * Get hidden label class
+	 *
+	 * @return string
+	 */
+	public static function get_hidden_label_class() {
+		/**
+		 * Allow themes/plugins to overrride the hidden label class
+		 *
+		 * @since  0.8.0
+		 * @param  string $hidden_label_class Hidden label class.
+		 * @return string
+		 */
+		$hidden_label_class = apply_filters( 'menu_icons_hidden_label_class', 'visuallyhidden' );
+
+		return $hidden_label_class;
+	}
 }
 add_action( 'plugins_loaded', array( 'Menu_Icons', '_load' ) );

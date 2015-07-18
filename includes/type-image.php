@@ -288,7 +288,7 @@ class Menu_Icons_Type_Image extends Menu_Icons_Type {
 			return $title;
 		}
 
-		$t_class = ! empty( $values['hide_label'] ) ? 'visuallyhidden' : '';
+		$t_class = ! empty( $values['hide_label'] ) ? Menu_Icons::get_hidden_label_class() : '';
 		$title   = sprintf(
 			'<span%s>%s</span>',
 			( ! empty( $t_class ) ) ? sprintf( ' class="%s"', esc_attr( $t_class ) ) : '',
