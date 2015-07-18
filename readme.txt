@@ -139,6 +139,12 @@ add_filter( 'menu_icons_fa_props', '_my_fontawesome_props', 10, 2 );
 = How can I change the CSS class for hiding the menu item labels? =
 Add this block of code to your [mu-plugin file](http://codex.wordpress.org/Must_Use_Plugins):
 `
+/**
+ * Override hidden label class
+ *
+ * @param  string $class Hidden label class.
+ * @return string
+ */
 function my_menu_icons_hidden_label_class( $class ) {
 	$class = 'hidden';
 
@@ -157,6 +163,8 @@ Add this block of code to your [mu-plugin file](http://codex.wordpress.org/Must_
  * @param integer $id          Menu item ID.
  * @param array   $meta_values Menu item meta values.
  * @param string  $title       Menu item title.
+ *
+ * @return string
  */
 function my_menu_icons_override_markup( $markup, $id, $meta_values, $title ) {
 	// Do your thing.
