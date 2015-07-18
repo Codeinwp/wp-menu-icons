@@ -164,7 +164,7 @@ function my_menu_icons_override_markup( $markup, $id, $meta_values, $title ) {
 	return $markup;
 }
 add_filter( 'menu_icons_item_title', 'my_menu_icons_override_markup', 10, 4 );
-
+`
 
 = Can you please add X icon font? =
 Let me know via [GitHub issues](https://github.com/kucrut/wp-menu-icons/issues) and I'll see what I can do.
