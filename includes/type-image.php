@@ -70,8 +70,8 @@ class Menu_Icons_Type_Image extends Menu_Icons_Type {
 	 * Settings fields
 	 *
 	 * @since  0.4.0
-	 * @param  array $fields
-	 * @uses   apply_filters() Calls 'menu_icons_{type}_settings_sections'.
+	 * @param  array $fields Settings fields.
+	 * @uses   apply_filters() Calls 'menu_icons_{type}_settings_fields'.
 	 * @return array
 	 */
 	public function _settings_fields( $fields ) {
@@ -136,8 +136,8 @@ class Menu_Icons_Type_Image extends Menu_Icons_Type {
 	 * Print field for icons selection
 	 *
 	 * @since 0.4.0
-	 * @param int   $id         Menu item ID
-	 * @param array $meta_value Current value of 'menu-icons' metadata
+	 * @param int   $id         Menu item ID.
+	 * @param array $meta_value Current value of 'menu-icons' metadata.
 	 */
 	public function the_field( $id, $meta_value ) {
 		$current    = isset( $meta_value[ $this->key ] ) ? $meta_value[ $this->key ] : '';
@@ -169,8 +169,8 @@ class Menu_Icons_Type_Image extends Menu_Icons_Type {
 	 * Preview
 	 *
 	 * @since  0.4.0
-	 * @param  string $id          Menu item ID
-	 * @param  array  $meta_values Menu item metadata values
+	 * @param  string $id          Menu item ID.
+	 * @param  array  $meta_values Menu item metadata values.
 	 * @return array
 	 */
 	public function preview_cb( $id, $meta_values ) {
@@ -193,7 +193,7 @@ class Menu_Icons_Type_Image extends Menu_Icons_Type {
 	 * Media frame data
 	 *
 	 * @since  0.4.0
-	 * @param  string $id Icon type ID
+	 * @param  string $id Icon type.
 	 * @return array
 	 */
 	public function frame_cb( $id ) {
@@ -223,7 +223,11 @@ class Menu_Icons_Type_Image extends Menu_Icons_Type {
 	 * @return array
 	 */
 	public function templates() {
-		$icon = '<img src="{{ data.url }}" alt="{{ data.alt }}" class="_icon {{ data.type }} _{{ data.position }}" style="vertical-align:{{ data.vertical_align }};" />';
+		$icon  = '<img src="{{ data.url }}"';
+		$icon .= ' alt="{{ data.alt }}"';
+		$icon .= ' class="_icon {{ data.type }} _{{ data.position }}"';
+		$icon .= ' style="vertical-align:{{ data.vertical_align }};"';
+		$icon .= ' />';
 
 		$templates = array(
 			'field'              => '<img src="{{ data.sizes[data._settings.image_size].url }}" class="_icon" style="width:28px;" />',
@@ -267,8 +271,8 @@ class Menu_Icons_Type_Image extends Menu_Icons_Type {
 	 *
 	 * @since  0.4.0
 	 * @access protected
-	 * @param  string $title  Menu item title
-	 * @param  array  $values Menu item metadata value
+	 * @param  string $title  Menu item title.
+	 * @param  array  $values Menu item metadata value.
 	 *
 	 * @return string
 	 */
@@ -315,7 +319,7 @@ class Menu_Icons_Type_Image extends Menu_Icons_Type {
 	 * Inline style for icon size, etc
 	 *
 	 * @since  0.4.0
-	 * @param  array  $values Menu item metadata value
+	 * @param  array  $values Menu item metadata value.
 	 * @return string
 	 */
 	protected function get_style( $values ) {

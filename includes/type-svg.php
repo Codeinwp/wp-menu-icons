@@ -30,7 +30,7 @@ class Menu_Icons_Type_SVG extends Menu_Icons_Type_Image {
 	 *
 	 * This simply sets $label
 	 *
-	 * @since 0.4.0
+	 * @since 0.8.0
 	 */
 	function __construct() {
 		$this->label = __( 'SVG', 'menu-icons' );
@@ -110,7 +110,7 @@ class Menu_Icons_Type_SVG extends Menu_Icons_Type_Image {
 	/**
 	 * Media frame templates
 	 *
-	 * @since 0.4.0
+	 * @since 0.8.0
 	 * @return array
 	 */
 	public function templates() {
@@ -141,8 +141,8 @@ class Menu_Icons_Type_SVG extends Menu_Icons_Type_Image {
 	/**
 	 * Media frame data
 	 *
-	 * @since  0.4.0
-	 * @param  string $id Icon type ID
+	 * @since  0.8.0
+	 * @param  string $id Icon type.
 	 * @return array
 	 */
 	public function frame_cb( $id ) {
@@ -161,8 +161,8 @@ class Menu_Icons_Type_SVG extends Menu_Icons_Type_Image {
 	 * Settings fields
 	 *
 	 * @since  0.4.0
-	 * @param  array $fields
-	 * @uses   apply_filters() Calls 'menu_icons_{type}_settings_sections'.
+	 * @param  array $fields Settings fields.
+	 * @uses   apply_filters() Calls 'menu_icons_{type}_settings_fields'.
 	 * @return array
 	 */
 	public function _settings_fields( $fields ) {
