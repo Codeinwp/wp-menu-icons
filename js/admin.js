@@ -649,7 +649,7 @@
 
 	// Image icon state
 	media.controller.miImage = media.controller.Library.extend({
-		defaults: _.defaults( {
+		defaults: _.defaults({
 			id:            'browse',
 			menu:          'default',
 			router:        'browse',
@@ -659,12 +659,18 @@
 			syncSelection: false
 		}, media.controller.Library.prototype.defaults ),
 
-		initialize: function() {
+		initialize: function( options ) {
 			var selection = this.get( 'selection' ),
 			    fieldIds  = this.get( 'settings' ),
 			    fields;
 
-			this.set( 'library', media.query({ type: 'image' }) );
+			if ( ! options.data.browserView ) {
+				options.data.browserView = 'miImage';
+			}
+
+			this.options = options;
+
+			this.set( 'library', media.query( options.data.library ) );
 
 			this.routers = {
 				upload: {
@@ -714,7 +720,6 @@
 				attachment = Attachment.get( icon );
 				this.dfd   = attachment.fetch();
 			}
-
 			selection.reset( attachment ? attachment : [] );
 		},
 
@@ -727,11 +732,12 @@
 		},
 
 		browseContent: function() {
-			var state = this;
+			var state = this,
+			    type  = state.get( 'type' ),
+			    options;
 
-			// Browse our library of attachments.
-			return new media.view.AttachmentsBrowser.miImage({
-				type:       state.get( 'type' ),
+			options = {
+				type:       type,
 				controller: state.frame,
 				collection: state.get( 'library' ),
 				selection:  state.get( 'selection' ),
@@ -741,7 +747,13 @@
 				filters:    state.get( 'filterable' ),
 				display:    state.get( 'displaySettings' ),
 				dragInfo:   state.get( 'dragInfo' )
-			});
+			};
+
+			if ( 'svg' === type ) {
+				options.AttachmentView = media.view.Attachment.miSvg;
+			}
+
+			return new media.view.AttachmentsBrowser.miImage( options );
 		},
 
 		/**
@@ -752,6 +764,13 @@
 				controller: this.frame
 			});
 		}
+	});
+
+	// SVG icon state
+	media.controller.miSvg = media.controller.miImage.extend({
+		defaults: _.defaults({
+			settings: [ 'hide_label', 'position', 'vertical_align', 'width' ]
+		}, media.controller.miImage.prototype.defaults )
 	});
 
 	// View: Image Icon: Browser
@@ -803,13 +822,19 @@
 				data:       {
 					type:  state.get( 'type' ),
 					alt:   selected.get( 'alt' ),
-					sizes: selected.get( 'sizes' )
+					sizes: selected.get( 'sizes' ),
+					url:   selected.get( 'url' )
 				}
 			}) );
 		}
 	});
 
 	_.extend( media.view.AttachmentsBrowser.miImage.prototype, media.view.miBrowser );
+
+	// View: SVG item
+	media.view.Attachment.miSvg = media.view.Attachment.Library.extend({
+		template: wp.template( 'menu-icons-svg-item' )
+	});
 
 	// View: Image Icon: Preview on the sidebar
 	media.view.miPreview.miImage = media.view.miPreview.extend({
@@ -819,19 +844,21 @@
 			    sizeField  = this.options.settings.get( 'image_size' ),
 			    newChoices = [];
 
-			if ( ! imageSizes.hasOwnProperty( size ) ) {
-				size = 'full';
-			}
-
-			_.each( sizeField.model.get( 'choices' ), function( choice ) {
-				if ( imageSizes.hasOwnProperty( choice.value ) ) {
-					newChoices.push( choice );
+			if ( ! _.isUndefined( imageSizes ) && ! _.isUndefined( sizeField ) ) {
+				if ( ! imageSizes.hasOwnProperty( size ) ) {
+					size = 'full';
 				}
-			} );
 
-			sizeField.model.set( 'choices', newChoices );
-			this.options.model.set( 'image_size', size, { silent: true } );
-			this.options.data.url = imageSizes[ size ].url;
+				_.each( sizeField.model.get( 'choices' ), function( choice ) {
+					if ( imageSizes.hasOwnProperty( choice.value ) ) {
+						newChoices.push( choice );
+					}
+				} );
+
+				this.options.data.url = imageSizes[ size ].url;
+				sizeField.model.set( 'choices', newChoices );
+				this.options.model.set( 'image_size', size, { silent: true } );
+			}
 
 			return media.view.miPreview.prototype.render.apply( this, arguments );
 		}
@@ -1039,4 +1066,11 @@
 			}
 		});
 	});
+
+	// A hack to prevent error because of the click callback set by wp-admin/js/nav-menu.js#811
+	$( '#update-nav-menu svg' ).bind( 'click', function() {
+		$( this ).closest( 'a' ).trigger( 'click' );
+
+		return false;
+	} );
 }( jQuery ) );

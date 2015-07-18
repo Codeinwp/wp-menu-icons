@@ -158,6 +158,8 @@ final class Menu_Icons {
 		if ( ! is_admin() ) {
 			self::_load_front_end();
 		}
+
+		do_action( 'menu_icons_loaded' );
 	}
 
 
@@ -179,6 +181,7 @@ final class Menu_Icons {
 			'fontawesome',
 			'foundation',
 			'genericons',
+			'svg',
 		);
 
 		foreach ( $builtin_types as $type ) {
