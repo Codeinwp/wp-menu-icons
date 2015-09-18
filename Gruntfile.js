@@ -8,7 +8,7 @@ module.exports = function( grunt ) {
 			all: [
 				'Gruntfile.js',
 				'js/*.js',
-				'!js/*.min.js',
+				'!js/*.min.js'
 			],
 			options: {
 				curly:   true,
@@ -25,21 +25,20 @@ module.exports = function( grunt ) {
 					exports: true,
 					module:  false
 				}
-			}		
+			}
 		},
 
 		uglify: {
 			all: {
 				files: {
-					'js/admin.min.js': ['js/admin.js'],
-					'js/input-dependencies.min.js': ['js/input-dependencies.js']
+					'js/admin.min.js': [ 'js/admin.js' ],
+					'js/input-dependencies.min.js': [ 'js/input-dependencies.js' ]
 				}
 			}
 		},
 		cssmin: {
 			minify: {
 				expand: true,
-				
 				cwd: 'css/',
 				src: [
 					'admin.css',
@@ -49,13 +48,11 @@ module.exports = function( grunt ) {
 					'foundation-icons.css',
 					'genericons.css'
 				],
-				
 				dest: 'css/',
 				ext: '.min.css'
 			}
 		},
 		watch:  {
-			
 			styles: {
 				files: [
 					'css/admin.css',
@@ -64,27 +61,27 @@ module.exports = function( grunt ) {
 					'css/font-awesome.css',
 					'css/genericons.css'
 				],
-				tasks: ['cssmin'],
+				tasks: [ 'cssmin' ],
 				options: {
 					debounceDelay: 500
 				}
 			},
-			
 			scripts: {
 				files: [
 					'js/admin.js',
 					'js/input-dependencies.js'
 				],
-				tasks: ['jshint', 'uglify'],
+				tasks: [ 'jshint', 'uglify' ],
 				options: {
 					debounceDelay: 500
 				}
 			}
 		},
 		clean: {
-			main: ['release/<%= pkg.version %>']
+			main: [ 'release/<%= pkg.version %>' ]
 		},
 		copy: {
+
 			// Copy the plugin to a versioned release directory
 			main: {
 				src:  [
@@ -111,7 +108,7 @@ module.exports = function( grunt ) {
 				},
 				expand: true,
 				cwd: 'release/<%= pkg.version %>/',
-				src: ['**/*'],
+				src: [ '**/*' ],
 				dest: 'menu-icons/'
 			}
 		},
@@ -124,26 +121,26 @@ module.exports = function( grunt ) {
 			}
 		}
 	} );
-	
-	// Load other tasks
-	grunt.loadNpmTasks('grunt-contrib-jshint');
-	grunt.loadNpmTasks('grunt-contrib-uglify');
-	grunt.loadNpmTasks('grunt-contrib-cssmin');
-	
-	grunt.loadNpmTasks('grunt-contrib-watch');
-	grunt.loadNpmTasks('grunt-contrib-clean');
-	grunt.loadNpmTasks('grunt-contrib-copy');
-	grunt.loadNpmTasks('grunt-contrib-compress');
 
-	grunt.loadNpmTasks('grunt-wp-i18n');
+	// Load other tasks
+	grunt.loadNpmTasks( 'grunt-contrib-jshint' );
+	grunt.loadNpmTasks( 'grunt-contrib-uglify' );
+	grunt.loadNpmTasks( 'grunt-contrib-cssmin' );
+
+	grunt.loadNpmTasks( 'grunt-contrib-watch' );
+	grunt.loadNpmTasks( 'grunt-contrib-clean' );
+	grunt.loadNpmTasks( 'grunt-contrib-copy' );
+	grunt.loadNpmTasks( 'grunt-contrib-compress' );
+
+	grunt.loadNpmTasks( 'grunt-wp-i18n' );
+
 	// Default task.
-	
-	grunt.registerTask( 'css', ['cssmin'] );
-	grunt.registerTask( 'js', ['jshint', 'uglify'] );
-	grunt.registerTask( 'i18n', ['makepot'] );
-	grunt.registerTask( 'default', ['jshint', 'uglify', 'cssmin', 'i18n'] );
-	
-	grunt.registerTask( 'build', ['default', 'clean', 'copy', 'compress'] );
+	grunt.registerTask( 'css', [ 'cssmin' ] );
+	grunt.registerTask( 'js', [ 'jshint', 'uglify' ] );
+	grunt.registerTask( 'i18n', [ 'makepot' ] );
+	grunt.registerTask( 'default', [ 'jshint', 'uglify', 'cssmin', 'i18n' ] );
+
+	grunt.registerTask( 'build', [ 'default', 'clean', 'copy', 'compress' ] );
 
 	grunt.util.linefeed = '\n';
 };
