@@ -380,6 +380,11 @@ final class Menu_Icons_Admin_Nav_Menus {
 			return;
 		}
 
+		$screen = get_current_screen();
+		if ( ! $screen instanceof WP_Screen || 'nav-menus' !== $screen->id ) {
+			return;
+		}
+
 		check_admin_referer( 'update-nav_menu', 'update-nav-menu-nonce' );
 
 		// Sanitize
