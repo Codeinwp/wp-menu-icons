@@ -364,6 +364,52 @@ final class Menu_Icons_Admin_Nav_Menus {
 
 
 	/**
+	 * Save menu item metadata
+	 *
+	 * @since 0.8.0
+	 *
+	 * @param int   $id    Menu item ID.
+	 * @param mixed $value Metadata value.
+	 *
+	 * @return void
+	 */
+	public static function save_menu_item_meta( $id, $value ) {
+		/**
+		 * Allow plugins/themes to filter the values
+		 *
+		 * Deprecated.
+		 *
+		 * @since 0.1.0
+		 * @param array $value Metadata value.
+		 * @param int   $id    Menu item ID.
+		 */
+		$_value = apply_filters( 'menu_icons_values', $value, $id );
+
+		if ( $_value !== $value ) {
+			_deprecated_function( 'menu_icons_values', '0.8.0', 'menu_icons_item_meta_values' );
+		}
+
+		/**
+		 * Allow plugins/themes to filter the values
+		 *
+		 * Deprecated.
+		 *
+		 * @since 0.8.0
+		 * @param array $value Metadata value.
+		 * @param int   $id    Menu item ID.
+		 */
+		$value = apply_filters( 'menu_icons_item_meta_values', $_value, $id );
+
+		// Update
+		if ( ! empty( $value ) ) {
+			update_post_meta( $id, 'menu-icons', $value );
+		} else {
+			delete_post_meta( $id, 'menu-icons' );
+		}
+	}
+
+
+	/**
 	 * Save menu item's icons values
 	 *
 	 * @since  0.1.0
@@ -397,20 +443,7 @@ final class Menu_Icons_Admin_Nav_Menus {
 			$value = array();
 		}
 
-		/**
-		 * Allow plugins/themes to filter the values
-		 *
-		 * @since 0.1.0
-		 * @param array $value Metadata value
-		 */
-		$value = apply_filters( 'menu_icons_values', $value, $menu_item_db_id );
-
-		// Update
-		if ( ! empty( $value ) ) {
-			update_post_meta( $menu_item_db_id, 'menu-icons', $value );
-		} else {
-			delete_post_meta( $menu_item_db_id, 'menu-icons' );
-		}
+		self::save_menu_item_meta( $menu_item_db_id, $value );
 	}
 
 
