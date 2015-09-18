@@ -120,7 +120,7 @@ class Menu_Icons_Type_SVG extends Menu_Icons_Type_Image {
 		$templates    = array(
 			'field'              => sprintf( $icon, ' style="width:1em"' ),
 			'item'               => sprintf(
-				'<div class="attachment-preview js--select-attachment">
+				'<div class="attachment-preview js--select-attachment svg-icon">
 					<div class="thumbnail">
 						<div class="centered">%s</div>
 					</div>
