@@ -113,11 +113,42 @@ final class Menu_Icons_Settings {
 
 
 	/**
+	 * Check if menu icons is disabled for a menu
+	 *
+	 * @since 0.8.0
+	 *
+	 * @param int $menu_id Menu ID. Defaults to current menu being edited.
+	 *
+	 * @return bool
+	 */
+	public static function is_menu_icons_disabled_for_menu( $menu_id = 0 ) {
+		if ( empty( $menu_id ) ) {
+			$menu_id = self::get_current_menu_id();
+		}
+
+		// When we're creating a new menu or the recently edited menu
+		// could not be found.
+		if ( empty( $menu_id ) ) {
+			return true;
+		}
+
+		$menu_settings = self::get_menu_settings( $menu_id );
+		$is_disabled   = ! empty( $menu_settings['disabled'] );
+
+		return $is_disabled;
+	}
+
+
+	/**
 	 * Settings init
 	 *
 	 * @since 0.3.0
 	 */
 	public static function init() {
+		if ( self::is_menu_icons_disabled_for_menu() ) {
+			return;
+		}
+
 		self::$defaults['global']['icon_types'] = array_keys( Menu_Icons::get( 'icon_types' ) );
 		self::_get();
 
@@ -283,21 +314,27 @@ final class Menu_Icons_Settings {
 
 
 	/**
-	 * Get ID of nav menu being edited
+	 * Get ID of menu being edited
 	 *
-	 * @since  %ver
+	 * @since  0.7.0
+	 * @since  0.8.0 Get the recently edited menu from user option.
+	 *
 	 * @return int
 	 */
 	public static function get_current_menu_id() {
 		global $nav_menu_selected_id;
 
-		if ( defined( 'DOING_AJAX' ) && DOING_AJAX && ! empty( $_POST['menu'] ) ) {
-			$menu_id = absint( $_POST['menu'] );
-		} else {
-			$menu_id = $nav_menu_selected_id;
+		if ( ! empty( $nav_menu_selected_id ) ) {
+			return $nav_menu_selected_id;
 		}
 
-		return $menu_id;
+		if ( is_admin() && isset( $_REQUEST['menu'] ) ) {
+			$nav_menu_selected_id = absint( $_REQUEST['menu'] );
+		} else {
+			$nav_menu_selected_id = absint( get_user_option( 'nav_menu_recently_edited' ) );
+		}
+
+		return $nav_menu_selected_id;
 	}
 
 

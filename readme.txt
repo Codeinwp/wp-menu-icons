@@ -177,6 +177,27 @@ add_filter( 'menu_icons_item_title', 'my_menu_icons_override_markup', 10, 4 );
 = Can you please add X icon font? =
 Let me know via [GitHub issues](https://github.com/kucrut/wp-menu-icons/issues) and I'll see what I can do.
 
+= How do I disable menu icons for a certain menu? =
+Add this block of code to your [mu-plugin file](http://codex.wordpress.org/Must_Use_Plugins):
+`
+/**
+ * Disable menu icons
+ *
+ * @param array $menu_settings Menu Settings.
+ * @param int   $menu_id       Menu ID.
+ *
+ * @return array
+ */
+function my_menu_icons_menu_settings( $menu_settings, $menu_id ) {
+	if ( 13 === $menu_id ) {
+		$menu_settings['disabled'] = true;
+	}
+
+	return $menu_settings;
+}
+add_filter( 'menu_icons_menu_settings', '_kc_menu_icons_menu_settings', 10, 2 );
+`
+
 = How do I add an icon pack from Fontello? =
 1. Create a new directory called `fontpacks` in `wp-content`.
 1. Grab the zip of the pack, extract, and upload it to the newly created directory.
@@ -189,10 +210,10 @@ Read [this blog post](http://kucrut.org/add-custom-image-sizes-right-way/).
 = 0.8.0 =
 * Update Dashicons
 * Update Font Awesome to 4.3.0
+* Allow the plugin to be disabled for a certain menu
 * Add new icon type: SVG, props [Ethan Clevenger](https://github.com/ethanclevenger91)
 * Add new filter: `menu_icons_hidden_label_class`
 * Add new filter: `menu_icons_item_title`
-
 
 = 0.7.0 =
 * Update Dashicons
