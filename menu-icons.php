@@ -152,10 +152,10 @@ final class Menu_Icons {
 		}
 
 		// Load settings
-		if ( is_admin() ) {
-			require_once self::$data['dir'] . 'includes/settings.php';
-			Menu_Icons_Settings::init();
-		} else {
+		require_once self::$data['dir'] . 'includes/settings.php';
+		Menu_Icons_Settings::init();
+
+		if ( ! is_admin() ) {
 			self::_load_front_end();
 		}
 
