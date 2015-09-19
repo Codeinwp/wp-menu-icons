@@ -235,6 +235,7 @@ Read [this blog post](http://kucrut.org/add-custom-image-sizes-right-way/).
 
 ### 0.8.0 ###
 * Update Dashicons
+* Update Genericons to 3.4
 * Update Font Awesome to 4.3.0
 * Allow the plugin to be disabled for a certain menu
 * Add new icon type: SVG, props [Ethan Clevenger](https://github.com/ethanclevenger91)
