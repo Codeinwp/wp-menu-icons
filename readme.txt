@@ -2,9 +2,9 @@
 Contributors: kucrut, joshuairl
 Donate Link: http://kucrut.org/#coffee
 Tags: menu, nav-menu, icons, navigation
-Requires at least: 4.1
-Tested up to: 4.1
-Stable tag: 0.7.0
+Requires at least: 4.3
+Tested up to: 4.3.1
+Stable tag: 0.8.0
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -29,6 +29,7 @@ This plugin gives you the ability to add icons to your menu items, similar to th
 - [Genericons](http://genericons.com/) by [Automattic](http://automattic.com/)
 - [Fontello](http://fontello.com/) icon packs
 - Image (attachments)
+- SVG (attachments)
 
 = Planned supported icon types =
 - Image (URL)
@@ -77,26 +78,26 @@ This is a bug with the font icon itself. When the font is updated, this plugin w
  *
  * Uncomment one or more line to remove icon types
  *
- * @param  array $types Registered icon types
+ * @param  array $types Registered icon types.
  * @return array
  */
 function myplugin_remove_menu_icons_type( $types ) {
-	# Dashicons
+	// Dashicons
 	//unset( $types['dashicons'] );
 
-	# Elusive
+	// Elusive
 	//unset( $types['elusive'] );
 
-	# Font Awesome
+	// Font Awesome
 	//unset( $types['fa'] );
 
-	# Foundation
+	// Foundation
 	//unset( $types['foundation-icons'] );
 
-	# Genericons
+	// Genericons
 	//unset( $types['genericon'] );
 
-	# Image
+	// Image
 	//unset( $types['image'] );
 
 	return $types;
@@ -107,7 +108,7 @@ add_filter( 'menu_icons_types', 'myplugin_remove_menu_icons_type' );
 To add a new icon type, take a look at the `type-*.php` files inside the `includes` directory of this plugin.
 
 = I don't want the settings meta box. How do I remove/disable it? =
-Add this line to your [mu-plugin file](http://codex.wordpress.org/Must_Use_Plugins):
+Add this block of code to your [mu-plugin file](http://codex.wordpress.org/Must_Use_Plugins):
 `
 add_filter( 'menu_icons_disable_settings', '__return_true' );
 `
@@ -120,8 +121,8 @@ You can filter the icon type properties from your plugin/theme:
  *
  * See myplugin_remove_menu_icons_type() above for the icon type keys
  *
- * @param  array  $props    Icon type properties
- * @param  object $instance Icon type registration instance
+ * @param  array  $props    Icon type properties.
+ * @param  object $instance Icon type registration instance.
  * @return array
  */
 function _my_fontawesome_props( $props, $instance ) {
@@ -135,8 +136,67 @@ function _my_fontawesome_props( $props, $instance ) {
 add_filter( 'menu_icons_fa_props', '_my_fontawesome_props', 10, 2 );
 `
 
+= How can I change the CSS class for hiding the menu item labels? =
+Add this block of code to your [mu-plugin file](http://codex.wordpress.org/Must_Use_Plugins):
+`
+/**
+ * Override hidden label class
+ *
+ * @param  string $class Hidden label class.
+ * @return string
+ */
+function my_menu_icons_hidden_label_class( $class ) {
+	$class = 'hidden';
+
+	return $class;
+}
+add_filter( 'menu_icons_hidden_label_class', 'my_menu_icons_hidden_label_class' );
+`
+
+= How can I modify the markup the menu items? =
+Add this block of code to your [mu-plugin file](http://codex.wordpress.org/Must_Use_Plugins):
+`
+/**
+ * Override menu item markup
+ *
+ * @param string  $markup      Menu item title markup.
+ * @param integer $id          Menu item ID.
+ * @param array   $meta_values Menu item meta values.
+ * @param string  $title       Menu item title.
+ *
+ * @return string
+ */
+function my_menu_icons_override_markup( $markup, $id, $meta_values, $title ) {
+	// Do your thing.
+
+	return $markup;
+}
+add_filter( 'menu_icons_item_title', 'my_menu_icons_override_markup', 10, 4 );
+`
+
 = Can you please add X icon font? =
 Let me know via [GitHub issues](https://github.com/kucrut/wp-menu-icons/issues) and I'll see what I can do.
+
+= How do I disable menu icons for a certain menu? =
+Add this block of code to your [mu-plugin file](http://codex.wordpress.org/Must_Use_Plugins):
+`
+/**
+ * Disable menu icons
+ *
+ * @param array $menu_settings Menu Settings.
+ * @param int   $menu_id       Menu ID.
+ *
+ * @return array
+ */
+function my_menu_icons_menu_settings( $menu_settings, $menu_id ) {
+	if ( 13 === $menu_id ) {
+		$menu_settings['disabled'] = true;
+	}
+
+	return $menu_settings;
+}
+add_filter( 'menu_icons_menu_settings', '_kc_menu_icons_menu_settings', 10, 2 );
+`
 
 = How do I add an icon pack from Fontello? =
 1. Create a new directory called `fontpacks` in `wp-content`.
@@ -147,6 +207,15 @@ Let me know via [GitHub issues](https://github.com/kucrut/wp-menu-icons/issues) 
 Read [this blog post](http://kucrut.org/add-custom-image-sizes-right-way/).
 
 == Changelog ==
+= 0.8.0 =
+* Update Dashicons
+* Update Genericons to 3.4
+* Update Font Awesome to 4.4.0
+* Allow the plugin to be disabled for a certain menu
+* Add new icon type: SVG, props [Ethan Clevenger](https://github.com/ethanclevenger91)
+* Add new filter: `menu_icons_hidden_label_class`
+* Add new filter: `menu_icons_item_title`
+
 = 0.7.0 =
 * Update Dashicons
 * Fix annoying browser popup when navigating away from Nav Menus screen

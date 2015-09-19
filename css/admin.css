@@ -143,3 +143,6 @@
 	margin: 0 5px 0 0;
 	vertical-align: middle;
 }
+.attachment .svg-icon img {
+	max-width: 100%;
+}

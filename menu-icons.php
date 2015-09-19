@@ -4,14 +4,14 @@
  * Menu Icons
  *
  * @package Menu_Icons
- * @version 0.7.0
+ * @version 0.8.0
  * @author Dzikri Aziz <kvcrvt@gmail.com>
  *
  *
  * Plugin name: Menu Icons
  * Plugin URI: http://kucrut.org/
  * Description: Spice up your navigation menus with pretty icons, easily.
- * Version: 0.7.0
+ * Version: 0.8.0
  * Author: Dzikri Aziz
  * Author URI: http://kucrut.org/
  * License: GPLv2
@@ -25,7 +25,7 @@
  */
 final class Menu_Icons {
 
-	const VERSION = '0.7.0';
+	const VERSION = '0.8.0';
 
 	/**
 	 * Holds plugin data
@@ -107,7 +107,6 @@ final class Menu_Icons {
 		add_filter( 'menu_icons_types', array( __CLASS__, '_register_font_packs' ), 8 );
 		add_filter( 'is_protected_meta', array( __CLASS__, '_protect_meta_key' ), 10, 3 );
 		add_action( 'wp_loaded', array( __CLASS__, '_init' ), 9 );
-		add_action( 'get_header', array( __CLASS__, '_load_front_end' ) );
 	}
 
 
@@ -155,6 +154,12 @@ final class Menu_Icons {
 		// Load settings
 		require_once self::$data['dir'] . 'includes/settings.php';
 		Menu_Icons_Settings::init();
+
+		if ( ! is_admin() ) {
+			self::_load_front_end();
+		}
+
+		do_action( 'menu_icons_loaded' );
 	}
 
 
@@ -176,6 +181,7 @@ final class Menu_Icons {
 			'fontawesome',
 			'foundation',
 			'genericons',
+			'svg',
 		);
 
 		foreach ( $builtin_types as $type ) {
@@ -297,10 +303,9 @@ final class Menu_Icons {
 	 *
 	 * @since   0.1.0
 	 * @access  protected
-	 * @wp_hook action    load-nav-menus.php/10
-	 * @link    http://codex.wordpress.org/Plugin_API/Action_Reference/get_header Action: get_header/10
+	 * @return  void
 	 */
-	public static function _load_front_end() {
+	protected static function _load_front_end() {
 		foreach ( Menu_Icons_Settings::get( 'global', 'icon_types' ) as $id ) {
 			if ( isset( self::$data['icon_types'][ $id ] ) ) {
 				call_user_func( self::$data['icon_types'][ $id ]['front_cb'] );
@@ -315,18 +320,26 @@ final class Menu_Icons {
 	 * Enqueue icon type's stylesheet
 	 *
 	 * @since 0.2.0
-	 * @param string $id    Stylesheet ID
+	 *
+	 * @param string $id    Icon type ID
 	 * @param array  $props Icon type properties
+	 *
+	 * @return void
 	 */
-	public static function enqueue_type_stylesheet( $id, $props ) {
+	public static function enqueue_type_stylesheet( $id, array $props ) {
 		if ( empty( $props['stylesheet'] ) ) {
 			return;
 		}
 
 		if ( wp_style_is( $props['stylesheet'], 'registered' ) ) {
-			wp_enqueue_style( $id );
+			wp_enqueue_style( $props['stylesheet_id'] );
 		} else {
-			wp_enqueue_style( $id, $props['stylesheet'], false, $props['version'] );
+			wp_enqueue_style(
+				$props['stylesheet_id'],
+				$props['stylesheet'],
+				false,
+				$props['version']
+			);
 		}
 	}
 
@@ -426,6 +439,25 @@ final class Menu_Icons {
 		}
 
 		return $values;
+	}
+
+
+	/**
+	 * Get hidden label class
+	 *
+	 * @return string
+	 */
+	public static function get_hidden_label_class() {
+		/**
+		 * Allow themes/plugins to overrride the hidden label class
+		 *
+		 * @since  0.8.0
+		 * @param  string $hidden_label_class Hidden label class.
+		 * @return string
+		 */
+		$hidden_label_class = apply_filters( 'menu_icons_hidden_label_class', 'visuallyhidden' );
+
+		return $hidden_label_class;
 	}
 }
 add_action( 'plugins_loaded', array( 'Menu_Icons', '_load' ) );
