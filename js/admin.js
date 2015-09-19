@@ -40,11 +40,11 @@
 		})
 		.find( 'a.mi-settings-nav-tab' ).first().click();
 
-	if ( 'undefined' === typeof window.menuIcons ) {
+	if ( _.isUndefined( window.menuIcons ) ) {
 		return;
 	}
 
-	if ( undefined === window.menuIcons.iconTypes ) {
+	if ( _.isUndefined( window.menuIcons.iconTypes ) ) {
 		return;
 	}
 
@@ -700,11 +700,13 @@
 		activate: function() {
 			media.controller.Library.prototype.activate.apply( this, arguments );
 			this.frame.on( 'open', this.miUpdateSelection, this );
+			this.get( 'library' ).observe( wp.Uploader.queue );
 			this.miUpdateSelection();
 		},
 
 		deactivate: function() {
 			media.controller.Library.prototype.deactivate.apply( this, arguments );
+			this.get( 'library' ).unobserve( wp.Uploader.queue );
 			this.frame.off( 'open', this.miUpdateSelection, this );
 		},
 
@@ -720,7 +722,7 @@
 				attachment = Attachment.get( icon );
 				this.dfd   = attachment.fetch();
 			}
-			selection.reset( attachment ? attachment : [] );
+			selection.add( attachment ? attachment : [] );
 		},
 
 		miGetContent: function( mode ) {
@@ -737,16 +739,20 @@
 			    options;
 
 			options = {
-				type:       type,
-				controller: state.frame,
-				collection: state.get( 'library' ),
-				selection:  state.get( 'selection' ),
-				model:      state,
-				sortable:   state.get( 'sortable' ),
-				search:     state.get( 'searchable' ),
-				filters:    state.get( 'filterable' ),
-				display:    state.get( 'displaySettings' ),
-				dragInfo:   state.get( 'dragInfo' )
+				type:             type,
+				controller:       state.frame,
+				collection:       state.get( 'library' ),
+				selection:        state.get( 'selection' ),
+				model:            state,
+				sortable:         state.get( 'sortable' ),
+				search:           state.get( 'searchable' ),
+				filters:          state.get( 'filterable' ),
+				display:          state.get( 'displaySettings' ),
+				dragInfo:         state.get( 'dragInfo' ),
+				idealColumnWidth: state.get( 'idealColumnWidth' ),
+				suggestedWidth:   state.get( 'suggestedWidth' ),
+				suggestedHeight:  state.get( 'suggestedHeight' ),
+				AttachmentView:   state.get( 'AttachmentView' )
 			};
 
 			if ( 'svg' === type ) {
@@ -866,15 +872,15 @@
 
 	// Frame
 	media.view.MediaFrame.menuIcons = media.view.MediaFrame.extend({
+		defaults: _.defaults({
+			selection: [],
+			multiple:  false,
+			editing:   false,
+			toolbar:   'mi-select'
+		}, media.view.MediaFrame.prototype.defaults ),
+
 		initialize: function() {
 			media.view.MediaFrame.prototype.initialize.apply( this, arguments );
-
-			_.defaults( this.options, {
-				selection: [],
-				multiple:  false,
-				editing:   false,
-				toolbar:   'mi-select'
-			});
 
 			this.miMenuItems = new media.model.mi.MenuItems();
 			this.createStates();
