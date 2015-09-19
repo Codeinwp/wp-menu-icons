@@ -5,9 +5,9 @@ Spice up your navigation menus with pretty icons, easily.
 
 **Contributors:** [kucrut](https://profiles.wordpress.org/kucrut), [joshuairl](https://profiles.wordpress.org/joshuairl)  
 **Tags:** [menu](https://wordpress.org/plugins/tags/menu), [nav-menu](https://wordpress.org/plugins/tags/nav-menu), [icons](https://wordpress.org/plugins/tags/icons), [navigation](https://wordpress.org/plugins/tags/navigation)  
-**Requires at least:** 4.1  
-**Tested up to:** 4.1  
-**Stable tag:** 0.7.0  
+**Requires at least:** 4.3  
+**Tested up to:** 4.3.1  
+**Stable tag:** 0.8.0  
 **License:** [GPLv2](http://www.gnu.org/licenses/gpl-2.0.html)  
 **Donate Link:** http://kucrut.org/#coffee  
 
