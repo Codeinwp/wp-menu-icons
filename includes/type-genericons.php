@@ -41,7 +41,7 @@ class Menu_Icons_Type_Genericons extends Menu_Icons_Type_Fonts {
 	 * @access protected
 	 * @var    string
 	 */
-	protected $version = '3.2';
+	protected $version = '3.4';
 
 
 	/**
