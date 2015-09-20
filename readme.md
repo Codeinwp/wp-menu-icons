@@ -7,7 +7,7 @@ Spice up your navigation menus with pretty icons, easily.
 **Tags:** [menu](https://wordpress.org/plugins/tags/menu), [nav-menu](https://wordpress.org/plugins/tags/nav-menu), [icons](https://wordpress.org/plugins/tags/icons), [navigation](https://wordpress.org/plugins/tags/navigation)  
 **Requires at least:** 4.3  
 **Tested up to:** 4.3.1  
-**Stable tag:** 0.8.0  
+**Stable tag:** 0.8.1  
 **License:** [GPLv2](http://www.gnu.org/licenses/gpl-2.0.html)  
 **Donate Link:** http://kucrut.org/#coffee  
 
@@ -232,6 +232,9 @@ Read [this blog post](http://kucrut.org/add-custom-image-sizes-right-way/).
 
 
 ## Changelog ##
+
+### 0.8.1 ###
+* Fix disappearing icons from front-end when not logged-in, props [jj9617](http://profiles.wordpress.org/jj9617/)
 
 ### 0.8.0 ###
 * Update Dashicons
