@@ -227,6 +227,8 @@ add_filter( 'menu_icons_menu_settings', '_kc_menu_icons_menu_settings', 10, 2 );
 1. Grab the zip of the pack, extract, and upload it to the newly created directory.
 1. Enable the icon type from the Settings meta box.
 
+https://www.youtube.com/watch?v=B-5AVwgPaiw
+
 ### I can't select a custom image size from the *Image Size* dropdown ###
 Read [this blog post](http://kucrut.org/add-custom-image-sizes-right-way/).
 
