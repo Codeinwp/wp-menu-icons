@@ -145,12 +145,12 @@ final class Menu_Icons_Settings {
 	 * @since 0.3.0
 	 */
 	public static function init() {
+		self::$defaults['global']['icon_types'] = array_keys( Menu_Icons::get( 'icon_types' ) );
+		self::_get();
+
 		if ( self::is_menu_icons_disabled_for_menu() ) {
 			return;
 		}
-
-		self::$defaults['global']['icon_types'] = array_keys( Menu_Icons::get( 'icon_types' ) );
-		self::_get();
 
 		require_once Menu_Icons::get( 'dir' ) . 'includes/admin.php';
 		Menu_Icons_Admin_Nav_Menus::init();
