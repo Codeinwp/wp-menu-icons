@@ -73,22 +73,6 @@ final class Menu_Icons {
 	public static function _load() {
 		load_plugin_textdomain( 'menu-icons', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 
-		/**
-		 * Allow different system path for fontpacks
-		 *
-		 * @since 0.4.0
-		 * @param string Directory path, defaults to /wp-content/fontpacks
-		 */
-		$fontpacks_dir_path = apply_filters( 'menu_icons_fontpacks_dir_path', WP_CONTENT_DIR . '/fontpacks' );
-
-		/**
-		 * Allow different URL path for fontpacks
-		 *
-		 * @since 0.4.0
-		 * @param string URL path, defaults to /wp-content/fontpacks
-		 */
-		$fontpacks_dir_url = apply_filters( 'menu_icons_fontpacks_dir_url', WP_CONTENT_URL . '/fontpacks' );
-
 		self::$data = array(
 			'dir'                => plugin_dir_path( __FILE__ ),
 			'url'                => plugin_dir_url( __FILE__ ),
@@ -97,14 +81,10 @@ final class Menu_Icons {
 				'font-size'      => '1.2em',
 				'vertical-align' => 'middle',
 			),
-			'fontpacks_dir_path' => $fontpacks_dir_path,
-			'fontpacks_dir_url'  => $fontpacks_dir_url,
 		);
 
 		require_once self::$data['dir'] . 'includes/library/functions.php';
 
-		add_filter( 'menu_icons_types', array( __CLASS__, '_register_icon_types' ), 7 );
-		add_filter( 'menu_icons_types', array( __CLASS__, '_register_font_packs' ), 8 );
 		add_filter( 'is_protected_meta', array( __CLASS__, '_protect_meta_key' ), 10, 3 );
 		add_action( 'wp_loaded', array( __CLASS__, '_init' ), 9 );
 	}
@@ -146,7 +126,7 @@ final class Menu_Icons {
 
 		// Nothing to do if there are no icon types registered
 		if ( empty( self::$data['icon_types'] ) ) {
-			trigger_error( esc_html__( 'Menu Icons: No registered icon types found.', 'menu-icons' ) );
+			// trigger_error( esc_html__( 'Menu Icons: No registered icon types found.', 'menu-icons' ) );
 
 			return;
 		}
@@ -164,79 +144,6 @@ final class Menu_Icons {
 
 
 	/**
-	 * Register built-in icon types
-	 *
-	 * @since   0.1.5
-	 * @access  protected
-	 * @wp_hook filter    menu_icons_types
-	 *
-	 * @param   array     $icon_types      Current icon types
-	 * @return  array
-	 */
-	public static function _register_icon_types( $icon_types ) {
-		$builtin_types = array(
-			'image',
-			'dashicons',
-			'elusive',
-			'fontawesome',
-			'foundation',
-			'genericons',
-			'svg',
-		);
-
-		foreach ( $builtin_types as $type ) {
-			require_once sprintf( '%s/includes/type-%s.php', self::$data['dir'], $type );
-
-			$class_name    = sprintf( 'Menu_Icons_Type_%s', ucfirst( $type ) );
-			$type_instance = new $class_name;
-			$icon_types    = $type_instance->register( $icon_types );
-		}
-
-		return $icon_types;
-	}
-
-
-	/**
-	 * Register font packs
-	 *
-	 * Each directory under <code>fontpacks/</code> will be scanned. When a <code>config.json</code>
-	 * file is found it'll be read and the font pack will be registered.
-	 *
-	 * Font packs can be obtained from Fontello ({@link http://fontello.com/})
-	 *
-	 * @since   0.4.0
-	 * @access  protected
-	 * @wp_hook filter    menu_icons_types
-	 * @link    http://fontello.com/ Fontello
-	 *
-	 * @param   array     $icon_types      Current icon types
-	 * @return  array
-	 */
-	public static function _register_font_packs( $icon_types ) {
-		$path = self::$data['fontpacks_dir_path'];
-		if ( ! is_dir( $path ) ) {
-			return $icon_types;
-		}
-
-		require_once sprintf( '%s/includes/type-fontpack.php', self::$data['dir'] );
-		$class_name = 'Menu_Icons_Type_Fontpack';
-		$iterator   = new DirectoryIterator( $path );
-
-		foreach ( $iterator as $item ) {
-			if ( $item->isDot() || ! $item->isDir() ) {
-				continue;
-			}
-
-			$pack       = $item->getFilename();
-			$instance   = new $class_name( $pack );
-			$icon_types = $instance->register( $icon_types );
-		}
-
-		return $icon_types;
-	}
-
-
-	/**
 	 * Collect icon types
 	 *
 	 * @since  0.1.0
@@ -244,57 +151,7 @@ final class Menu_Icons {
 	 * @uses   apply_filters() Calls 'menu_icons_types' to get registered types.
 	 */
 	private static function _collect_icon_types() {
-		$types     = (array) apply_filters( 'menu_icons_types', array() );
-		$defaults  = array(
-			'label'      => '',
-			'field_cb'   => '',
-			'front_cb'   => '',
-			'stylesheet' => '',
-			'version'    => get_bloginfo( 'version' ),
-		);
-		$callbacks = array( 'field_cb', 'front_cb', 'frame_cb' );
-		$optionals = array( 'stylesheet', 'frame_cb' );
-		$messages  = array(
-			'empty'    => _x(
-				'%1$s cannot be empty, %2$s has been disabled.',
-				'1: Property key, 2: Icon type ID',
-				'menu-icons'
-			),
-			'callback' => _x(
-				'%1$s must be callable, %2$s has been disabled.',
-				'1: Property key, 2: Icon type ID',
-				'menu-icons'
-			),
-		);
-
-		foreach ( $types as $type => $props ) {
-			$type_props = wp_parse_args( $props, $defaults );
-			foreach ( $type_props as $key => $value ) {
-				if ( ! in_array( $key, $optionals ) && empty( $value ) ) {
-					trigger_error(
-						'<strong>Menu Icons</strong>: ' . vsprintf(
-							esc_html( $messages['empty'] ),
-							array( '<em>' . esc_html( $key ) . '</em>', '<em>' . esc_html( $type ) . '</em>' )
-						)
-					);
-					continue 2;
-				}
-
-				if ( in_array( $key, $callbacks ) && ! is_callable( $value ) ) {
-					trigger_error(
-						'<strong>Menu Icons</strong>: ' . vsprintf(
-							esc_html( $messages['callback'] ),
-							array( '<em>' . esc_html( $key ) . '</em>', '<em>' . esc_html( $type ) . '</em>' )
-						)
-					);
-					continue 2;
-				}
-			}
-
-			self::$data['icon_types'][ $type ] = $type_props;
-		}
-
-		ksort( self::$data['icon_types'] );
+		return array();
 	}
 
 
