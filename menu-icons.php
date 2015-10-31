@@ -163,41 +163,8 @@ final class Menu_Icons {
 	 * @return  void
 	 */
 	protected static function _load_front_end() {
-		foreach ( Menu_Icons_Settings::get( 'global', 'icon_types' ) as $id ) {
-			if ( isset( self::$data['icon_types'][ $id ] ) ) {
-				call_user_func( self::$data['icon_types'][ $id ]['front_cb'] );
-			}
-		}
-
-		add_action( 'wp_enqueue_scripts', array( __CLASS__, '_enqueue_styles' ), 7 );
-	}
-
-
-	/**
-	 * Enqueue icon type's stylesheet
-	 *
-	 * @since 0.2.0
-	 *
-	 * @param string $id    Icon type ID
-	 * @param array  $props Icon type properties
-	 *
-	 * @return void
-	 */
-	public static function enqueue_type_stylesheet( $id, array $props ) {
-		if ( empty( $props['stylesheet'] ) ) {
-			return;
-		}
-
-		if ( wp_style_is( $props['stylesheet'], 'registered' ) ) {
-			wp_enqueue_style( $props['stylesheet_id'] );
-		} else {
-			wp_enqueue_style(
-				$props['stylesheet_id'],
-				$props['stylesheet'],
-				false,
-				$props['version']
-			);
-		}
+		require_once self::$data['dir'] . '/includes/front.php';
+		Menu_Icons_Front_End::init();
 	}
 
 
@@ -211,31 +178,6 @@ final class Menu_Icons {
 	 */
 	public static function get_script_suffix() {
 		return ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
-	}
-
-
-	/**
-	 * Enqueue stylesheets
-	 *
-	 * @since   0.1.0
-	 * @access  protected
-	 * @wp_hook action          wp_enqueue_scripts/10
-	 * @link   http://codex.wordpress.org/Plugin_API/Action_Reference/wp_enqueue_scripts Action: wp_enqueue_scripts/10
-	 */
-	public static function _enqueue_styles() {
-		// Enqueue icon types' stylesheets
-		foreach ( Menu_Icons_Settings::get( 'global', 'icon_types' ) as $id ) {
-			if ( isset( self::$data['icon_types'][ $id ] ) ) {
-				self::enqueue_type_stylesheet( $id, self::$data['icon_types'][ $id ] );
-			}
-		}
-
-		wp_enqueue_style(
-			'menu-icons-extra',
-			Menu_Icons::get( 'url' ) . 'css/extra' . self::get_script_suffix() .'.css',
-			false,
-			Menu_Icons::VERSION
-		);
 	}
 
 
