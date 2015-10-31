@@ -48,7 +48,8 @@ final class Menu_Icons_Picker {
 	/**
 	 * Load Icon Picker
 	 *
-	 * @action load-nav-menus.php
+	 * @since   0.9.0
+	 * @wp_hook action load-nav-menus.php/10
 	 */
 	public static function _load_nav_menus() {
 		Icon_Picker::instance()->load();
