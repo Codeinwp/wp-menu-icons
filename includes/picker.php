@@ -37,9 +37,6 @@ final class Menu_Icons_Picker {
 		add_action( 'load-nav-menus.php', array( __CLASS__, '_load_nav_menus' ) );
 		add_filter( 'wp_edit_nav_menu_walker', array( __CLASS__, '_filter_wp_edit_nav_menu_walker' ), 99 );
 		add_filter( 'wp_nav_menu_item_custom_fields', array( __CLASS__, '_fields' ), 10, 4 );
-		add_action( 'admin_enqueue_scripts', array( __CLASS__, '_enqueue_assets' ), 101 );
-		add_action( 'print_media_templates', array( __CLASS__, '_media_templates' ) );
-
 		add_filter( 'manage_nav-menus_columns', array( __CLASS__, '_columns' ), 99 );
 		add_action( 'wp_update_nav_menu_item', array( __CLASS__, '_save' ), 10, 3 );
 	}
@@ -53,6 +50,9 @@ final class Menu_Icons_Picker {
 	 */
 	public static function _load_nav_menus() {
 		Icon_Picker::instance()->load();
+
+		add_action( 'admin_enqueue_scripts', array( __CLASS__, '_enqueue_assets' ), 101 );
+		add_action( 'print_media_templates', array( __CLASS__, '_media_templates' ) );
 	}
 
 
