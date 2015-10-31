@@ -36,6 +36,15 @@ final class Menu_Icons {
 	 */
 	protected static $data;
 
+	/**
+	 * Icon Picker instance
+	 *
+	 * @since  0.9.0
+	 * @access public
+	 * @var    Icon_Picker
+	 */
+	protected static $icon_picker;
+
 
 	/**
 	 * Get plugin data
@@ -74,10 +83,12 @@ final class Menu_Icons {
 	public static function _load() {
 		load_plugin_textdomain( 'menu-icons', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 
+		// TODO: Load Icon Picker
+		self::$icon_picker = Icon_Picker::instance();
+
 		self::$data = array(
 			'dir'                => plugin_dir_path( __FILE__ ),
 			'url'                => plugin_dir_url( __FILE__ ),
-			'icon_types'         => array(),
 			'default_style'      => array(
 				'font-size'      => '1.2em',
 				'vertical-align' => 'middle',
@@ -89,7 +100,7 @@ final class Menu_Icons {
 
 		Menu_Icons_Meta::init();
 
-		add_action( 'wp_loaded', array( __CLASS__, '_init' ), 9 );
+		add_action( 'icon_picker_init', array( __CLASS__, '_init' ), 9 );
 	}
 
 
@@ -98,16 +109,16 @@ final class Menu_Icons {
 	 *
 	 * 1. Collect registered types
 	 * 2. Load settings
+	 * 3. Load front-end
 	 *
 	 * @since   0.1.0
-	 * @wp_hook action wp_loaded/9
-	 * @link    http://codex.wordpress.org/Plugin_API/Action_Reference/wp_loaded Action: wp_loaded/9
+	 * @since   0.9.0  Hook into `icon_picker_init`.
+	 * @wp_hook action icon_picker_init/9
+	 * @link    http://codex.wordpress.org/Plugin_API/Action_Reference
 	 */
 	public static function _init() {
-		self::_collect_icon_types();
-
 		// Nothing to do if there are no icon types registered
-		if ( empty( self::$data['icon_types'] ) ) {
+		if ( empty( self::$icon_picker->registry->types ) ) {
 			// trigger_error( esc_html__( 'Menu Icons: No registered icon types found.', 'menu-icons' ) );
 
 			return;
@@ -123,18 +134,6 @@ final class Menu_Icons {
 		}
 
 		do_action( 'menu_icons_loaded' );
-	}
-
-
-	/**
-	 * Collect icon types
-	 *
-	 * @since  0.1.0
-	 * @access private
-	 * @uses   apply_filters() Calls 'menu_icons_types' to get registered types.
-	 */
-	private static function _collect_icon_types() {
-		return array();
 	}
 
 

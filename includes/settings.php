@@ -27,7 +27,7 @@ final class Menu_Icons_Settings {
 	 */
 	protected static $defaults = array(
 		'global' => array(
-			'icon_types' => array(),
+			'icon_types' => array( 'dashicons' ),
 		),
 	);
 
@@ -40,6 +40,15 @@ final class Menu_Icons_Settings {
 	 */
 	protected static $settings = array();
 
+	/**
+	 * Icon Picker Types Registry
+	 *
+	 * @since  0.9.0
+	 * @access protected
+	 * @var    Icon_Picker_Types_Registry
+	 */
+	protected static $ip_registry;
+
 
 	/**
 	 * Get setting value
@@ -51,45 +60,6 @@ final class Menu_Icons_Settings {
 		$args = func_get_args();
 
 		return kucrut_get_array_value_deep( self::$settings, $args );
-	}
-
-
-	/**
-	 * Get setting values and apply sanitation
-	 *
-	 * @since 0.3.0
-	 * @acess private
-	 */
-	private static function _get() {
-		$settings = get_option( 'menu-icons', null );
-
-		if ( is_null( $settings ) ) {
-			$settings['global'] = self::$defaults['global'];
-		}
-
-		/**
-		 * Check icon types
-		 *
-		 * A type could be enabled in the settings but disabled by a filter,
-		 * so we need to 'fix' it here.
-		 */
-		if ( ! empty( $settings['global']['icon_types'] ) ) {
-			$active_types = array();
-			$icon_types   = Menu_Icons::get( 'icon_types' );
-
-			foreach ( (array) $settings['global']['icon_types'] as $index => $id ) {
-				if ( isset( $icon_types[ $id ] ) ) {
-					$active_types[] = $id;
-				}
-			}
-
-			if ( $settings['global']['icon_types'] !== $active_types ) {
-				$settings['global']['icon_types'] = $active_types;
-				update_option( 'menu-icons', $settings );
-			}
-		}
-
-		self::$settings = $settings;
 	}
 
 
@@ -145,15 +115,21 @@ final class Menu_Icons_Settings {
 	 * @since 0.3.0
 	 */
 	public static function init() {
-		self::$defaults['global']['icon_types'] = array_keys( Menu_Icons::get( 'icon_types' ) );
-		self::_get();
+		self::$ip_registry = Icon_Picker_Types_Registry::instance();
+		self::$settings    = get_option( 'menu-icons', self::$defaults );
+
+		// Remove unregistered icon types
+		self::$settings['global']['icon_types'] = array_intersect(
+			array_keys( self::$ip_registry->types ),
+			array_filter( (array) self::$settings['global']['icon_types'] )
+		);
 
 		if ( self::is_menu_icons_disabled_for_menu() ) {
 			return;
 		}
 
-		require_once Menu_Icons::get( 'dir' ) . 'includes/admin.php';
-		Menu_Icons_Admin_Nav_Menus::init();
+		//require_once Menu_Icons::get( 'dir' ) . 'includes/admin.php';
+		//Menu_Icons_Admin_Nav_Menus::init();
 
 		add_action( 'load-nav-menus.php', array( __CLASS__, '_load_nav_menus' ), 1 );
 		add_action( 'wp_ajax_menu_icons_update_settings', array( __CLASS__, '_ajax_menu_icons_update_settings' ) );
@@ -198,7 +174,7 @@ final class Menu_Icons_Settings {
 		if ( ! empty( $_POST['menu-icons']['settings'] ) ) {
 			check_admin_referer( self::UPDATE_KEY, self::UPDATE_KEY );
 
-			$redirect_url = self::_update_settings( $_POST['menu-icons']['settings'] );
+			$redirect_url = self::_update_settings( $_POST['menu-icons']['settings'] ); // Input var okay.
 			wp_redirect( $redirect );
 		} elseif ( ! empty( $_REQUEST[ self::RESET_KEY ] ) ) {
 			check_admin_referer( self::RESET_KEY, self::RESET_KEY );
@@ -267,7 +243,7 @@ final class Menu_Icons_Settings {
 			wp_send_json_error();
 		}
 
-		$redirect_url = self::_update_settings( $_POST['menu-icons']['settings'] );
+		$redirect_url = self::_update_settings( $_POST['menu-icons']['settings'] ); // Input var okay.
 		wp_send_json_success( array( 'redirectUrl' => $redirect_url ) );
 	}
 
@@ -410,9 +386,11 @@ final class Menu_Icons_Settings {
 	public static function get_fields() {
 		$menu_id    = self::get_current_menu_id();
 		$icon_types = array();
-		foreach ( Menu_Icons::get( 'icon_types' ) as $id => $props ) {
-			$icon_types[ $id ] = $props['label'];
+		foreach ( self::$ip_registry->types as $type ) {
+			$icon_types[ $type->id ] = $type->name;
 		}
+
+		asort( $icon_types );
 
 		$sections = array(
 			'global' => array(
@@ -560,7 +538,7 @@ final class Menu_Icons_Settings {
 						submit_button(
 							__( 'Save Settings', 'menu-icons' ),
 							'secondary',
-							'menu-item-settings-save',
+							'menu-icons-settings-save',
 							false
 						);
 					?>
@@ -585,24 +563,19 @@ final class Menu_Icons_Settings {
 			false,
 			Menu_Icons::VERSION
 		);
-		wp_register_script(
-			'kucrut-jquery-input-dependencies',
-			Menu_Icons::get( 'url' ) . 'js/input-dependencies' . $suffix . '.js',
-			array( 'jquery' ),
-			'0.1.0',
-			true
-		);
-
-		if ( ! empty( self::$settings['global']['icon_types'] ) ) {
-			wp_enqueue_media();
-		}
-
 		wp_enqueue_script(
-			'menu-icons',
-			Menu_Icons::get( 'url' ) . 'js/admin' . $suffix . '.js',
-			array( 'kucrut-jquery-input-dependencies' ),
+			'menu-icons-settings',
+			Menu_Icons::get( 'url' ) . 'js/settings.js',
+			array( 'jquery' ),
 			Menu_Icons::VERSION,
 			true
+		);
+		wp_localize_script(
+			'menu-icons-settings',
+			'menuIconsSettings',
+			array(
+				'updateUrl' => add_query_arg( 'action', 'menu_icons_update_settings', admin_url( '/admin-ajax.php' ) ),
+			)
 		);
 	}
 }
