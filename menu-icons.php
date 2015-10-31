@@ -118,7 +118,8 @@ final class Menu_Icons {
 		Menu_Icons_Settings::init();
 
 		if ( ! is_admin() ) {
-			self::_load_front_end();
+			require_once self::$data['dir'] . '/includes/front.php';
+			Menu_Icons_Front_End::init();
 		}
 
 		do_action( 'menu_icons_loaded' );
@@ -134,19 +135,6 @@ final class Menu_Icons {
 	 */
 	private static function _collect_icon_types() {
 		return array();
-	}
-
-
-	/**
-	 * Load front-end tasks
-	 *
-	 * @since   0.1.0
-	 * @access  protected
-	 * @return  void
-	 */
-	protected static function _load_front_end() {
-		require_once self::$data['dir'] . '/includes/front.php';
-		Menu_Icons_Front_End::init();
 	}
 
 
