@@ -2,27 +2,23 @@
 	margin-top: 5px;
 	margin-bottom: 5px;
 }
-.menu-icons-wrap .original label {
-	display: inline-block;
-	min-width: 7em;
-}
-.menu-icons-wrap .easy p {
+.menu-icons-wrap p {
 	min-height: 2.2em;
 	margin-bottom: 0;
 }
-.menu-icons-wrap .easy p > * {
+.menu-icons-wrap p > * {
 	display: inline-block;
 	vertical-align: middle;
 }
-.menu-icons-wrap .easy a {
+.menu-icons-wrap a {
 	cursor: pointer;
 	text-decoration: none;
 }
-.menu-icons-wrap .easy .submitdelete {
+.menu-icons-wrap .submitdelete {
 	float: none;
 	display: none;
 }
-.menu-icons-wrap .easy img {
+.menu-icons-wrap img {
 	max-width: 32px;
 	height: auto !important;
 	vertical-align: baseline;

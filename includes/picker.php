@@ -3,14 +3,14 @@
  * Menu editor handler
  *
  * @package Menu_Icons
- * @author Dzikri Aziz <kvcrvt@gmail.com>
+ * @author  Dzikri Aziz <kvcrvt@gmail.com>
  */
 
 
 /**
  * Nav menu admin
  */
-final class Menu_Icons_Admin_Nav_Menus {
+final class Menu_Icons_Picker {
 
 	/**
 	 * Holds active icon types
@@ -34,8 +34,7 @@ final class Menu_Icons_Admin_Nav_Menus {
 			return;
 		}
 
-		self::_collect_icon_types();
-
+		add_action( 'load-nav-menus.php', array( __CLASS__, '_load_nav_menus' ) );
 		add_filter( 'wp_edit_nav_menu_walker', array( __CLASS__, '_filter_wp_edit_nav_menu_walker' ), 99 );
 		add_filter( 'wp_nav_menu_item_custom_fields', array( __CLASS__, '_fields' ), 10, 4 );
 		add_action( 'admin_enqueue_scripts', array( __CLASS__, '_enqueue_assets' ), 101 );
@@ -44,6 +43,17 @@ final class Menu_Icons_Admin_Nav_Menus {
 		add_filter( 'manage_nav-menus_columns', array( __CLASS__, '_columns' ), 99 );
 		add_action( 'wp_update_nav_menu_item', array( __CLASS__, '_save' ), 10, 3 );
 	}
+
+
+	/**
+	 * Load Icon Picker
+	 *
+	 * @action load-nav-menus.php
+	 */
+	public static function _load_nav_menus() {
+		Icon_Picker::instance()->load();
+	}
+
 
 
 	/**
@@ -61,44 +71,6 @@ final class Menu_Icons_Admin_Nav_Menus {
 		$walker = 'Menu_Item_Custom_Fields_Walker';
 
 		return $walker;
-	}
-
-
-	/**
-	 * Collect icon types
-	 *
-	 * @since  0.3.0
-	 * @access private
-	 */
-	private static function _collect_icon_types() {
-		$registered_types = Menu_Icons::get( 'icon_types' );
-		foreach ( Menu_Icons_Settings::get( 'global', 'icon_types' ) as $id ) {
-			self::$_icon_types[ $id ] = $registered_types[ $id ];
-		}
-	}
-
-
-	/**
-	 * Get icon types
-	 *
-	 * @since  0.1.0
-	 * @access protected
-	 * @uses   apply_filters() Calls 'menu_icons_types' on returned array.
-	 *
-	 * @return array
-	 */
-	protected static function _get_types() {
-		$types = array_merge(
-			array(
-				'' => array(
-					'id'    => '',
-					'label' => __( '&mdash; Select &mdash;', 'menu-icons' ),
-				),
-			),
-			self::$_icon_types
-		);
-
-		return $types;
 	}
 
 
@@ -123,27 +95,18 @@ final class Menu_Icons_Admin_Nav_Menus {
 				),
 			),
 			'settingsFields' => Menu_Icons_Settings::get_settings_fields(),
-			'ajaxUrls'       => array(
-				'update' => add_query_arg( 'action', 'menu_icons_update_settings', $ajax_url ),
-			),
+			'activeTypes'    => Menu_Icons_Settings::get( 'global', 'icon_types' ),
 		);
 
-		foreach ( self::$_icon_types as $id => $props ) {
-			if ( ! empty( $props['frame_cb'] ) ) {
-				$icon_types[ $id ] = array(
-					'type'    => $id,
-					'id'      => sprintf( 'mi-%s', $id ),
-					'title'   => $props['label'],
-					'data'    => call_user_func_array( $props['frame_cb'], array( $id ) ),
-				);
-				Menu_Icons::enqueue_type_stylesheet( $id, $props );
-			}
-		}
+		wp_enqueue_script(
+			'menu-icons-picker',
+			sprintf( '%sjs/picker.js', Menu_Icons::get( 'url' ) ),
+			'icon-picker',
+			Menu_Icons::VERSION,
+			true
+		);
 
-		$data['iconTypes'] = $icon_types;
-		$data['typeNames'] = array_keys( self::$_icon_types );
-
-		wp_localize_script( 'menu-icons', 'menuIcons', $data );
+		wp_localize_script( 'menu-icons-picker', 'menuIconsPicker', $data );
 	}
 
 
@@ -157,36 +120,10 @@ final class Menu_Icons_Admin_Nav_Menus {
 	 * @return mixed
 	 */
 	private static function _get_preview( $id, $meta_value ) {
-		$text = esc_html__( 'Select', 'menu-icons' );
-		if ( empty( $meta_value['type'] ) ) {
-			return $text;
-		}
+		// TODO: Show select/preview
+		$preview = esc_html__( 'Select', 'menu-icons' );
 
-		$type  = $meta_value['type'];
-		$types = self::_get_types();
-		if ( empty( $types[ $type ] ) ) {
-			return $text;
-		}
-
-		if ( empty( $meta_value[ "{$type}-icon" ] ) ) {
-			return $text;
-		}
-
-		if ( empty( $types[ $type ]['preview_cb'] )
-			|| ! is_callable( $types[ $type ]['preview_cb'] )
-		) {
-			return $text;
-		}
-
-		$preview = call_user_func_array(
-			$types[ $type ]['preview_cb'],
-			array( $id, $meta_value )
-		);
-		if ( ! empty( $preview ) ) {
-			return $preview;
-		}
-
-		return $text;
+		return $preview;
 	}
 
 
@@ -237,7 +174,6 @@ final class Menu_Icons_Admin_Nav_Menus {
 			require_once Menu_Icons::get( 'dir' ) . 'includes/library/form-fields.php';
 		}
 
-		$type_ids   = array_values( array_filter( array_keys( self::_get_types() ) ) );
 		$input_id   = sprintf( 'menu-icons-%d', $item->ID );
 		$input_name = sprintf( 'menu-icons[%d]', $item->ID );
 		$current    = wp_parse_args(
@@ -258,76 +194,24 @@ final class Menu_Icons_Admin_Nav_Menus {
 					 */
 					do_action( 'menu_icons_before_fields', $item, $depth, $args, $id );
 				?>
-				<div class="easy">
-					<p class="description submitbox">
-						<label><?php esc_html_e( 'Icon:', 'menu-icons' ) ?></label>
-						<?php
-							printf(
-								'<a id="menu-icons-%1$d-select" class="_select" title="%2$s" data-id="%1$d" data-text="%2$s">%3$s</a>',
-								esc_attr__( $item->ID ),
-								esc_attr__( 'Select', 'menu-icons' ),
-								self::_get_preview( $item->ID, $current ) // xss ok
-							);
-						?>
-						<?php
-							printf(
-								'<a id="menu-icons-%1$s-remove" class="_remove hidden submitdelete" data-id="%1$s">%2$s</a>',
-								esc_attr( $item->ID ),
-								esc_html__( 'Remove', 'menu-icons' )
-							);
-						?>
-					</p>
-				</div>
-				<div class="original hidden">
-					<p class="description">
-						<label for="<?php echo esc_attr( $input_id ) ?>-type"><?php esc_html_e( 'Icon type', 'menu-icons' ); ?></label>
-						<?php
-							printf(
-								'<select id="%s-type" name="%s[type]" class="_type hasdep" data-dep-scope="div.menu-icons-wrap" data-dep-children=".field-icon-child" data-key="type">',
-								esc_attr( $input_id ),
-								esc_attr( $input_name )
-							);
-						?>
-							<?php foreach ( self::_get_types() as $id => $props ) : ?>
-								<?php
-									printf(
-										'<option value="%s"%s>%s</option>',
-										esc_attr( $id ),
-										selected( ( isset( $current['type'] ) && $id === $current['type'] ), true, false ),
-										esc_html( $props['label'] )
-									);
-								?>
-							<?php endforeach; ?>
-						</select>
-					</p>
-
-					<?php foreach ( self::_get_types() as $props ) : ?>
-						<?php if ( ! empty( $props['field_cb'] ) && is_callable( $props['field_cb'] ) ) : ?>
-							<?php call_user_func_array( $props['field_cb'], array( $item->ID, $current ) ); ?>
-						<?php endif; ?>
-					<?php endforeach; ?>
-
-					<?php foreach ( self::_get_fields( $current ) as $field ) :
-						$field = Kucrut_Form_Field::create(
-							$field,
-							array(
-								'keys'               => array( 'menu-icons', $item->ID ),
-								'inline_description' => true,
-							)
+				<p class="description submitbox">
+					<label><?php esc_html_e( 'Icon:', 'menu-icons' ) ?></label>
+					<?php
+						printf(
+							'<a id="menu-icons-%1$d-select" class="_select" title="%2$s" data-id="%1$d" data-text="%2$s">%3$s</a>',
+							esc_attr__( $item->ID ),
+							esc_attr__( 'Select', 'menu-icons' ),
+							self::_get_preview( $item->ID, $current ) // xss ok
 						);
 					?>
-						<p class="description field-icon-child" data-dep-on='<?php echo wp_json_encode( $type_ids ) ?>'>
-							<?php
-								printf(
-									'<label for="%s">%s</label>',
-									esc_attr( $field->id ),
-									esc_html( $field->label )
-								);
-							?>
-							<?php $field->render() ?>
-						</p>
-					<?php endforeach; ?>
-				</div>
+					<?php
+						printf(
+							'<a id="menu-icons-%1$s-remove" class="_remove hidden submitdelete" data-id="%1$s">%2$s</a>',
+							esc_attr( $item->ID ),
+							esc_html__( 'Remove', 'menu-icons' )
+						);
+					?>
+				</p>
 				<?php
 					/**
 					 * Allow plugins/themes to inject HTML after menu icons' fields
@@ -460,16 +344,6 @@ final class Menu_Icons_Admin_Nav_Menus {
 		foreach ( $templates as $key => $template ) {
 			$id = sprintf( '%s-%s', $id_prefix, $key );
 			self::_print_tempate( $id, $template );
-		}
-
-		// Icon type templates
-		foreach ( self::_get_types() as $type => $props ) {
-			if ( ! empty( $props['templates'] ) ) {
-				foreach ( $props['templates'] as $key => $template ) {
-					$id = sprintf( '%s-%s-%s', $id_prefix, $type, $key );
-					self::_print_tempate( $id, $template );
-				}
-			}
 		}
 
 		require_once dirname( __FILE__ ) . '/media-template.php';

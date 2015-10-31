@@ -119,17 +119,17 @@ final class Menu_Icons_Settings {
 		self::$settings    = get_option( 'menu-icons', self::$defaults );
 
 		// Remove unregistered icon types
-		self::$settings['global']['icon_types'] = array_intersect(
+		self::$settings['global']['icon_types'] = array_values( array_intersect(
 			array_keys( self::$ip_registry->types ),
 			array_filter( (array) self::$settings['global']['icon_types'] )
-		);
+		) );
 
 		if ( self::is_menu_icons_disabled_for_menu() ) {
 			return;
 		}
 
-		//require_once Menu_Icons::get( 'dir' ) . 'includes/admin.php';
-		//Menu_Icons_Admin_Nav_Menus::init();
+		require_once Menu_Icons::get( 'dir' ) . 'includes/picker.php';
+		Menu_Icons_Picker::init();
 
 		add_action( 'load-nav-menus.php', array( __CLASS__, '_load_nav_menus' ), 1 );
 		add_action( 'wp_ajax_menu_icons_update_settings', array( __CLASS__, '_ajax_menu_icons_update_settings' ) );
