@@ -41,6 +41,7 @@ final class Menu_Icons {
 	 * Get plugin data
 	 *
 	 * @since  0.1.0
+	 * @since  0.9.0  Return NULL if $name is not set in $data.
 	 * @param  string $name
 	 *
 	 * @return mixed
@@ -54,7 +55,7 @@ final class Menu_Icons {
 			return self::$data[ $name ];
 		}
 
-		return false;
+		return null;
 	}
 
 
