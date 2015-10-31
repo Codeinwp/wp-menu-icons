@@ -33,7 +33,10 @@
 		e.preventDefault();
 		e.stopPropagation();
 
-		$spinner.css( 'display', 'inline-block' );
+		$spinner.css({
+			display: 'inline-block',
+			visibility: 'visible'
+		});
 
 		$.ajax({
 			type: 'POST',
