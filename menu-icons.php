@@ -83,31 +83,12 @@ final class Menu_Icons {
 			),
 		);
 
+		require_once self::$data['dir'] . 'includes/meta.php';
 		require_once self::$data['dir'] . 'includes/library/functions.php';
 
-		add_filter( 'is_protected_meta', array( __CLASS__, '_protect_meta_key' ), 10, 3 );
+		Menu_Icons_Meta::init();
+
 		add_action( 'wp_loaded', array( __CLASS__, '_init' ), 9 );
-	}
-
-
-	/**
-	 * Protect meta key
-	 *
-	 * This prevents our meta key from showing up on Custom Fields meta box
-	 *
-	 * @since   0.3.0
-	 * @wp_hook filter is_protected_meta
-	 * @param   bool   $protected        Protection status
-	 * @param   string $meta_key         Meta key
-	 * @param   string $meta_type        Meta type
-	 * @return  bool   Protection status
-	 */
-	public static function _protect_meta_key( $protected, $meta_key, $meta_type ) {
-		if ( 'menu-icons' === $meta_key ) {
-			$protected = true;
-		}
-
-		return $protected;
 	}
 
 
@@ -217,27 +198,6 @@ final class Menu_Icons {
 		} else {
 			return false;
 		}
-	}
-
-
-	/**
-	 * Get menu item meta value
-	 *
-	 * @since 0.3.0
-	 * @param int   $item_id Menu item ID
-	 * @return array
-	 */
-	public static function get_meta( $item_id ) {
-		$values = get_post_meta( $item_id, 'menu-icons', true );
-
-		if ( empty( $values ) || ! is_array( $values ) ) {
-			$values = array();
-		} elseif ( isset( $values['size'] ) && ! isset( $values['font_size'] ) ) {
-			$values['font_size'] = $values['size'];
-			unset( $values['size'] );
-		}
-
-		return $values;
 	}
 
 
