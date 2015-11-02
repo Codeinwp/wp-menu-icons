@@ -565,7 +565,7 @@ final class Menu_Icons_Settings {
 		);
 		wp_enqueue_script(
 			'menu-icons-settings',
-			Menu_Icons::get( 'url' ) . 'js/settings.js',
+			sprintf( '%sjs/settings%s.js', Menu_Icons::get( 'url' ), $suffix ),
 			array( 'jquery' ),
 			Menu_Icons::VERSION,
 			true

@@ -40,7 +40,7 @@
 
 		$.ajax({
 			type: 'POST',
-			url:  window.menuIconsSettings.updateUrl,
+			url:  menuIconsSettings.updateUrl,
 			data: $( '#menu-icons-settings :input' ).serialize(),
 
 			success: function( response ) {

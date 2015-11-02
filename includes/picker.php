@@ -101,7 +101,7 @@ final class Menu_Icons_Picker {
 
 		wp_enqueue_script(
 			'menu-icons-picker',
-			sprintf( '%sjs/picker.js', Menu_Icons::get( 'url' ) ),
+			sprintf( '%sjs/picker%s.js', Menu_Icons::get( 'url' ), Menu_Icons::get_script_suffix() ),
 			'icon-picker',
 			Menu_Icons::VERSION,
 			true
@@ -125,32 +125,6 @@ final class Menu_Icons_Picker {
 		$preview = esc_html__( 'Select', 'menu-icons' );
 
 		return $preview;
-	}
-
-
-	/**
-	 * Get Fields
-	 *
-	 * @since  0.3.0
-	 * @access private
-	 * @return array
-	 */
-	private static function _get_fields( Array $values = array() ) {
-		$fields = Menu_Icons_Settings::get_settings_fields( $values );
-
-		foreach ( $fields as &$field ) {
-			$field['attributes'] = array_merge(
-				array(
-					'class'    => '_setting',
-					'data-key' => $field['id'],
-				),
-				isset( $field['attributes'] ) ? $field['attributes'] : array()
-			);
-		}
-
-		unset( $field );
-
-		return $fields;
 	}
 
 
@@ -181,8 +155,23 @@ final class Menu_Icons_Picker {
 			Menu_Icons_Meta::get( $item->ID ),
 			Menu_Icons_Settings::get_menu_settings( Menu_Icons_Settings::get_current_menu_id() )
 		);
+		$fields     = array_merge(
+			array(
+				array(
+					'id'    => 'type',
+					'label' => __( 'Type' ),
+					'value' => $current['type'],
+				),
+				array(
+					'id'    => 'icon',
+					'label' => __( 'Icon' ),
+					'value' => $current['icon'],
+				),
+			),
+			Menu_Icons_Settings::get_settings_fields( $current )
+		);
 		?>
-			<div class="field-icon description-wide menu-icons-wrap">
+			<div class="field-icon description-wide menu-icons-wrap" data-id="<?php echo json_encode( $item->ID ); ?>">
 				<?php
 					/**
 					 * Allow plugins/themes to inject HTML before menu icons' fields
@@ -213,6 +202,19 @@ final class Menu_Icons_Picker {
 						);
 					?>
 				</p>
+				<div class="_settings">
+					<?php
+					foreach ( $fields as $field ) {
+						printf(
+							'<label>%s: <input type="text" name="%s" data-key="%s" value="%s" /></label><br />',
+							esc_html( $field['label'] ),
+							esc_attr( "{$input_name}[{$field['id']}]" ),
+							esc_attr( $field['id'] ),
+							esc_attr( $field['value'] )
+						);
+					}
+					?>
+				</div>
 				<?php
 					/**
 					 * Allow plugins/themes to inject HTML after menu icons' fields

@@ -51,16 +51,43 @@ final class Menu_Icons_Meta {
 	 */
 	public static function get( $item_id ) {
 		$values = get_post_meta( $item_id, self::KEY, true );
+		$values = wp_parse_args(
+			(array) $values,
+			array(
+				'type' => '',
+				'icon' => '',
+			)
+		);
 
-		if ( empty( $values ) || ! is_array( $values ) ) {
-			$values = array();
-		}
-
+		// Backward-compatibility.
 		if ( isset( $values['size'] ) && ! isset( $values['font_size'] ) ) {
 			$values['font_size'] = $values['size'];
 			unset( $values['size'] );
 		}
 
 		return $values;
+	}
+
+
+	/**
+	 * Get current icon
+	 *
+	 * For backward compatibility
+	 *
+	 * @since  0.9.0
+	 * @param  array  $current Current meta value.
+	 * @return string
+	 */
+	public static function get_current_icon( array $value ) {
+		if ( empty( $value ) || empty( $value['type'] ) ) {
+			return '';
+		}
+
+		$type = $value['type'];
+		if ( isset( $value[ "{$value['type']}-icon" ] ) ) {
+			return $value[ "{$value['type']}-icon" ];
+		}
+
+		return '';
 	}
 }
