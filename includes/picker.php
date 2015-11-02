@@ -183,7 +183,7 @@ final class Menu_Icons_Picker {
 					<label><?php esc_html_e( 'Icon:', 'menu-icons' ) ?></label>
 					<?php
 						printf(
-							'<a id="menu-icons-%1$d-select" class="_select" title="%2$s" data-id="%1$d" data-text="%2$s">%3$s</a>',
+							'<a id="menu-icons-%1$d-select" class="_select" title="%2$s" data-text="%2$s">%3$s</a>',
 							esc_attr__( $item->ID ),
 							esc_attr__( 'Select', 'menu-icons' ),
 							self::_get_preview( $item->ID, $current ) // xss ok
@@ -191,7 +191,7 @@ final class Menu_Icons_Picker {
 					?>
 					<?php
 						printf(
-							'<a id="menu-icons-%1$s-remove" class="_remove hidden submitdelete" data-id="%1$s">%2$s</a>',
+							'<a id="menu-icons-%1$s-remove" class="_remove submitdelete">%2$s</a>',
 							esc_attr( $item->ID ),
 							esc_html__( 'Remove', 'menu-icons' )
 						);
@@ -201,7 +201,7 @@ final class Menu_Icons_Picker {
 					<?php
 					foreach ( $fields as $field ) {
 						printf(
-							'<label>%s: <input type="text" name="%s" data-key="%s" value="%s" /></label><br />',
+							'<label>%1$s: <input type="text" name="%2$s" class="_mi-%3$s" value="%4$s" /></label><br />',
 							esc_html( $field['label'] ),
 							esc_attr( "{$input_name}[{$field['id']}]" ),
 							esc_attr( $field['id'] ),

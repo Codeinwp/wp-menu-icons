@@ -15,18 +15,18 @@ var Item = Backbone.Model.extend({
 		_.each( this.get( '$inputs' ), function( $input, key ) {
 			$input.val( this.get( key ) );
 		}, this );
+
+		this.get( '$el' ).trigger( 'mi:update' );
 	}
 });
 
 module.exports = Item;
 
 },{}],3:[function(require,module,exports){
-var $ = jQuery,
-    MenuIcons;
 /**
  * wp.media.view.MediaFrame.MenuIcons
  */
-MenuIcons = wp.media.view.MediaFrame.IconPicker.extend({
+var MenuIcons = wp.media.view.MediaFrame.IconPicker.extend({
 	initialize: function() {
 		this.menuItems = new Backbone.Collection( [], {
 			model: wp.media.model.MenuIconsItem
@@ -37,39 +37,10 @@ MenuIcons = wp.media.view.MediaFrame.IconPicker.extend({
 		this.listenTo( this.target, 'change', this.miUpdateItemProps );
 	},
 
-	miPick: function( $el ) {
-		var id    = $el.data( 'id' ),
-		    model = this.menuItems.get( id );
-
-		if ( model ) {
-			this.target.set( model.toJSON(), { silent: true } );
-			this.open();
-
-			return;
-		}
-
-		model = {
-			id:      id,
-			$inputs: {}
-		};
-
-		$el.find( 'div._settings input' ).each( function() {
-			var $input = $( this ),
-			    key    = $input.data( 'key' );
-
-			model[ key ]         = $input.val();
-			model.$inputs[ key ] = $input;
-		});
-
-		this.menuItems.add( model );
-		this.target.set( model, { silent: true } );
-		this.open();
-	},
-
 	miUpdateItemProps: function() {
-		var id      = this.target.id,
-		    model   = this.menuItems.get( id ),
-		    data    = this.target.toJSON();
+		var id    = this.target.id,
+		    model = this.menuItems.get( id ),
+		    data  = this.target.toJSON();
 
 		model.set( data );
 		this.target.clear({ silent: true });
@@ -82,9 +53,11 @@ module.exports = MenuIcons;
 
 (function( $ ) {
 var self = {
-	frame:  null,
-	target: new wp.media.model.IconPickerTarget(),
+	wrapClass: 'div.menu-icons-wrap',
+	frame:      null,
+	target:     new wp.media.model.IconPickerTarget(),
 
+	// TODO: Move to frame view
 	typesFilter: function( type ) {
 		return ( -1 < $.inArray( type.id, menuIconsPicker.activeTypes ) );
 	},
@@ -96,20 +69,84 @@ var self = {
 		});
 	},
 
-	setIcon: function( e ) {
+	pickIcon: function( model ) {
+		self.frame.target.set( model, { silent: true } );
+		self.frame.open();
+	},
+
+	setUnset: function( e ) {
 		var $el      = $( e.currentTarget ),
 		    $clicked = $( e.target );
 
 		e.preventDefault();
 
 		if ( $clicked.hasClass( '_select' ) ) {
-			self.frame.miPick( $el );
+			self.setIcon( $el );
+		} else if ( $clicked.hasClass( '_remove' ) ) {
+			self.unsetIcon( $el );
+		}
+	},
+
+	setIcon: function( $el ) {
+		var id     = $el.data( 'id' ),
+		    frame  = self.frame,
+		    items  = frame.menuItems,
+		    model  = items.get( id );
+
+		if ( model ) {
+			self.pickIcon( model.toJSON() );
+			return;
+		}
+
+		model = {
+			id:      id,
+			$el:     $el,
+			$inputs: {}
+		};
+
+		$el.find( 'div._settings input' ).each( function() {
+			var $input = $( this ),
+			    key    = $input.attr( 'class' ).replace( '_mi-', '' );
+
+			model[ key ]         = $input.val();
+			model.$inputs[ key ] = $input;
+		});
+
+		items.add( model );
+		self.pickIcon( model );
+	},
+
+	unsetIcon: function( $el ) {
+		var id = $el.data( 'id' );
+
+		$el.find( 'div._settings input' ).val( '' );
+		$el.trigger( 'mi:update' );
+		self.frame.menuItems.remove( id );
+	},
+
+	toggleSetUnset: function( e ) {
+		var $el    = $( e.currentTarget ),
+		    $set   = $el.find( 'a._select' ),
+		    $unset = $el.find( 'a._remove' ),
+		    type   = $el.find( 'input._mi-type' ).val(),
+		    icon   = $el.find( 'input._mi-icon' ).val();
+
+		if ( '' !== type && '' !== icon ) {
+			$set.show(); // TODO: Update preview
+			$unset.show();
+		} else {
+			$set.text( $set.data( 'text' ) ).show();
+			$unset.hide();
 		}
 	},
 
 	init: function() {
 		self.createFrame();
-		$( document ).on( 'click', 'div.menu-icons-wrap', self.setIcon );
+		$( document )
+			.on( 'click', self.wrapClass, self.setUnset )
+			.on( 'mi:update', self.wrapClass, self.toggleSetUnset );
+
+		$( self.wrapClass ).trigger( 'mi:update' );
 	}
 };
 

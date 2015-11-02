@@ -10,6 +10,8 @@ var Item = Backbone.Model.extend({
 		_.each( this.get( '$inputs' ), function( $input, key ) {
 			$input.val( this.get( key ) );
 		}, this );
+
+		this.get( '$el' ).trigger( 'mi:update' );
 	}
 });
 
