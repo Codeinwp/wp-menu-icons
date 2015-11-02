@@ -29,11 +29,6 @@ final class Menu_Icons_Picker {
 	 * @wp_hook action load-nav-menus.php
 	 */
 	public static function init() {
-		$active_types = Menu_Icons_Settings::get( 'global', 'icon_types' );
-		if ( empty( $active_types ) ) {
-			return;
-		}
-
 		add_action( 'load-nav-menus.php', array( __CLASS__, '_load_nav_menus' ) );
 		add_filter( 'wp_edit_nav_menu_walker', array( __CLASS__, '_filter_wp_edit_nav_menu_walker' ), 99 );
 		add_filter( 'wp_nav_menu_item_custom_fields', array( __CLASS__, '_fields' ), 10, 4 );

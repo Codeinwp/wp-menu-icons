@@ -128,8 +128,10 @@ final class Menu_Icons_Settings {
 			return;
 		}
 
-		require_once Menu_Icons::get( 'dir' ) . 'includes/picker.php';
-		Menu_Icons_Picker::init();
+		if ( ! empty( self::$settings['global']['icon_types'] ) ) {
+			require_once Menu_Icons::get( 'dir' ) . 'includes/picker.php';
+			Menu_Icons_Picker::init();
+		}
 
 		add_action( 'load-nav-menus.php', array( __CLASS__, '_load_nav_menus' ), 1 );
 		add_action( 'wp_ajax_menu_icons_update_settings', array( __CLASS__, '_ajax_menu_icons_update_settings' ) );
