@@ -60,34 +60,18 @@ final class Menu_Icons_Meta {
 		);
 
 		// Backward-compatibility.
+		if ( empty( $values['icon'] ) &&
+			! empty( $values['type'] ) &&
+			! empty( $values[ "{$values['type']}-icon" ] )
+		) {
+			$values['icon'] = $values[ "{$values['type']}-icon" ];
+		}
+
 		if ( isset( $values['size'] ) && ! isset( $values['font_size'] ) ) {
 			$values['font_size'] = $values['size'];
 			unset( $values['size'] );
 		}
 
 		return $values;
-	}
-
-
-	/**
-	 * Get current icon
-	 *
-	 * For backward compatibility
-	 *
-	 * @since  0.9.0
-	 * @param  array  $current Current meta value.
-	 * @return string
-	 */
-	public static function get_current_icon( array $value ) {
-		if ( empty( $value ) || empty( $value['type'] ) ) {
-			return '';
-		}
-
-		$type = $value['type'];
-		if ( isset( $value[ "{$value['type']}-icon" ] ) ) {
-			return $value[ "{$value['type']}-icon" ];
-		}
-
-		return '';
 	}
 }
