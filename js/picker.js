@@ -134,7 +134,7 @@ var self = {
 		    template;
 
 		if ( '' === type || '' === icon || 0 > _.indexOf( menuIconsPicker.activeTypes, type ) ) {
-			$set.text( $set.data( 'text' ) );
+			$set.text( $set.data( 'text' ) ).attr( 'title', '' );
 			$unset.hide();
 
 			return;
@@ -147,6 +147,7 @@ var self = {
 		}
 
 		$unset.show();
+		$set.attr( 'title', $set.data( 'text' ) );
 		$set.html( template({
 			type: type,
 			icon: icon
