@@ -1,8 +1,9 @@
 (function( $ ) {
 var self = {
+	templates: {},
 	wrapClass: 'div.menu-icons-wrap',
-	frame:      null,
-	target:     new wp.media.model.IconPickerTarget(),
+	frame:     null,
+	target:    new wp.media.model.IconPickerTarget(),
 
 	// TODO: Move to frame view
 	typesFilter: function( type ) {
@@ -27,7 +28,7 @@ var self = {
 
 		e.preventDefault();
 
-		if ( $clicked.hasClass( '_select' ) ) {
+		if ( $clicked.hasClass( '_select' ) || $clicked.hasClass( '_icon' ) ) {
 			self.setIcon( $el );
 		} else if ( $clicked.hasClass( '_remove' ) ) {
 			self.unsetIcon( $el );
@@ -71,27 +72,39 @@ var self = {
 		self.frame.menuItems.remove( id );
 	},
 
-	toggleSetUnset: function( e ) {
+	updateField: function( e ) {
 		var $el    = $( e.currentTarget ),
 		    $set   = $el.find( 'a._select' ),
 		    $unset = $el.find( 'a._remove' ),
 		    type   = $el.find( 'input._mi-type' ).val(),
-		    icon   = $el.find( 'input._mi-icon' ).val();
+		    icon   = $el.find( 'input._mi-icon' ).val(),
+		    template;
 
-		if ( '' !== type && '' !== icon ) {
-			$set.show(); // TODO: Update preview
-			$unset.show();
-		} else {
-			$set.text( $set.data( 'text' ) ).show();
+		if ( '' === type || '' === icon || 0 > _.indexOf( menuIconsPicker.activeTypes, type ) ) {
+			$set.text( $set.data( 'text' ) );
 			$unset.hide();
+
+			return;
 		}
+
+		if ( self.templates[ type ] ) {
+			template = self.templates[ type ];
+		} else {
+			template = self.templates[ type ] = wp.template( 'menu-icons-item-field-preview-' + iconPicker.types[ type ].templateId );
+		}
+
+		$unset.show();
+		$set.html( template({
+			type: type,
+			icon: icon
+		}) );
 	},
 
 	init: function() {
 		self.createFrame();
 		$( document )
 			.on( 'click', self.wrapClass, self.setUnset )
-			.on( 'mi:update', self.wrapClass, self.toggleSetUnset );
+			.on( 'mi:update', self.wrapClass, self.updateField );
 
 		$( self.wrapClass ).trigger( 'mi:update' );
 	}

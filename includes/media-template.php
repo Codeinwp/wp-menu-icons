@@ -1,3 +1,7 @@
+<script type="text/html" id="tmpl-menu-icons-item-field-preview-font">
+	<i class="_icon {{data.type}} {{ data.icon }}"></i>
+</script>
+
 <script type="text/html" id="tmpl-menu-icons-settings-field-text">
 	<span>{{ data.label }}</span>
 	<input type="text" data-setting="{{ data.id }}" value="{{ data.value }}" />
