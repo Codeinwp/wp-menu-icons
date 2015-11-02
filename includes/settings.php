@@ -555,17 +555,18 @@ final class Menu_Icons_Settings {
 	 * @wp_hook action admin_enqueue_scripts
 	 */
 	public static function _enqueue_assets() {
+		$url    = Menu_Icons::get( 'url' );
 		$suffix = Menu_Icons::get_script_suffix();
 
 		wp_enqueue_style(
 			'menu-icons',
-			Menu_Icons::get( 'url' ) . 'css/admin' . $suffix . '.css',
+			"{$url}css/admin{$suffix}.css",
 			false,
 			Menu_Icons::VERSION
 		);
 		wp_enqueue_script(
 			'menu-icons-settings',
-			sprintf( '%sjs/settings%s.js', Menu_Icons::get( 'url' ), $suffix ),
+			"{$url}js/settings{$suffix}.js",
 			array( 'jquery' ),
 			Menu_Icons::VERSION,
 			true
