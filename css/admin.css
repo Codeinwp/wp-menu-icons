@@ -28,7 +28,6 @@
 }
 .menu-icons-wrap img._icon {
 	max-width: 24px;
-	vertical-align: baseline;
 }
 
 .menu-icons-wrap a._select:focus ._icon,
