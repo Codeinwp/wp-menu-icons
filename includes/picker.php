@@ -158,7 +158,7 @@ final class Menu_Icons_Picker {
 					<label><?php esc_html_e( 'Icon:', 'menu-icons' ) ?></label>
 					<?php
 						printf(
-							'<a id="menu-icons-%1$d-select" class="_select" data-text="%2$s">%3$s</a>',
+							'<a class="_select">%3$s</a>',
 							esc_attr__( $item->ID ),
 							esc_attr__( 'Select', 'menu-icons' ),
 							self::_get_preview( $item->ID, $current ) // xss ok
@@ -166,7 +166,7 @@ final class Menu_Icons_Picker {
 					?>
 					<?php
 						printf(
-							'<a id="menu-icons-%1$s-remove" class="_remove submitdelete">%2$s</a>',
+							'<a class="_remove submitdelete">%2$s</a>',
 							esc_attr( $item->ID ),
 							esc_html__( 'Remove', 'menu-icons' )
 						);

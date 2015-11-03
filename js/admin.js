@@ -117,7 +117,7 @@ if ( ! menuIcons.activeTypes || _.isEmpty( menuIcons.activeTypes ) ) {
 	return;
 }
 
-var self = {
+var miPicker = {
 	templates: {},
 	wrapClass: 'div.menu-icons-wrap',
 	frame:     null,
@@ -129,15 +129,15 @@ var self = {
 	},
 
 	createFrame: function() {
-		self.frame = new wp.media.view.MediaFrame.MenuIcons({
-			target:  self.target,
-			ipTypes: _.filter( iconPicker.types, self.typesFilter )
+		miPicker.frame = new wp.media.view.MediaFrame.MenuIcons({
+			target:  miPicker.target,
+			ipTypes: _.filter( iconPicker.types, miPicker.typesFilter )
 		});
 	},
 
 	pickIcon: function( model ) {
-		self.frame.target.set( model, { silent: true } );
-		self.frame.open();
+		miPicker.frame.target.set( model, { silent: true } );
+		miPicker.frame.open();
 	},
 
 	setUnset: function( e ) {
@@ -147,20 +147,20 @@ var self = {
 		e.preventDefault();
 
 		if ( $clicked.hasClass( '_select' ) || $clicked.hasClass( '_icon' ) ) {
-			self.setIcon( $el );
+			miPicker.setIcon( $el );
 		} else if ( $clicked.hasClass( '_remove' ) ) {
-			self.unsetIcon( $el );
+			miPicker.unsetIcon( $el );
 		}
 	},
 
 	setIcon: function( $el ) {
 		var id     = $el.data( 'id' ),
-		    frame  = self.frame,
+		    frame  = miPicker.frame,
 		    items  = frame.menuItems,
 		    model  = items.get( id );
 
 		if ( model ) {
-			self.pickIcon( model.toJSON() );
+			miPicker.pickIcon( model.toJSON() );
 			return;
 		}
 
@@ -179,7 +179,7 @@ var self = {
 		});
 
 		items.add( model );
-		self.pickIcon( model );
+		miPicker.pickIcon( model );
 	},
 
 	unsetIcon: function( $el ) {
@@ -187,7 +187,7 @@ var self = {
 
 		$el.find( 'div._settings input' ).val( '' );
 		$el.trigger( 'mi:update' );
-		self.frame.menuItems.remove( id );
+		miPicker.frame.menuItems.remove( id );
 	},
 
 	updateField: function( e ) {
@@ -200,20 +200,20 @@ var self = {
 		    template;
 
 		if ( '' === type || '' === icon || 0 > _.indexOf( menuIcons.activeTypes, type ) ) {
-			$set.text( $set.data( 'text' ) ).attr( 'title', '' );
+			$set.text( menuIcons.text.select ).attr( 'title', '' );
 			$unset.hide();
 
 			return;
 		}
 
-		if ( self.templates[ type ] ) {
-			template = self.templates[ type ];
+		if ( miPicker.templates[ type ] ) {
+			template = miPicker.templates[ type ];
 		} else {
-			template = self.templates[ type ] = wp.template( 'menu-icons-item-field-preview-' + iconPicker.types[ type ].templateId );
+			template = miPicker.templates[ type ] = wp.template( 'menu-icons-item-field-preview-' + iconPicker.types[ type ].templateId );
 		}
 
 		$unset.show();
-		$set.attr( 'title', $set.data( 'text' ) );
+		$set.attr( 'title', menuIcons.text.change );
 		$set.html( template({
 			type: type,
 			icon: icon,
@@ -222,14 +222,14 @@ var self = {
 	},
 
 	init: function() {
-		self.createFrame();
+		miPicker.createFrame();
 		$( document )
-			.on( 'click', self.wrapClass, self.setUnset )
-			.on( 'mi:update', self.wrapClass, self.updateField );
+			.on( 'click', miPicker.wrapClass, miPicker.setUnset )
+			.on( 'mi:update', miPicker.wrapClass, miPicker.updateField );
 
-		$( self.wrapClass ).trigger( 'mi:update' );
+		$( miPicker.wrapClass ).trigger( 'mi:update' );
 	}
 };
 
-self.init();
+miPicker.init();
 }( jQuery ) );

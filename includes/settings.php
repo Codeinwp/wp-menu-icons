@@ -590,6 +590,8 @@ final class Menu_Icons_Settings {
 				'text'           => array(
 					'title'        => __( 'Select Icon', 'menu-icons' ),
 					'select'       => __( 'Select', 'menu-icons' ),
+					'remove'       => __( 'Remove', 'menu-icons' ),
+					'change'       => __( 'Change', 'menu-icons' ),
 					'all'          => __( 'All', 'menu-icons' ),
 					'preview'      => __( 'Preview', 'menu-icons' ),
 					'settingsInfo' => sprintf(
