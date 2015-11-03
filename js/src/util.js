@@ -78,6 +78,7 @@ var self = {
 		    $unset = $el.find( 'a._remove' ),
 		    type   = $el.find( 'input._mi-type' ).val(),
 		    icon   = $el.find( 'input._mi-icon' ).val(),
+		    url    = $el.find( 'input._mi-url' ).val(),
 		    template;
 
 		if ( '' === type || '' === icon || 0 > _.indexOf( menuIconsPicker.activeTypes, type ) ) {
@@ -97,7 +98,8 @@ var self = {
 		$set.attr( 'title', $set.data( 'text' ) );
 		$set.html( template({
 			type: type,
-			icon: icon
+			icon: icon,
+			url:  url
 		}) );
 	},
 

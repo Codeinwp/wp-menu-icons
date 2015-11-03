@@ -56,6 +56,7 @@ final class Menu_Icons_Meta {
 			array(
 				'type' => '',
 				'icon' => '',
+				'url'  => '',
 			)
 		);
 
@@ -70,6 +71,11 @@ final class Menu_Icons_Meta {
 		if ( isset( $values['size'] ) && ! isset( $values['font_size'] ) ) {
 			$values['font_size'] = $values['size'];
 			unset( $values['size'] );
+		}
+
+		// The values below will NOT be saved
+		if ( ! empty( $values['icon'] ) && in_array( $values['type'], array( 'image', 'svg' ) ) ) {
+			$values['url'] = wp_get_attachment_image_url( $values['icon'], 'thumbnail', false );
 		}
 
 		return $values;

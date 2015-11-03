@@ -208,6 +208,10 @@ final class Menu_Icons_Picker {
 							esc_attr( $field['value'] )
 						);
 					}
+					printf(
+						'<input type="hidden" class="_mi-url" value="%s" />',
+						esc_attr( $current['url'] )
+					);
 					?>
 				</div>
 				<?php
