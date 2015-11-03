@@ -44,26 +44,23 @@ module.exports = function( grunt ) {
 			}
 		},
 		cssmin: {
-			minify: {
-				expand: true,
-				cwd: 'css/',
-				src: [
-					'*.css',
-					'!*.css'
-				],
-				dest: 'css/',
-				ext: '.min.css'
+			all: {
+				files: [ {
+					expand: true,
+					cwd: 'css/',
+					src: [ '*.css', '!*.min.css' ],
+					dest: 'css/',
+					ext: '.min.css'
+				} ]
 			}
 		},
 		_watch:  {
 			styles: {
-				files: [
-					'css/*.css',
-					'!css/*.css'
-				],
+				files: [ 'css/*.css', '!css/*.css' ],
 				tasks: [ 'cssmin' ],
 				options: {
-					debounceDelay: 500
+					debounceDelay: 500,
+					interval:      2000
 				}
 			},
 			scripts: {
