@@ -32,44 +32,9 @@
 	margin: -.1em .2em 0 .2em;
 }
 
-.mi-items-wrap .mi-items {
-	padding-top: 10px;
-}
-.media-frame-content .mi-items .attachment,
-.media-frame-content[data-columns] .mi-items .attachment {
-	width: 126px;
-	height: 141px;
-}
-.media-frame .mi-items-wrap select.attachment-filters {
-	max-width: 95%;
-}
-
-.mi-item .attachment-preview {
-	width: 110px;
-	height: 125px;
-	text-align: center;
-}
-.mi-item ._icon {
-	display: inline-block;
-	margin-top: 8px;
-	color: #666;
-	height: 110px;
-}
-.mi-item ._icon i {
-	font-size: 80px;
-	width: 100%;
-	height: 100%;
-	vertical-align: middle;
-}
 .menu-icons-wrap a._select:focus ._icon,
-.menu-icons-wrap a._select:hover ._icon,
-.mi-item:hover ._icon,
-.mi-item.selected ._icon {
+.menu-icons-wrap a._select:hover ._icon {
 	color: #101010;
-}
-.mi-item .filename div {
-	line-height: 1.1;
-	padding: 8px 10px;
 }
 
 .mi-preview.menu-item {
