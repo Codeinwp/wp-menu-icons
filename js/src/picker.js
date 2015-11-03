@@ -1,4 +1,9 @@
 (function( $ ) {
+
+if ( ! menuIcons.activeTypes || _.isEmpty( menuIcons.activeTypes ) ) {
+	return;
+}
+
 var self = {
 	templates: {},
 	wrapClass: 'div.menu-icons-wrap',
@@ -7,7 +12,7 @@ var self = {
 
 	// TODO: Move to frame view
 	typesFilter: function( type ) {
-		return ( -1 < $.inArray( type.id, menuIconsPicker.activeTypes ) );
+		return ( -1 < $.inArray( type.id, menuIcons.activeTypes ) );
 	},
 
 	createFrame: function() {
@@ -81,7 +86,7 @@ var self = {
 		    url    = $el.find( 'input._mi-url' ).val(),
 		    template;
 
-		if ( '' === type || '' === icon || 0 > _.indexOf( menuIconsPicker.activeTypes, type ) ) {
+		if ( '' === type || '' === icon || 0 > _.indexOf( menuIcons.activeTypes, type ) ) {
 			$set.text( $set.data( 'text' ) ).attr( 'title', '' );
 			$unset.hide();
 

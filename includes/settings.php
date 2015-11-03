@@ -49,6 +49,15 @@ final class Menu_Icons_Settings {
 	 */
 	protected static $ip_registry;
 
+	/**
+	 * Script dependencies
+	 *
+	 * @since  0.9.0
+	 * @access protected
+	 * @var    array
+	 */
+	protected static $script_deps = array( 'jquery' );
+
 
 	/**
 	 * Get setting value
@@ -131,6 +140,7 @@ final class Menu_Icons_Settings {
 		if ( ! empty( self::$settings['global']['icon_types'] ) ) {
 			require_once Menu_Icons::get( 'dir' ) . 'includes/picker.php';
 			Menu_Icons_Picker::init();
+			self::$script_deps[] = 'icon-picker';
 		}
 
 		add_action( 'load-nav-menus.php', array( __CLASS__, '_load_nav_menus' ), 1 );
@@ -567,17 +577,31 @@ final class Menu_Icons_Settings {
 			Menu_Icons::VERSION
 		);
 		wp_enqueue_script(
-			'menu-icons-settings',
-			"{$url}js/settings{$suffix}.js",
-			array( 'jquery' ),
+			'menu-icons',
+			"{$url}js/admin{$suffix}.js",
+			self::$script_deps,
 			Menu_Icons::VERSION,
 			true
 		);
 		wp_localize_script(
-			'menu-icons-settings',
-			'menuIconsSettings',
+			'menu-icons',
+			'menuIcons',
 			array(
-				'updateUrl' => add_query_arg( 'action', 'menu_icons_update_settings', admin_url( '/admin-ajax.php' ) ),
+				'text'           => array(
+					'title'        => __( 'Select Icon', 'menu-icons' ),
+					'select'       => __( 'Select', 'menu-icons' ),
+					'all'          => __( 'All', 'menu-icons' ),
+					'preview'      => __( 'Preview', 'menu-icons' ),
+					'settingsInfo' => sprintf(
+						esc_html__( "Please note that the actual look of the icons on the front-end will also be affected by your active theme's style. You can use %s if you need to override it.", 'menu-icons' ),
+						'<a target="_blank" href="http://wordpress.org/plugins/simple-custom-css/">Simple Custom CSS</a>'
+					),
+				),
+				'settingsFields' => self::get_settings_fields(),
+				'activeTypes'    => self::get( 'global', 'icon_types' ),
+				'ajaxUrls'       => array(
+					'update' => add_query_arg( 'action', 'menu_icons_update_settings', admin_url( '/admin-ajax.php' ) ),
+				),
 			)
 		);
 	}

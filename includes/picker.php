@@ -78,31 +78,6 @@ final class Menu_Icons_Picker {
 	 * @wp_hook admin_enqueue_scripts
 	 */
 	public static function _enqueue_assets() {
-		$ajax_url = admin_url( '/admin-ajax.php' );
-		$data     = array(
-			'text'           => array(
-				'title'        => __( 'Select Icon', 'menu-icons' ),
-				'select'       => __( 'Select', 'menu-icons' ),
-				'all'          => __( 'All', 'menu-icons' ),
-				'preview'      => __( 'Preview', 'menu-icons' ),
-				'settingsInfo' => sprintf(
-					esc_html__( "Please note that the actual look of the icons on the front-end will also be affected by your active theme's style. You can use %s if you need to override it.", 'menu-icons' ),
-					'<a target="_blank" href="http://wordpress.org/plugins/simple-custom-css/">Simple Custom CSS</a>'
-				),
-			),
-			'settingsFields' => Menu_Icons_Settings::get_settings_fields(),
-			'activeTypes'    => Menu_Icons_Settings::get( 'global', 'icon_types' ),
-		);
-
-		wp_enqueue_script(
-			'menu-icons-picker',
-			sprintf( '%sjs/picker%s.js', Menu_Icons::get( 'url' ), Menu_Icons::get_script_suffix() ),
-			'icon-picker',
-			Menu_Icons::VERSION,
-			true
-		);
-
-		wp_localize_script( 'menu-icons-picker', 'menuIconsPicker', $data );
 	}
 
 

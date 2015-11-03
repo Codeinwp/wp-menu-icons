@@ -1,3 +1,63 @@
+(function( $ ) {
+	/**
+	 * Settings box tabs
+	 *
+	 * We can't use core's tabs script here because it will clear the
+	 * checkboxes upon tab switching
+	 */
+	$( '#menu-icons-settings-tabs' )
+		.on( 'click', 'a.mi-settings-nav-tab', function( e ) {
+			e.preventDefault();
+			e.stopPropagation();
+
+			var $el     = $( this ).blur(),
+			    $target = $( '#' + $el.data( 'type' ) );
+
+			$el.parent().addClass( 'tabs' ).siblings().removeClass( 'tabs' );
+			$target
+				.removeClass( 'tabs-panel-inactive' )
+				.addClass( 'tabs-panel-active' )
+				.show()
+				.siblings( 'div.tabs-panel' )
+					.hide()
+					.addClass( 'tabs-panel-inactive' )
+					.removeClass( 'tabs-panel-active' );
+		})
+		.find( 'a.mi-settings-nav-tab' ).first().click();
+
+	// Settings meta box
+	$( '#menu-icons-settings-save' ).on( 'click', function( e ) {
+		var $button  = $( this ).prop( 'disabled', true ),
+		    $spinner = $button.siblings( 'span.spinner' );
+
+		e.preventDefault();
+		e.stopPropagation();
+
+		$spinner.css({
+			display: 'inline-block',
+			visibility: 'visible'
+		});
+
+		$.ajax({
+			type: 'POST',
+			url:  menuIcons.ajaxUrls.update,
+			data: $( '#menu-icons-settings :input' ).serialize(),
+
+			success: function( response ) {
+				if ( true === response.success && response.data.redirectUrl ) {
+					window.location = response.data.redirectUrl;
+				} else {
+					$button.prop( 'disabled', false );
+				}
+			},
+
+			always: function() {
+				$spinner.hide();
+			}
+		});
+	});
+})( jQuery );
+
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 wp.media.model.MenuIconsItem = require( './models/item.js' );
 wp.media.view.MediaFrame.MenuIcons = require( './views/frame.js' );
@@ -52,6 +112,11 @@ module.exports = MenuIcons;
 },{}]},{},[1]);
 
 (function( $ ) {
+
+if ( ! menuIcons.activeTypes || _.isEmpty( menuIcons.activeTypes ) ) {
+	return;
+}
+
 var self = {
 	templates: {},
 	wrapClass: 'div.menu-icons-wrap',
@@ -60,7 +125,7 @@ var self = {
 
 	// TODO: Move to frame view
 	typesFilter: function( type ) {
-		return ( -1 < $.inArray( type.id, menuIconsPicker.activeTypes ) );
+		return ( -1 < $.inArray( type.id, menuIcons.activeTypes ) );
 	},
 
 	createFrame: function() {
@@ -134,7 +199,7 @@ var self = {
 		    url    = $el.find( 'input._mi-url' ).val(),
 		    template;
 
-		if ( '' === type || '' === icon || 0 > _.indexOf( menuIconsPicker.activeTypes, type ) ) {
+		if ( '' === type || '' === icon || 0 > _.indexOf( menuIcons.activeTypes, type ) ) {
 			$set.text( $set.data( 'text' ) ).attr( 'title', '' );
 			$unset.hide();
 

@@ -22,7 +22,6 @@
 		"wp": false,
 		"console": false,
 		"iconPicker": false,
-		"menuIconsSettings": false,
-		"menuIconsPicker": false
+		"menuIcons": false
 	}
 }

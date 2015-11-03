@@ -13,7 +13,7 @@ module.exports = function( grunt ) {
 				src: [ 'Gruntfile.js' ]
 			},
 			settings: {
-				src: [ 'js/settings.js' ]
+				src: [ 'js/src/settings.js' ]
 			},
 			media: {
 				options: {
@@ -21,8 +21,8 @@ module.exports = function( grunt ) {
 				},
 				src: [ 'js/src/media/**/*.js' ]
 			},
-			util: {
-				src: [ 'js/src/util.js' ]
+			picker: {
+				src: [ 'js/src/picker.js' ]
 			},
 			options: grunt.file.readJSON( '.jshintrc' )
 		},
@@ -31,15 +31,14 @@ module.exports = function( grunt ) {
 				separator: '\n'
 			},
 			dist: {
-				src: [ 'js/src/media.js', 'js/src/util.js' ],
-				dest: 'js/picker.js'
+				src: [ 'js/src/settings.js', 'js/src/media.js', 'js/src/picker.js' ],
+				dest: 'js/admin.js'
 			}
 		},
 		uglify: {
 			all: {
 				files: {
-					'js/settings.min.js': [ 'js/settings.js' ],
-					'js/picker.min.js': [ 'js/picker.js' ]
+					'js/admin.min.js': [ 'js/admin.js' ]
 				}
 			}
 		},
@@ -66,7 +65,7 @@ module.exports = function( grunt ) {
 			scripts: {
 				files: [
 					'js/media/**/*.js',
-					'js/util.js',
+					'js/picker.js',
 					'js/settings.js'
 				],
 				tasks: [ 'js' ],
