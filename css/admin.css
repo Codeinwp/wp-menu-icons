@@ -6,7 +6,8 @@
 	min-height: 2.2em;
 	margin-bottom: 0;
 }
-.menu-icons-wrap p > * {
+.menu-icons-wrap p a,
+.menu-icons-wrap p label {
 	display: inline-block;
 	vertical-align: middle;
 }
@@ -16,7 +17,7 @@
 }
 .menu-icons-wrap .submitdelete {
 	float: none;
-	display: none;
+	display: inline-block;
 }
 .menu-icons-wrap ._icon {
 	color: #666;
