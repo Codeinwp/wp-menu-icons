@@ -18,11 +18,6 @@
 	float: none;
 	display: none;
 }
-.menu-icons-wrap img {
-	max-width: 32px;
-	height: auto !important;
-	vertical-align: baseline;
-}
 .menu-icons-wrap ._icon {
 	color: #666;
 	font-size: 1.9em;
@@ -30,6 +25,10 @@
 	height: auto;
 	vertical-align: bottom;
 	margin: -.1em .2em 0 .2em;
+}
+.menu-icons-wrap img._icon {
+	max-width: 24px;
+	vertical-align: baseline;
 }
 
 .menu-icons-wrap a._select:focus ._icon,
