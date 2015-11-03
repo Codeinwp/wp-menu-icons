@@ -6,6 +6,10 @@
 	<img src="{{ data.url }}" class="_icon" />
 </script>
 
+<script type="text/html" id="tmpl-menu-icons-item-field-preview-svg">
+	<img src="{{ data.url }}" class="_icon" />
+</script>
+
 <script type="text/html" id="tmpl-menu-icons-settings-field-text">
 	<span>{{ data.label }}</span>
 	<input type="text" data-setting="{{ data.id }}" value="{{ data.value }}" />
