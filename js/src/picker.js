@@ -1,4 +1,5 @@
 (function( $ ) {
+'use strict';
 
 if ( ! menuIcons.activeTypes || _.isEmpty( menuIcons.activeTypes ) ) {
 	return;
