@@ -13,16 +13,6 @@
 final class Menu_Icons_Picker {
 
 	/**
-	 * Holds active icon types
-	 *
-	 * @since  0.3.0
-	 * @access private
-	 * @var    array
-	 */
-	private static $_icon_types;
-
-
-	/**
 	 * Initialize class
 	 *
 	 * @since   0.1.0
@@ -46,7 +36,6 @@ final class Menu_Icons_Picker {
 	public static function _load_nav_menus() {
 		Icon_Picker::instance()->load();
 
-		add_action( 'admin_enqueue_scripts', array( __CLASS__, '_enqueue_assets' ), 101 );
 		add_action( 'print_media_templates', array( __CLASS__, '_media_templates' ) );
 	}
 
@@ -67,17 +56,6 @@ final class Menu_Icons_Picker {
 		$walker = 'Menu_Item_Custom_Fields_Walker';
 
 		return $walker;
-	}
-
-
-	/**
-	 * Enqueue scripts & styles on wp-admin/nav-menus.php
-	 *
-	 * @since   0.1.1
-	 * @access  protected
-	 * @wp_hook admin_enqueue_scripts
-	 */
-	public static function _enqueue_assets() {
 	}
 
 
