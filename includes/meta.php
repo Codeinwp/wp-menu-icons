@@ -80,4 +80,48 @@ final class Menu_Icons_Meta {
 
 		return $values;
 	}
+
+
+	/**
+	 * Update menu item metadata
+	 *
+	 * @since 0.9.0
+	 *
+	 * @param int   $id    Menu item ID.
+	 * @param mixed $value Metadata value.
+	 *
+	 * @return void
+	 */
+	public static function update( $id, $value ) {
+		/**
+		 * Allow plugins/themes to filter the values
+		 *
+		 * Deprecated.
+		 *
+		 * @since 0.1.0
+		 * @param array $value Metadata value.
+		 * @param int   $id    Menu item ID.
+		 */
+		$_value = apply_filters( 'menu_icons_values', $value, $id );
+
+		if ( $_value !== $value && WP_DEBUG ) {
+			_deprecated_function( 'menu_icons_values', '0.8.0', 'menu_icons_item_meta_values' );
+		}
+
+		/**
+		 * Allow plugins/themes to filter the values
+		 *
+		 * @since 0.8.0
+		 * @param array $value Metadata value.
+		 * @param int   $id    Menu item ID.
+		 */
+		$value = apply_filters( 'menu_icons_item_meta_values', $_value, $id );
+
+		// Update
+		if ( ! empty( $value ) ) {
+			update_post_meta( $id, self::KEY, $value );
+		} else {
+			delete_post_meta( $id, self::KEY );
+		}
+	}
 }
