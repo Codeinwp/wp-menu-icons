@@ -194,7 +194,7 @@ final class Menu_Icons_Picker {
 		 */
 		$_value = apply_filters( 'menu_icons_values', $value, $id );
 
-		if ( $_value !== $value ) {
+		if ( $_value !== $value && WP_DEBUG ) {
 			_deprecated_function( 'menu_icons_values', '0.8.0', 'menu_icons_item_meta_values' );
 		}
 
