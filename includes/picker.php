@@ -201,8 +201,6 @@ final class Menu_Icons_Picker {
 		/**
 		 * Allow plugins/themes to filter the values
 		 *
-		 * Deprecated.
-		 *
 		 * @since 0.8.0
 		 * @param array $value Metadata value.
 		 * @param int   $id    Menu item ID.
