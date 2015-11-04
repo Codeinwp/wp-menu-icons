@@ -259,16 +259,25 @@ final class Menu_Icons_Picker {
 	/**
 	 * Get and print media templates from all types
 	 *
-	 * @since 0.2.0
+	 * @since   0.2.0
+	 * @since   0.9.0 Deprecate menu_icons_media_templates filter.
 	 * @wp_hook action print_media_templates
 	 */
 	public static function _media_templates() {
 		$id_prefix = 'tmpl-menu-icons';
+
+		// Deprecated
 		$templates = apply_filters( 'menu_icons_media_templates', array() );
 
-		foreach ( $templates as $key => $template ) {
-			$id = sprintf( '%s-%s', $id_prefix, $key );
-			self::_print_tempate( $id, $template );
+		if ( ! empty( $templates ) ) {
+			if ( WP_DEBUG ) {
+				_deprecated_function( 'menu_icons_media_templates', '0.9.0', 'menu_icons_js_templates' );
+			}
+
+			foreach ( $templates as $key => $template ) {
+				$id = sprintf( '%s-%s', $id_prefix, $key );
+				self::_print_tempate( $id, $template );
+			}
 		}
 
 		require_once dirname( __FILE__ ) . '/media-template.php';
