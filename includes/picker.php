@@ -82,23 +82,6 @@ final class Menu_Icons_Picker {
 
 
 	/**
-	 * Get preview
-	 *
-	 * @since 0.2.0
-	 * @access private
-	 * @param int $id Menu item ID
-	 * @param array $meta_value Menu item meta value
-	 * @return mixed
-	 */
-	private static function _get_preview( $id, $meta_value ) {
-		// TODO: Show select/preview
-		$preview = esc_html__( 'Select', 'menu-icons' );
-
-		return $preview;
-	}
-
-
-	/**
 	 * Print fields
 	 *
 	 * @since   0.1.0
@@ -156,21 +139,8 @@ final class Menu_Icons_Picker {
 				?>
 				<p class="description submitbox">
 					<label><?php esc_html_e( 'Icon:', 'menu-icons' ) ?></label>
-					<?php
-						printf(
-							'<a class="_select">%3$s</a>',
-							esc_attr__( $item->ID ),
-							esc_attr__( 'Select', 'menu-icons' ),
-							self::_get_preview( $item->ID, $current ) // xss ok
-						);
-					?>
-					<?php
-						printf(
-							'<a class="_remove submitdelete">%2$s</a>',
-							esc_attr( $item->ID ),
-							esc_html__( 'Remove', 'menu-icons' )
-						);
-					?>
+					<?php printf( '<a class="_select">%s</a>', esc_html__( 'Select', 'menu-icons' ) ); ?>
+					<?php printf( '<a class="_remove submitdelete">%s</a>', esc_html__( 'Remove', 'menu-icons' ) ); ?>
 				</p>
 				<div class="_settings hidden">
 					<?php
