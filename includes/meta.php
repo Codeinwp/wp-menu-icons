@@ -10,6 +10,20 @@ final class Menu_Icons_Meta {
 
 	const KEY = 'menu-icons';
 
+	/**
+	 * Default meta value
+	 *
+	 * @since  0.9.0
+	 * @access protected
+	 * @var    array
+	 */
+	protected static $defaults = array(
+		'type'     => '',
+		'icon'     => '',
+		'url'      => '',
+		'position' => 'before',
+	);
+
 
 	/**
 	 * Initialize metadata functionalities
@@ -46,39 +60,36 @@ final class Menu_Icons_Meta {
 	 * Get menu item meta value
 	 *
 	 * @since  0.3.0
-	 * @param  int   $item_id Menu item ID.
+	 * @param  int   $id Menu item ID.
 	 * @return array
 	 */
-	public static function get( $item_id ) {
-		$values = get_post_meta( $item_id, self::KEY, true );
-		$values = wp_parse_args(
-			(array) $values,
-			array(
-				'type' => '',
-				'icon' => '',
-				'url'  => '',
-			)
-		);
+	public static function get( $id ) {
+		$value = get_post_meta( $id, self::KEY, true );
+		$value = wp_parse_args( (array) $value, self::$defaults );
 
 		// Backward-compatibility.
-		if ( empty( $values['icon'] ) &&
-			! empty( $values['type'] ) &&
-			! empty( $values[ "{$values['type']}-icon" ] )
+		if ( empty( $value['icon'] ) &&
+			! empty( $value['type'] ) &&
+			! empty( $value[ "{$value['type']}-icon" ] )
 		) {
-			$values['icon'] = $values[ "{$values['type']}-icon" ];
+			$value['icon'] = $value[ "{$value['type']}-icon" ];
 		}
 
-		if ( isset( $values['size'] ) && ! isset( $values['font_size'] ) ) {
-			$values['font_size'] = $values['size'];
-			unset( $values['size'] );
+		if ( empty( $value['position'] ) || ! in_array( $value['position'], array( 'before', 'after' ) ) ) {
+			$value['position'] = 'before';
+		}
+
+		if ( isset( $value['size'] ) && ! isset( $value['font_size'] ) ) {
+			$value['font_size'] = $value['size'];
+			unset( $value['size'] );
 		}
 
 		// The values below will NOT be saved
-		if ( ! empty( $values['icon'] ) && in_array( $values['type'], array( 'image', 'svg' ) ) ) {
-			$values['url'] = wp_get_attachment_image_url( $values['icon'], 'thumbnail', false );
+		if ( ! empty( $value['icon'] ) && in_array( $value['type'], array( 'image', 'svg' ) ) ) {
+			$value['url'] = wp_get_attachment_image_url( $value['icon'], 'thumbnail', false );
 		}
 
-		return $values;
+		return $value;
 	}
 
 
