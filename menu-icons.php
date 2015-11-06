@@ -87,12 +87,8 @@ final class Menu_Icons {
 		self::$icon_picker = Icon_Picker::instance();
 
 		self::$data = array(
-			'dir'                => plugin_dir_path( __FILE__ ),
-			'url'                => plugin_dir_url( __FILE__ ),
-			'default_style'      => array(
-				'font-size'      => '1.2em',
-				'vertical-align' => 'middle',
-			),
+			'dir' => plugin_dir_path( __FILE__ ),
+			'url' => plugin_dir_url( __FILE__ ),
 		);
 
 		require_once self::$data['dir'] . 'includes/meta.php';
@@ -147,64 +143,6 @@ final class Menu_Icons {
 	 */
 	public static function get_script_suffix() {
 		return ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
-	}
-
-
-	/**
-	 * Get nav menu ID based on arguments passed to wp_nav_menu()
-	 *
-	 * @since  0.3.0
-	 * @param  array $args wp_nav_menu() Arguments
-	 * @return mixed Nav menu ID or FALSE on failure
-	 */
-	public static function get_nav_menu_id( $args ) {
-		$args = (object) $args;
-		$menu = wp_get_nav_menu_object( $args->menu );
-
-		// Get the nav menu based on the theme_location
-		if ( ! $menu
-			&& $args->theme_location
-			&& ( $locations = get_nav_menu_locations() )
-			&& isset( $locations[ $args->theme_location ] )
-		) {
-			$menu = wp_get_nav_menu_object( $locations[ $args->theme_location ] );
-		}
-
-		// get the first menu that has items if we still can't find a menu
-		if ( ! $menu && ! $args->theme_location ) {
-			$menus = wp_get_nav_menus();
-			foreach ( $menus as $menu_maybe ) {
-				if ( $menu_items = wp_get_nav_menu_items( $menu_maybe->term_id, array( 'update_post_term_cache' => false ) ) ) {
-					$menu = $menu_maybe;
-					break;
-				}
-			}
-		}
-
-		if ( is_object( $menu ) && ! is_wp_error( $menu ) ) {
-			return $menu->term_id;
-		} else {
-			return false;
-		}
-	}
-
-
-	/**
-	 * Get hidden label class
-	 *
-	 * @return string
-	 */
-	public static function get_hidden_label_class() {
-		/**
-		 * Allow themes/plugins to overrride the hidden label class
-		 *
-		 * @since  0.8.0
-		 * @param  string $hidden_label_class Hidden label class.
-		 * @return string
-		 */
-		$hidden_label_class = apply_filters( 'menu_icons_hidden_label_class', 'visuallyhidden' );
-
-		return $hidden_label_class;
 	}
 }
 add_action( 'plugins_loaded', array( 'Menu_Icons', '_load' ) );
