@@ -317,12 +317,12 @@ final class Menu_Icons_Settings {
 		}
 
 		if ( is_admin() && isset( $_REQUEST['menu'] ) ) {
-			$nav_menu_selected_id = absint( $_REQUEST['menu'] );
+			$menu_id = absint( $_REQUEST['menu'] );
 		} else {
-			$nav_menu_selected_id = absint( get_user_option( 'nav_menu_recently_edited' ) );
+			$menu_id = absint( get_user_option( 'nav_menu_recently_edited' ) );
 		}
 
-		return $nav_menu_selected_id;
+		return $menu_id;
 	}
 
 
