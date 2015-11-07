@@ -24,6 +24,7 @@ final class Menu_Icons_Picker {
 		add_filter( 'wp_nav_menu_item_custom_fields', array( __CLASS__, '_fields' ), 10, 4 );
 		add_filter( 'manage_nav-menus_columns', array( __CLASS__, '_columns' ), 99 );
 		add_action( 'wp_update_nav_menu_item', array( __CLASS__, '_save' ), 10, 3 );
+		add_filter( 'icon_picker_type_props', array( __CLASS__, '_add_extra_type_props_data' ), 10, 3 );
 	}
 
 
@@ -259,5 +260,31 @@ final class Menu_Icons_Picker {
 				<?php echo $template; // xss ok ?>
 			</script>
 		<?php
+	}
+
+
+	/**
+	 * Add extra icon type properties data
+	 *
+	 * @since  0.9.0
+	 * @param  array            $props Icon type properties.
+	 * @param  string           $id    Icon type ID.
+	 * @param  Icon_Picker_Type $type  Icon_Picker_Type object.
+	 * @return array
+	 */
+	public static function _add_extra_type_props_data( $props, $id, $type ) {
+		$settings_fields = array_keys( Menu_Icons_Settings::get_settings_fields() );
+
+		if ( 'Font' === $props['controller'] ) {
+			 $settings_fields[] = 'font_size';
+		} elseif ( 'image' === $id ) {
+			 $settings_fields[] = 'image_size';
+		} elseif ( 'image' === $id ) {
+			 $settings_fields[] = 'width';
+		}
+
+		$props['data']['settingsFields'] = $settings_fields;
+
+		return $props;
 	}
 }
