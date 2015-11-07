@@ -76,10 +76,6 @@ final class Menu_Icons_Picker {
 	 * @return string Form fields
 	 */
 	public static function _fields( $id, $item, $depth, $args ) {
-		if ( ! class_exists( 'Kucrut_Form_Field' ) ) {
-			require_once Menu_Icons::get( 'dir' ) . 'includes/library/form-fields.php';
-		}
-
 		$input_id   = sprintf( 'menu-icons-%d', $item->ID );
 		$input_name = sprintf( 'menu-icons[%d]', $item->ID );
 		$current    = wp_parse_args(
