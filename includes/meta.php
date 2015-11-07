@@ -60,12 +60,15 @@ final class Menu_Icons_Meta {
 	 * Get menu item meta value
 	 *
 	 * @since  0.3.0
-	 * @param  int   $id Menu item ID.
+	 * @since  0.9.0  Add $defaults parameter.
+	 * @param  int    $id       Menu item ID.
+	 * @param  array  $defaults Optional. Default value.
 	 * @return array
 	 */
-	public static function get( $id ) {
-		$value = get_post_meta( $id, self::KEY, true );
-		$value = wp_parse_args( (array) $value, self::$defaults );
+	public static function get( $id, $defaults = array() ) {
+		$defaults = wp_parse_args( $defaults, self::$defaults );
+		$value    = get_post_meta( $id, self::KEY, true );
+		$value    = wp_parse_args( (array) $value, $defaults );
 
 		// Backward-compatibility.
 		if ( empty( $value['icon'] ) &&
@@ -75,8 +78,8 @@ final class Menu_Icons_Meta {
 			$value['icon'] = $value[ "{$value['type']}-icon" ];
 		}
 
-		if ( empty( $value['position'] ) || ! in_array( $value['position'], array( 'before', 'after' ) ) ) {
-			$value['position'] = 'before';
+		if ( ! in_array( $value['position'], array( 'before', 'after' ) ) ) {
+			$value['position'] = $defaults['position'];
 		}
 
 		if ( isset( $value['size'] ) && ! isset( $value['font_size'] ) ) {
