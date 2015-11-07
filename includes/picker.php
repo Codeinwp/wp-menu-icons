@@ -76,26 +76,24 @@ final class Menu_Icons_Picker {
 	 * @return string Form fields
 	 */
 	public static function _fields( $id, $item, $depth, $args ) {
-		$input_id   = sprintf( 'menu-icons-%d', $item->ID );
-		$input_name = sprintf( 'menu-icons[%d]', $item->ID );
-		$current    = wp_parse_args(
-			Menu_Icons_Meta::get( $item->ID ),
-			Menu_Icons_Settings::get_menu_settings( Menu_Icons_Settings::get_current_menu_id() )
-		);
-		$fields     = array_merge(
+		$input_id      = sprintf( 'menu-icons-%d', $item->ID );
+		$input_name    = sprintf( 'menu-icons[%d]', $item->ID );
+		$menu_settings = Menu_Icons_Settings::get_menu_settings( Menu_Icons_Settings::get_current_menu_id() );
+		$meta          = wp_parse_args( Menu_Icons_Meta::get( $item->ID ), $menu_settings );
+		$fields        = array_merge(
 			array(
 				array(
 					'id'    => 'type',
 					'label' => __( 'Type' ),
-					'value' => $current['type'],
+					'value' => $meta['type'],
 				),
 				array(
 					'id'    => 'icon',
 					'label' => __( 'Icon' ),
-					'value' => $current['icon'],
+					'value' => $meta['icon'],
 				),
 			),
-			Menu_Icons_Settings::get_settings_fields( $current )
+			Menu_Icons_Settings::get_settings_fields( $meta )
 		);
 		?>
 			<div class="field-icon description-wide menu-icons-wrap" data-id="<?php echo json_encode( $item->ID ); ?>">
@@ -127,10 +125,7 @@ final class Menu_Icons_Picker {
 							esc_attr( $field['value'] )
 						);
 					}
-					printf(
-						'<input type="hidden" class="_mi-url" value="%s" />',
-						esc_attr( $current['url'] )
-					);
+					printf( '<input type="hidden" class="_mi-url" value="%s" />', esc_attr( $meta['url'] ) );
 					?>
 				</div>
 				<?php
