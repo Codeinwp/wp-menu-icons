@@ -60,6 +60,35 @@ final class Menu_Icons_Picker {
 
 
 	/**
+	 * Get menu item setting fields
+	 *
+	 * @since  0.9.0
+	 * @access protected
+	 * @param  array $meta Menu item meta value.
+	 * @return array
+	 */
+	protected static function _get_menu_item_fields( $meta ) {
+		$fields = array_merge(
+			array(
+				array(
+					'id'    => 'type',
+					'label' => __( 'Type' ),
+					'value' => $meta['type'],
+				),
+				array(
+					'id'    => 'icon',
+					'label' => __( 'Icon' ),
+					'value' => $meta['icon'],
+				),
+			),
+			Menu_Icons_Settings::get_settings_fields( $meta )
+		);
+
+		return $fields;
+	}
+
+
+	/**
 	 * Print fields
 	 *
 	 * @since   0.1.0
@@ -80,21 +109,7 @@ final class Menu_Icons_Picker {
 		$input_name    = sprintf( 'menu-icons[%d]', $item->ID );
 		$menu_settings = Menu_Icons_Settings::get_menu_settings( Menu_Icons_Settings::get_current_menu_id() );
 		$meta          = Menu_Icons_Meta::get( $item->ID, $menu_settings );
-		$fields        = array_merge(
-			array(
-				array(
-					'id'    => 'type',
-					'label' => __( 'Type' ),
-					'value' => $meta['type'],
-				),
-				array(
-					'id'    => 'icon',
-					'label' => __( 'Icon' ),
-					'value' => $meta['icon'],
-				),
-			),
-			Menu_Icons_Settings::get_settings_fields( $meta )
-		);
+		$fields        = self::_get_menu_item_fields( $meta );
 		?>
 			<div class="field-icon description-wide menu-icons-wrap" data-id="<?php echo json_encode( $item->ID ); ?>">
 				<?php
