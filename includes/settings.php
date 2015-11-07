@@ -397,10 +397,7 @@ final class Menu_Icons_Settings {
 	 */
 	public static function get_fields() {
 		$menu_id    = self::get_current_menu_id();
-		$icon_types = array();
-		foreach ( self::$ip_registry->types as $type ) {
-			$icon_types[ $type->id ] = $type->name;
-		}
+		$icon_types = wp_list_pluck( self::$ip_registry->types, 'name' );
 
 		asort( $icon_types );
 
