@@ -10,6 +10,8 @@
 .menu-icons-wrap p label {
 	display: inline-block;
 	vertical-align: middle;
+	height: 100%;
+	line-height: 2.2em;
 }
 .menu-icons-wrap a {
 	cursor: pointer;
@@ -24,7 +26,7 @@
 	font-size: 1.9em;
 	width: auto;
 	height: auto;
-	vertical-align: bottom;
+	vertical-align: middle;
 	margin: -.1em .2em 0 .2em;
 }
 .menu-icons-wrap img._icon {
