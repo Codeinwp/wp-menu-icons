@@ -125,6 +125,8 @@ final class Menu_Icons_Picker {
 							esc_attr( $field['value'] )
 						);
 					}
+
+					// The fields below will not be saved. They're only used for the preview.
 					printf( '<input type="hidden" class="_mi-url" value="%s" />', esc_attr( $meta['url'] ) );
 					?>
 				</div>
