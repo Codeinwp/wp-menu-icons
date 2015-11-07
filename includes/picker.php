@@ -79,7 +79,7 @@ final class Menu_Icons_Picker {
 		$input_id      = sprintf( 'menu-icons-%d', $item->ID );
 		$input_name    = sprintf( 'menu-icons[%d]', $item->ID );
 		$menu_settings = Menu_Icons_Settings::get_menu_settings( Menu_Icons_Settings::get_current_menu_id() );
-		$meta          = wp_parse_args( Menu_Icons_Meta::get( $item->ID ), $menu_settings );
+		$meta          = Menu_Icons_Meta::get( $item->ID, $menu_settings );
 		$fields        = array_merge(
 			array(
 				array(
