@@ -24,11 +24,28 @@ var MenuIconsSidebar = wp.media.view.IconPickerSidebar.extend({
 	},
 
 	createSingle: function() {
+		this.createPreview();
 		this.createSettings();
 	},
 
 	disposeSingle: function() {
 		this.unset( 'settings' );
+	},
+
+	createPreview: function() {
+		var frame    = this.controller,
+		    state    = frame.state(),
+		    selected = state.get( 'selection' ).single();
+
+		this.set( 'preview', new wp.media.view.MenuIconsItemPreview({
+			controller: frame,
+			model:      frame.target,
+			priority:   80,
+			data:       {
+				icon:       selected.id,
+				templateId: iconPicker.types[ state.id ].templateId
+			}
+		}) );
 	},
 
 	createSettings: function() {

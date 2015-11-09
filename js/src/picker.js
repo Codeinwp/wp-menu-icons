@@ -56,6 +56,7 @@ var miPicker = {
 		model = {
 			id:      id,
 			$el:     $el,
+			$title:  $( '#edit-menu-item-title-' + id ),
 			$inputs: {}
 		};
 
