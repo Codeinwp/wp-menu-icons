@@ -18,8 +18,9 @@ var miPicker = {
 
 	createFrame: function() {
 		miPicker.frame = new wp.media.view.MediaFrame.MenuIcons({
-			target:  miPicker.target,
-			ipTypes: _.filter( iconPicker.types, miPicker.typesFilter )
+			target:      miPicker.target,
+			ipTypes:     _.filter( iconPicker.types, miPicker.typesFilter ),
+			SidebarView: wp.media.view.MenuIconsSidebar
 		});
 	},
 

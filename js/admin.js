@@ -60,9 +60,10 @@
 
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 wp.media.model.MenuIconsItem = require( './models/item.js' );
+wp.media.view.MenuIconsSidebar = require( './views/sidebar.js' );
 wp.media.view.MediaFrame.MenuIcons = require( './views/frame.js' );
 
-},{"./models/item.js":2,"./views/frame.js":3}],2:[function(require,module,exports){
+},{"./models/item.js":2,"./views/frame.js":3,"./views/sidebar.js":4}],2:[function(require,module,exports){
 /**
  * wp.media.model.MenuIconsItem
  */
@@ -109,6 +110,19 @@ var MenuIcons = wp.media.view.MediaFrame.IconPicker.extend({
 
 module.exports = MenuIcons;
 
+},{}],4:[function(require,module,exports){
+/**
+ * wp.media.view.MenuIconsSidebar
+ */
+var MenuIconsSidebar = wp.media.view.IconPickerSidebar.extend({
+	createSingle: function() {
+		console.log( 'create single' );
+	},
+	disposeSingle: function() {}
+});
+
+module.exports = MenuIconsSidebar;
+
 },{}]},{},[1]);
 
 (function( $ ) {
@@ -131,8 +145,9 @@ var miPicker = {
 
 	createFrame: function() {
 		miPicker.frame = new wp.media.view.MediaFrame.MenuIcons({
-			target:  miPicker.target,
-			ipTypes: _.filter( iconPicker.types, miPicker.typesFilter )
+			target:      miPicker.target,
+			ipTypes:     _.filter( iconPicker.types, miPicker.typesFilter ),
+			SidebarView: wp.media.view.MenuIconsSidebar
 		});
 	},
 
