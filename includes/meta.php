@@ -18,10 +18,9 @@ final class Menu_Icons_Meta {
 	 * @var    array
 	 */
 	protected static $defaults = array(
-		'type'     => '',
-		'icon'     => '',
-		'url'      => '',
-		'position' => 'before',
+		'type' => '',
+		'icon' => '',
+		'url'  => '',
 	);
 
 
@@ -78,7 +77,7 @@ final class Menu_Icons_Meta {
 			$value['icon'] = $value[ "{$value['type']}-icon" ];
 		}
 
-		if ( ! in_array( $value['position'], array( 'before', 'after' ) ) ) {
+		if ( isset( $value['position'] ) && ! in_array( $value['position'], array( 'before', 'after' ) ) ) {
 			$value['position'] = $defaults['position'];
 		}
 
