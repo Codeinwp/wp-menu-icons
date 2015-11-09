@@ -130,6 +130,10 @@ final class Menu_Icons_Meta {
 		 */
 		$value = apply_filters( 'menu_icons_item_meta_values', $_value, $id );
 
+		if ( empty( $value['type'] ) || empty( $value['icon'] ) ) {
+			$value = false;
+		}
+
 		// Update
 		if ( ! empty( $value ) ) {
 			update_post_meta( $id, self::KEY, $value );
