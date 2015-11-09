@@ -276,11 +276,16 @@ final class Menu_Icons_Picker {
 		$settings_fields = array_keys( Menu_Icons_Settings::get_settings_fields() );
 
 		if ( 'Font' === $props['controller'] ) {
-			 $settings_fields[] = 'font_size';
-		} elseif ( 'image' === $id ) {
-			 $settings_fields[] = 'image_size';
-		} elseif ( 'image' === $id ) {
-			 $settings_fields[] = 'width';
+			$settings_fields[] = 'font_size';
+		}
+
+		switch ( $id ) {
+			case 'image':
+				$settings_fields[] = 'image_size';
+				break;
+			case 'svg':
+				$settings_fields[] = 'width';
+				break;
 		}
 
 		$props['data']['settingsFields'] = $settings_fields;
