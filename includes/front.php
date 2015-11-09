@@ -341,8 +341,6 @@ final class Menu_Icons_Front_End {
 	/**
 	 * Get image icon
 	 *
-	 * TODO: Replace 'thumbnail' size with `$meta['image_size']`.
-	 *
 	 * @since  0.9.0
 	 * @param  array $meta Menu item meta value.
 	 * @return string
@@ -357,7 +355,7 @@ final class Menu_Icons_Front_End {
 			$args['style'] = $style;
 		}
 
-		return wp_get_attachment_image( $meta['icon'], 'thumbnail', false, $args );
+		return wp_get_attachment_image( $meta['icon'], $meta['image_size'], false, $args );
 	}
 
 
