@@ -291,6 +291,7 @@ var MenuIconsSidebar = wp.media.view.IconPickerSidebar.extend({
 			priority:   80,
 			data:       {
 				icon:       selected.id,
+				type:       state.id,
 				templateId: iconPicker.types[ state.id ].templateId
 			}
 		}) );
