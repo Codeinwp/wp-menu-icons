@@ -288,7 +288,7 @@ final class Menu_Icons_Picker {
 				$settings_fields[] = 'image_size';
 				break;
 			case 'svg':
-				$settings_fields[] = 'width';
+				$settings_fields[] = 'svg_width';
 				break;
 		}
 
