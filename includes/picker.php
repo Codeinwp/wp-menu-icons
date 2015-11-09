@@ -273,7 +273,11 @@ final class Menu_Icons_Picker {
 	 * @return array
 	 */
 	public static function _add_extra_type_props_data( $props, $id, $type ) {
-		$settings_fields = array_keys( Menu_Icons_Settings::get_settings_fields() );
+		$settings_fields = array(
+			'hide_label',
+			'position',
+			'vertical_align',
+		);
 
 		if ( 'Font' === $props['controller'] ) {
 			$settings_fields[] = 'font_size';
