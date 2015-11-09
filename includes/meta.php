@@ -130,6 +130,7 @@ final class Menu_Icons_Meta {
 		 */
 		$value = apply_filters( 'menu_icons_item_meta_values', $_value, $id );
 
+		// Don't bother saving if `type` or `icon` is not set.
 		if ( empty( $value['type'] ) || empty( $value['icon'] ) ) {
 			$value = false;
 		}
