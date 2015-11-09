@@ -25,9 +25,9 @@ final class Menu_Icons_Front_End {
 	 * @var    array
 	 */
 	protected static $default_style = array(
-		'font-size'      => '1.2',
-		'vertical-align' => 'middle',
-		'width'          => '1',
+		'font_size'      => '1.2',
+		'vertical_align' => 'middle',
+		'svg_width'      => '1',
 	);
 
 	/**
@@ -278,22 +278,33 @@ final class Menu_Icons_Front_End {
 		$style_a = array();
 		$style_s = '';
 
-		foreach ( array( 'font-size', 'width' ) as $rule ) {
-			if ( ! empty( $meta[ $rule ] ) ) {
-				$style_a[ $rule ] = sprintf( '%sem', $meta[ $rule ] );
+		foreach ( self::$default_style as $key => $default ) {
+			if ( isset( $meta[ $key ] ) && $meta[ $key ] !== $default ) {
+				$style_a[ $key ] = $meta[ $key ];
 			}
 		}
 
-		if ( ! empty( $meta['vertical_align'] ) ) {
-			$style_a['vertical-align'] = $meta['vertical_align'];
+		if ( empty( $style_a ) ) {
+			return $style_s;
 		}
 
-		$style_a = array_diff_assoc( $style_a, self::$default_style );
+		if ( ! empty( $style_a['vertical_align'] ) ) {
+			$style_a['vertical-align'] = $style_a['vertical_align'];
+			unset( $style_a['vertical_align'] );
+		}
 
-		if ( ! empty( $style_a ) ) {
-			foreach ( $style_a as $key => $value ) {
-				$style_s .= sprintf( '%s:%s;', esc_attr( $key ), esc_attr( $value ) );
-			}
+		if ( ! empty( $style_a['font_size'] ) ) {
+			$style_a['font-size'] = sprintf( '%sem', $style_a['font_size'] );
+			unset( $style_a['font_size'] );
+		}
+
+		if ( ! empty( $style_a['svg_width'] ) ) {
+			$style_a['width'] = sprintf( '%sem', $style_a['svg_width'] );
+			unset( $style_a['svg_width'] );
+		}
+
+		foreach ( $style_a as $key => $value ) {
+			$style_s .= sprintf( '%s:%s;', esc_attr( $key ), esc_attr( $value ) );
 		}
 
 		return $style_s;
@@ -329,12 +340,15 @@ final class Menu_Icons_Front_End {
 		$classes = self::get_icon_classes( $meta );
 		$classes = array_merge( $classes, array( $meta['type'], $meta['icon'] ) );
 		$classes = implode( ' ', $classes );
+		$style   = self::get_icon_style( $meta );
 
-		return sprintf(
-			'<i class="%s"%s></i>',
-			esc_attr( $classes ),
-			self::get_icon_style( $meta )
-		);
+		if ( ! empty( $style ) ) {
+			$style_attr = sprintf( ' style="%s"', esc_attr( $style ) );
+		} else {
+			$style_attr = '';
+		}
+
+		return sprintf( '<i class="%s"%s></i>', esc_attr( $classes ), $style_attr );
 	}
 
 
@@ -362,15 +376,12 @@ final class Menu_Icons_Front_End {
 	/**
 	 * Get SVG icon
 	 *
-	 * // TODO: Don't hardcode `width`.
-	 *
 	 * @since  0.9.0
 	 * @param  array $meta Menu item meta value.
 	 * @return string
 	 */
 	public static function get_svg_icon( $meta ) {
-		$classes       = implode( ' ', self::get_icon_classes( $meta ) );
-		$meta['width'] = 1;
+		$classes = implode( ' ', self::get_icon_classes( $meta ) );
 
 		return sprintf(
 			'<img src="%s" class="%s" style="%s" />',
