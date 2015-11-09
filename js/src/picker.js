@@ -61,9 +61,14 @@ var miPicker = {
 
 		$el.find( 'div._settings input' ).each( function() {
 			var $input = $( this ),
-			    key    = $input.attr( 'class' ).replace( '_mi-', '' );
+			    key    = $input.attr( 'class' ).replace( '_mi-', '' ),
+			    value  = $input.val();
 
-			model[ key ]         = $input.val();
+			if ( ! value && menuIcons.settingsFields[ key ] ) {
+				value = menuIcons.settingsFields[ key ]['default'];
+			}
+
+			model[ key ]         = value;
 			model.$inputs[ key ] = $input;
 		});
 

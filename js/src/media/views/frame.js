@@ -10,14 +10,16 @@ var MenuIcons = wp.media.view.MediaFrame.IconPicker.extend({
 		wp.media.view.MediaFrame.IconPicker.prototype.initialize.apply( this, arguments );
 
 		this.listenTo( this.target, 'change', this.miUpdateItemProps );
+		this.on( 'select', this.miClearTarget, this );
 	},
 
-	miUpdateItemProps: function() {
-		var id    = this.target.id,
-		    model = this.menuItems.get( id ),
-		    data  = this.target.toJSON();
+	miUpdateItemProps: function( props ) {
+		var model = this.menuItems.get( props.id );
 
-		model.set( data );
+		model.set( props.changed );
+	},
+
+	miClearTarget: function() {
 		this.target.clear({ silent: true });
 	}
 });
