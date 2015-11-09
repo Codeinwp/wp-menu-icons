@@ -352,7 +352,7 @@ final class Menu_Icons_Settings {
 					),
 				),
 			),
-			'position'   => array(
+			'position' => array(
 				'id'      => 'position',
 				'type'    => 'select',
 				'label'   => __( 'Position', 'menu-icons' ),
@@ -367,6 +367,75 @@ final class Menu_Icons_Settings {
 						'label' => __( 'After', 'menu-icons' ),
 					),
 				),
+			),
+			'vertical_align' => array(
+				'id'      => 'vertical_align',
+				'type'    => 'select',
+				'label'   => __( 'Vertical Align', 'menu-icons' ),
+				'default' => 'middle',
+				'choices' => array(
+					array(
+						'value' => 'super',
+						'label' => __( 'Super', 'menu-icons' ),
+					),
+					array(
+						'value' => 'top',
+						'label' => __( 'Top', 'menu-icons' ),
+					),
+					array(
+						'value' => 'text-top',
+						'label' => __( 'Text Top', 'menu-icons' ),
+					),
+					array(
+						'value' => 'middle',
+						'label' => __( 'Middle', 'menu-icons' ),
+					),
+					array(
+						'value' => 'baseline',
+						'label' => __( 'Baseline', 'menu-icons' ),
+					),
+					array(
+						'value' => 'text-bottom',
+						'label' => __( 'Text Bottom', 'menu-icons' ),
+					),
+					array(
+						'value' => 'bottom',
+						'label' => __( 'Bottom', 'menu-icons' ),
+					),
+					array(
+						'value' => 'sub',
+						'label' => __( 'Sub', 'menu-icons' ),
+					),
+				),
+			),
+			'font_size' => array(
+				'id'          => 'font_size',
+				'type'        => 'number',
+				'label'       => __( 'Font Size', 'menu-icons' ),
+				'default'     => '1.2',
+				'description' => 'em',
+				'attributes'  => array(
+					'min'  => '0.1',
+					'step' => '0.1',
+				),
+			),
+			'svg_width' => array(
+				'id'          => 'svg_width',
+				'type'        => 'number',
+				'label'       => __( 'SVG Width', 'menu-icons' ),
+				'default'     => '1',
+				'description' => 'em',
+				'attributes'  => array(
+					'min'  => '.5',
+					'step' => '.1',
+				),
+			),
+			'image_size' => array(
+				'id'      => 'image_size',
+				'type'    => 'select',
+				'label'   => __( 'Image Size', 'menu-icons' ),
+				'default' => 'thumbnail',
+				'choices' => kucrut_get_image_sizes(),
 			),
 		);
 
