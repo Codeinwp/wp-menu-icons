@@ -77,6 +77,11 @@ final class Menu_Icons_Meta {
 			$value['icon'] = $value[ "{$value['type']}-icon" ];
 		}
 
+		if ( ! empty( $value['width'] ) ) {
+			$value['svg_width'] = $value['width'];
+		}
+		unset( $value['width'] );
+
 		if ( isset( $value['position'] ) && ! in_array( $value['position'], array( 'before', 'after' ) ) ) {
 			$value['position'] = $defaults['position'];
 		}
