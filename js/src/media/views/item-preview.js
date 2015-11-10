@@ -14,10 +14,16 @@ var MenuIconsItemPreview = wp.media.View.extend({
 	},
 
 	render: function() {
-		var data     = _.extend( this.model.toJSON(), this.options.data ),
-		    template = 'menu-icons-item-sidebar-preview-' + data.templateId + '-';
-
-		data.title = this.model.get( '$title' ).val();
+		var frame    = this.controller,
+			state    = frame.state(),
+			selected = state.get( 'selection' ).single(),
+			data     = _.extend( this.model.toJSON(), {
+				type:  state.id,
+				icon:  selected.id,
+				title: this.model.get( '$title' ).val(),
+				url:   state.ipGetIconUrl ? state.ipGetIconUrl( selected, this.model.get( 'image_size' ) ) : ''
+			}),
+			template = 'menu-icons-item-sidebar-preview-' + iconPicker.types[ state.id ].templateId + '-';
 
 		if ( data.hide_label ) {
 			template += 'hide_label';

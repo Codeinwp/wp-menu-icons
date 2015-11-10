@@ -100,10 +100,16 @@ var MenuIconsItemPreview = wp.media.View.extend({
 	},
 
 	render: function() {
-		var data     = _.extend( this.model.toJSON(), this.options.data ),
-		    template = 'menu-icons-item-sidebar-preview-' + data.templateId + '-';
-
-		data.title = this.model.get( '$title' ).val();
+		var frame    = this.controller,
+			state    = frame.state(),
+			selected = state.get( 'selection' ).single(),
+			data     = _.extend( this.model.toJSON(), {
+				type:  state.id,
+				icon:  selected.id,
+				title: this.model.get( '$title' ).val(),
+				url:   state.ipGetIconUrl ? state.ipGetIconUrl( selected, this.model.get( 'image_size' ) ) : ''
+			}),
+			template = 'menu-icons-item-sidebar-preview-' + iconPicker.types[ state.id ].templateId + '-';
 
 		if ( data.hide_label ) {
 			template += 'hide_label';
@@ -222,19 +228,22 @@ var MenuIconsSidebar = wp.media.view.IconPickerSidebar.extend({
 	},
 
 	createPreview: function() {
-		var frame    = this.controller,
-		    state    = frame.state(),
-		    selected = state.get( 'selection' ).single();
+		var self  = this,
+			frame = self.controller,
+			state = frame.state();
 
-		this.set( 'preview', new wp.media.view.MenuIconsItemPreview({
+		if ( state.dfd && 'pending' === state.dfd.state() ) {
+			state.dfd.done( function() {
+				self.createPreview();
+			});
+
+			return;
+		}
+
+		self.set( 'preview', new wp.media.view.MenuIconsItemPreview({
 			controller: frame,
 			model:      frame.target,
-			priority:   80,
-			data:       {
-				icon:       selected.id,
-				type:       state.id,
-				templateId: iconPicker.types[ state.id ].templateId
-			}
+			priority:   80
 		}) );
 	},
 

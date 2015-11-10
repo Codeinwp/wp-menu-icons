@@ -34,19 +34,22 @@ var MenuIconsSidebar = wp.media.view.IconPickerSidebar.extend({
 	},
 
 	createPreview: function() {
-		var frame    = this.controller,
-		    state    = frame.state(),
-		    selected = state.get( 'selection' ).single();
+		var self  = this,
+			frame = self.controller,
+			state = frame.state();
 
-		this.set( 'preview', new wp.media.view.MenuIconsItemPreview({
+		if ( state.dfd && 'pending' === state.dfd.state() ) {
+			state.dfd.done( function() {
+				self.createPreview();
+			});
+
+			return;
+		}
+
+		self.set( 'preview', new wp.media.view.MenuIconsItemPreview({
 			controller: frame,
 			model:      frame.target,
-			priority:   80,
-			data:       {
-				icon:       selected.id,
-				type:       state.id,
-				templateId: iconPicker.types[ state.id ].templateId
-			}
+			priority:   80
 		}) );
 	},
 

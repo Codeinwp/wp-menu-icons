@@ -36,6 +36,38 @@
 	</a>
 </script>
 
+<script type="text/html" id="tmpl-menu-icons-item-sidebar-preview-image-before">
+	<a href="#">
+		<img src="{{ data.url }}"
+			alt="{{ data.alt }}"
+			class="_icon {{ data.type }} _{{ data.position }}"
+			style="vertical-align:{{ data.vertical_align }};"
+		/>
+		<span>{{ data.title }}</span>
+	</a>
+</script>
+
+<script type="text/html" id="tmpl-menu-icons-item-sidebar-preview-image-after">
+	<a href="#">
+		<span>{{ data.title }}</span>
+		<img src="{{ data.url }}"
+			alt="{{ data.alt }}"
+			class="_icon {{ data.type }} _{{ data.position }}"
+			style="vertical-align:{{ data.vertical_align }};"
+		/>
+	</a>
+</script>
+
+<script type="text/html" id="tmpl-menu-icons-item-sidebar-preview-image-hide_label">
+	<a href="#">
+		<img src="{{ data.url }}"
+			alt="{{ data.alt }}"
+			class="_icon {{ data.type }} _{{ data.position }}"
+			style="vertical-align:{{ data.vertical_align }};"
+		/>
+	</a>
+</script>
+
 <script type="text/html" id="tmpl-menu-icons-settings-field-text">
 	<span>{{ data.label }}</span>
 	<input type="text" data-setting="{{ data.id }}" value="{{ data.value }}" />
