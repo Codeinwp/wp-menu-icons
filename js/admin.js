@@ -114,6 +114,8 @@ var Item = Backbone.Model.extend({
 
 	/**
 	 * Update the values of menu item's settings fields
+	 *
+	 * @fires mi:update
 	 */
 	updateValues: function() {
 		_.each( this.get( '$inputs' ), function( $input, key ) {
@@ -580,6 +582,8 @@ var miPicker = {
 
 	/**
 	 * Initialize picker functionality
+	 *
+	 * @fires mi:update
 	 */
 	init: function() {
 		miPicker.createFrame();

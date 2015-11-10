@@ -183,6 +183,8 @@ var miPicker = {
 
 	/**
 	 * Initialize picker functionality
+	 *
+	 * @fires mi:update
 	 */
 	init: function() {
 		miPicker.createFrame();

@@ -54,6 +54,8 @@ var Item = Backbone.Model.extend({
 
 	/**
 	 * Update the values of menu item's settings fields
+	 *
+	 * @fires mi:update
 	 */
 	updateValues: function() {
 		_.each( this.get( '$inputs' ), function( $input, key ) {
