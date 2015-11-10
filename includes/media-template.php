@@ -68,6 +68,38 @@
 	</a>
 </script>
 
+<script type="text/html" id="tmpl-menu-icons-item-sidebar-preview-svg-before">
+	<a href="#">
+		<img src="{{ data.url }}"
+			alt="{{ data.alt }}"
+			class="_icon _{{data.type}}"
+			style="width:{{data.svg_width}}em;vertical-align:{{ data.vertical_align }}"
+			/>
+		<span>{{ data.title }}</span>
+	</a>
+</script>
+
+<script type="text/html" id="tmpl-menu-icons-item-sidebar-preview-svg-after">
+	<a href="#">
+		<span>{{ data.title }}</span>
+		<img src="{{ data.url }}"
+			alt="{{ data.alt }}"
+			class="_icon _{{data.type}}"
+			style="width:{{data.svg_width}}em;vertical-align:{{ data.vertical_align }}"
+			/>
+	</a>
+</script>
+
+<script type="text/html" id="tmpl-menu-icons-item-sidebar-preview-svg-hide_label">
+	<a href="#">
+		<img src="{{ data.url }}"
+			alt="{{ data.alt }}"
+			class="_icon _{{data.type}}"
+			style="width:{{data.svg_width}}em;vertical-align:{{ data.vertical_align }}"
+			/>
+	</a>
+</script>
+
 <script type="text/html" id="tmpl-menu-icons-settings-field-text">
 	<span>{{ data.label }}</span>
 	<input type="text" data-setting="{{ data.id }}" value="{{ data.value }}" />
