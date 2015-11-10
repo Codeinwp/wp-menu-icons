@@ -683,6 +683,7 @@ final class Menu_Icons_Settings {
 				'ajaxUrls'       => array(
 					'update' => add_query_arg( 'action', 'menu_icons_update_settings', admin_url( '/admin-ajax.php' ) ),
 				),
+				'menuSettings'   => self::get_menu_settings( self::get_current_menu_id() ),
 			)
 		);
 	}
