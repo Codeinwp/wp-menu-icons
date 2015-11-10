@@ -127,11 +127,24 @@ final class Menu_Icons_Settings {
 		self::$ip_registry = Icon_Picker_Types_Registry::instance();
 		self::$settings    = get_option( 'menu-icons', self::$defaults );
 
-		// Remove unregistered icon types
-		self::$settings['global']['icon_types'] = array_values( array_intersect(
-			array_keys( self::$ip_registry->types ),
-			array_filter( (array) self::$settings['global']['icon_types'] )
-		) );
+		foreach ( self::$settings as $key => &$value ) {
+			if ( 'global' === $key ) {
+				// Remove unregistered icon types.
+				$value['icon_types'] = array_values( array_intersect(
+					array_keys( self::$ip_registry->types ),
+					array_filter( (array) $value['icon_types'] )
+				) );
+			} else {
+				// Backward-compatibility.
+				if ( isset( $value['width'] ) && ! isset( $value['svg_width'] ) ) {
+					$value['svg_width'] = $value['width'];
+				}
+
+				unset( $value['width'] );
+			}
+		}
+
+		unset( $value );
 
 		if ( self::is_menu_icons_disabled_for_menu() ) {
 			return;
