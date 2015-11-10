@@ -1,5 +1,8 @@
 /**
  * wp.media.model.MenuIconsItemSettingField
+ *
+ * @class
+ * @augments Backbone.Model
  */
 var MenuIconsItemSettingField = Backbone.Model.extend({
 	defaults: {

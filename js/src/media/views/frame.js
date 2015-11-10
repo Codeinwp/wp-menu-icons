@@ -1,5 +1,14 @@
 /**
  * wp.media.view.MediaFrame.MenuIcons
+ *
+ * @class
+ * @augments wp.media.view.MediaFrame.IconPicker
+ * @augments wp.media.view.MediaFrame.Select
+ * @augments wp.media.view.MediaFrame
+ * @augments wp.media.view.Frame
+ * @augments wp.media.View
+ * @augments wp.Backbone.View
+ * @augments Backbone.View
  */
 var MenuIcons = wp.media.view.MediaFrame.IconPicker.extend({
 	initialize: function() {

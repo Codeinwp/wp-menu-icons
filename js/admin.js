@@ -72,6 +72,9 @@ wp.media.view.MediaFrame.MenuIcons = require( './views/frame.js' );
 },{"./models/item-setting-field.js":2,"./models/item-settings.js":3,"./models/item.js":4,"./views/frame.js":5,"./views/item-preview.js":6,"./views/item-setting-field.js":7,"./views/item-settings.js":8,"./views/sidebar.js":9}],2:[function(require,module,exports){
 /**
  * wp.media.model.MenuIconsItemSettingField
+ *
+ * @class
+ * @augments Backbone.Model
  */
 var MenuIconsItemSettingField = Backbone.Model.extend({
 	defaults: {
@@ -87,6 +90,9 @@ module.exports = MenuIconsItemSettingField;
 },{}],3:[function(require,module,exports){
 /**
  * wp.media.model.MenuIconsItemSettings
+ *
+ * @class
+ * @augments Backbone.Collection
  */
 var MenuIconsItemSettings = Backbone.Collection.extend({
 	model: wp.media.model.MenuIconsItemSettingField
@@ -97,17 +103,24 @@ module.exports = MenuIconsItemSettings;
 },{}],4:[function(require,module,exports){
 /**
  * wp.media.model.MenuIconsItem
+ *
+ * @class
+ * @augments Backbone.Model
  */
 var Item = Backbone.Model.extend({
 	initialize: function() {
 		this.on( 'change', this.updateValues, this );
 	},
 
+	/**
+	 * Update the values of menu item's settings fields
+	 */
 	updateValues: function() {
 		_.each( this.get( '$inputs' ), function( $input, key ) {
 			$input.val( this.get( key ) );
 		}, this );
 
+		// Trigger the 'mi:update' event to regenerate the icon on the field.
 		this.get( '$el' ).trigger( 'mi:update' );
 	}
 });
@@ -117,6 +130,15 @@ module.exports = Item;
 },{}],5:[function(require,module,exports){
 /**
  * wp.media.view.MediaFrame.MenuIcons
+ *
+ * @class
+ * @augments wp.media.view.MediaFrame.IconPicker
+ * @augments wp.media.view.MediaFrame.Select
+ * @augments wp.media.view.MediaFrame
+ * @augments wp.media.view.Frame
+ * @augments wp.media.View
+ * @augments wp.Backbone.View
+ * @augments Backbone.View
  */
 var MenuIcons = wp.media.view.MediaFrame.IconPicker.extend({
 	initialize: function() {
@@ -146,6 +168,11 @@ module.exports = MenuIcons;
 },{}],6:[function(require,module,exports){
 /**
  * wp.media.view.MenuIconsItemPreview
+ *
+ * @class
+ * @augments wp.media.View
+ * @augments wp.Backbone.View
+ * @augments Backbone.View
  */
 var MenuIconsItemPreview = wp.media.View.extend({
 	tagName:   'p',
@@ -196,6 +223,11 @@ var $ = jQuery,
 
 /**
  * wp.media.view.MenuIconsItemSettingField
+ *
+ * @class
+ * @augments wp.media.View
+ * @augments wp.Backbone.View
+ * @augments Backbone.View
  */
 MenuIconsItemSettingField = wp.media.View.extend({
 	tagName:   'label',
@@ -228,6 +260,12 @@ module.exports = MenuIconsItemSettingField;
 },{}],8:[function(require,module,exports){
 /**
  * wp.media.view.MenuIconsItemSettings
+ *
+ * @class
+ * @augments wp.media.view.PriorityList
+ * @augments wp.media.View
+ * @augments wp.Backbone.View
+ * @augments Backbone.View
  */
 var MenuIconsItemSettings = wp.media.view.PriorityList.extend({
 	className: 'mi-settings attachment-info',
@@ -254,6 +292,14 @@ module.exports = MenuIconsItemSettings;
 },{}],9:[function(require,module,exports){
 /**
  * wp.media.view.MenuIconsSidebar
+ *
+ * @class
+ * @augments wp.media.view.IconPickerSidebar
+ * @augments wp.media.view.Sidebar
+ * @augments wp.media.view.PriorityList
+ * @augments wp.media.View
+ * @augments wp.Backbone.View
+ * @augments Backbone.View
  */
 var MenuIconsSidebar = wp.media.view.IconPickerSidebar.extend({
 	initialize: function() {
@@ -292,6 +338,8 @@ var MenuIconsSidebar = wp.media.view.IconPickerSidebar.extend({
 			frame = self.controller,
 			state = frame.state();
 
+		// If the selected icon is still being downloaded (image or svg type),
+		// wait for it to complete before creating the preview.
 		if ( state.dfd && 'pending' === state.dfd.state() ) {
 			state.dfd.done( function() {
 				self.createPreview();
@@ -353,17 +401,48 @@ if ( ! menuIcons.activeTypes || _.isEmpty( menuIcons.activeTypes ) ) {
 	return;
 }
 
+/** @namespace */
 var miPicker = {
+	/**
+	 * Cached templates for the item previews on the fields
+	 *
+	 * @type {object}
+	 */
 	templates: {},
+	/**
+	 * Field wrapper's class
+	 *
+	 * @type {string}
+	 */
 	wrapClass: 'div.menu-icons-wrap',
-	frame:     null,
-	target:    new wp.media.model.IconPickerTarget(),
+	/**
+	 * Menu Icons' media frame instance
+	 *
+	 * @type {object}
+	 * @defaultvalue
+	 */
+	frame: null,
+	/**
+	 * Frame's target model
+	 *
+	 * @type {object} wp.media.model.IconPickerTarget instance
+	 */
+	target: new wp.media.model.IconPickerTarget(),
 
-	// TODO: Move to frame view
+	/**
+	 * Callback function to filter active icon types
+	 *
+	 * TODO: Maybe move to frame view?
+	 *
+	 * @param {string} type - Icon type.
+	 */
 	typesFilter: function( type ) {
 		return ( -1 < $.inArray( type.id, menuIcons.activeTypes ) );
 	},
 
+	/**
+	 * Create Menu Icons' media frame
+	 */
 	createFrame: function() {
 		miPicker.frame = new wp.media.view.MediaFrame.MenuIcons({
 			target:      miPicker.target,
@@ -372,11 +451,21 @@ var miPicker = {
 		});
 	},
 
+	/**
+	 * Pick icon for a menu item and open the frame
+	 *
+	 * @param {object} model - Menu item model.
+	 */
 	pickIcon: function( model ) {
 		miPicker.frame.target.set( model, { silent: true } );
 		miPicker.frame.open();
 	},
 
+	/**
+	 * Set or unset icon
+	 *
+	 * @param {object} e - jQuery click event.
+	 */
 	setUnset: function( e ) {
 		var $el      = $( e.currentTarget ),
 		    $clicked = $( e.target );
@@ -390,6 +479,11 @@ var miPicker = {
 		}
 	},
 
+	/**
+	 * Set Icon
+	 *
+	 * @param {object} $el - jQuery object.
+	 */
 	setIcon: function( $el ) {
 		var id     = $el.data( 'id' ),
 		    frame  = miPicker.frame,
@@ -408,6 +502,8 @@ var miPicker = {
 			$inputs: {}
 		};
 
+		// Collect menu item's settings fields and use them
+		// as the model's attributes.
 		$el.find( 'div._settings input' ).each( function() {
 			var $input = $( this ),
 			    key    = $input.attr( 'class' ).replace( '_mi-', '' ),
@@ -425,6 +521,11 @@ var miPicker = {
 		miPicker.pickIcon( model );
 	},
 
+	/**
+	 * Unset icon
+	 *
+	 * @param {object} $el - jQuery object.
+	 */
 	unsetIcon: function( $el ) {
 		var id = $el.data( 'id' );
 
@@ -433,6 +534,14 @@ var miPicker = {
 		miPicker.frame.menuItems.remove( id );
 	},
 
+	/**
+	 * Update valeus of menu item's setting fields
+	 *
+	 * When the type and icon is set, this will (re)generate the icon
+	 * preview on the menu item field.
+	 *
+	 * @param {object} e - jQuery event.
+	 */
 	updateField: function( e ) {
 		var $el    = $( e.currentTarget ),
 		    $set   = $el.find( 'a._select' ),
@@ -464,12 +573,16 @@ var miPicker = {
 		}) );
 	},
 
+	/**
+	 * Initialize picker functionality
+	 */
 	init: function() {
 		miPicker.createFrame();
 		$( document )
 			.on( 'click', miPicker.wrapClass, miPicker.setUnset )
 			.on( 'mi:update', miPicker.wrapClass, miPicker.updateField );
 
+		// Trigger 'mi:update' event to generate the icons on the item fields.
 		$( miPicker.wrapClass ).trigger( 'mi:update' );
 	}
 };

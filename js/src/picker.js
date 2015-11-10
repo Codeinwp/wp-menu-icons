@@ -5,17 +5,48 @@ if ( ! menuIcons.activeTypes || _.isEmpty( menuIcons.activeTypes ) ) {
 	return;
 }
 
+/** @namespace */
 var miPicker = {
+	/**
+	 * Cached templates for the item previews on the fields
+	 *
+	 * @type {object}
+	 */
 	templates: {},
+	/**
+	 * Field wrapper's class
+	 *
+	 * @type {string}
+	 */
 	wrapClass: 'div.menu-icons-wrap',
-	frame:     null,
-	target:    new wp.media.model.IconPickerTarget(),
+	/**
+	 * Menu Icons' media frame instance
+	 *
+	 * @type {object}
+	 * @defaultvalue
+	 */
+	frame: null,
+	/**
+	 * Frame's target model
+	 *
+	 * @type {object} wp.media.model.IconPickerTarget instance
+	 */
+	target: new wp.media.model.IconPickerTarget(),
 
-	// TODO: Move to frame view
+	/**
+	 * Callback function to filter active icon types
+	 *
+	 * TODO: Maybe move to frame view?
+	 *
+	 * @param {string} type - Icon type.
+	 */
 	typesFilter: function( type ) {
 		return ( -1 < $.inArray( type.id, menuIcons.activeTypes ) );
 	},
 
+	/**
+	 * Create Menu Icons' media frame
+	 */
 	createFrame: function() {
 		miPicker.frame = new wp.media.view.MediaFrame.MenuIcons({
 			target:      miPicker.target,
@@ -24,11 +55,21 @@ var miPicker = {
 		});
 	},
 
+	/**
+	 * Pick icon for a menu item and open the frame
+	 *
+	 * @param {object} model - Menu item model.
+	 */
 	pickIcon: function( model ) {
 		miPicker.frame.target.set( model, { silent: true } );
 		miPicker.frame.open();
 	},
 
+	/**
+	 * Set or unset icon
+	 *
+	 * @param {object} e - jQuery click event.
+	 */
 	setUnset: function( e ) {
 		var $el      = $( e.currentTarget ),
 		    $clicked = $( e.target );
@@ -42,6 +83,11 @@ var miPicker = {
 		}
 	},
 
+	/**
+	 * Set Icon
+	 *
+	 * @param {object} $el - jQuery object.
+	 */
 	setIcon: function( $el ) {
 		var id     = $el.data( 'id' ),
 		    frame  = miPicker.frame,
@@ -60,6 +106,8 @@ var miPicker = {
 			$inputs: {}
 		};
 
+		// Collect menu item's settings fields and use them
+		// as the model's attributes.
 		$el.find( 'div._settings input' ).each( function() {
 			var $input = $( this ),
 			    key    = $input.attr( 'class' ).replace( '_mi-', '' ),
@@ -77,6 +125,11 @@ var miPicker = {
 		miPicker.pickIcon( model );
 	},
 
+	/**
+	 * Unset icon
+	 *
+	 * @param {object} $el - jQuery object.
+	 */
 	unsetIcon: function( $el ) {
 		var id = $el.data( 'id' );
 
@@ -85,6 +138,14 @@ var miPicker = {
 		miPicker.frame.menuItems.remove( id );
 	},
 
+	/**
+	 * Update valeus of menu item's setting fields
+	 *
+	 * When the type and icon is set, this will (re)generate the icon
+	 * preview on the menu item field.
+	 *
+	 * @param {object} e - jQuery event.
+	 */
 	updateField: function( e ) {
 		var $el    = $( e.currentTarget ),
 		    $set   = $el.find( 'a._select' ),
@@ -116,12 +177,16 @@ var miPicker = {
 		}) );
 	},
 
+	/**
+	 * Initialize picker functionality
+	 */
 	init: function() {
 		miPicker.createFrame();
 		$( document )
 			.on( 'click', miPicker.wrapClass, miPicker.setUnset )
 			.on( 'mi:update', miPicker.wrapClass, miPicker.updateField );
 
+		// Trigger 'mi:update' event to generate the icons on the item fields.
 		$( miPicker.wrapClass ).trigger( 'mi:update' );
 	}
 };

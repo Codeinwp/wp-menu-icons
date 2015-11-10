@@ -1,5 +1,11 @@
 /**
  * wp.media.view.MenuIconsItemSettings
+ *
+ * @class
+ * @augments wp.media.view.PriorityList
+ * @augments wp.media.View
+ * @augments wp.Backbone.View
+ * @augments Backbone.View
  */
 var MenuIconsItemSettings = wp.media.view.PriorityList.extend({
 	className: 'mi-settings attachment-info',

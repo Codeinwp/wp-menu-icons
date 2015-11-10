@@ -1,5 +1,10 @@
 /**
  * wp.media.view.MenuIconsItemPreview
+ *
+ * @class
+ * @augments wp.media.View
+ * @augments wp.Backbone.View
+ * @augments Backbone.View
  */
 var MenuIconsItemPreview = wp.media.View.extend({
 	tagName:   'p',

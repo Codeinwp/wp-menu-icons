@@ -3,6 +3,11 @@ var $ = jQuery,
 
 /**
  * wp.media.view.MenuIconsItemSettingField
+ *
+ * @class
+ * @augments wp.media.View
+ * @augments wp.Backbone.View
+ * @augments Backbone.View
  */
 MenuIconsItemSettingField = wp.media.View.extend({
 	tagName:   'label',

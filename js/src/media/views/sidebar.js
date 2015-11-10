@@ -1,5 +1,13 @@
 /**
  * wp.media.view.MenuIconsSidebar
+ *
+ * @class
+ * @augments wp.media.view.IconPickerSidebar
+ * @augments wp.media.view.Sidebar
+ * @augments wp.media.view.PriorityList
+ * @augments wp.media.View
+ * @augments wp.Backbone.View
+ * @augments Backbone.View
  */
 var MenuIconsSidebar = wp.media.view.IconPickerSidebar.extend({
 	initialize: function() {
@@ -38,6 +46,8 @@ var MenuIconsSidebar = wp.media.view.IconPickerSidebar.extend({
 			frame = self.controller,
 			state = frame.state();
 
+		// If the selected icon is still being downloaded (image or svg type),
+		// wait for it to complete before creating the preview.
 		if ( state.dfd && 'pending' === state.dfd.state() ) {
 			state.dfd.done( function() {
 				self.createPreview();

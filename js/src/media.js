@@ -12,6 +12,9 @@ wp.media.view.MediaFrame.MenuIcons = require( './views/frame.js' );
 },{"./models/item-setting-field.js":2,"./models/item-settings.js":3,"./models/item.js":4,"./views/frame.js":5,"./views/item-preview.js":6,"./views/item-setting-field.js":7,"./views/item-settings.js":8,"./views/sidebar.js":9}],2:[function(require,module,exports){
 /**
  * wp.media.model.MenuIconsItemSettingField
+ *
+ * @class
+ * @augments Backbone.Model
  */
 var MenuIconsItemSettingField = Backbone.Model.extend({
 	defaults: {
@@ -27,6 +30,9 @@ module.exports = MenuIconsItemSettingField;
 },{}],3:[function(require,module,exports){
 /**
  * wp.media.model.MenuIconsItemSettings
+ *
+ * @class
+ * @augments Backbone.Collection
  */
 var MenuIconsItemSettings = Backbone.Collection.extend({
 	model: wp.media.model.MenuIconsItemSettingField
@@ -37,17 +43,24 @@ module.exports = MenuIconsItemSettings;
 },{}],4:[function(require,module,exports){
 /**
  * wp.media.model.MenuIconsItem
+ *
+ * @class
+ * @augments Backbone.Model
  */
 var Item = Backbone.Model.extend({
 	initialize: function() {
 		this.on( 'change', this.updateValues, this );
 	},
 
+	/**
+	 * Update the values of menu item's settings fields
+	 */
 	updateValues: function() {
 		_.each( this.get( '$inputs' ), function( $input, key ) {
 			$input.val( this.get( key ) );
 		}, this );
 
+		// Trigger the 'mi:update' event to regenerate the icon on the field.
 		this.get( '$el' ).trigger( 'mi:update' );
 	}
 });
@@ -57,6 +70,15 @@ module.exports = Item;
 },{}],5:[function(require,module,exports){
 /**
  * wp.media.view.MediaFrame.MenuIcons
+ *
+ * @class
+ * @augments wp.media.view.MediaFrame.IconPicker
+ * @augments wp.media.view.MediaFrame.Select
+ * @augments wp.media.view.MediaFrame
+ * @augments wp.media.view.Frame
+ * @augments wp.media.View
+ * @augments wp.Backbone.View
+ * @augments Backbone.View
  */
 var MenuIcons = wp.media.view.MediaFrame.IconPicker.extend({
 	initialize: function() {
@@ -86,6 +108,11 @@ module.exports = MenuIcons;
 },{}],6:[function(require,module,exports){
 /**
  * wp.media.view.MenuIconsItemPreview
+ *
+ * @class
+ * @augments wp.media.View
+ * @augments wp.Backbone.View
+ * @augments Backbone.View
  */
 var MenuIconsItemPreview = wp.media.View.extend({
 	tagName:   'p',
@@ -136,6 +163,11 @@ var $ = jQuery,
 
 /**
  * wp.media.view.MenuIconsItemSettingField
+ *
+ * @class
+ * @augments wp.media.View
+ * @augments wp.Backbone.View
+ * @augments Backbone.View
  */
 MenuIconsItemSettingField = wp.media.View.extend({
 	tagName:   'label',
@@ -168,6 +200,12 @@ module.exports = MenuIconsItemSettingField;
 },{}],8:[function(require,module,exports){
 /**
  * wp.media.view.MenuIconsItemSettings
+ *
+ * @class
+ * @augments wp.media.view.PriorityList
+ * @augments wp.media.View
+ * @augments wp.Backbone.View
+ * @augments Backbone.View
  */
 var MenuIconsItemSettings = wp.media.view.PriorityList.extend({
 	className: 'mi-settings attachment-info',
@@ -194,6 +232,14 @@ module.exports = MenuIconsItemSettings;
 },{}],9:[function(require,module,exports){
 /**
  * wp.media.view.MenuIconsSidebar
+ *
+ * @class
+ * @augments wp.media.view.IconPickerSidebar
+ * @augments wp.media.view.Sidebar
+ * @augments wp.media.view.PriorityList
+ * @augments wp.media.View
+ * @augments wp.Backbone.View
+ * @augments Backbone.View
  */
 var MenuIconsSidebar = wp.media.view.IconPickerSidebar.extend({
 	initialize: function() {
@@ -232,6 +278,8 @@ var MenuIconsSidebar = wp.media.view.IconPickerSidebar.extend({
 			frame = self.controller,
 			state = frame.state();
 
+		// If the selected icon is still being downloaded (image or svg type),
+		// wait for it to complete before creating the preview.
 		if ( state.dfd && 'pending' === state.dfd.state() ) {
 			state.dfd.done( function() {
 				self.createPreview();
