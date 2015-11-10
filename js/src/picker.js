@@ -113,8 +113,12 @@ var miPicker = {
 			    key    = $input.attr( 'class' ).replace( '_mi-', '' ),
 			    value  = $input.val();
 
-			if ( ! value && menuIcons.settingsFields[ key ] ) {
-				value = menuIcons.settingsFields[ key ]['default'];
+			if ( ! value ) {
+				if ( _.has( menuIcons.menuSettings, key ) ) {
+					value = menuIcons.menuSettings[ key ];
+				} else if ( _.has( menuIcons.settingsFields, key ) ) {
+					value = menuIcons.settingsFields[ key ]['default'];
+				}
 			}
 
 			model[ key ]         = value;
