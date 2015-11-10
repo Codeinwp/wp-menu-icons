@@ -24,7 +24,9 @@
 .menu-item img._after {
 	margin-left: .5em;
 }
-
+.menu-item ._svg {
+	width: 1em;
+}
 
 .visuallyhidden {
 	border: 0;

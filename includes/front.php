@@ -382,12 +382,19 @@ final class Menu_Icons_Front_End {
 	 */
 	public static function get_svg_icon( $meta ) {
 		$classes = implode( ' ', self::get_icon_classes( $meta ) );
+		$style   = self::get_icon_style( $meta );
+
+		if ( ! empty( $style ) ) {
+			$style_attr = sprintf( ' style="%s"', esc_attr( $style ) );
+		} else {
+			$style_attr = '';
+		}
 
 		return sprintf(
-			'<img src="%s" class="%s" style="%s" />',
+			'<img src="%s" class="%s"%s />',
 			esc_url( wp_get_attachment_url( $meta['icon'] ) ),
-			esc_attr( $classes ),
-			self::get_icon_style( $meta )
+			esc_attr( "{$classes} _svg" ),
+			$style_attr
 		);
 	}
 }
