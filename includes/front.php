@@ -191,10 +191,10 @@ final class Menu_Icons_Front_End {
 			return $title;
 		}
 
-		$title_class   = ! empty( $values['hide_label'] ) ? self::$hidden_label_class : '';
+		$title_class   = ! empty( $meta['hide_label'] ) ? self::$hidden_label_class : '';
 		$title_wrapped = sprintf(
 			'<span%s>%s</span>',
-			( ! empty( $class ) ) ? sprintf( ' class="%s"', esc_attr( $class ) ) : '',
+			( ! empty( $title_class ) ) ? sprintf( ' class="%s"', esc_attr( $title_class ) ) : '',
 			$title
 		);
 
