@@ -77,8 +77,8 @@ final class Menu_Icons {
 	 * 4. Attach plugin initialization at wp_loaded hook
 	 *
 	 * @since   0.1.0
-	 * @wp_hook action plugins_loaded/10
-	 * @link    http://codex.wordpress.org/Plugin_API/Action_Reference/plugins_loaded Action: plugins_loaded/10
+	 * @wp_hook action plugins_loaded
+	 * @link    http://codex.wordpress.org/Plugin_API/Action_Reference/plugins_loaded
 	 */
 	public static function _load() {
 		load_plugin_textdomain( 'menu-icons', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
@@ -109,7 +109,7 @@ final class Menu_Icons {
 	 *
 	 * @since   0.1.0
 	 * @since   0.9.0  Hook into `icon_picker_init`.
-	 * @wp_hook action icon_picker_init/9
+	 * @wp_hook action icon_picker_init
 	 * @link    http://codex.wordpress.org/Plugin_API/Action_Reference
 	 */
 	public static function _init() {

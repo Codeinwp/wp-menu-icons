@@ -116,8 +116,7 @@ final class Menu_Icons_Front_End {
 	 * Enqueue stylesheets
 	 *
 	 * @since   0.1.0
-	 * @access  protected
-	 * @wp_hook action    wp_enqueue_scripts/7
+	 * @wp_hook action wp_enqueue_scripts
 	 * @link    http://codex.wordpress.org/Plugin_API/Action_Reference/wp_enqueue_scripts
 	 */
 	public static function _enqueue_styles() {
@@ -143,7 +142,7 @@ final class Menu_Icons_Front_End {
 	 * Thus, we're adding the filter when `wp_nav_menu()` is called.
 	 *
 	 * @since   0.1.0
-	 * @wp_hook filter wp_nav_menu_args/999
+	 * @wp_hook filter wp_nav_menu_args
 	 * @param   array  $args Not used.
 	 *
 	 * @return array
@@ -162,7 +161,7 @@ final class Menu_Icons_Front_End {
 	 * filter when `wp_nav_menu()` exits.
 	 *
 	 * @since   0.1.0
-	 * @wp_hook filter wp_nav_menu/999/2
+	 * @wp_hook filter wp_nav_menu
 	 * @param   array  $nav_menu Not used.
 	 * @return  array
 	 */
@@ -177,9 +176,9 @@ final class Menu_Icons_Front_End {
 	 * Filter menu item titles
 	 *
 	 * @since   0.1.0
-	 * @wp_hook filter  the_title/999/2
-	 * @param   string  $title           Menu item title.
-	 * @param   int     $id              Menu item ID.
+	 * @wp_hook filter  the_title
+	 * @param   string  $title     Menu item title.
+	 * @param   int     $id        Menu item ID.
 	 *
 	 * @return string
 	 */
@@ -271,7 +270,7 @@ final class Menu_Icons_Front_End {
 	 * Get icon style
 	 *
 	 * @since  0.9.0
-	 * @param  array $meta Menu item meta value.
+	 * @param  array  $meta Menu item meta value.
 	 * @return string
 	 */
 	public static function get_icon_style( $meta ) {
@@ -333,7 +332,7 @@ final class Menu_Icons_Front_End {
 	 * Get font icon
 	 *
 	 * @since  0.9.0
-	 * @param  array $meta Menu item meta value.
+	 * @param  array  $meta Menu item meta value.
 	 * @return string
 	 */
 	public static function get_font_icon( $meta ) {
@@ -356,7 +355,7 @@ final class Menu_Icons_Front_End {
 	 * Get image icon
 	 *
 	 * @since  0.9.0
-	 * @param  array $meta Menu item meta value.
+	 * @param  array  $meta Menu item meta value.
 	 * @return string
 	 */
 	public static function get_image_icon( $meta ) {
@@ -377,7 +376,7 @@ final class Menu_Icons_Front_End {
 	 * Get SVG icon
 	 *
 	 * @since  0.9.0
-	 * @param  array $meta Menu item meta value.
+	 * @param  array  $meta Menu item meta value.
 	 * @return string
 	 */
 	public static function get_svg_icon( $meta ) {

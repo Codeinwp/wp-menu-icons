@@ -15,8 +15,7 @@ final class Menu_Icons_Picker {
 	/**
 	 * Initialize class
 	 *
-	 * @since   0.1.0
-	 * @wp_hook action load-nav-menus.php
+	 * @since 0.1.0
 	 */
 	public static function init() {
 		add_action( 'load-nav-menus.php', array( __CLASS__, '_load_nav_menus' ) );
@@ -32,7 +31,7 @@ final class Menu_Icons_Picker {
 	 * Load Icon Picker
 	 *
 	 * @since   0.9.0
-	 * @wp_hook action load-nav-menus.php/10
+	 * @wp_hook action load-nav-menus.php
 	 */
 	public static function _load_nav_menus() {
 		Icon_Picker::instance()->load();
@@ -47,7 +46,7 @@ final class Menu_Icons_Picker {
 	 *
 	 * @since   0.3.0
 	 * @access  protected
-	 * @wp_hook filter    wp_edit_nav_menu_walker/10/1
+	 * @wp_hook filter    wp_edit_nav_menu_walker
 	 */
 	public static function _filter_wp_edit_nav_menu_walker( $walker ) {
 		// Load menu item custom fields plugin
@@ -96,7 +95,7 @@ final class Menu_Icons_Picker {
 	 * @access  protected
 	 * @uses    add_action() Calls 'menu_icons_before_fields' hook
 	 * @uses    add_action() Calls 'menu_icons_after_fields' hook
-	 * @wp_hook action       menu_item_custom_fields/10/3
+	 * @wp_hook action       menu_item_custom_fields
 	 *
 	 * @param object $item  Menu item data object.
 	 * @param int    $depth Nav menu depth.
