@@ -217,6 +217,7 @@ var MenuIconsSidebar = wp.media.view.IconPickerSidebar.extend({
 	},
 
 	disposeSingle: function() {
+		this.unset( 'preview' );
 		this.unset( 'settings' );
 	},
 
