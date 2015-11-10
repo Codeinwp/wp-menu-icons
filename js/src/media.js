@@ -130,11 +130,12 @@ var MenuIconsItemPreview = wp.media.View.extend({
 		var frame    = this.controller,
 			state    = frame.state(),
 			selected = state.get( 'selection' ).single(),
-			data     = _.extend( this.model.toJSON(), {
+			props    = this.model.toJSON(),
+			data     = _.extend( props, {
 				type:  state.id,
 				icon:  selected.id,
 				title: this.model.get( '$title' ).val(),
-				url:   state.ipGetIconUrl ? state.ipGetIconUrl( selected, this.model.get( 'image_size' ) ) : ''
+				url:   state.ipGetIconUrl( selected, props.image_size )
 			}),
 			template = 'menu-icons-item-sidebar-preview-' + iconPicker.types[ state.id ].templateId + '-';
 
