@@ -404,32 +404,17 @@ if ( ! menuIcons.activeTypes || _.isEmpty( menuIcons.activeTypes ) ) {
 	return;
 }
 
-/** @namespace */
+/**
+ * @namespace
+ * @property {object} templates - Cached templates for the item previews on the fields
+ * @property {string} wrapClass - Field wrapper's class
+ * @property {object} frame     - Menu Icons' media frame instance
+ * @property {object} target    - Frame's target model
+ */
 var miPicker = {
-	/**
-	 * Cached templates for the item previews on the fields
-	 *
-	 * @type {object}
-	 */
 	templates: {},
-	/**
-	 * Field wrapper's class
-	 *
-	 * @type {string}
-	 */
 	wrapClass: 'div.menu-icons-wrap',
-	/**
-	 * Menu Icons' media frame instance
-	 *
-	 * @type {object}
-	 * @defaultvalue
-	 */
 	frame: null,
-	/**
-	 * Frame's target model
-	 *
-	 * @type {object} wp.media.model.IconPickerTarget instance
-	 */
 	target: new wp.media.model.IconPickerTarget(),
 
 	/**
