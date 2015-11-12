@@ -167,7 +167,7 @@ final class Menu_Icons_Picker {
 	 *
 	 * @since   0.1.0
 	 * @access  private
-	 * @wp_hook action manage_nav-menus_columns
+	 * @wp_hook action  manage_nav-menus_columns
 	 * @link    http://codex.wordpress.org/Plugin_API/Filter_Reference/manage_posts_columns
 	 *
 	 * @param array $columns Menu item columns

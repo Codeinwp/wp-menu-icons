@@ -181,7 +181,7 @@ final class Menu_Icons_Settings {
 	 * Prepare wp-admin/nav-menus.php page
 	 *
 	 * @since   0.3.0
-	 * @wp_hook load-nav-menus.php
+	 * @wp_hook action load-nav-menus.php
 	 */
 	public static function _load_nav_menus() {
 		add_action( 'admin_enqueue_scripts', array( __CLASS__, '_enqueue_assets' ), 99 );
@@ -207,9 +207,7 @@ final class Menu_Icons_Settings {
 	/**
 	 * Update settings
 	 *
-	 * @since   0.3.0
-	 * @access  private
-	 * @wp_hook load-nav-menus.php
+	 * @since 0.3.0
 	 */
 	public static function _maybe_update_settings() {
 		if ( ! empty( $_POST['menu-icons']['settings'] ) ) {
@@ -256,7 +254,7 @@ final class Menu_Icons_Settings {
 	 *
 	 * @since  0.7.0
 	 * @access protected
-	 * @return string    Redirect URL
+	 * @return string    Redirect URL.
 	 */
 	protected static function _reset_settings() {
 		delete_option( 'menu-icons' );
@@ -275,7 +273,7 @@ final class Menu_Icons_Settings {
 	 * Update settings via ajax
 	 *
 	 * @since   0.7.0
-	 * @wp_hook action _ajax_menu_icons_update_settings
+	 * @wp_hook action wp_ajax_menu_icons_update_settings
 	 */
 	public static function _ajax_menu_icons_update_settings() {
 		check_ajax_referer( self::UPDATE_KEY, self::UPDATE_KEY );
@@ -293,7 +291,7 @@ final class Menu_Icons_Settings {
 	 * Print admin notices
 	 *
 	 * @since   0.3.0
-	 * @wp_hook admin_notices
+	 * @wp_hook action admin_notices
 	 */
 	public static function _admin_notices() {
 		$messages = array(
@@ -359,8 +357,8 @@ final class Menu_Icons_Settings {
 	 * Get settings fields
 	 *
 	 * @since  0.4.0
-	 * @param  array $values Values to be applied to each field
-	 * @uses   apply_filters() Calls 'menu_icons_settings_fields'.
+	 * @param  array           $values  Values to be applied to each field.
+	 * @uses   apply_filters()          Calls 'menu_icons_settings_fields'.
 	 * @return array
 	 */
 	public static function get_settings_fields( Array $values = array() ) {
