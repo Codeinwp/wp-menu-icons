@@ -181,12 +181,12 @@ final class Menu_Icons_Picker {
 
 
 	/**
-	 * Save menu item's icons values
+	 * Save menu item's icons metadata
 	 *
-	 * @since  0.1.0
-	 * @access protected
-	 * @uses   apply_filters() Calls 'menu_icons_values' on returned array.
-	 * @link   http://codex.wordpress.org/Plugin_API/Action_Reference/wp_update_nav_menu_item Action: wp_update_nav_menu_item/10/2
+	 * @since   0.1.0
+	 * @access  protected
+	 * @wp_hook wp_update_nav_menu_item
+	 * @link    http://codex.wordpress.org/Plugin_API/Action_Reference/wp_update_nav_menu_item
 	 *
 	 * @param int   $menu_id         Nav menu ID
 	 * @param int   $menu_item_db_id Menu item ID
