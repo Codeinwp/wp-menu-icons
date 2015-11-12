@@ -303,10 +303,9 @@ final class Menu_Icons_Front_End {
 				continue;
 			}
 
+			$value = $meta[ $key ];
 			if ( ! empty( $rule['unit'] ) ) {
-				$value = sprintf( '%s%s', $meta[ $key ], $rule['unit'] );
-			} else {
-				$value = $meta[ $key ];
+				$value .= $rule['unit'];
 			}
 
 			$style_a[ $rule['property'] ] = $value;
@@ -334,14 +333,19 @@ final class Menu_Icons_Front_End {
 	 * Get icon classes
 	 *
 	 * @since  0.9.0
-	 * @param  array $meta Menu item meta value.
-	 * @return array
+	 * @param  array         $meta    Menu item meta value.
+	 * @param  string        $output  Whether to output the classes as string or array. Defaults to string.
+	 * @return string|array
 	 */
-	public static function get_icon_classes( $meta ) {
+	public static function get_icon_classes( $meta, $output = 'string' ) {
 		$classes = array( '_mi' );
 
 		if ( empty( $meta['hide_label'] ) ) {
 			$classes[] = "_{$meta['position']}";
+		}
+
+		if ( 'string' === $output ) {
+			$classes = implode( ' ', $classes );
 		}
 
 		return $classes;
@@ -356,9 +360,7 @@ final class Menu_Icons_Front_End {
 	 * @return string
 	 */
 	public static function get_font_icon( $meta ) {
-		$classes = self::get_icon_classes( $meta );
-		$classes = array_merge( $classes, array( $meta['type'], $meta['icon'] ) );
-		$classes = implode( ' ', $classes );
+		$classes = sprintf( '%s %s %s', self::get_icon_classes( $meta ), $meta['type'], $meta['icon'] );
 		$style   = self::get_icon_style( $meta, array( 'font_size', 'vertical_align' ) );
 
 		return sprintf( '<i class="%s"%s></i>', esc_attr( $classes ), $style );
@@ -374,7 +376,7 @@ final class Menu_Icons_Front_End {
 	 */
 	public static function get_image_icon( $meta ) {
 		$args = array(
-			'class' => implode( ' ', self::get_icon_classes( $meta ) ),
+			'class' => sprintf( '%s _image', self::get_icon_classes( $meta ) ),
 		);
 
 		$style = self::get_icon_style( $meta, array( 'vertical_align' ), false );
@@ -394,13 +396,13 @@ final class Menu_Icons_Front_End {
 	 * @return string
 	 */
 	public static function get_svg_icon( $meta ) {
-		$classes = implode( ' ', self::get_icon_classes( $meta ) );
+		$classes = sprintf( '%s _svg', self::get_icon_classes( $meta ) );
 		$style   = self::get_icon_style( $meta, array( 'svg_width', 'vertical_align' ) );
 
 		return sprintf(
 			'<img src="%s" class="%s"%s />',
 			esc_url( wp_get_attachment_url( $meta['icon'] ) ),
-			esc_attr( "{$classes} _svg" ),
+			esc_attr( $classes ),
 			$style
 		);
 	}
