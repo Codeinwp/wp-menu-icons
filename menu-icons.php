@@ -94,8 +94,9 @@ final class Menu_Icons {
 		}
 		self::$icon_picker = Icon_Picker::instance();
 
-		require_once self::$data['dir'] . 'includes/meta.php';
+		require_once self::$data['dir'] . 'includes/library/compat.php';
 		require_once self::$data['dir'] . 'includes/library/functions.php';
+		require_once self::$data['dir'] . 'includes/meta.php';
 
 		Menu_Icons_Meta::init();
 
