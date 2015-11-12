@@ -676,9 +676,15 @@ final class Menu_Icons_Settings {
 			Menu_Icons::VERSION,
 			true
 		);
-		wp_localize_script(
-			'menu-icons',
-			'menuIcons',
+
+		/**
+		 * Filter settings' JS data
+		 *
+		 * @since 0.9.0
+		 * @param array $js_data JS Data.
+		 */
+		$js_data = apply_filters(
+			'menu_icons_settings_js_data',
 			array(
 				'text'           => array(
 					'title'        => __( 'Select Icon', 'menu-icons' ),
@@ -700,5 +706,7 @@ final class Menu_Icons_Settings {
 				'menuSettings'   => self::get_menu_settings( self::get_current_menu_id() ),
 			)
 		);
+
+		wp_localize_script( 'menu-icons', 'menuIcons', $js_data );
 	}
 }
