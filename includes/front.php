@@ -243,7 +243,7 @@ final class Menu_Icons_Front_End {
 		 *
 		 * @param string  $title_with_icon Menu item markup after the icon is added.
 		 * @param integer $id              Menu item ID.
-		 * @param array   $values          Menu item metadata values.
+		 * @param array   $meta            Menu item metadata values.
 		 * @param string  $title           Original menu item title.
 		 *
 		 * @return string
