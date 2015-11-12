@@ -71,13 +71,22 @@ final class Menu_Icons_Front_End {
 		}
 
 		/**
-		 * Allow themes/plugins to overrride the hidden label class
+		 * Allow themes/plugins to override the hidden label class
 		 *
 		 * @since  0.8.0
 		 * @param  string $hidden_label_class Hidden label class.
 		 * @return string
 		 */
 		self::$hidden_label_class = apply_filters( 'menu_icons_hidden_label_class', self::$hidden_label_class );
+
+		/**
+		 * Allow themes/plugins to override default inline style
+		 *
+		 * @since  0.9.0
+		 * @param  array $default_style Default inline style.
+		 * @return array
+		 */
+		self::$default_style = apply_filters( 'menu_icons_default_style', self::$default_style );
 
 		add_action( 'wp_enqueue_scripts', array( __CLASS__, '_enqueue_styles' ), 7 );
 		add_filter( 'wp_nav_menu_args', array( __CLASS__, '_add_menu_item_title_filter' ) );
