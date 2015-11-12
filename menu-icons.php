@@ -9,12 +9,12 @@
  *
  *
  * Plugin name: Menu Icons
- * Plugin URI: http://kucrut.org/
+ * Plugin URI:  http://kucrut.org/
  * Description: Spice up your navigation menus with pretty icons, easily.
- * Version: 0.8.1
- * Author: Dzikri Aziz
- * Author URI: http://kucrut.org/
- * License: GPLv2
+ * Version:     0.8.1
+ * Author:      Dzikri Aziz
+ * Author URI:  http://kucrut.org/
+ * License:     GPLv2
  * Text Domain: menu-icons
  * Domain Path: /languages
  */
