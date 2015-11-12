@@ -147,9 +147,20 @@ final class Menu_Icons_Front_End {
 			}
 		}
 
+		/**
+		 * Allow plugins/themes to override the extra stylesheet location
+		 *
+		 * @since 0.9.0
+		 * @param string $extra_stylesheet_uri Extra stylesheet URI.
+		 */
+		$extra_stylesheet_uri = apply_filters(
+			'menu_icons_extra_stylesheet_uri',
+			sprintf( '%scss/extra%s.css', Menu_Icons::get( 'url' ), Menu_Icons::get_script_suffix() )
+		);
+
 		wp_enqueue_style(
 			'menu-icons-extra',
-			sprintf( '%scss/extra%s.css', Menu_Icons::get( 'url' ), Menu_Icons::get_script_suffix() ),
+			$extra_stylesheet_uri,
 			false,
 			Menu_Icons::VERSION
 		);
