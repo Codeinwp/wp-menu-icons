@@ -124,6 +124,14 @@ final class Menu_Icons_Settings {
 	 * @since 0.3.0
 	 */
 	public static function init() {
+		/**
+		 * Allow themes/plugins to override the default settings
+		 *
+		 * @since 0.9.0
+		 * @param array $default_settings Default settings.
+		 */
+		self::$defaults = apply_filters( 'menu_icons_settings_defaults', self::$defaults );
+
 		self::$ip_registry = Icon_Picker_Types_Registry::instance();
 		self::$settings    = get_option( 'menu-icons', self::$defaults );
 
