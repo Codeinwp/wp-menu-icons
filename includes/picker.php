@@ -189,9 +189,9 @@ final class Menu_Icons_Picker {
 	 * @wp_hook action    wp_update_nav_menu_item
 	 * @link    http://codex.wordpress.org/Plugin_API/Action_Reference/wp_update_nav_menu_item
 	 *
-	 * @param int   $menu_id         Nav menu ID
-	 * @param int   $menu_item_db_id Menu item ID
-	 * @param array $menu_item_args  Menu item data
+	 * @param int   $menu_id         Nav menu ID.
+	 * @param int   $menu_item_db_id Menu item ID.
+	 * @param array $menu_item_args  Menu item data.
 	 */
 	public static function _save( $menu_id, $menu_item_db_id, $menu_item_args ) {
 		if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
@@ -229,7 +229,7 @@ final class Menu_Icons_Picker {
 	public static function _media_templates() {
 		$id_prefix = 'tmpl-menu-icons';
 
-		// Deprecated
+		// Deprecated.
 		$templates = apply_filters( 'menu_icons_media_templates', array() );
 
 		if ( ! empty( $templates ) ) {
