@@ -246,11 +246,10 @@ final class Menu_Icons_Front_End {
 	 * Get icon
 	 *
 	 * @since  0.9.0
-	 * @access protected
-	 * @param  array     $meta  Menu item meta value.
+	 * @param  array  $meta Menu item meta value.
 	 * @return string
 	 */
-	protected static function get_icon( $meta ) {
+	public static function get_icon( $meta ) {
 		$icon = '';
 
 		// Icon type is not set.
