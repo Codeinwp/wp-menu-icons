@@ -83,13 +83,16 @@ final class Menu_Icons {
 	public static function _load() {
 		load_plugin_textdomain( 'menu-icons', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 
-		// TODO: Load Icon Picker
-		self::$icon_picker = Icon_Picker::instance();
-
 		self::$data = array(
 			'dir' => plugin_dir_path( __FILE__ ),
 			'url' => plugin_dir_url( __FILE__ ),
 		);
+
+		// Load Icon Picker.
+		if ( ! class_exists( 'Icon_Picker' ) ) {
+			require_once self::$data['dir'] . 'includes/library/icon-picker/icon-picker.php';
+		}
+		self::$icon_picker = Icon_Picker::instance();
 
 		require_once self::$data['dir'] . 'includes/meta.php';
 		require_once self::$data['dir'] . 'includes/library/functions.php';
