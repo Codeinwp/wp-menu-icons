@@ -116,9 +116,11 @@ final class Menu_Icons {
 	 * @link    http://codex.wordpress.org/Plugin_API/Action_Reference
 	 */
 	public static function _init() {
-		// Nothing to do if there are no icon types registered
+		// Nothing to do if there are no icon types registered.
 		if ( empty( self::$icon_picker->registry->types ) ) {
-			// trigger_error( esc_html__( 'Menu Icons: No registered icon types found.', 'menu-icons' ) );
+			if ( WP_DEBUG ) {
+				trigger_error( esc_html__( 'Menu Icons: No registered icon types found.', 'menu-icons' ) );
+			}
 
 			return;
 		}
