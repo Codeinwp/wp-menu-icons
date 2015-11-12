@@ -125,7 +125,7 @@ final class Menu_Icons {
 			return;
 		}
 
-		// Load settings
+		// Load settings.
 		require_once self::$data['dir'] . 'includes/settings.php';
 		Menu_Icons_Settings::init();
 
@@ -141,7 +141,7 @@ final class Menu_Icons {
 	/**
 	 * Get script & style suffix
 	 *
-	 * When SCRIPT_DEBUG is defined true, this will return '.min'
+	 * When SCRIPT_DEBUG is defined true, this will return '.min'.
 	 *
 	 * @since 0.2.0
 	 * @return string
