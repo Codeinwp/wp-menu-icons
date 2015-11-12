@@ -545,7 +545,7 @@ var miPicker = {
 
 		if ( '' === type || '' === icon || 0 > _.indexOf( menuIcons.activeTypes, type ) ) {
 			$set.text( menuIcons.text.select ).attr( 'title', '' );
-			$unset.hide();
+			$unset.addClass( 'hidden' );
 
 			return;
 		}
@@ -556,7 +556,7 @@ var miPicker = {
 			template = miPicker.templates[ type ] = wp.template( 'menu-icons-item-field-preview-' + iconPicker.types[ type ].templateId );
 		}
 
-		$unset.show();
+		$unset.removeClass( 'hidden' );
 		$set.attr( 'title', menuIcons.text.change );
 		$set.html( template({
 			type: type,

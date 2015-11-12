@@ -127,7 +127,7 @@ final class Menu_Icons_Picker {
 				<p class="description submitbox">
 					<label><?php esc_html_e( 'Icon:', 'menu-icons' ) ?></label>
 					<?php printf( '<a class="_select">%s</a>', esc_html__( 'Select', 'menu-icons' ) ); ?>
-					<?php printf( '<a class="_remove submitdelete">%s</a>', esc_html__( 'Remove', 'menu-icons' ) ); ?>
+					<?php printf( '<a class="_remove submitdelete hidden">%s</a>', esc_html__( 'Remove', 'menu-icons' ) ); ?>
 				</p>
 				<div class="_settings hidden">
 					<?php

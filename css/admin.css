@@ -20,6 +20,13 @@
 .menu-icons-wrap .submitdelete {
 	float: none;
 	display: inline-block;
+	margin: 0;
+	padding: 0;
+	line-height: 2.2em;
+	height: 100%;
+}
+.menu-icons-wrap .hidden {
+	display: none;
 }
 .menu-icons-wrap ._icon {
 	color: #666;
