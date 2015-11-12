@@ -146,6 +146,14 @@ final class Menu_Icons_Settings {
 
 		unset( $value );
 
+		/**
+		 * Allow themes/plugins to override the settings
+		 *
+		 * @since 0.9.0
+		 * @param array $settings Menu Icons settings
+		 */
+		self::$settings = apply_filters( 'menu_icons_settings', self::$settings );
+
 		if ( self::is_menu_icons_disabled_for_menu() ) {
 			return;
 		}
