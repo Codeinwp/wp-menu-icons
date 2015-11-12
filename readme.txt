@@ -81,7 +81,7 @@ This is a bug with the font icon itself. When the font is updated, this plugin w
  * @param  array $types Registered icon types.
  * @return array
  */
-function myplugin_remove_menu_icons_type( $types ) {
+function my_remove_menu_icons_type( $types ) {
 	// Dashicons
 	//unset( $types['dashicons'] );
 
@@ -102,7 +102,7 @@ function myplugin_remove_menu_icons_type( $types ) {
 
 	return $types;
 }
-add_filter( 'menu_icons_types', 'myplugin_remove_menu_icons_type' );
+add_filter( 'menu_icons_types', 'my_remove_menu_icons_type' );
 `
 
 To add a new icon type, take a look at the `type-*.php` files inside the `includes` directory of this plugin.
@@ -121,19 +121,19 @@ You can filter the icon type properties from your plugin/theme:
  *
  * See myplugin_remove_menu_icons_type() above for the icon type keys
  *
- * @param  array  $props    Icon type properties.
- * @param  object $instance Icon type registration instance.
+ * @param  array  $props  Icon type properties.
+ * @param  object $type   Icon type object.
  * @return array
  */
-function _my_fontawesome_props( $props, $instance ) {
+function my_fontawesome_props( $props, $type ) {
 	$props['stylesheet'] = sprintf(
 		'//maxcdn.bootstrapcdn.com/font-awesome/%s/css/font-awesome.min.css',
-		$instance->version
+		$type->version
 	);
 
 	return $props;
 }
-add_filter( 'menu_icons_fa_props', '_my_fontawesome_props', 10, 2 );
+add_filter( 'menu_icons_fa_props', 'my_fontawesome_props', 10, 2 );
 `
 
 = How can I change the CSS class for hiding the menu item labels? =
@@ -159,14 +159,14 @@ Add this block of code to your [mu-plugin file](http://codex.wordpress.org/Must_
 /**
  * Override menu item markup
  *
- * @param string  $markup      Menu item title markup.
- * @param integer $id          Menu item ID.
- * @param array   $meta_values Menu item meta values.
- * @param string  $title       Menu item title.
+ * @param string  $markup  Menu item title markup.
+ * @param integer $id      Menu item ID.
+ * @param array   $meta    Menu item meta values.
+ * @param string  $title   Menu item title.
  *
  * @return string
  */
-function my_menu_icons_override_markup( $markup, $id, $meta_values, $title ) {
+function my_menu_icons_override_markup( $markup, $id, $meta, $title ) {
 	// Do your thing.
 
 	return $markup;
@@ -181,7 +181,7 @@ Let me know via [GitHub issues](https://github.com/kucrut/wp-menu-icons/issues) 
 Add this block of code to your [mu-plugin file](http://codex.wordpress.org/Must_Use_Plugins):
 `
 /**
- * Disable menu icons
+ * Disable menu icons for a menu
  *
  * @param array $menu_settings Menu Settings.
  * @param int   $menu_id       Menu ID.
@@ -195,7 +195,7 @@ function my_menu_icons_menu_settings( $menu_settings, $menu_id ) {
 
 	return $menu_settings;
 }
-add_filter( 'menu_icons_menu_settings', '_kc_menu_icons_menu_settings', 10, 2 );
+add_filter( 'menu_icons_menu_settings', 'my_menu_icons_menu_settings', 10, 2 );
 `
 
 = How do I add an icon pack from Fontello? =
