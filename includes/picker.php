@@ -64,7 +64,7 @@ final class Menu_Icons_Picker {
 	 *
 	 * @since  0.9.0
 	 * @access protected
-	 * @param  array $meta Menu item meta value.
+	 * @param  array     $meta Menu item meta value.
 	 * @return array
 	 */
 	protected static function _get_menu_item_fields( $meta ) {
@@ -168,9 +168,10 @@ final class Menu_Icons_Picker {
 	 * @since   0.1.0
 	 * @access  private
 	 * @wp_hook action manage_nav-menus_columns
-	 * @link    http://codex.wordpress.org/Plugin_API/Filter_Reference/manage_posts_columns Action: manage_nav-menus_columns/99
+	 * @link    http://codex.wordpress.org/Plugin_API/Filter_Reference/manage_posts_columns
 	 *
 	 * @param array $columns Menu item columns
+	 *
 	 * @return array
 	 */
 	public static function _columns( $columns ) {
@@ -185,7 +186,7 @@ final class Menu_Icons_Picker {
 	 *
 	 * @since   0.1.0
 	 * @access  protected
-	 * @wp_hook wp_update_nav_menu_item
+	 * @wp_hook action    wp_update_nav_menu_item
 	 * @link    http://codex.wordpress.org/Plugin_API/Action_Reference/wp_update_nav_menu_item
 	 *
 	 * @param int   $menu_id         Nav menu ID
@@ -222,7 +223,7 @@ final class Menu_Icons_Picker {
 	 * Get and print media templates from all types
 	 *
 	 * @since   0.2.0
-	 * @since   0.9.0 Deprecate menu_icons_media_templates filter.
+	 * @since   0.9.0  Deprecate menu_icons_media_templates filter.
 	 * @wp_hook action print_media_templates
 	 */
 	public static function _media_templates() {
@@ -250,8 +251,8 @@ final class Menu_Icons_Picker {
 	 * Print media template
 	 *
 	 * @since 0.2.0
-	 * @param string $id       Template ID
-	 * @param string $template Media template HTML
+	 * @param string $id       Template ID.
+	 * @param string $template Media template HTML.
 	 */
 	protected static function _print_tempate( $id, $template ) {
 		?>
@@ -265,11 +266,14 @@ final class Menu_Icons_Picker {
 	/**
 	 * Add extra icon type properties data
 	 *
-	 * @since  0.9.0
-	 * @param  array            $props Icon type properties.
-	 * @param  string           $id    Icon type ID.
-	 * @param  Icon_Picker_Type $type  Icon_Picker_Type object.
-	 * @return array
+	 * @since   0.9.0
+	 * @wp_hook action icon_picker_type_props
+	 *
+	 * @param   array            $props Icon type properties.
+	 * @param   string           $id    Icon type ID.
+	 * @param   Icon_Picker_Type $type  Icon_Picker_Type object.
+	 *
+	 * @return  array
 	 */
 	public static function _add_extra_type_props_data( $props, $id, $type ) {
 		$settings_fields = array(
