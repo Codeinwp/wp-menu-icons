@@ -169,7 +169,7 @@ final class Menu_Icons_Front_End {
 	 * @return array
 	 */
 	public static function _add_menu_item_title_filter( $args ) {
-		add_filter( 'the_title', array( __CLASS__, '_filter_menu_item_title' ), 999, 2 );
+		add_filter( 'the_title', array( __CLASS__, '_add_icon' ), 999, 2 );
 
 		return $args;
 	}
@@ -187,23 +187,24 @@ final class Menu_Icons_Front_End {
 	 * @return  array
 	 */
 	public static function _remove_menu_item_title_filter( $nav_menu ) {
-		remove_filter( 'the_title', array( __CLASS__, '_filter_menu_item_title' ), 999, 2 );
+		remove_filter( 'the_title', array( __CLASS__, '_add_icon' ), 999, 2 );
 
 		return $nav_menu;
 	}
 
 
 	/**
-	 * Filter menu item titles
+	 * Add icon to menu item title
 	 *
 	 * @since   0.1.0
+	 * @since   0.9.0   Renamed the method to `add_icon()`.
 	 * @wp_hook filter  the_title
 	 * @param   string  $title     Menu item title.
 	 * @param   int     $id        Menu item ID.
 	 *
 	 * @return string
 	 */
-	public static function _filter_menu_item_title( $title, $id ) {
+	public static function _add_icon( $title, $id ) {
 		$meta = Menu_Icons_Meta::get( $id );
 		$icon = self::get_icon( $meta );
 
