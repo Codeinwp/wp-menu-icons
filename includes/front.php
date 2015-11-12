@@ -25,9 +25,21 @@ final class Menu_Icons_Front_End {
 	 * @var    array
 	 */
 	protected static $default_style = array(
-		'font_size'      => '1.2',
-		'vertical_align' => 'middle',
-		'svg_width'      => '1',
+		'font_size'      => array(
+			'property' => 'font-size',
+			'value'    => '1.2',
+			'unit'     => 'em',
+		),
+		'vertical_align' => array(
+			'property' => 'vertical-align',
+			'value'    => 'middle',
+			'unit'     => null,
+		),
+		'svg_width'      => array(
+			'property' => 'width',
+			'value'    => '1',
+			'unit'     => 'em',
+		),
 	);
 
 	/**
@@ -270,40 +282,48 @@ final class Menu_Icons_Front_End {
 	 * Get icon style
 	 *
 	 * @since  0.9.0
-	 * @param  array  $meta Menu item meta value.
+	 * @param  array   $meta         Menu item meta value.
+	 * @param  array   $keys         Style properties.
+	 * @param  bool    $as_attribute Optional. Whether to output the style as HTML attribute or value only.
+	 *                               Defaults to TRUE.
 	 * @return string
 	 */
-	public static function get_icon_style( $meta ) {
+	public static function get_icon_style( $meta, $keys, $as_attribute = true ) {
 		$style_a = array();
 		$style_s = '';
 
-		foreach ( self::$default_style as $key => $default ) {
-			if ( isset( $meta[ $key ] ) && $meta[ $key ] !== $default ) {
-				$style_a[ $key ] = $meta[ $key ];
+		foreach ( $keys as $key ) {
+			if ( ! isset( self::$default_style[ $key ] ) ) {
+				continue;
 			}
+
+			$rule = self::$default_style[ $key ];
+
+			if ( ! isset( $meta[ $key ] ) || $meta[ $key ] === $rule['value'] ) {
+				continue;
+			}
+
+			if ( ! empty( $rule['unit'] ) ) {
+				$value = sprintf( '%s%s', $meta[ $key ], $rule['unit'] );
+			} else {
+				$value = $meta[ $key ];
+			}
+
+			$style_a[ $rule['property'] ] = $value;
 		}
 
 		if ( empty( $style_a ) ) {
 			return $style_s;
 		}
 
-		if ( ! empty( $style_a['vertical_align'] ) ) {
-			$style_a['vertical-align'] = $style_a['vertical_align'];
-			unset( $style_a['vertical_align'] );
-		}
-
-		if ( ! empty( $style_a['font_size'] ) ) {
-			$style_a['font-size'] = sprintf( '%sem', $style_a['font_size'] );
-			unset( $style_a['font_size'] );
-		}
-
-		if ( ! empty( $style_a['svg_width'] ) ) {
-			$style_a['width'] = sprintf( '%sem', $style_a['svg_width'] );
-			unset( $style_a['svg_width'] );
-		}
-
 		foreach ( $style_a as $key => $value ) {
-			$style_s .= sprintf( '%s:%s;', esc_attr( $key ), esc_attr( $value ) );
+			$style_s .= "{$key}:{$value};";
+		}
+
+		$style_s = esc_attr( $style_s );
+
+		if ( $as_attribute  ) {
+			$style_s = sprintf( ' style="%s"', $style_s );
 		}
 
 		return $style_s;
@@ -339,15 +359,9 @@ final class Menu_Icons_Front_End {
 		$classes = self::get_icon_classes( $meta );
 		$classes = array_merge( $classes, array( $meta['type'], $meta['icon'] ) );
 		$classes = implode( ' ', $classes );
-		$style   = self::get_icon_style( $meta );
+		$style   = self::get_icon_style( $meta, array( 'font_size', 'vertical_align' ) );
 
-		if ( ! empty( $style ) ) {
-			$style_attr = sprintf( ' style="%s"', esc_attr( $style ) );
-		} else {
-			$style_attr = '';
-		}
-
-		return sprintf( '<i class="%s"%s></i>', esc_attr( $classes ), $style_attr );
+		return sprintf( '<i class="%s"%s></i>', esc_attr( $classes ), $style );
 	}
 
 
@@ -363,7 +377,7 @@ final class Menu_Icons_Front_End {
 			'class' => implode( ' ', self::get_icon_classes( $meta ) ),
 		);
 
-		$style = self::get_icon_style( $meta );
+		$style = self::get_icon_style( $meta, array( 'vertical_align' ), false );
 		if ( ! empty( $style ) ) {
 			$args['style'] = $style;
 		}
@@ -381,19 +395,13 @@ final class Menu_Icons_Front_End {
 	 */
 	public static function get_svg_icon( $meta ) {
 		$classes = implode( ' ', self::get_icon_classes( $meta ) );
-		$style   = self::get_icon_style( $meta );
-
-		if ( ! empty( $style ) ) {
-			$style_attr = sprintf( ' style="%s"', esc_attr( $style ) );
-		} else {
-			$style_attr = '';
-		}
+		$style   = self::get_icon_style( $meta, array( 'svg_width', 'vertical_align' ) );
 
 		return sprintf(
 			'<img src="%s" class="%s"%s />',
 			esc_url( wp_get_attachment_url( $meta['icon'] ) ),
 			esc_attr( "{$classes} _svg" ),
-			$style_attr
+			$style
 		);
 	}
 }
