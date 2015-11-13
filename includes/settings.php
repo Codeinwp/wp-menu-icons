@@ -41,15 +41,6 @@ final class Menu_Icons_Settings {
 	protected static $settings = array();
 
 	/**
-	 * Icon Picker Types Registry
-	 *
-	 * @since  0.9.0
-	 * @access protected
-	 * @var    Icon_Picker_Types_Registry
-	 */
-	protected static $ip_registry;
-
-	/**
 	 * Script dependencies
 	 *
 	 * @since  0.9.0
@@ -132,14 +123,13 @@ final class Menu_Icons_Settings {
 		 */
 		self::$defaults = apply_filters( 'menu_icons_settings_defaults', self::$defaults );
 
-		self::$ip_registry = Icon_Picker_Types_Registry::instance();
-		self::$settings    = get_option( 'menu-icons', self::$defaults );
+		self::$settings = get_option( 'menu-icons', self::$defaults );
 
 		foreach ( self::$settings as $key => &$value ) {
 			if ( 'global' === $key ) {
 				// Remove unregistered icon types.
 				$value['icon_types'] = array_values( array_intersect(
-					array_keys( self::$ip_registry->types ),
+					array_keys( Menu_Icons::get( 'types' ) ),
 					array_filter( (array) $value['icon_types'] )
 				) );
 			} else {
@@ -493,7 +483,7 @@ final class Menu_Icons_Settings {
 	 */
 	public static function get_fields() {
 		$menu_id    = self::get_current_menu_id();
-		$icon_types = wp_list_pluck( self::$ip_registry->types, 'name' );
+		$icon_types = wp_list_pluck( Menu_Icons::get( 'types' ), 'name' );
 
 		asort( $icon_types );
 

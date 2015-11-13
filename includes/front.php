@@ -64,7 +64,7 @@ final class Menu_Icons_Front_End {
 			return;
 		}
 
-		foreach ( Icon_Picker_Types_Registry::instance()->types as $type ) {
+		foreach ( Menu_Icons::get( 'types' ) as $type ) {
 			if ( in_array( $type->id, $active_types ) ) {
 				self::$icon_types[ $type->id ] = $type;
 			}

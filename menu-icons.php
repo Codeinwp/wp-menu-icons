@@ -36,15 +36,6 @@ final class Menu_Icons {
 	 */
 	protected static $data;
 
-	/**
-	 * Icon Picker instance
-	 *
-	 * @since  0.9.0
-	 * @access public
-	 * @var    Icon_Picker
-	 */
-	protected static $icon_picker;
-
 
 	/**
 	 * Get plugin data
@@ -84,15 +75,16 @@ final class Menu_Icons {
 		load_plugin_textdomain( 'menu-icons', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 
 		self::$data = array(
-			'dir' => plugin_dir_path( __FILE__ ),
-			'url' => plugin_dir_url( __FILE__ ),
+			'dir'   => plugin_dir_path( __FILE__ ),
+			'url'   => plugin_dir_url( __FILE__ ),
+			'types' => array(),
 		);
 
 		// Load Icon Picker.
 		if ( ! class_exists( 'Icon_Picker' ) ) {
 			require_once self::$data['dir'] . 'includes/library/icon-picker/icon-picker.php';
 		}
-		self::$icon_picker = Icon_Picker::instance();
+		Icon_Picker::instance();
 
 		require_once self::$data['dir'] . 'includes/library/compat.php';
 		require_once self::$data['dir'] . 'includes/library/functions.php';
@@ -117,8 +109,19 @@ final class Menu_Icons {
 	 * @link    http://codex.wordpress.org/Plugin_API/Action_Reference
 	 */
 	public static function _init() {
+		/**
+		 * Allow themes/plugins to add/remove icon types
+		 *
+		 * @since 0.1.0
+		 * @param array $types Icon types
+		 */
+		self::$data['types'] = apply_filters(
+			'menu_icons_types',
+			Icon_Picker_Types_Registry::instance()->types
+		);
+
 		// Nothing to do if there are no icon types registered.
-		if ( empty( self::$icon_picker->registry->types ) ) {
+		if ( empty( self::$data['types'] ) ) {
 			if ( WP_DEBUG ) {
 				trigger_error( esc_html__( 'Menu Icons: No registered icon types found.', 'menu-icons' ) );
 			}
