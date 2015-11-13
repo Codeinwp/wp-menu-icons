@@ -140,18 +140,5 @@ final class Menu_Icons {
 
 		do_action( 'menu_icons_loaded' );
 	}
-
-
-	/**
-	 * Get script & style suffix
-	 *
-	 * When SCRIPT_DEBUG is defined true, this will return '.min'.
-	 *
-	 * @since 0.2.0
-	 * @return string
-	 */
-	public static function get_script_suffix() {
-		return ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
-	}
 }
 add_action( 'plugins_loaded', array( 'Menu_Icons', '_load' ) );
