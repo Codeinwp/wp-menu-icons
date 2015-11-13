@@ -27,7 +27,7 @@ final class Menu_Icons_Settings {
 	 */
 	protected static $defaults = array(
 		'global' => array(
-			'icon_types' => array(),
+			'icon_types' => array( 'dashicons' ),
 		),
 	);
 
@@ -40,6 +40,15 @@ final class Menu_Icons_Settings {
 	 */
 	protected static $settings = array();
 
+	/**
+	 * Script dependencies
+	 *
+	 * @since  0.9.0
+	 * @access protected
+	 * @var    array
+	 */
+	protected static $script_deps = array( 'jquery' );
+
 
 	/**
 	 * Get setting value
@@ -51,45 +60,6 @@ final class Menu_Icons_Settings {
 		$args = func_get_args();
 
 		return kucrut_get_array_value_deep( self::$settings, $args );
-	}
-
-
-	/**
-	 * Get setting values and apply sanitation
-	 *
-	 * @since 0.3.0
-	 * @acess private
-	 */
-	private static function _get() {
-		$settings = get_option( 'menu-icons', null );
-
-		if ( is_null( $settings ) ) {
-			$settings['global'] = self::$defaults['global'];
-		}
-
-		/**
-		 * Check icon types
-		 *
-		 * A type could be enabled in the settings but disabled by a filter,
-		 * so we need to 'fix' it here.
-		 */
-		if ( ! empty( $settings['global']['icon_types'] ) ) {
-			$active_types = array();
-			$icon_types   = Menu_Icons::get( 'icon_types' );
-
-			foreach ( (array) $settings['global']['icon_types'] as $index => $id ) {
-				if ( isset( $icon_types[ $id ] ) ) {
-					$active_types[] = $id;
-				}
-			}
-
-			if ( $settings['global']['icon_types'] !== $active_types ) {
-				$settings['global']['icon_types'] = $active_types;
-				update_option( 'menu-icons', $settings );
-			}
-		}
-
-		self::$settings = $settings;
 	}
 
 
@@ -145,15 +115,52 @@ final class Menu_Icons_Settings {
 	 * @since 0.3.0
 	 */
 	public static function init() {
-		self::$defaults['global']['icon_types'] = array_keys( Menu_Icons::get( 'icon_types' ) );
-		self::_get();
+		/**
+		 * Allow themes/plugins to override the default settings
+		 *
+		 * @since 0.9.0
+		 * @param array $default_settings Default settings.
+		 */
+		self::$defaults = apply_filters( 'menu_icons_settings_defaults', self::$defaults );
+
+		self::$settings = get_option( 'menu-icons', self::$defaults );
+
+		foreach ( self::$settings as $key => &$value ) {
+			if ( 'global' === $key ) {
+				// Remove unregistered icon types.
+				$value['icon_types'] = array_values( array_intersect(
+					array_keys( Menu_Icons::get( 'types' ) ),
+					array_filter( (array) $value['icon_types'] )
+				) );
+			} else {
+				// Backward-compatibility.
+				if ( isset( $value['width'] ) && ! isset( $value['svg_width'] ) ) {
+					$value['svg_width'] = $value['width'];
+				}
+
+				unset( $value['width'] );
+			}
+		}
+
+		unset( $value );
+
+		/**
+		 * Allow themes/plugins to override the settings
+		 *
+		 * @since 0.9.0
+		 * @param array $settings Menu Icons settings.
+		 */
+		self::$settings = apply_filters( 'menu_icons_settings', self::$settings );
 
 		if ( self::is_menu_icons_disabled_for_menu() ) {
 			return;
 		}
 
-		require_once Menu_Icons::get( 'dir' ) . 'includes/admin.php';
-		Menu_Icons_Admin_Nav_Menus::init();
+		if ( ! empty( self::$settings['global']['icon_types'] ) ) {
+			require_once Menu_Icons::get( 'dir' ) . 'includes/picker.php';
+			Menu_Icons_Picker::init();
+			self::$script_deps[] = 'icon-picker';
+		}
 
 		add_action( 'load-nav-menus.php', array( __CLASS__, '_load_nav_menus' ), 1 );
 		add_action( 'wp_ajax_menu_icons_update_settings', array( __CLASS__, '_ajax_menu_icons_update_settings' ) );
@@ -164,7 +171,7 @@ final class Menu_Icons_Settings {
 	 * Prepare wp-admin/nav-menus.php page
 	 *
 	 * @since   0.3.0
-	 * @wp_hook load-nav-menus.php
+	 * @wp_hook action load-nav-menus.php
 	 */
 	public static function _load_nav_menus() {
 		add_action( 'admin_enqueue_scripts', array( __CLASS__, '_enqueue_assets' ), 99 );
@@ -173,7 +180,7 @@ final class Menu_Icons_Settings {
 		 * Allow settings meta box to be disabled.
 		 *
 		 * @since 0.4.0
-		 * @param bool $disabled Defaults to FALSE
+		 * @param bool $disabled Defaults to FALSE.
 		 */
 		$settings_disabled = apply_filters( 'menu_icons_disable_settings', false );
 		if ( true === $settings_disabled ) {
@@ -190,15 +197,13 @@ final class Menu_Icons_Settings {
 	/**
 	 * Update settings
 	 *
-	 * @since   0.3.0
-	 * @access  private
-	 * @wp_hook load-nav-menus.php
+	 * @since 0.3.0
 	 */
 	public static function _maybe_update_settings() {
 		if ( ! empty( $_POST['menu-icons']['settings'] ) ) {
 			check_admin_referer( self::UPDATE_KEY, self::UPDATE_KEY );
 
-			$redirect_url = self::_update_settings( $_POST['menu-icons']['settings'] );
+			$redirect_url = self::_update_settings( $_POST['menu-icons']['settings'] ); // Input var okay.
 			wp_redirect( $redirect );
 		} elseif ( ! empty( $_REQUEST[ self::RESET_KEY ] ) ) {
 			check_admin_referer( self::RESET_KEY, self::RESET_KEY );
@@ -212,8 +217,8 @@ final class Menu_Icons_Settings {
 	 *
 	 * @since  0.7.0
 	 * @access protected
-	 * @param  array     $values Settings values
-	 * @return string    Redirect URL
+	 * @param  array     $values Settings values.
+	 * @return string    Redirect URL.
 	 */
 	protected static function _update_settings( $values ) {
 		update_option(
@@ -239,7 +244,7 @@ final class Menu_Icons_Settings {
 	 *
 	 * @since  0.7.0
 	 * @access protected
-	 * @return string    Redirect URL
+	 * @return string    Redirect URL.
 	 */
 	protected static function _reset_settings() {
 		delete_option( 'menu-icons' );
@@ -258,7 +263,7 @@ final class Menu_Icons_Settings {
 	 * Update settings via ajax
 	 *
 	 * @since   0.7.0
-	 * @wp_hook action _ajax_menu_icons_update_settings
+	 * @wp_hook action wp_ajax_menu_icons_update_settings
 	 */
 	public static function _ajax_menu_icons_update_settings() {
 		check_ajax_referer( self::UPDATE_KEY, self::UPDATE_KEY );
@@ -267,7 +272,7 @@ final class Menu_Icons_Settings {
 			wp_send_json_error();
 		}
 
-		$redirect_url = self::_update_settings( $_POST['menu-icons']['settings'] );
+		$redirect_url = self::_update_settings( $_POST['menu-icons']['settings'] ); // Input var okay.
 		wp_send_json_success( array( 'redirectUrl' => $redirect_url ) );
 	}
 
@@ -276,7 +281,7 @@ final class Menu_Icons_Settings {
 	 * Print admin notices
 	 *
 	 * @since   0.3.0
-	 * @wp_hook admin_notices
+	 * @wp_hook action admin_notices
 	 */
 	public static function _admin_notices() {
 		$messages = array(
@@ -285,12 +290,15 @@ final class Menu_Icons_Settings {
 		);
 
 		$message_type = get_transient( self::TRANSIENT_KEY );
+
 		if ( ! empty( $message_type ) && ! empty( $messages[ $message_type ] ) ) {
 			printf(
-				'<div class="updated"><p>%s</p></div>',
+				'<div class="updated notice is-dismissible"><p>%s</p></div>',
 				wp_kses( $messages[ $message_type ], array( 'strong' => true ) )
 			);
 		}
+
+		delete_transient( self::TRANSIENT_KEY );
 	}
 
 
@@ -329,12 +337,12 @@ final class Menu_Icons_Settings {
 		}
 
 		if ( is_admin() && isset( $_REQUEST['menu'] ) ) {
-			$nav_menu_selected_id = absint( $_REQUEST['menu'] );
+			$menu_id = absint( $_REQUEST['menu'] );
 		} else {
-			$nav_menu_selected_id = absint( get_user_option( 'nav_menu_recently_edited' ) );
+			$menu_id = absint( get_user_option( 'nav_menu_recently_edited' ) );
 		}
 
-		return $nav_menu_selected_id;
+		return $menu_id;
 	}
 
 
@@ -342,8 +350,8 @@ final class Menu_Icons_Settings {
 	 * Get settings fields
 	 *
 	 * @since  0.4.0
-	 * @param  array $values Values to be applied to each field
-	 * @uses   apply_filters() Calls 'menu_icons_settings_fields'.
+	 * @param  array           $values  Values to be applied to each field.
+	 * @uses   apply_filters()          Calls 'menu_icons_settings_fields'.
 	 * @return array
 	 */
 	public static function get_settings_fields( Array $values = array() ) {
@@ -364,7 +372,7 @@ final class Menu_Icons_Settings {
 					),
 				),
 			),
-			'position'   => array(
+			'position' => array(
 				'id'      => 'position',
 				'type'    => 'select',
 				'label'   => __( 'Position', 'menu-icons' ),
@@ -379,6 +387,75 @@ final class Menu_Icons_Settings {
 						'label' => __( 'After', 'menu-icons' ),
 					),
 				),
+			),
+			'vertical_align' => array(
+				'id'      => 'vertical_align',
+				'type'    => 'select',
+				'label'   => __( 'Vertical Align', 'menu-icons' ),
+				'default' => 'middle',
+				'choices' => array(
+					array(
+						'value' => 'super',
+						'label' => __( 'Super', 'menu-icons' ),
+					),
+					array(
+						'value' => 'top',
+						'label' => __( 'Top', 'menu-icons' ),
+					),
+					array(
+						'value' => 'text-top',
+						'label' => __( 'Text Top', 'menu-icons' ),
+					),
+					array(
+						'value' => 'middle',
+						'label' => __( 'Middle', 'menu-icons' ),
+					),
+					array(
+						'value' => 'baseline',
+						'label' => __( 'Baseline', 'menu-icons' ),
+					),
+					array(
+						'value' => 'text-bottom',
+						'label' => __( 'Text Bottom', 'menu-icons' ),
+					),
+					array(
+						'value' => 'bottom',
+						'label' => __( 'Bottom', 'menu-icons' ),
+					),
+					array(
+						'value' => 'sub',
+						'label' => __( 'Sub', 'menu-icons' ),
+					),
+				),
+			),
+			'font_size' => array(
+				'id'          => 'font_size',
+				'type'        => 'number',
+				'label'       => __( 'Font Size', 'menu-icons' ),
+				'default'     => '1.2',
+				'description' => 'em',
+				'attributes'  => array(
+					'min'  => '0.1',
+					'step' => '0.1',
+				),
+			),
+			'svg_width' => array(
+				'id'          => 'svg_width',
+				'type'        => 'number',
+				'label'       => __( 'SVG Width', 'menu-icons' ),
+				'default'     => '1',
+				'description' => 'em',
+				'attributes'  => array(
+					'min'  => '.5',
+					'step' => '.1',
+				),
+			),
+			'image_size' => array(
+				'id'      => 'image_size',
+				'type'    => 'select',
+				'label'   => __( 'Image Size', 'menu-icons' ),
+				'default' => 'thumbnail',
+				'choices' => kucrut_get_image_sizes(),
 			),
 		);
 
@@ -409,10 +486,9 @@ final class Menu_Icons_Settings {
 	 */
 	public static function get_fields() {
 		$menu_id    = self::get_current_menu_id();
-		$icon_types = array();
-		foreach ( Menu_Icons::get( 'icon_types' ) as $id => $props ) {
-			$icon_types[ $id ] = $props['label'];
-		}
+		$icon_types = wp_list_pluck( Menu_Icons::get( 'types' ), 'name' );
+
+		asort( $icon_types );
 
 		$sections = array(
 			'global' => array(
@@ -560,7 +636,7 @@ final class Menu_Icons_Settings {
 						submit_button(
 							__( 'Save Settings', 'menu-icons' ),
 							'secondary',
-							'menu-item-settings-save',
+							'menu-icons-settings-save',
 							false
 						);
 					?>
@@ -571,38 +647,59 @@ final class Menu_Icons_Settings {
 
 
 	/**
-	 * Enqueue scripts & styles for admin page
+	 * Enqueue scripts & styles for Appearance > Menus page
 	 *
 	 * @since   0.3.0
 	 * @wp_hook action admin_enqueue_scripts
 	 */
 	public static function _enqueue_assets() {
-		$suffix = Menu_Icons::get_script_suffix();
+		$url    = Menu_Icons::get( 'url' );
+		$suffix = kucrut_get_script_suffix();
 
 		wp_enqueue_style(
 			'menu-icons',
-			Menu_Icons::get( 'url' ) . 'css/admin' . $suffix . '.css',
+			"{$url}css/admin{$suffix}.css",
 			false,
 			Menu_Icons::VERSION
 		);
-		wp_register_script(
-			'kucrut-jquery-input-dependencies',
-			Menu_Icons::get( 'url' ) . 'js/input-dependencies' . $suffix . '.js',
-			array( 'jquery' ),
-			'0.1.0',
-			true
-		);
-
-		if ( ! empty( self::$settings['global']['icon_types'] ) ) {
-			wp_enqueue_media();
-		}
-
 		wp_enqueue_script(
 			'menu-icons',
-			Menu_Icons::get( 'url' ) . 'js/admin' . $suffix . '.js',
-			array( 'kucrut-jquery-input-dependencies' ),
+			"{$url}js/admin{$suffix}.js",
+			self::$script_deps,
 			Menu_Icons::VERSION,
 			true
 		);
+
+		/**
+		 * Allow plugins/themes to filter the settings' JS data
+		 *
+		 * @since 0.9.0
+		 * @param array $js_data JS Data.
+		 */
+		$js_data = apply_filters(
+			'menu_icons_settings_js_data',
+			array(
+				'text'           => array(
+					'title'        => __( 'Select Icon', 'menu-icons' ),
+					'select'       => __( 'Select', 'menu-icons' ),
+					'remove'       => __( 'Remove', 'menu-icons' ),
+					'change'       => __( 'Change', 'menu-icons' ),
+					'all'          => __( 'All', 'menu-icons' ),
+					'preview'      => __( 'Preview', 'menu-icons' ),
+					'settingsInfo' => sprintf(
+						esc_html__( "Please note that the actual look of the icons on the front-end will also be affected by your active theme's style. You can use %s if you need to override it.", 'menu-icons' ),
+						'<a target="_blank" href="http://wordpress.org/plugins/simple-custom-css/">Simple Custom CSS</a>'
+					),
+				),
+				'settingsFields' => self::get_settings_fields(),
+				'activeTypes'    => self::get( 'global', 'icon_types' ),
+				'ajaxUrls'       => array(
+					'update' => add_query_arg( 'action', 'menu_icons_update_settings', admin_url( '/admin-ajax.php' ) ),
+				),
+				'menuSettings'   => self::get_menu_settings( self::get_current_menu_id() ),
+			)
+		);
+
+		wp_localize_script( 'menu-icons', 'menuIcons', $js_data );
 	}
 }
