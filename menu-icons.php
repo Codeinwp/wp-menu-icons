@@ -64,8 +64,7 @@ final class Menu_Icons {
 	 *
 	 * 1. Load translation
 	 * 2. Set plugin data (directory and URL paths)
-	 * 3. Register built-in icon types
-	 * 4. Attach plugin initialization at wp_loaded hook
+	 * 3. Attach plugin initialization at icon_picker_init hook
 	 *
 	 * @since   0.1.0
 	 * @wp_hook action plugins_loaded
@@ -99,9 +98,9 @@ final class Menu_Icons {
 	/**
 	 * Initialize
 	 *
-	 * 1. Collect registered types
+	 * 1. Get registered types from Icon Picker
 	 * 2. Load settings
-	 * 3. Load front-end
+	 * 3. Load front-end functionalities
 	 *
 	 * @since   0.1.0
 	 * @since   0.9.0  Hook into `icon_picker_init`.
@@ -133,6 +132,7 @@ final class Menu_Icons {
 		require_once self::$data['dir'] . 'includes/settings.php';
 		Menu_Icons_Settings::init();
 
+		// Load front-end functionalities.
 		if ( ! is_admin() ) {
 			require_once self::$data['dir'] . '/includes/front.php';
 			Menu_Icons_Front_End::init();
