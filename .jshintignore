@@ -1,1 +1,6 @@
-dev-lib/.jshintignore
+**/*.min.js
+**/node_modules/**
+**/vendor/**
+**/includes/library/icon-picker/**
+js/src/media.js
+js/admin.js
