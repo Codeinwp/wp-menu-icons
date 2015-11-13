@@ -1,6 +1,11 @@
 {
 	"preset": "wordpress",
 	"requireCamelCaseOrUpperCaseIdentifiers": "ignoreProperties",
+	"requireCapitalizedComments": {
+		"allExcept": [
+			"wp"
+		]
+	},
 	"excludeFiles": [
 		"**/vendor/**",
 		"**/*.min.js",
