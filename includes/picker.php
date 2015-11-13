@@ -51,7 +51,7 @@ final class Menu_Icons_Picker {
 	public static function _filter_wp_edit_nav_menu_walker( $walker ) {
 		// Load menu item custom fields plugin
 		if ( ! class_exists( 'Menu_Item_Custom_Fields_Walker' ) ) {
-			require_once Menu_Icons::get( 'dir' ) . 'includes/walker-nav-menu-edit.php';
+			require_once Menu_Icons::get( 'dir' ) . 'includes/library/walker-nav-menu-edit.php';
 		}
 		$walker = 'Menu_Item_Custom_Fields_Walker';
 
