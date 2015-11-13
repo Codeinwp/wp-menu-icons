@@ -1,6 +1,8 @@
 (function( $ ) {
 'use strict';
 
+var miPicker;
+
 if ( ! menuIcons.activeTypes || _.isEmpty( menuIcons.activeTypes ) ) {
 	return;
 }
@@ -12,7 +14,7 @@ if ( ! menuIcons.activeTypes || _.isEmpty( menuIcons.activeTypes ) ) {
  * @property {object} frame     - Menu Icons' media frame instance
  * @property {object} target    - Frame's target model
  */
-var miPicker = {
+miPicker = {
 	templates: {},
 	wrapClass: 'div.menu-icons-wrap',
 	frame: null,

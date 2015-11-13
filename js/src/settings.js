@@ -7,11 +7,11 @@
 	 */
 	$( '#menu-icons-settings-tabs' )
 		.on( 'click', 'a.mi-settings-nav-tab', function( e ) {
-			e.preventDefault();
-			e.stopPropagation();
-
 			var $el     = $( this ).blur(),
 			    $target = $( '#' + $el.data( 'type' ) );
+
+			e.preventDefault();
+			e.stopPropagation();
 
 			$el.parent().addClass( 'tabs' ).siblings().removeClass( 'tabs' );
 			$target
