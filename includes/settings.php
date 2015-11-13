@@ -293,7 +293,7 @@ final class Menu_Icons_Settings {
 
 		if ( ! empty( $message_type ) && ! empty( $messages[ $message_type ] ) ) {
 			printf(
-				'<div class="updated"><p>%s</p></div>',
+				'<div class="updated notice is-dismissible"><p>%s</p></div>',
 				wp_kses( $messages[ $message_type ], array( 'strong' => true ) )
 			);
 		}
