@@ -47,7 +47,7 @@ final class Menu_Icons_Meta {
 	 * @return  bool   Protection status.
 	 */
 	public static function _protect_meta_key( $protected, $meta_key, $meta_type ) {
-		if ( static::KEY === $meta_key ) {
+		if ( self::KEY === $meta_key ) {
 			$protected = true;
 		}
 
