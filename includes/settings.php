@@ -148,7 +148,7 @@ final class Menu_Icons_Settings {
 		 * Allow themes/plugins to override the settings
 		 *
 		 * @since 0.9.0
-		 * @param array $settings Menu Icons settings
+		 * @param array $settings Menu Icons settings.
 		 */
 		self::$settings = apply_filters( 'menu_icons_settings', self::$settings );
 
@@ -180,7 +180,7 @@ final class Menu_Icons_Settings {
 		 * Allow settings meta box to be disabled.
 		 *
 		 * @since 0.4.0
-		 * @param bool $disabled Defaults to FALSE
+		 * @param bool $disabled Defaults to FALSE.
 		 */
 		$settings_disabled = apply_filters( 'menu_icons_disable_settings', false );
 		if ( true === $settings_disabled ) {
@@ -217,8 +217,8 @@ final class Menu_Icons_Settings {
 	 *
 	 * @since  0.7.0
 	 * @access protected
-	 * @param  array     $values Settings values
-	 * @return string    Redirect URL
+	 * @param  array     $values Settings values.
+	 * @return string    Redirect URL.
 	 */
 	protected static function _update_settings( $values ) {
 		update_option(
@@ -644,7 +644,7 @@ final class Menu_Icons_Settings {
 
 
 	/**
-	 * Enqueue scripts & styles for admin page
+	 * Enqueue scripts & styles for Appearance > Menus page
 	 *
 	 * @since   0.3.0
 	 * @wp_hook action admin_enqueue_scripts
@@ -668,7 +668,7 @@ final class Menu_Icons_Settings {
 		);
 
 		/**
-		 * Filter settings' JS data
+		 * Allow plugins/themes to filter the settings' JS data
 		 *
 		 * @since 0.9.0
 		 * @param array $js_data JS Data.
