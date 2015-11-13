@@ -651,7 +651,7 @@ final class Menu_Icons_Settings {
 	 */
 	public static function _enqueue_assets() {
 		$url    = Menu_Icons::get( 'url' );
-		$suffix = Menu_Icons::get_script_suffix();
+		$suffix = kucrut_get_script_suffix();
 
 		wp_enqueue_style(
 			'menu-icons',

@@ -155,7 +155,7 @@ final class Menu_Icons_Front_End {
 		 */
 		$extra_stylesheet_uri = apply_filters(
 			'menu_icons_extra_stylesheet_uri',
-			sprintf( '%scss/extra%s.css', Menu_Icons::get( 'url' ), Menu_Icons::get_script_suffix() )
+			sprintf( '%scss/extra%s.css', Menu_Icons::get( 'url' ), kucrut_get_script_suffix() )
 		);
 
 		wp_enqueue_style(

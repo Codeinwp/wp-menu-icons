@@ -65,6 +65,7 @@ if ( ! function_exists( 'kucrut_validate' ) ) {
 	}
 }
 
+
 if ( ! function_exists( 'kucrut_get_image_sizes' ) ) {
 	/**
 	 * Get image sizes
@@ -92,5 +93,19 @@ if ( ! function_exists( 'kucrut_get_image_sizes' ) ) {
 		}
 
 		return $sizes;
+	}
+}
+
+
+if ( ! function_exists( 'kucrut_get_script_suffix' ) ) {
+	/**
+	 * Get script & style suffix
+	 *
+	 * When SCRIPT_DEBUG is defined true, this will return '.min'.
+	 *
+	 * @return string
+	 */
+	function kucrut_get_script_suffix() {
+		return ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
 	}
 }
