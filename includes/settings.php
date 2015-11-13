@@ -290,12 +290,15 @@ final class Menu_Icons_Settings {
 		);
 
 		$message_type = get_transient( self::TRANSIENT_KEY );
+
 		if ( ! empty( $message_type ) && ! empty( $messages[ $message_type ] ) ) {
 			printf(
 				'<div class="updated"><p>%s</p></div>',
 				wp_kses( $messages[ $message_type ], array( 'strong' => true ) )
 			);
 		}
+
+		delete_transient( self::TRANSIENT_KEY );
 	}
 
 
