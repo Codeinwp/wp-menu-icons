@@ -6,7 +6,8 @@
     "license": "GPL-2.0",
     "type": "wordpress-plugin",
     "require": {
-      "composer/installers": "~1.0"
+      "composer/installers": "~1.0",
+      "kucrut/icon-picker": "~v0.1.0"
     },
     "authors": [
         {
