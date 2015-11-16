@@ -6,12 +6,12 @@ Spice up your navigation menus with pretty icons, easily.
 **Contributors:** [kucrut](https://profiles.wordpress.org/kucrut), [joshuairl](https://profiles.wordpress.org/joshuairl)  
 **Tags:** [menu](https://wordpress.org/plugins/tags/menu), [nav-menu](https://wordpress.org/plugins/tags/nav-menu), [icons](https://wordpress.org/plugins/tags/icons), [navigation](https://wordpress.org/plugins/tags/navigation)  
 **Requires at least:** 4.3  
-**Tested up to:** 4.3.1  
-**Stable tag:** 0.8.1  
+**Tested up to:** 4.4  
+**Stable tag:** 0.9.0  
 **License:** [GPLv2](http://www.gnu.org/licenses/gpl-2.0.html)  
 **Donate Link:** http://kucrut.org/#coffee  
 
-[![Build Status](https://travis-ci.org/kucrut/wp-menu-icons.png?branch=master)](https://travis-ci.org/kucrut/wp-menu-icons) 
+[![Build Status](https://travis-ci.org/kucrut/wp-menu-icons.svg?branch=master)](https://travis-ci.org/kucrut/wp-menu-icons) 
 
 ## Description ##
 
@@ -129,35 +129,12 @@ function my_remove_menu_icons_type( $types ) {
 add_filter( 'menu_icons_types', 'my_remove_menu_icons_type' );
 ```
 
-To add a new icon type, take a look at the `type-*.php` files inside the `includes` directory of this plugin.
+To add a new icon type, take a look at the files inside the `includes/library/icon-picker/includes/types` directory of this plugin.
 
 ### I don't want the settings meta box. How do I remove/disable it? ###
 Add this block of code to your [mu-plugin file](http://codex.wordpress.org/Must_Use_Plugins):
 ```php
 add_filter( 'menu_icons_disable_settings', '__return_true' );
-```
-
-### How can I use CSS file for a font type from a CDN instead of the bundled one? ###
-You can filter the icon type properties from your plugin/theme:
-```php
-/**
- * Modify icon type properties
- *
- * See myplugin_remove_menu_icons_type() above for the icon type keys
- *
- * @param  array  $props  Icon type properties.
- * @param  object $type   Icon type object.
- * @return array
- */
-function my_fontawesome_props( $props, $type ) {
-	$props['stylesheet'] = sprintf(
-		'//maxcdn.bootstrapcdn.com/font-awesome/%s/css/font-awesome.min.css',
-		$type->version
-	);
-
-	return $props;
-}
-add_filter( 'menu_icons_fa_props', 'my_fontawesome_props', 10, 2 );
 ```
 
 ### How can I change the CSS class for hiding the menu item labels? ###
@@ -234,6 +211,12 @@ Read [this blog post](http://kucrut.org/add-custom-image-sizes-right-way/).
 
 
 ## Changelog ##
+
+### 0.9.0 ###
+* Performance optimization.
+* Modularisation. Developers: Take a look at the [Icon Picker](https://github.com/kucrut/wp-icon-picker) library.
+* Bug fixes.
+* Removed `menu_icons_{type_id}_props` filter.
 
 ### 0.8.1 ###
 * Fix disappearing icons from front-end when not logged-in, props [jj9617](http://profiles.wordpress.org/jj9617/)
