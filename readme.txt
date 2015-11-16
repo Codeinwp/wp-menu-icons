@@ -4,7 +4,7 @@ Donate Link: http://kucrut.org/#coffee
 Tags: menu, nav-menu, icons, navigation
 Requires at least: 4.3
 Tested up to: 4.4
-Stable tag: 0.9.0
+Stable tag: 0.9.1
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -186,6 +186,9 @@ https://www.youtube.com/watch?v=B-5AVwgPaiw
 Read [this blog post](http://kucrut.org/add-custom-image-sizes-right-way/).
 
 == Changelog ==
+= 0.9.1 =
+* Fix support for Composer.
+
 = 0.9.0 =
 * Performance optimization.
 * Modularisation. Developers: Take a look at the [Icon Picker](https://github.com/kucrut/wp-icon-picker) library.
