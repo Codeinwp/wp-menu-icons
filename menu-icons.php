@@ -140,5 +140,21 @@ final class Menu_Icons {
 
 		do_action( 'menu_icons_loaded' );
 	}
+
+
+	/**
+	 * Get script & style suffix
+	 *
+	 * When SCRIPT_DEBUG is defined true, this will return '.min'.
+	 *
+	 * @since  0.2.0
+	 * @since  0.9.0 Deprecated.
+	 * @return string
+	 */
+	public static function get_script_suffix() {
+		_deprecated_function( __METHOD__, '0.9.0', 'kucrut_get_script_suffix' );
+
+		return kucrut_get_script_suffix();
+	}
 }
 add_action( 'plugins_loaded', array( 'Menu_Icons', '_load' ) );
