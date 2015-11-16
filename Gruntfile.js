@@ -114,7 +114,8 @@ module.exports = function( grunt ) {
 			target: {
 				options: {
 					mainFile: 'menu-icons.php',
-					type: 'wp-plugin'
+					type: 'wp-plugin',
+					exclude: [ 'includes/library' ]
 				}
 			}
 		}
