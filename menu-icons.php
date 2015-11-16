@@ -81,7 +81,14 @@ final class Menu_Icons {
 
 		// Load Icon Picker.
 		if ( ! class_exists( 'Icon_Picker' ) ) {
-			require_once self::$data['dir'] . 'includes/library/icon-picker/icon-picker.php';
+			$ip_file = self::$data['dir'] . 'includes/library/icon-picker/icon-picker.php';
+
+			if ( file_exists( $ip_file ) ) {
+				require_once $ip_file;
+			} else {
+				add_action( 'admin_notices', array( __CLASS__, '_notice_missing_icon_picker' ) );
+				return;
+			}
 		}
 		Icon_Picker::instance();
 
@@ -155,6 +162,21 @@ final class Menu_Icons {
 		_deprecated_function( __METHOD__, '0.9.0', 'kucrut_get_script_suffix' );
 
 		return kucrut_get_script_suffix();
+	}
+
+
+	/**
+	 * Display notice about missing Icon Picker
+	 *
+	 * @since   0.9.1
+	 * @wp_hook action admin_notice
+	 */
+	public static function _notice_missing_icon_picker() {
+		?>
+		<div class="error">
+			<p><?php esc_html_e( 'Looks like Menu Icons was installed via Composer. Please activate Icon Picker first.', 'menu-icons' ); ?></p>
+		</div>
+		<?php
 	}
 }
 add_action( 'plugins_loaded', array( 'Menu_Icons', '_load' ) );
