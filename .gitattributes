@@ -11,4 +11,3 @@ package.json export-ignore
 .travis.yml export-ignore
 dev-lib export-ignore
 js/src export-ignore
-composer.json export-ignore
