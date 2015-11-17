@@ -2,9 +2,9 @@
 # This file is distributed under the GPLv2.
 msgid ""
 msgstr ""
-"Project-Id-Version: Menu Icons 0.9.0\n"
+"Project-Id-Version: Menu Icons 0.9.2\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/menu-icons\n"
-"POT-Creation-Date: 2015-11-16 13:41:56+00:00\n"
+"POT-Creation-Date: 2015-11-17 09:41:28+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -176,8 +176,14 @@ msgid ""
 "override it."
 msgstr ""
 
-#: menu-icons.php:125
+#: menu-icons.php:132
 msgid "Menu Icons: No registered icon types found."
+msgstr ""
+
+#: menu-icons.php:177
+msgid ""
+"Looks like Menu Icons was installed via Composer. Please activate Icon "
+"Picker first."
 msgstr ""
 
 #. Plugin Name of the plugin/theme
