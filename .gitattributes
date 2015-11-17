@@ -12,3 +12,5 @@ package.json export-ignore
 dev-lib export-ignore
 js/src export-ignore
 includes/library/icon-picker export-ignore
+.editorconfig export-ignore
+
