@@ -7,7 +7,7 @@ Spice up your navigation menus with pretty icons, easily.
 **Tags:** [menu](https://wordpress.org/plugins/tags/menu), [nav-menu](https://wordpress.org/plugins/tags/nav-menu), [icons](https://wordpress.org/plugins/tags/icons), [navigation](https://wordpress.org/plugins/tags/navigation)  
 **Requires at least:** 4.3  
 **Tested up to:** 4.4  
-**Stable tag:** 0.9.1  
+**Stable tag:** 0.9.2  
 **License:** [GPLv2](http://www.gnu.org/licenses/gpl-2.0.html)  
 **Donate Link:** http://kucrut.org/#coffee  
 
@@ -15,7 +15,11 @@ Spice up your navigation menus with pretty icons, easily.
 
 ## Description ##
 
+### Upgrade Note ###
+Before updating to `0.9.x`, please save the settings by clicking on the *Save* button on the *Menu Icons Settings* meta box. See [screenshot](https://ps.w.org/menu-icons/assets/screenshot-7.png?rev=979807).
+
 This plugin gives you the ability to add icons to your menu items, similar to the look of the latest dashboard menu.
+
 ### Usage ###
 1. After the plugin is activated, go to *Appearance* > *Menus* to edit your menus
 1. Enable/Disable icon types in "Menu Icons Settings" meta box
@@ -211,6 +215,9 @@ Read [this blog post](http://kucrut.org/add-custom-image-sizes-right-way/).
 
 
 ## Changelog ##
+
+### 0.9.2 ###
+* Update Icon Picker to [0.1.1](https://github.com/kucrut/wp-icon-picker/releases/tag/v0.1.1).
 
 ### 0.9.1 ###
 * Fix support for Composer.

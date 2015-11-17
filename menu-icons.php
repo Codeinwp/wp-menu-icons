@@ -4,14 +4,14 @@
  * Menu Icons
  *
  * @package Menu_Icons
- * @version 0.9.1
+ * @version 0.9.2
  * @author Dzikri Aziz <kvcrvt@gmail.com>
  *
  *
  * Plugin name: Menu Icons
  * Plugin URI:  http://kucrut.org/
  * Description: Spice up your navigation menus with pretty icons, easily.
- * Version:     0.9.1
+ * Version:     0.9.2
  * Author:      Dzikri Aziz
  * Author URI:  http://kucrut.org/
  * License:     GPLv2
@@ -25,7 +25,7 @@
  */
 final class Menu_Icons {
 
-	const VERSION = '0.9.1';
+	const VERSION = '0.9.2';
 
 	/**
 	 * Holds plugin data
