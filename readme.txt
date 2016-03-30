@@ -3,8 +3,8 @@ Contributors: kucrut, joshuairl
 Donate Link: http://kucrut.org/#coffee
 Tags: menu, nav-menu, icons, navigation
 Requires at least: 4.3
-Tested up to: 4.4
-Stable tag: 0.9.2
+Tested up to: 4.5
+Stable tag: 0.9.3
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -190,6 +190,9 @@ https://www.youtube.com/watch?v=B-5AVwgPaiw
 Read [this blog post](http://kucrut.org/add-custom-image-sizes-right-way/).
 
 == Changelog ==
+= 0.9.3 =
+* Fix CSS conflicts
+
 = 0.9.2 =
 * Update Icon Picker to [0.1.1](https://github.com/kucrut/wp-icon-picker/releases/tag/v0.1.1).
 

@@ -162,7 +162,7 @@ final class Menu_Icons_Front_End {
 			'menu-icons-extra',
 			$extra_stylesheet_uri,
 			false,
-			Menu_Icons::VERSION
+			Menu_Icons::version
 		);
 	}
 

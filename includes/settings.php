@@ -354,7 +354,7 @@ final class Menu_Icons_Settings {
 	 * @uses   apply_filters()          Calls 'menu_icons_settings_fields'.
 	 * @return array
 	 */
-	public static function get_settings_fields( Array $values = array() ) {
+	public static function get_settings_fields( array $values = array() ) {
 		$fields = array(
 			'hide_label' => array(
 				'id'      => 'hide_label',
@@ -660,13 +660,13 @@ final class Menu_Icons_Settings {
 			'menu-icons',
 			"{$url}css/admin{$suffix}.css",
 			false,
-			Menu_Icons::VERSION
+			Menu_Icons::version
 		);
 		wp_enqueue_script(
 			'menu-icons',
 			"{$url}js/admin{$suffix}.js",
 			self::$script_deps,
-			Menu_Icons::VERSION,
+			Menu_Icons::version,
 			true
 		);
 
