@@ -7,7 +7,7 @@
     "type": "wordpress-plugin",
     "require": {
       "composer/installers": "~1.0",
-      "kucrut/icon-picker": "~0.3"
+      "kucrut/icon-picker": "~0.4"
     },
     "authors": [
         {
