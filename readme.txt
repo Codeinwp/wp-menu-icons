@@ -3,8 +3,8 @@ Contributors: kucrut, joshuairl
 Donate Link: http://kucrut.org/#coffee
 Tags: menu, nav-menu, icons, navigation
 Requires at least: 4.3
-Tested up to: 4.5
-Stable tag: 0.9.3
+Tested up to: 4.5.1
+Stable tag: 0.10.0
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -73,6 +73,31 @@ Otherwise, I recommend you to use the [Simple Custom CSS plugin](http://wordpres
 
 = Some font icons are not rendering correctly =
 This is a bug with the font icon itself. When the font is updated, this plugin will update its font too.
+
+= How do I use css file from CDN? =
+You can use the `icon_picker_icon_type_stylesheet_uri` filter, eg:
+`
+/**
+ * Load Font Awesome's CSS from CDN
+ *
+ * @param  string                $stylesheet_uri Icon type's stylesheet URI.
+ * @param  string                $icon_type_id   Icon type's ID.
+ * @param  Icon_Picker_Type_Font $icon_type      Icon type's instance.
+ *
+ * @return string
+ */
+function myprefix_font_awesome_css_from_cdn( $stylesheet_uri, $icon_type_id, $icon_type ) {
+	if ( 'fa' === $icon_type_id ) {
+		$stylesheet_uri = sprintf(
+			'https://maxcdn.bootstrapcdn.com/font-awesome/%s/css/font-awesome.min.css',
+			$icon_type->version
+		);
+	}
+
+	return $stylesheet_uri;
+}
+add_filter( 'icon_picker_icon_type_stylesheet_uri', 'myprefix_font_awesome_css_from_cdn', 10, 3 );
+`
 
 = Is this plugin extendable? =
 **Certainly!** Here's how you can remove an icon type from your plugin/theme:
@@ -190,6 +215,12 @@ https://www.youtube.com/watch?v=B-5AVwgPaiw
 Read [this blog post](http://kucrut.org/add-custom-image-sizes-right-way/).
 
 == Changelog ==
+= 0.10.0 =
+* Icon Picker 0.4.0
+  * Font Awesome 4.6.1
+  * Introduce `icon_picker_icon_type_stylesheet_uri` filter hook.
+* Add `aria-hidden="true"` attribute to icon element
+
 = 0.9.3 =
 * Fix CSS conflicts
 
