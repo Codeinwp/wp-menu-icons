@@ -383,7 +383,7 @@ final class Menu_Icons_Front_End {
 		$classes = sprintf( '%s %s %s', self::get_icon_classes( $meta ), $meta['type'], $meta['icon'] );
 		$style   = self::get_icon_style( $meta, array( 'font_size', 'vertical_align' ) );
 
-		return sprintf( '<i class="%s"%s></i>', esc_attr( $classes ), $style );
+		return sprintf( '<i class="%s" aria-hidden="true"%s></i>', esc_attr( $classes ), $style );
 	}
 
 
@@ -396,7 +396,8 @@ final class Menu_Icons_Front_End {
 	 */
 	public static function get_image_icon( $meta ) {
 		$args = array(
-			'class' => sprintf( '%s _image', self::get_icon_classes( $meta ) ),
+			'class'       => sprintf( '%s _image', self::get_icon_classes( $meta ) ),
+			'aria-hidden' => 'true',
 		);
 
 		$style = self::get_icon_style( $meta, array( 'vertical_align' ), false );
@@ -420,7 +421,7 @@ final class Menu_Icons_Front_End {
 		$style   = self::get_icon_style( $meta, array( 'svg_width', 'vertical_align' ) );
 
 		return sprintf(
-			'<img src="%s" class="%s"%s />',
+			'<img src="%s" class="%s" aria-hidden="true"%s />',
 			esc_url( wp_get_attachment_url( $meta['icon'] ) ),
 			esc_attr( $classes ),
 			$style
