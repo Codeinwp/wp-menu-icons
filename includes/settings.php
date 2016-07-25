@@ -204,7 +204,7 @@ final class Menu_Icons_Settings {
 			check_admin_referer( self::UPDATE_KEY, self::UPDATE_KEY );
 
 			$redirect_url = self::_update_settings( $_POST['menu-icons']['settings'] ); // Input var okay.
-			wp_redirect( $redirect );
+			wp_redirect( $redirect_url );
 		} elseif ( ! empty( $_REQUEST[ self::RESET_KEY ] ) ) {
 			check_admin_referer( self::RESET_KEY, self::RESET_KEY );
 			wp_redirect( self::_reset_settings() );
