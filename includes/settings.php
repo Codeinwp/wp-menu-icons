@@ -23,7 +23,7 @@ final class Menu_Icons_Settings {
 	 *
 	 * @since 0.3.0
 	 * @var   array
-	 * @acess protected
+	 * @access protected
 	 */
 	protected static $defaults = array(
 		'global' => array(
@@ -36,7 +36,7 @@ final class Menu_Icons_Settings {
 	 *
 	 * @since 0.3.0
 	 * @var   array
-	 * @acess protected
+	 * @access protected
 	 */
 	protected static $settings = array();
 
