@@ -215,6 +215,9 @@ https://www.youtube.com/watch?v=B-5AVwgPaiw
 Read [this blog post](http://kucrut.org/add-custom-image-sizes-right-way/).
 
 == Changelog ==
+= 0.10.2 =
+* Compatibility with WordPress 4.7.0, props [Aaron K](https://github.com/aaronkirkham).
+
 = 0.10.1 =
 * Support RTL, props [ybspost](https://wordpress.org/support/profile/ybspost).
 
