@@ -3,8 +3,8 @@ Contributors: kucrut, joshuairl
 Donate Link: http://kucrut.org/#coffee
 Tags: menu, nav-menu, icons, navigation
 Requires at least: 4.3
-Tested up to: 4.5.2
-Stable tag: 0.10.1
+Tested up to: 4.7.0
+Stable tag: 0.10.2
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -215,6 +215,9 @@ https://www.youtube.com/watch?v=B-5AVwgPaiw
 Read [this blog post](http://kucrut.org/add-custom-image-sizes-right-way/).
 
 == Changelog ==
+= 0.10.2 =
+* Compatibility with WordPress 4.7.0, props [Aaron K](https://github.com/aaronkirkham).
+
 = 0.10.1 =
 * Support RTL, props [ybspost](https://wordpress.org/support/profile/ybspost).
 
