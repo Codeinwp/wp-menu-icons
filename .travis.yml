@@ -25,4 +25,4 @@ before_script:
     - npm install
 
 script:
-    - echo 'Success'
+    - npm run lint
