@@ -1,0 +1,28 @@
+sudo: false
+
+notifications:
+    email:
+        on_success: never
+        on_failure: change
+
+language:
+    - php
+    - node_js
+
+php:
+    - 5.6
+    - 7.1
+
+env:
+    - WP_VERSION=latest WP_MULTISITE=0
+    - WP_VERSION=latest WP_MULTISITE=1
+
+install:
+    - nvm install 6 && nvm use 6
+
+before_script:
+    - composer install
+    - npm install
+
+script:
+    - echo 'Success'
