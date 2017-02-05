@@ -14,24 +14,6 @@ module.exports = function( grunt ) {
 				}
 			}
 		},
-		jshint: {
-			grunt: {
-				src: [ 'Gruntfile.js' ]
-			},
-			settings: {
-				src: [ 'js/src/settings.js' ]
-			},
-			media: {
-				options: {
-					browserify: true
-				},
-				src: [ 'js/src/media/**/*.js' ]
-			},
-			picker: {
-				src: [ 'js/src/picker.js' ]
-			},
-			options: grunt.file.readJSON( '.jshintrc' )
-		},
 		concat: {
 			options: {
 				separator: '\n'
@@ -129,7 +111,6 @@ module.exports = function( grunt ) {
 
 	// Tasks
 	grunt.loadNpmTasks( 'grunt-browserify' );
-	grunt.loadNpmTasks( 'grunt-contrib-jshint' );
 	grunt.loadNpmTasks( 'grunt-contrib-uglify' );
 	grunt.loadNpmTasks( 'grunt-contrib-concat' );
 	grunt.loadNpmTasks( 'grunt-contrib-cssmin' );
@@ -164,7 +145,7 @@ module.exports = function( grunt ) {
 	});
 
 	grunt.registerTask( 'css', [ 'cssmin' ] );
-	grunt.registerTask( 'js', [ 'browserify', 'jshint', 'concat', 'uglify' ] );
+	grunt.registerTask( 'js', [ 'browserify', 'concat', 'uglify' ] );
 	grunt.registerTask( 'i18n', [ 'makepot' ] );
 	grunt.registerTask( 'default', [ 'css', 'js' ] );
 	grunt.registerTask( 'build', [ 'default', 'clean', 'copy', 'compress' ] );
