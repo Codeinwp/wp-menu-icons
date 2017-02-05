@@ -14,4 +14,8 @@
 		<exclude name="WordPress.VIP.ValidatedSanitizedInput" />
 		<exclude name="WordPress.VIP.DirectDatabaseQuery" />
 	</rule>
+
+	<exclude-pattern>*/node_modules/*</exclude-pattern>
+	<exclude-pattern>*/vendor/*</exclude-pattern>
+	<exclude-pattern>*/includes/library/icon-picker/*</exclude-pattern>
 </ruleset>
