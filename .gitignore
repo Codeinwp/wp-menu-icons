@@ -2,5 +2,9 @@
 *.sublime-project
 *.sublime-workspace
 
+# Dependencies
 /node_modules
 /vendor
+
+# Logs
+npm-debug.log
