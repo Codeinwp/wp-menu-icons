@@ -142,7 +142,7 @@ abstract class Kucrut_Form_Field {
 	 * @param array $field Field array
 	 * @param array $args  Extra field arguments
 	 */
-	final public static function create( Array $field, $args = array() ) {
+	final public static function create( array $field, $args = array() ) {
 		$field = wp_parse_args( $field, self::$defaults['field'] );
 		if ( ! isset( self::$types[ $field['type'] ] )
 			|| ! is_subclass_of( self::$types[ $field['type'] ], __CLASS__ )
@@ -285,7 +285,7 @@ abstract class Kucrut_Form_Field {
 		$attributes = '';
 
 		foreach ( $this->attributes as $key => $value ) {
-			if ( in_array( $key, $excludes ) ) {
+			if ( in_array( $key, $excludes, true ) ) {
 				continue;
 			}
 
@@ -321,9 +321,9 @@ abstract class Kucrut_Form_Field {
 		if ( ! empty( $this->field['description'] ) ) {
 			$tag = ( ! empty( $this->args->inline_description ) ) ? 'span' : 'p';
 
-			printf(
+			printf( // WPCS: XSS ok.
 				'<%1$s class="description">%2$s</%1$s>',
-				$tag, // xss ok
+				$tag,
 				wp_kses( $this->field['description'], $this->allowed_html )
 			);
 		}
@@ -344,7 +344,7 @@ class Kucrut_Form_Field_Text extends Kucrut_Form_Field {
 			$this->field['value'] = '';
 		}
 
-		if ( in_array( $this->field['type'], array( 'text', 'url' ) ) ) {
+		if ( in_array( $this->field['type'], array( 'text', 'url' ), true ) ) {
 			if ( ! isset( $this->attributes['class'] ) ) {
 				$this->attributes['class'] = array();
 			}
@@ -359,11 +359,11 @@ class Kucrut_Form_Field_Text extends Kucrut_Form_Field {
 
 
 	public function render() {
-		printf(
-			$this->template, // xss ok
+		printf(  // WPCS: xss ok
+			$this->template,
 			esc_attr( $this->field['type'] ),
 			esc_attr( $this->field['value'] ),
-			$this->build_attributes() // xss ok
+			$this->build_attributes()
 		);
 		$this->description();
 	}
@@ -385,9 +385,9 @@ class Kucrut_Form_Field_Textarea extends Kucrut_Form_Field {
 
 
 	public function render() {
-		printf(
-			$this->template, // xss ok
-			$this->build_attributes(), // xss ok
+		printf( // WPCS: XSS ok.
+			$this->template,
+			$this->build_attributes(),
 			esc_textarea( $this->field['value'] )
 		);
 	}
@@ -409,18 +409,18 @@ class Kucrut_Form_Field_Checkbox extends Kucrut_Form_Field {
 
 
 	protected function checked( $value ) {
-		return checked( in_array( $value, $this->field['value'] ), true, false );
+		return checked( in_array( $value, $this->field['value'], true ), true, false );
 	}
 
 
 	public function render() {
 		foreach ( $this->field['choices'] as $value => $label ) {
-			printf(
-				$this->template, // xss ok
-				$this->field['type'], // xss ok
+			printf( // WPCS: XSS ok.
+				$this->template,
+				$this->field['type'],
 				esc_attr( $value ),
-				$this->checked( $value ), // xss ok
-				$this->build_attributes( 'id' ), // xss ok
+				$this->checked( $value ),
+				$this->build_attributes( 'id' ),
 				esc_html( $label )
 			);
 		}
@@ -462,7 +462,7 @@ class Kucrut_Form_Field_Select extends Kucrut_Form_Field {
 
 
 	protected function selected( $value ) {
-		return selected( ( $value == $this->field['value'] ), true, false );
+		return selected( ( $value === $this->field['value'] ), true, false );
 	}
 
 
@@ -480,10 +480,10 @@ class Kucrut_Form_Field_Select extends Kucrut_Form_Field {
 				}
 				?>
 				<?php
-					printf(
-						$this->template, // xss ok
+					printf( // WPCS: XSS ok.
+						$this->template,
 						esc_attr( $value ),
-						$this->selected( $value ), // xss ok
+						$this->selected( $value ),
 						esc_html( $label )
 					);
 				?>
@@ -507,7 +507,7 @@ class Kucrut_Form_Field_Select_Multiple extends Kucrut_Form_Field_Select {
 
 
 	protected function selected( $value ) {
-		return selected( in_array( $value, $this->field['value'] ), true, false );
+		return selected( in_array( $value, $this->field['value'], true ), true, false );
 	}
 }
 
@@ -557,7 +557,7 @@ class Kucrut_Form_Field_Select_Pages extends Kucrut_Form_Field_Select {
 
 
 	public function render() {
-		wp_dropdown_pages( $this->args->wp_dropdown_pages_args );
+		wp_dropdown_pages( $this->args->wp_dropdown_pages_args ); // WPCS: XSS ok.
 	}
 }
 
