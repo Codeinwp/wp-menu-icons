@@ -2,4 +2,10 @@
 *.sublime-project
 *.sublime-workspace
 
+# Dependencies
 /node_modules
+/vendor
+/wp-content
+
+# Logs
+npm-debug.log

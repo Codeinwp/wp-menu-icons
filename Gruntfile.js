@@ -1,6 +1,12 @@
 /* jshint node:true */
 module.exports = function( grunt ) {
 	grunt.initConfig( {
+		phpcs: {
+			'default': {
+				cmd: './vendor/bin/phpcs',
+				args: [ '--standard=./phpcs.ruleset.xml', '-p', '-s', '-v', '--extensions=php', '.' ]
+			}
+		},
 		browserify: {
 			media: {
 				files: {
@@ -148,6 +154,14 @@ module.exports = function( grunt ) {
 
 		grunt.task.run( '_' + this.nameArgs );
 	} );
+
+	grunt.registerMultiTask( 'phpcs', 'Runs PHP code sniffs.', function() {
+		grunt.util.spawn({
+			cmd: this.data.cmd,
+			args: this.data.args,
+			opts: { stdio: 'inherit' }
+		}, this.async() );
+	});
 
 	grunt.registerTask( 'css', [ 'cssmin' ] );
 	grunt.registerTask( 'js', [ 'browserify', 'jshint', 'concat', 'uglify' ] );

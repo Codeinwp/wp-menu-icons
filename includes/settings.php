@@ -660,13 +660,13 @@ final class Menu_Icons_Settings {
 			'menu-icons',
 			"{$url}css/admin{$suffix}.css",
 			false,
-			Menu_Icons::version
+			Menu_Icons::VERSION
 		);
 		wp_enqueue_script(
 			'menu-icons',
 			"{$url}js/admin{$suffix}.js",
 			self::$script_deps,
-			Menu_Icons::version,
+			Menu_Icons::VERSION,
 			true
 		);
 

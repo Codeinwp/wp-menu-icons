@@ -5,15 +5,18 @@
     "homepage": "https://github.com/kucrut/wp-menu-icons",
     "license": "GPL-2.0",
     "type": "wordpress-plugin",
-    "require": {
-      "composer/installers": "~1.0",
-      "kucrut/icon-picker": "~0.4"
-    },
     "authors": [
         {
             "name": "Dzikri Aziz",
             "email": "kvcrvt@gmail.com",
-            "homepage": "http://kucrut.org/"
+            "homepage": "https://kucrut.org/"
         }
-    ]
+    ],
+    "require": {
+      "composer/installers": "~1.0",
+      "kucrut/icon-picker": "~0.4"
+    },
+    "require-dev": {
+        "wp-coding-standards/wpcs": "^0.10.0"
+    }
 }

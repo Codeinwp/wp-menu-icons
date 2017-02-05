@@ -16,7 +16,7 @@ if ( ! function_exists( 'kucrut_get_array_value_deep' ) ) {
 	 * @param  array $keys  Needles
 	 * @return mixed
 	 */
-	function kucrut_get_array_value_deep( Array $array, Array $keys ) {
+	function kucrut_get_array_value_deep( array $array, array $keys ) {
 		if ( empty( $array ) || empty( $keys ) ) {
 			return $array;
 		}
