@@ -65,7 +65,7 @@ final class Menu_Icons_Front_End {
 		}
 
 		foreach ( Menu_Icons::get( 'types' ) as $type ) {
-			if ( in_array( $type->id, $active_types ) ) {
+			if ( in_array( $type->id, $active_types, true ) ) {
 				self::$icon_types[ $type->id ] = $type;
 			}
 		}
