@@ -25,7 +25,7 @@
  */
 final class Menu_Icons {
 
-	const version = '0.10.2';
+	const VERSION = '0.10.2';
 
 	/**
 	 * Holds plugin data
