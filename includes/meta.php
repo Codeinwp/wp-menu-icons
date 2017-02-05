@@ -82,7 +82,9 @@ final class Menu_Icons_Meta {
 		}
 		unset( $value['width'] );
 
-		if ( isset( $value['position'] ) && ! in_array( $value['position'], array( 'before', 'after' ) ) ) {
+		if ( isset( $value['position'] ) &&
+			! in_array( $value['position'], array( 'before', 'after' ), true )
+		) {
 			$value['position'] = $defaults['position'];
 		}
 
@@ -92,7 +94,9 @@ final class Menu_Icons_Meta {
 		}
 
 		// The values below will NOT be saved
-		if ( ! empty( $value['icon'] ) && in_array( $value['type'], array( 'image', 'svg' ) ) ) {
+		if ( ! empty( $value['icon'] ) &&
+			in_array( $value['type'], array( 'image', 'svg' ), true )
+		) {
 			$value['url'] = wp_get_attachment_image_url( $value['icon'], 'thumbnail', false );
 		}
 
