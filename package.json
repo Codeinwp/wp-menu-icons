@@ -43,5 +43,9 @@
   },
   "bugs": {
     "url": "https://github.com/kucrut/wp-menu-icons/issues"
+  },
+  "scripts": {
+    "lint:php": "grunt phpcs",
+    "lint": "npm run lint:php"
   }
 }
