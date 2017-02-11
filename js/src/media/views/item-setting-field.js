@@ -1,5 +1,5 @@
 var $ = jQuery,
-    MenuIconsItemSettingField;
+	MenuIconsItemSettingField;
 
 /**
  * wp.media.view.MenuIconsItemSettingField

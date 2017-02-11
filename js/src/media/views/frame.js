@@ -12,7 +12,7 @@
  */
 var MenuIcons = wp.media.view.MediaFrame.IconPicker.extend({
 	initialize: function() {
-		this.menuItems = new Backbone.Collection( [], {
+		this.menuItems = new Backbone.Collection([], {
 			model: wp.media.model.MenuIconsItem
 		});
 
