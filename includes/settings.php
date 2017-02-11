@@ -656,15 +656,22 @@ final class Menu_Icons_Settings {
 		$url    = Menu_Icons::get( 'url' );
 		$suffix = kucrut_get_script_suffix();
 
+		if ( defined( 'MENU_ICONS_SCRIPT_DEBUG' ) && MENU_ICONS_SCRIPT_DEBUG ) {
+			$script_url = '//localhost:8081/';
+		} else {
+			$script_url = $url;
+		}
+
 		wp_enqueue_style(
 			'menu-icons',
 			"{$url}css/admin{$suffix}.css",
 			false,
 			Menu_Icons::VERSION
 		);
+
 		wp_enqueue_script(
 			'menu-icons',
-			"{$url}js/admin{$suffix}.js",
+			"{$script_url}js/admin{$suffix}.js",
 			self::$script_deps,
 			Menu_Icons::VERSION,
 			true
