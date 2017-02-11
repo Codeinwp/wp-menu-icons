@@ -57,6 +57,8 @@
     "url": "https://github.com/kucrut/wp-menu-icons/issues"
   },
   "scripts": {
+    "build": "NODE_ENV=production webpack --env=production --config webpack.config.babel.js",
+    "start": "NODE_ENV=development webpack-dev-server --env=development --config webpack.config.babel.js",
     "lint:js": "eslint Gruntfile.js js/src",
     "lint:php": "grunt phpcs",
     "lint": "npm run lint:js && npm run lint:php"
