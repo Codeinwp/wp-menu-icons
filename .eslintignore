@@ -1,0 +1,6 @@
+**/*.min.js
+**/node_modules/**
+**/vendor/**
+**/wp-admin/**
+js/admin.js
+js/src/media.js
