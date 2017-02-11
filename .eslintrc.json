@@ -1,0 +1,26 @@
+{
+  "extends": "humanmade",
+  "env": {
+    "browser": true
+  },
+  "globals": {
+    "_": false,
+    "Backbone": false,
+    "jQuery": false,
+    "wp": false,
+    "iconPicker": true
+  },
+  "rules": {
+    "key-spacing": [ "error", { "mode": "minimum" }],
+    "no-var": 0,
+    "object-curly-newline": 0,
+    "object-curly-spacing": [ "error", "always" ],
+    "space-in-parens": [ "error", "always", { "exceptions": [ "{}", "[]" ] } ],
+    "space-before-function-paren": ["error", {
+        "anonymous": "never",
+        "named": "never",
+        "asyncArrow": "ignore"
+    }],
+    "comma-dangle": [ "error", "never" ]
+  }
+}
