@@ -52,7 +52,8 @@
     "url": "https://github.com/kucrut/wp-menu-icons/issues"
   },
   "scripts": {
+    "lint:js": "eslint Gruntfile.js js/src",
     "lint:php": "grunt phpcs",
-    "lint": "npm run lint:php"
+    "lint": "npm run lint:js && npm run lint:php"
   }
 }
