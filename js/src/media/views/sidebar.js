@@ -12,8 +12,8 @@
 var MenuIconsSidebar = wp.media.view.IconPickerSidebar.extend({
 	initialize: function() {
 		var title = new wp.media.View({
-			tagName:  'h3',
-			priority: -10
+			tagName: 'h3',
+			priority: - 10
 		});
 
 		var info = new wp.media.View({
@@ -24,10 +24,10 @@ var MenuIconsSidebar = wp.media.view.IconPickerSidebar.extend({
 
 		wp.media.view.IconPickerSidebar.prototype.initialize.apply( this, arguments );
 
-		title.$el.text( menuIcons.text.preview );
+		title.$el.text( window.menuIcons.text.preview );
 		this.set( 'title', title );
 
-		info.$el.html( menuIcons.text.settingsInfo );
+		info.$el.html( window.menuIcons.text.settingsInfo );
 		this.set( 'info', info );
 	},
 
@@ -48,7 +48,7 @@ var MenuIconsSidebar = wp.media.view.IconPickerSidebar.extend({
 
 		// If the selected icon is still being downloaded (image or svg type),
 		// wait for it to complete before creating the preview.
-		if ( state.dfd && 'pending' === state.dfd.state() ) {
+		if ( state.dfd && state.dfd.state() === 'pending' ) {
 			state.dfd.done( function() {
 				self.createPreview();
 			});
@@ -70,7 +70,7 @@ var MenuIconsSidebar = wp.media.view.IconPickerSidebar.extend({
 		    fields   = [];
 
 		_.each( fieldIds, function( fieldId ) {
-			var field = menuIcons.settingsFields[ fieldId ],
+			var field = window.menuIcons.settingsFields[ fieldId ],
 			    model;
 
 			if ( ! field ) {
@@ -82,7 +82,7 @@ var MenuIconsSidebar = wp.media.view.IconPickerSidebar.extend({
 			}, field );
 
 			fields.push( model );
-		} );
+		});
 
 		if ( ! fields.length ) {
 			return;

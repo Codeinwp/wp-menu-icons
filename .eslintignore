@@ -1,6 +1,6 @@
 **/*.min.js
 **/node_modules/**
 **/vendor/**
-**/includes/library/icon-picker/**
-js/src/media.js
+**/wp-admin/**
 js/admin.js
+js/src/media.js

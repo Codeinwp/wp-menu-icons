@@ -1,4 +1,4 @@
-(function( $ ) {
+( function( $ ) {
 	/**
 	 * Settings box tabs
 	 *
@@ -40,11 +40,11 @@
 
 		$.ajax({
 			type: 'POST',
-			url:  menuIcons.ajaxUrls.update,
+			url:  window.menuIcons.ajaxUrls.update,
 			data: $( '#menu-icons-settings :input' ).serialize(),
 
 			success: function( response ) {
-				if ( true === response.success && response.data.redirectUrl ) {
+				if ( response.success && response.data.redirectUrl === true ) {
 					window.location = response.data.redirectUrl;
 				} else {
 					$button.prop( 'disabled', false );
