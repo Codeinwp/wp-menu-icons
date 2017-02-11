@@ -49,10 +49,7 @@ module.exports = function( grunt ) {
 		}, this.async() );
 	});
 
-	grunt.registerTask( 'css', ['cssmin']);
-	grunt.registerTask( 'js', ['uglify']);
-	grunt.registerTask( 'i18n', ['makepot']);
-	grunt.registerTask( 'default', [ 'css', 'js', 'i18n' ]);
+	grunt.registerTask( 'default', [ 'cssmin', 'uglify', 'makepot' ]);
 
 	grunt.util.linefeed = '\n';
 };
