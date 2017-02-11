@@ -50,7 +50,7 @@ module.exports = function( grunt ) {
 	});
 
 	grunt.registerTask( 'css', ['cssmin']);
-	grunt.registerTask( 'js', ['uglify' ]);
+	grunt.registerTask( 'js', ['uglify']);
 	grunt.registerTask( 'i18n', ['makepot']);
 	grunt.registerTask( 'default', [ 'css', 'js', 'i18n' ]);
 
