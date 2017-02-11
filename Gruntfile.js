@@ -1,6 +1,6 @@
 /* jshint node:true */
 module.exports = function( grunt ) {
-	grunt.initConfig( {
+	grunt.initConfig({
 		phpcs: {
 			'default': {
 				cmd: './vendor/bin/phpcs',
@@ -26,28 +26,28 @@ module.exports = function( grunt ) {
 		uglify: {
 			all: {
 				files: {
-					'js/admin.min.js': [ 'js/admin.js' ]
+					'js/admin.min.js': ['js/admin.js']
 				}
 			}
 		},
 		cssmin: {
 			all: {
-				files: [ {
+				files: [{
 					expand: true,
 					cwd: 'css/',
 					src: [ '*.css', '!*.min.css' ],
 					dest: 'css/',
 					ext: '.min.css'
-				} ]
+				}]
 			}
 		},
 		_watch:  {
 			styles: {
 				files: [ 'css/*.css', '!css/*.css' ],
-				tasks: [ 'cssmin' ],
+				tasks: ['cssmin'],
 				options: {
 					debounceDelay: 500,
-					interval:      2000
+					interval: 2000
 				}
 			},
 			scripts: {
@@ -56,18 +56,17 @@ module.exports = function( grunt ) {
 					'js/picker.js',
 					'js/settings.js'
 				],
-				tasks: [ 'js' ],
+				tasks: ['js'],
 				options: {
 					debounceDelay: 500,
-					interval:      2000
+					interval: 2000
 				}
 			}
 		},
 		clean: {
-			main: [ 'release/<%= pkg.version %>' ]
+			main: ['release/<%= pkg.version %>']
 		},
 		copy: {
-
 			// Copy the plugin to a versioned release directory
 			main: {
 				src:  [
@@ -94,7 +93,7 @@ module.exports = function( grunt ) {
 				},
 				expand: true,
 				cwd: 'release/<%= pkg.version %>/',
-				src: [ '**/*' ],
+				src: ['**/*'],
 				dest: 'menu-icons/'
 			}
 		},
@@ -103,11 +102,11 @@ module.exports = function( grunt ) {
 				options: {
 					mainFile: 'menu-icons.php',
 					type: 'wp-plugin',
-					exclude: [ 'includes/library' ]
+					exclude: ['includes/library']
 				}
 			}
 		}
-	} );
+	});
 
 	// Tasks
 	grunt.loadNpmTasks( 'grunt-browserify' );
@@ -122,19 +121,19 @@ module.exports = function( grunt ) {
 
 	grunt.renameTask( 'watch', '_watch' );
 	grunt.registerTask( 'watch', function() {
-		if ( ! this.args.length || this.args.indexOf( 'browserify' ) > -1 ) {
+		if ( ! this.args.length || this.args.indexOf( 'browserify' ) > - 1 ) {
 			grunt.config( 'browserify.options', {
 				browserifyOptions: {
 					debug: true
 				},
 				watch: true
-			} );
+			});
 
 			grunt.task.run( 'browserify' );
 		}
 
 		grunt.task.run( '_' + this.nameArgs );
-	} );
+	});
 
 	grunt.registerMultiTask( 'phpcs', 'Runs PHP code sniffs.', function() {
 		grunt.util.spawn({
@@ -144,11 +143,11 @@ module.exports = function( grunt ) {
 		}, this.async() );
 	});
 
-	grunt.registerTask( 'css', [ 'cssmin' ] );
-	grunt.registerTask( 'js', [ 'browserify', 'concat', 'uglify' ] );
-	grunt.registerTask( 'i18n', [ 'makepot' ] );
-	grunt.registerTask( 'default', [ 'css', 'js' ] );
-	grunt.registerTask( 'build', [ 'default', 'clean', 'copy', 'compress' ] );
+	grunt.registerTask( 'css', ['cssmin']);
+	grunt.registerTask( 'js', [ 'browserify', 'concat', 'uglify' ]);
+	grunt.registerTask( 'i18n', ['makepot']);
+	grunt.registerTask( 'default', [ 'css', 'js' ]);
+	grunt.registerTask( 'build', [ 'default', 'clean', 'copy', 'compress' ]);
 
 	grunt.util.linefeed = '\n';
 };
