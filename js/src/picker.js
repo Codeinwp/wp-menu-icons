@@ -1,4 +1,7 @@
-/* global menuIcons: true */
+/* global menuIcons:false */
+
+require( './media' );
+
 ( function( $ ) {
 	var miPicker;
 
