@@ -1,3 +1,6 @@
 [submodule "includes/library/icon-picker"]
 	path = includes/library/icon-picker
 	url = https://github.com/kucrut/wp-icon-picker.git
+[submodule "includes/library/menu-item-custom-fields"]
+	path = includes/library/menu-item-custom-fields
+	url = https://github.com/kucrut/wp-menu-item-custom-fields.git
