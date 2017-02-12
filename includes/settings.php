@@ -677,6 +677,14 @@ final class Menu_Icons_Settings {
 			true
 		);
 
+		$customizer_url = add_query_arg(
+			array(
+				'autofocus[section]' => 'custom_css',
+				'return'             => admin_url( 'nav-menus.php' ),
+			),
+			admin_url( 'customize.php' )
+		);
+
 		/**
 		 * Allow plugins/themes to filter the settings' JS data
 		 *
@@ -694,7 +702,12 @@ final class Menu_Icons_Settings {
 					'all'          => __( 'All', 'menu-icons' ),
 					'preview'      => __( 'Preview', 'menu-icons' ),
 					'settingsInfo' => sprintf(
-						esc_html__( "Please note that the actual look of the icons on the front-end will also be affected by your active theme's style. You can use %s if you need to override it.", 'menu-icons' ),
+						esc_html__( 'Please note that the actual look of the icons on the front-end will also be affected by the style of your active theme. You can add your own CSS using %1$s or a plugin such as %2$s if you need to override it.', 'menu-icons' ),
+						sprintf(
+							'<a href="%s">%s</a>',
+							esc_url( $customizer_url ),
+							esc_html__( 'the customizer', 'menu-icons' )
+						),
 						'<a target="_blank" href="http://wordpress.org/plugins/simple-custom-css/">Simple Custom CSS</a>'
 					),
 				),
