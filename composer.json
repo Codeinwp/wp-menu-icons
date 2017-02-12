@@ -14,7 +14,7 @@
     ],
     "require": {
       "composer/installers": "~1.0",
-      "kucrut/icon-picker": "~0.4",
+      "kucrut/icon-picker": "~0.5",
       "kucrut/menu-item-custom-fields": "~1.0.0"
     },
     "require-dev": {
