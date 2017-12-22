@@ -1,9 +1,8 @@
 === Menu Icons ===
-Contributors: kucrut, joshuairl
-Donate Link: http://kucrut.org/#coffee
+Contributors: kucrut, joshuairl,codeinwp, themeisle
 Tags: menu, nav-menu, icons, navigation
 Requires at least: 4.3
-Tested up to: 4.7.0
+Tested up to: 4.9
 Stable tag: 0.10.2
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -13,10 +12,9 @@ Spice up your navigation menus with pretty icons, easily.
 
 == Description ==
 
-= Upgrade Note =
-Before updating to `0.9.x`, please save the settings by clicking on the *Save* button on the *Menu Icons Settings* meta box. See [screenshot](https://ps.w.org/menu-icons/assets/screenshot-7.png?rev=979807).
-
 This plugin gives you the ability to add icons to your menu items, similar to the look of the latest dashboard menu.
+
+https://www.youtube.com/watch?v=YcSotWXIczI
 
 = Usage =
 1. After the plugin is activated, go to *Appearance* > *Menus* to edit your menus
@@ -32,6 +30,7 @@ This plugin gives you the ability to add icons to your menu items, similar to th
 - [Foundation Icons](http://zurb.com/playground/foundation-icon-fonts-3/) by [Zurb](http://zurb.com/)
 - [Genericons](http://genericons.com/) by [Automattic](http://automattic.com/)
 - [Fontello](http://fontello.com/) icon packs
+- [TI Icons](http://themeisle.com/free-icons/) icon pack by [ThemeIsle](http://twitter.com/themeisle)
 - Image (attachments)
 - SVG (attachments)
 
@@ -41,7 +40,12 @@ This plugin gives you the ability to add icons to your menu items, similar to th
 = Extensions =
 - [IcoMoon](http://wordpress.org/plugins/menu-icons-icomoon/) by [IcoMoon.io](http://icomoon.io/)
 
-Development of this plugin is done on [GitHub](https://github.com/kucrut/wp-menu-icons). **Pull requests welcome**. Please see [issues reported](https://github.com/kucrut/wp-menu-icons/issues) there before going to the plugin forum.
+= Compatible themes =
+Menu icons works with most of the themes out there, especially with popular ones like Twenty Seventeen or [Hestia](https://themeisle.com/themes/hestia/).
+
+Development of this plugin is done on [GitHub](https://github.com/codeinwp/wp-menu-icons). **Pull requests welcome**. Please see [issues reported](https://github.com/codeinwp/wp-menu-icons/issues) there before going to the plugin forum.
+
+
 
 
 == Screenshots ==
@@ -69,7 +73,7 @@ Make sure that your active theme is using the default walker for displaying the 
 = The icon positions don't look right =
 If you're comfortable with editing your theme stylesheet, then you can override the styles from there.
 If you have [Jetpack](http://wordpress.org/plugins/jetpack) installed, you can also use its **Custom CSS** module.
-Otherwise, I recommend you to use the [Simple Custom CSS plugin](http://wordpress.org/plugins/simple-custom-css/).
+Otherwise, I recommend you to use the [Advanced CSS plugin](https://wordpress.org/plugins/advanced-css-editor/).
 
 = Some font icons are not rendering correctly =
 This is a bug with the font icon itself. When the font is updated, this plugin will update its font too.
@@ -181,7 +185,7 @@ add_filter( 'menu_icons_item_title', 'my_menu_icons_override_markup', 10, 4 );
 `
 
 = Can you please add X icon font? =
-Let me know via [GitHub issues](https://github.com/kucrut/wp-menu-icons/issues) and I'll see what I can do.
+Let me know via [GitHub issues](https://github.com/codeinw/wp-menu-icons/issues) and I'll see what I can do.
 
 = How do I disable menu icons for a certain menu? =
 Add this block of code to your [mu-plugin file](http://codex.wordpress.org/Must_Use_Plugins):
@@ -209,7 +213,6 @@ add_filter( 'menu_icons_menu_settings', 'my_menu_icons_menu_settings', 10, 2 );
 1. Grab the zip of the pack, extract, and upload it to the newly created directory.
 1. Enable the icon type from the Settings meta box.
 
-https://www.youtube.com/watch?v=B-5AVwgPaiw
 
 = I can't select a custom image size from the *Image Size* dropdown =
 Read [this blog post](http://kucrut.org/add-custom-image-sizes-right-way/).
