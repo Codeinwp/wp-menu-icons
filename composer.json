@@ -1,23 +1,43 @@
 {
-    "name": "kucrut/menu-icons",
-    "description": "Spice up your navigation menus with pretty icons, easily.",
-    "keywords": ["wordpress", "plugin", "navigation", "menu", "icons", "genericons", "dashicons", "font-awesome", "elusive", "foundation-icons"],
-    "homepage": "https://github.com/kucrut/wp-menu-icons",
-    "license": "GPL-2.0",
-    "type": "wordpress-plugin",
-    "authors": [
-        {
-            "name": "Dzikri Aziz",
-            "email": "kvcrvt@gmail.com",
-            "homepage": "https://kucrut.org/"
-        }
-    ],
-    "require": {
-      "composer/installers": "~1.0",
-      "kucrut/icon-picker": "~0.5",
-      "kucrut/menu-item-custom-fields": "~1.0.0"
+  "name": "codeinwp/menu-icons",
+  "description": "Spice up your navigation menus with pretty icons, easily.",
+  "keywords": [
+    "wordpress",
+    "plugin",
+    "navigation",
+    "menu",
+    "icons",
+    "genericons",
+    "dashicons",
+    "font-awesome",
+    "elusive",
+    "foundation-icons"
+  ],
+  "homepage": "https://github.com/Codeinwp/wp-menu-icons",
+  "license": "GPL-2.0",
+  "type": "wordpress-plugin",
+  "authors": [
+    {
+      "name": "Dzikri Aziz",
+      "email": "kvcrvt@gmail.com",
+      "homepage": "https://kucrut.org/"
     },
-    "require-dev": {
-        "wp-coding-standards/wpcs": "^0.10.0"
+    {
+      "name": "ThemeIsle",
+      "email": "friends@themeisle.com",
+      "homepage": "https://themeisle.com/"
     }
+  ],
+  "autoload": {
+    "files": [
+      "vendor/codeinwp/themeisle-sdk/load.php"
+    ]
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "require": {
+    "codeinwp/themeisle-sdk": "master",
+    "kucrut/icon-picker": "~0.5",
+    "kucrut/menu-item-custom-fields": "~1.0.0"
+  }
 }
