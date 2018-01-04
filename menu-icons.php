@@ -9,11 +9,11 @@
  *
  *
  * Plugin name: Menu Icons
- * Plugin URI:  http://kucrut.org/
+ * Plugin URI:  https://github.com/Codeinwp/wp-menu-icons
  * Description: Spice up your navigation menus with pretty icons, easily.
  * Version:     0.11.0
- * Author:      Dzikri Aziz
- * Author URI:  http://kucrut.org/
+ * Author:      ThemeIsle
+ * Author URI:  https://themeisle.com
  * License:     GPLv2
  * Text Domain: menu-icons
  * Domain Path: /languages

@@ -19,3 +19,4 @@ composer.json
 composer.lock
 package-lock.json
 key.enc
+webpack.config.babel.js
