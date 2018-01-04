@@ -8,9 +8,6 @@ php:
 sudo: false
 matrix:
   fast_finish: true
-  matrix:
-  - php: '5.3'
-    dist: precise
 branches:
   except:
   - "/^*-v[0-9]/"
