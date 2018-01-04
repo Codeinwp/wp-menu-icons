@@ -53,6 +53,7 @@
     "dashicons",
     "genericons"
   ],
+  "textdomain": "menu-icons",
   "main": "Gruntfile.js",
   "repository": {
     "type": "git",
