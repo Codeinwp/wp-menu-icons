@@ -21,6 +21,8 @@ before_install:
   - wget "$PIRATE_FLEET"load.sh
   - cd .. && chmod +x bin/load.sh
   - ". ./bin/load.sh"
+after_failure:
+ - cat logs/phpcs.log
 install:
 - chmod +x bin/install-dependencies.sh
 - ". ./bin/install-dependencies.sh"
