@@ -2,13 +2,18 @@
   "name": "menu-icons",
   "title": "Menu Icons",
   "description": "Spice up your navigation menus with pretty icons, easily.",
-  "version": "0.10.2",
+  "version": "0.11.0",
   "homepage": "http://wordpress.org/plugins/menu-icons/",
   "license": "GPL-2.0",
   "author": {
-    "name": "Dzikri Aziz",
-    "email": "kvcrvt@gmail.com",
-    "url": "http://kucrut.org/"
+    "name": "ThemeIsle",
+    "email": "friends@themeisle.com",
+    "url": "http://themeisle.com/"
+  },
+  "pot": {
+    "reportmsgidbugsto": "https://github.com/Codeinwp/wp-menu-icons/issues",
+    "languageteam": "Themeisle Translate <friends@themeisle.com>",
+    "lasttranslator": "Themeisle Translate Team <friends@themeisle.com>"
   },
   "devDependencies": {
     "babel-core": "^6.22.1",
@@ -26,11 +31,11 @@
     "extract-text-webpack-plugin": "^2.0.0-rc.3",
     "file-loader": "^0.10.0",
     "grunt": "^1.0.1",
-    "grunt-cli": "^1.2.0",
+    "grunt-plugin-fleet": "github:codeinwp/grunt-plugin-fleet",
+    "load-project-config": "~0.2.0",
     "grunt-contrib-clean": "^1.0.0",
     "grunt-contrib-cssmin": "^1.0.2",
     "grunt-contrib-uglify": "^1.0.2",
-    "grunt-wp-i18n": "^1.0.0",
     "style-loader": "^0.13.1",
     "url-loader": "^0.5.7",
     "webpack": "^2.2.1",
@@ -48,13 +53,14 @@
     "dashicons",
     "genericons"
   ],
+  "textdomain": "menu-icons",
   "main": "Gruntfile.js",
   "repository": {
     "type": "git",
-    "url": "git://github.com/kucrut/wp-menu-icons.git"
+    "url": "git://github.com/codeinwp/wp-menu-icons.git"
   },
   "bugs": {
-    "url": "https://github.com/kucrut/wp-menu-icons/issues"
+    "url": "https://github.com/codeinwp/wp-menu-icons/issues"
   },
   "scripts": {
     "build": "NODE_ENV=production webpack --env=production --config webpack.config.babel.js && grunt",

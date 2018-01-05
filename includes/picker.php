@@ -72,12 +72,12 @@ final class Menu_Icons_Picker {
 			array(
 				array(
 					'id'    => 'type',
-					'label' => __( 'Type' ),
+					'label' => __( 'Type', 'menu-icons' ),
 					'value' => $meta['type'],
 				),
 				array(
 					'id'    => 'icon',
-					'label' => __( 'Icon' ),
+					'label' => __( 'Icon', 'menu-icons' ),
 					'value' => $meta['icon'],
 				),
 			),

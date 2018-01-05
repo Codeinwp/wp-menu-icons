@@ -708,7 +708,7 @@ final class Menu_Icons_Settings {
 							esc_url( $customizer_url ),
 							esc_html__( 'the customizer', 'menu-icons' )
 						),
-						'<a target="_blank" href="http://wordpress.org/plugins/simple-custom-css/">Simple Custom CSS</a>'
+						'<a target="_blank" href="https://wordpress.org/plugins/advanced-css-editor/">Advanced CSS Editor</a>'
 					),
 				),
 				'settingsFields' => self::get_settings_fields(),

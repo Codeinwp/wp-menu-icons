@@ -12,3 +12,13 @@ npm-debug.log
 
 # Misc
 *.map
+
+.idea
+node_modules
+logs
+dist
+artifact
+vendor
+bin
+package-lock.json
+composer.lock

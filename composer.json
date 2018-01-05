@@ -1,23 +1,23 @@
 {
-    "name": "kucrut/menu-icons",
-    "description": "Spice up your navigation menus with pretty icons, easily.",
-    "keywords": ["wordpress", "plugin", "navigation", "menu", "icons", "genericons", "dashicons", "font-awesome", "elusive", "foundation-icons"],
-    "homepage": "https://github.com/kucrut/wp-menu-icons",
-    "license": "GPL-2.0",
-    "type": "wordpress-plugin",
-    "authors": [
-        {
-            "name": "Dzikri Aziz",
-            "email": "kvcrvt@gmail.com",
-            "homepage": "https://kucrut.org/"
-        }
-    ],
-    "require": {
-      "composer/installers": "~1.0",
-      "kucrut/icon-picker": "~0.5",
-      "kucrut/menu-item-custom-fields": "~1.0.0"
-    },
-    "require-dev": {
-        "wp-coding-standards/wpcs": "^0.10.0"
-    }
+  "name": "codeinwp/wp-menu-icons",
+  "description": "WordPress Menu Icons",
+  "type": "wordpress-plugin",
+  "require": {
+    "codeinwp/themeisle-sdk": "master",
+    "kucrut/icon-picker": "^0.5.0",
+    "kucrut/menu-item-custom-fields": "^1.0"
+  },
+  "replace": {
+    "composer/installers": "*",
+    "wp-coding-standards/wpcs": "*"
+  },
+  "autoload": {
+    "files": [
+      "vendor/kucrut/menu-item-custom-fields/menu-item-custom-fields.php",
+      "vendor/kucrut/icon-picker/icon-picker.php",
+      "vendor/codeinwp/themeisle-sdk/load.php"
+    ]
+  },
+  "license": "GPL-3.0+",
+  "minimum-stability": "dev"
 }

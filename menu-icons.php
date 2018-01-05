@@ -9,11 +9,11 @@
  *
  *
  * Plugin name: Menu Icons
- * Plugin URI:  http://kucrut.org/
+ * Plugin URI:  https://github.com/Codeinwp/wp-menu-icons
  * Description: Spice up your navigation menus with pretty icons, easily.
- * Version:     0.10.2
- * Author:      Dzikri Aziz
- * Author URI:  http://kucrut.org/
+ * Version:     0.11.0
+ * Author:      ThemeIsle
+ * Author URI:  https://themeisle.com
  * License:     GPLv2
  * Text Domain: menu-icons
  * Domain Path: /languages
@@ -27,7 +27,7 @@
  */
 final class Menu_Icons {
 
-	const VERSION = '0.10.2';
+	const VERSION = '0.11.0';
 
 	/**
 	 * Holds plugin data
@@ -80,7 +80,11 @@ final class Menu_Icons {
 			'url'   => plugin_dir_url( __FILE__ ),
 			'types' => array(),
 		);
+		$vendor_file = dirname(__FILE__) . '/vendor/autoload.php';
 
+		if ( is_readable( $vendor_file ) ) {
+			require_once $vendor_file;
+		}
 		// Load Icon Picker.
 		if ( ! class_exists( 'Icon_Picker' ) ) {
 			$ip_file = self::$data['dir'] . 'includes/library/icon-picker/icon-picker.php';
@@ -166,3 +170,10 @@ final class Menu_Icons {
 	}
 }
 add_action( 'plugins_loaded', array( 'Menu_Icons', '_load' ) );
+
+add_filter( 'themeisle_sdk_products', 'kucrut_register_sdk', 10, 1 );
+function kucrut_register_sdk( $products ) {
+
+	$products[] = __FILE__;
+	return $products;
+}
