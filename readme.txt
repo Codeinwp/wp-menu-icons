@@ -3,7 +3,7 @@ Contributors: kucrut, joshuairl,codeinwp, themeisle
 Tags: menu, nav-menu, icons, navigation
 Requires at least: 4.3
 Tested up to: 4.9
-Stable tag: 0.10.2
+Stable tag: trunk
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
