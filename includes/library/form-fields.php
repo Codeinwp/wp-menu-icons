@@ -525,7 +525,7 @@ class Kucrut_Form_Field_Select_Pages extends Kucrut_Form_Field_Select {
 
 
 	public function __construct( $field, $args ) {
-		$this->wp_dropdown_pages_args['show_option_none'] = __( '&mdash; Select &mdash;', 'postmedia' );
+		$this->wp_dropdown_pages_args['show_option_none'] = __( '&mdash; Select &mdash;', 'menu-icons' );
 		parent::__construct( $field, $args );
 	}
 
