@@ -693,7 +693,6 @@ final class Menu_Icons_Settings {
 		 */
 		$menu_current_theme = '';
 		$theme = wp_get_theme();
-
 		if ( ! empty( $theme ) ) {
 			if ( is_child_theme() ) {
 				$menu_current_theme = $theme->parent()->get( 'Name' );
@@ -716,12 +715,11 @@ final class Menu_Icons_Settings {
 				), admin_url( 'theme-install.php' )
 			);
 			$hestia_data = '<div class="menu-icons-upgrade-hestia postbox new-card">';
-			$hestia_data .= '<p>'.wp_kses_post( $menu_upgrade_hestia_box_text ).'</p>';
-			$hestia_data .= '<a href="'.$menu_upgrade_hestia_url.'" target="_blank">Preview Hestia</a>';
+			$hestia_data .= '<p>' . wp_kses_post( $menu_upgrade_hestia_box_text ) . '</p>';
+			$hestia_data .= '<a href="' . $menu_upgrade_hestia_url . '" target="_blank">Preview Hestia</a>';
 			$hestia_data .= '</div>';
 		}
 
-		
 		if ( ! empty( $_POST['menu_icons_mail'] ) ) {
 			require( MENU_ICONS_PATH . 'mailin.php' );
 			$user_info = get_userdata( 1 );
@@ -743,13 +741,13 @@ final class Menu_Icons_Settings {
 		}
 		$was_submited = get_option( 'menu_icons_subscribe', false );
 		if ( $was_submited == false ) {
-			$email_output = esc_html__( 'Ready to learn how to reduce your website loading times by half? Come and join the 1st lesson here!', 'menu_icons' ).' </p><form class="menu-icons-submit-mail" method="post"><input name="menu_icons_mail" type="email" value="' . get_option( 'admin_email' ) . '" /><input class="button" type="submit" value="Submit"></form>';
+			$email_output = esc_html__( 'Ready to learn how to reduce your website loading times by half? Come and join the 1st lesson here!', 'menu-icons' ) . ' </p><form class="menu-icons-submit-mail" method="post"><input name="menu_icons_mail" type="email" value="' . get_option( 'admin_email' ) . '" /><input class="button" type="submit" value="Submit"></form>';
 		} else {
-			$email_output = esc_html__( 'Thank you for subscribing! You have been added to the mailing list and will receive the next email information in the coming weeks. If you ever wish to unsubscribe, simply use the "Unsubscribe" link included in each newsletter.', 'menu_icons' ).'</p>';
+			$email_output = esc_html__( 'Thank you for subscribing! You have been added to the mailing list and will receive the next email information in the coming weeks. If you ever wish to unsubscribe, simply use the "Unsubscribe" link included in each newsletter.', 'menu-icons' ) . '</p>';
 		}
 		$email_data = '<div class="menu-icons-subscribe postbox new-card">';
 		$email_data .= '<h3 class="title">Get Our Free Email Course</h3>';
-		$email_data .= '<p>'.$email_output;
+		$email_data .= '<p>' . $email_output;
 		$email_data .= '</div>';
 
 		$js_data = apply_filters(
@@ -770,8 +768,8 @@ final class Menu_Icons_Settings {
 							esc_html__( 'the customizer', 'menu-icons' )
 						),
 						'<a target="_blank" href="https://wordpress.org/plugins/advanced-css-editor/">Advanced CSS Editor</a>',
-						'<div id="menu-icons-sidebar">'.$hestia_data,
-						$email_data.'</div>'
+						'<div id="menu-icons-sidebar">' . $hestia_data,
+						$email_data . '</div>'
 					),
 				),
 				'settingsFields' => self::get_settings_fields(),
