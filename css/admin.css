@@ -141,3 +141,47 @@
 .attachment .svg-icon img {
 	max-width: 100%;
 }
+
+.menu-icons-upgrade-hestia a {
+	display: inline-block;
+	margin-top: 10px;
+	padding: 9px;
+	border-radius: 3px;
+	color: #fff;
+	background: #ff7f65;
+	box-shadow: 0 4px 0 #da6f5a;
+	font-size: 12px;
+	font-weight: 700;
+	text-decoration: none;
+	text-transform: uppercase;
+	cursor: pointer;
+	-webkit-transition: ease 0.25s;
+	transition: ease 0.25s;
+}
+
+.menu-icons-upgrade-hestia a:hover {
+    color: #ffffff;
+}
+
+.menu-icons-upgrade-hestia {
+	width: 90%;
+	margin-top: 0;
+    border-color: #fdbda9;
+    padding: 15px;
+}
+
+
+#menu-icons-sidebar div.new-card {
+	width: auto;
+	min-width: initial;
+	max-width: initial;
+	margin: 10px auto;
+}
+
+.menu-icons-subscribe {
+    padding: 15px;
+}
+
+.menu-icons-submit-mail {
+    width: auto;
+}
