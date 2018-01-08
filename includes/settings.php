@@ -700,7 +700,7 @@ final class Menu_Icons_Settings {
 				$menu_current_theme = $theme->get( 'Name' );
 			}
 		}
-
+		$box_data = '<div id="menu-icons-sidebar">';
 		if ( ( $menu_current_theme != 'Hestia' ) && ( $menu_current_theme != 'Hestia Pro' ) ) {
 
 			$menu_upgrade_hestia_box_text = 'Check-out our latest FREE multi-purpose theme: <strong>Hestia</strong>';
@@ -714,10 +714,10 @@ final class Menu_Icons_Settings {
 					'theme' => 'hestia',
 				), admin_url( 'theme-install.php' )
 			);
-			$hestia_data = '<div class="menu-icons-upgrade-hestia postbox new-card">';
-			$hestia_data .= '<p>' . wp_kses_post( $menu_upgrade_hestia_box_text ) . '</p>';
-			$hestia_data .= '<a href="' . $menu_upgrade_hestia_url . '" target="_blank">Preview Hestia</a>';
-			$hestia_data .= '</div>';
+			$box_data .= '<div class="menu-icons-upgrade-hestia postbox new-card">';
+			$box_data .= '<p>' . wp_kses_post( $menu_upgrade_hestia_box_text ) . '</p>';
+			$box_data .= '<a href="' . $menu_upgrade_hestia_url . '" target="_blank">Preview Hestia</a>';
+			$box_data .= '</div>';
 		}
 
 		if ( ! empty( $_POST['menu_icons_mail'] ) ) {
@@ -745,10 +745,11 @@ final class Menu_Icons_Settings {
 		} else {
 			$email_output = esc_html__( 'Thank you for subscribing! You have been added to the mailing list and will receive the next email information in the coming weeks. If you ever wish to unsubscribe, simply use the "Unsubscribe" link included in each newsletter.', 'menu-icons' ) . '</p>';
 		}
-		$email_data = '<div class="menu-icons-subscribe postbox new-card">';
-		$email_data .= '<h3 class="title">Get Our Free Email Course</h3>';
-		$email_data .= '<p>' . $email_output;
-		$email_data .= '</div>';
+		$box_data .= '<div class="menu-icons-subscribe postbox new-card">';
+		$box_data .= '<h3 class="title">Get Our Free Email Course</h3>';
+		$box_data .= '<p>' . $email_output;
+		$box_data .= '</div>';
+		$box_data .= '</div>';
 
 		$js_data = apply_filters(
 			'menu_icons_settings_js_data',
@@ -761,15 +762,14 @@ final class Menu_Icons_Settings {
 					'all'          => __( 'All', 'menu-icons' ),
 					'preview'      => __( 'Preview', 'menu-icons' ),
 					'settingsInfo' => sprintf(
-						esc_html__( 'Please note that the actual look of the icons on the front-end will also be affected by the style of your active theme. You can add your own CSS using %1$s or a plugin such as %2$s if you need to override it. %3$s %4$s', 'menu-icons' ),
+						'<p>' . esc_html__( 'Please note that the actual look of the icons on the front-end will also be affected by the style of your active theme. You can add your own CSS using %1$s or a plugin such as %2$s if you need to override it. %3$s', 'menu-icons' ) . '</p>',
 						sprintf(
 							'<a href="%s">%s</a>',
 							esc_url( $customizer_url ),
 							esc_html__( 'the customizer', 'menu-icons' )
 						),
 						'<a target="_blank" href="https://wordpress.org/plugins/advanced-css-editor/">Advanced CSS Editor</a>',
-						'<div id="menu-icons-sidebar">' . $hestia_data,
-						$email_data . '</div>'
+						$box_data
 					),
 				),
 				'settingsFields' => self::get_settings_fields(),
