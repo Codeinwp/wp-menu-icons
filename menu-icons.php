@@ -17,6 +17,8 @@
  * License:     GPLv2
  * Text Domain: menu-icons
  * Domain Path: /languages
+ * WordPress Available:  yes
+ * Requires License:    no
  */
 
 
