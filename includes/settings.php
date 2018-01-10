@@ -691,6 +691,66 @@ final class Menu_Icons_Settings {
 		 * @since 0.9.0
 		 * @param array $js_data JS Data.
 		 */
+		$menu_current_theme = '';
+		$theme = wp_get_theme();
+		if ( ! empty( $theme ) ) {
+			if ( is_child_theme() ) {
+				$menu_current_theme = $theme->parent()->get( 'Name' );
+			} else {
+				$menu_current_theme = $theme->get( 'Name' );
+			}
+		}
+		$box_data = '<div id="menu-icons-sidebar">';
+		if ( ( $menu_current_theme != 'Hestia' ) && ( $menu_current_theme != 'Hestia Pro' ) ) {
+
+			$menu_upgrade_hestia_box_text = 'Check-out our latest FREE multi-purpose theme: <strong>Hestia</strong>';
+
+			if ( $menu_current_theme == 'Zerif Lite' ) {
+				$menu_upgrade_hestia_box_text = 'Check-out our latest FREE multi-purpose theme: <strong>Hestia</strong>, your Zerif Lite content will be imported automatically! ';
+			}
+
+			$menu_upgrade_hestia_url = add_query_arg(
+				array(
+					'theme' => 'hestia',
+				), admin_url( 'theme-install.php' )
+			);
+			$box_data .= '<div class="menu-icons-upgrade-hestia postbox new-card">';
+			$box_data .= '<p>' . wp_kses_post( $menu_upgrade_hestia_box_text ) . '</p>';
+			$box_data .= '<a href="' . $menu_upgrade_hestia_url . '" target="_blank">Preview Hestia</a>';
+			$box_data .= '</div>';
+		}
+
+		if ( ! empty( $_POST['menu_icons_mail'] ) ) {
+			require( plugin_dir_path( __DIR__ ) . 'mailin.php' );
+			$user_info = get_userdata( 1 );
+			$mailin    = new Mailin( 'https://api.sendinblue.com/v2.0', 'cHW5sxZnzE7mhaYb' );
+			$data      = array(
+				'email'           => $_POST['menu_icons_mail'],
+				'attributes'      => array(
+					'NAME'    => $user_info->first_name,
+					'SURNAME' => $user_info->last_name,
+				),
+				'blacklisted'     => 0,
+				'listid'          => array( 51 ),
+				'blacklisted_sms' => 0,
+			);
+			$status    = $mailin->create_update_user( $data );
+			if ( $status['code'] == 'success' ) {
+				update_option( 'menu_icons_subscribe', true );
+			}
+		}
+		$was_submited = get_option( 'menu_icons_subscribe', false );
+		if ( $was_submited == false ) {
+			$email_output = esc_html__( 'Ready to learn how to reduce your website loading times by half? Come and join the 1st lesson here!', 'menu-icons' ) . ' </p><form class="menu-icons-submit-mail" method="post"><input name="menu_icons_mail" type="email" value="' . get_option( 'admin_email' ) . '" /><input class="button" type="submit" value="Submit"></form>';
+		} else {
+			$email_output = esc_html__( 'Thank you for subscribing! You have been added to the mailing list and will receive the next email information in the coming weeks. If you ever wish to unsubscribe, simply use the "Unsubscribe" link included in each newsletter.', 'menu-icons' ) . '</p>';
+		}
+		$box_data .= '<div class="menu-icons-subscribe postbox new-card">';
+		$box_data .= '<h3 class="title">Get Our Free Email Course</h3>';
+		$box_data .= '<p>' . $email_output;
+		$box_data .= '</div>';
+		$box_data .= '</div>';
+
 		$js_data = apply_filters(
 			'menu_icons_settings_js_data',
 			array(
@@ -702,13 +762,14 @@ final class Menu_Icons_Settings {
 					'all'          => __( 'All', 'menu-icons' ),
 					'preview'      => __( 'Preview', 'menu-icons' ),
 					'settingsInfo' => sprintf(
-						esc_html__( 'Please note that the actual look of the icons on the front-end will also be affected by the style of your active theme. You can add your own CSS using %1$s or a plugin such as %2$s if you need to override it.', 'menu-icons' ),
+						'<p>' . esc_html__( 'Please note that the actual look of the icons on the front-end will also be affected by the style of your active theme. You can add your own CSS using %1$s or a plugin such as %2$s if you need to override it. %3$s', 'menu-icons' ) . '</p>',
 						sprintf(
 							'<a href="%s">%s</a>',
 							esc_url( $customizer_url ),
 							esc_html__( 'the customizer', 'menu-icons' )
 						),
-						'<a target="_blank" href="https://wordpress.org/plugins/advanced-css-editor/">Advanced CSS Editor</a>'
+						'<a target="_blank" href="https://wordpress.org/plugins/advanced-css-editor/">Advanced CSS Editor</a>',
+						$box_data
 					),
 				),
 				'settingsFields' => self::get_settings_fields(),
