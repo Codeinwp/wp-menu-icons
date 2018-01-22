@@ -740,10 +740,11 @@ final class Menu_Icons_Settings {
 			}
 		}
 		$was_submited = get_option( 'menu_icons_subscribe', false );
+		$was_submited = false;
 		if ( $was_submited == false ) {
 			$email_output = '<div class="menu-icons-subscribe postbox new-card">';
 			$email_output .= '<h3 class="title">' . esc_html__( 'Get Our Free Email Course', 'menu-icons' ) . '</h3>';
-			$email_output .= '<p id="formdata">' . esc_html__( 'Ready to learn how to reduce your website loading times by half? Come and join the 1st lesson here!', 'menu-icons' ) . ' </p><form class="menu-icons-submit-mail" method="post"><input name="menu_icons_mail" type="email" value="' . get_option( 'admin_email' ) . '" /><input id="ebutton" class="button" type="submit" value="Submit" onClick="msg()"></form>';
+			$email_output .= '<p id="formdata">' . esc_html__( 'Ready to learn how to reduce your website loading times by half? Come and join the 1st lesson here!', 'menu-icons' ) . ' </p><form class="menu-icons-submit-mail" method="post" onsubmit="return false"><input name="menu_icons_mail" type="email" value="' . get_option( 'admin_email' ) . '" /><input id="ebutton" class="button" type="submit" value="Submit"></form>';
 			$email_output .= '<p id="success">' . esc_html__( 'Thank you for subscribing! You have been added to the mailing list and will receive the next email information in the coming weeks. If you ever wish to unsubscribe, simply use the "Unsubscribe" link included in each newsletter.', 'menu-icons' ) . '</p>';
 			$email_output .= '</div>';
 		}
