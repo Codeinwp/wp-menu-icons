@@ -716,7 +716,7 @@ final class Menu_Icons_Settings {
 			);
 			$box_data .= '<div class="menu-icons-upgrade-hestia postbox new-card">';
 			$box_data .= '<p>' . wp_kses_post( $menu_upgrade_hestia_box_text ) . '</p>';
-			$box_data .= '<a href="' . $menu_upgrade_hestia_url . '" target="_blank">Preview Hestia</a>';
+			$box_data .= '<a class="button" href="' . $menu_upgrade_hestia_url . '" target="_blank">Preview Hestia</a>';
 			$box_data .= '</div>';
 		}
 
@@ -741,15 +741,24 @@ final class Menu_Icons_Settings {
 		}
 		$was_submited = get_option( 'menu_icons_subscribe', false );
 		if ( $was_submited == false ) {
-			$email_output = esc_html__( 'Ready to learn how to reduce your website loading times by half? Come and join the 1st lesson here!', 'menu-icons' ) . ' </p><form class="menu-icons-submit-mail" method="post"><input name="menu_icons_mail" type="email" value="' . get_option( 'admin_email' ) . '" /><input class="button" type="submit" value="Submit"></form>';
-		} else {
-			$email_output = esc_html__( 'Thank you for subscribing! You have been added to the mailing list and will receive the next email information in the coming weeks. If you ever wish to unsubscribe, simply use the "Unsubscribe" link included in each newsletter.', 'menu-icons' ) . '</p>';
+			$email_output = '<div class="menu-icons-subscribe postbox new-card">';
+			$email_output .= '<h3 class="title">' . esc_html__( 'Get Our Free Email Course', 'menu-icons' ) . '</h3>';
+			$email_output .= '<p id="formdata">' . esc_html__( 'Ready to learn how to reduce your website loading times by half? Come and join the 1st lesson here!', 'menu-icons' ) . ' </p><form class="menu-icons-submit-mail" method="post"><input name="menu_icons_mail" type="email" value="' . get_option( 'admin_email' ) . '" /><input id="ebutton" class="button" type="submit" value="Submit" onClick="msg()"></form>';
+			$email_output .= '<p id="success">' . esc_html__( 'Thank you for subscribing! You have been added to the mailing list and will receive the next email information in the coming weeks. If you ever wish to unsubscribe, simply use the "Unsubscribe" link included in each newsletter.', 'menu-icons' ) . '</p>';
+			$email_output .= '</div>';
 		}
-		$box_data .= '<div class="menu-icons-subscribe postbox new-card">';
-		$box_data .= '<h3 class="title">Get Our Free Email Course</h3>';
-		$box_data .= '<p>' . $email_output;
+		$box_data .= $email_output;
 		$box_data .= '</div>';
-		$box_data .= '</div>';
+		$box_data .= '<script>';
+		$box_data .= '$(function(){';
+		$box_data .=	'$("#success").hide();';
+		$box_data .=	'$("#ebutton").on("click", function(){';
+		$box_data .=		'$("#formdata").hide();';
+		$box_data .=		'$(".menu-icons-submit-mail").hide();';
+		$box_data .=		'$("#success").show();';
+		$box_data .=	'});';
+		$box_data .= '});';
+		$box_data .= '</script>';
 
 		$js_data = apply_filters(
 			'menu_icons_settings_js_data',
