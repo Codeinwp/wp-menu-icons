@@ -751,12 +751,12 @@ final class Menu_Icons_Settings {
 		$box_data .= '</div>';
 		$box_data .= '<script>';
 		$box_data .= '$(function(){';
-		$box_data .=	'$("#success").hide();';
-		$box_data .=	'$("#ebutton").on("click", function(){';
-		$box_data .=		'$("#formdata").hide();';
-		$box_data .=		'$(".menu-icons-submit-mail").hide();';
-		$box_data .=		'$("#success").show();';
-		$box_data .=	'});';
+		$box_data .= '$("#success").hide();';
+		$box_data .= '$("#ebutton").on("click", function(){';
+		$box_data .= '$("#formdata").hide();';
+		$box_data .= '$(".menu-icons-submit-mail").hide();';
+		$box_data .= '$("#success").show();';
+		$box_data .= '});';
 		$box_data .= '});';
 		$box_data .= '</script>';
 
