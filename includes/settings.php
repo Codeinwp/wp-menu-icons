@@ -740,7 +740,6 @@ final class Menu_Icons_Settings {
 			}
 		}
 		$was_submited = get_option( 'menu_icons_subscribe', false );
-		$was_submited = false;
 		if ( $was_submited == false ) {
 			$email_output = '<div class="menu-icons-subscribe postbox new-card">';
 			$email_output .= '<h3 class="title">' . esc_html__( 'Get Our Free Email Course', 'menu-icons' ) . '</h3>';
