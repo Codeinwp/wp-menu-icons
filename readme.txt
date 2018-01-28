@@ -1,5 +1,5 @@
 === Menu Icons ===
-Contributors: kucrut, joshuairl,codeinwp, themeisle
+Contributors: codeinwp, themeisle
 Tags: menu, nav-menu, icons, navigation
 Requires at least: 4.3
 Tested up to: 4.9
@@ -45,6 +45,13 @@ Menu icons works with most of the themes out there, especially with popular ones
 
 Development of this plugin is done on [GitHub](https://github.com/codeinwp/wp-menu-icons). **Pull requests welcome**. Please see [issues reported](https://github.com/codeinwp/wp-menu-icons/issues) there before going to the plugin forum.
 
+If you like this plugin, then consider checking out our other projects:
+
+[CodeinWP Blog](https://codeinwp.com/blog/) – Designer's Guide To WordPress
+[Revive.Social](https://revive.social) – Social Media Tools
+[JustFreeThemes](https://justfreethemes.com) - Free WordPress Themes directory
+
+Do check-out our ThemeIsle Blog as well to learn more about various other plugins like which is the [best live chat plugin for Wordpress](https://themeisle.com/blog/best-live-chat-plugins-wordpress/) or follow our beginner friendly guides on [how to start a blog](https://themeisle.com/blog/how-to-create-a-blog/) or [what is WordPress hosting](https://themeisle.com/blog/what-is-wordpress-hosting/)
 
 
 
