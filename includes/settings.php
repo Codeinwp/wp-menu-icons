@@ -745,17 +745,18 @@ final class Menu_Icons_Settings {
 			$box_data .= '<h3 class="title">' . esc_html__( 'Get Our Free Email Course', 'menu-icons' ) . '</h3>';
 			$box_data .= '<p id="formdata">' . esc_html__( 'Ready to learn how to reduce your website loading times by half? Come and join the 1st lesson here!', 'menu-icons' ) . ' </p><form class="menu-icons-submit-mail" method="post" onsubmit="return false"><input name="menu_icons_mail" type="email" value="' . get_option( 'admin_email' ) . '" /><input id="ebutton" class="button" type="submit" value="Submit"></form>';
 			$box_data .= '<p id="success">' . esc_html__( 'Thank you for subscribing! You have been added to the mailing list and will receive the next email information in the coming weeks. If you ever wish to unsubscribe, simply use the "Unsubscribe" link included in each newsletter.', 'menu-icons' ) . '</p>';
+			$box_data .= '<p id="failure">' . esc_html__( 'Unable to subscribe.', 'menu-icons' ) . '</p>';
 			$box_data .= '</div>';
 			$box_data .= '</div>';
 			$box_data .= '<script>';
-			$box_data .= '$(function(){';
-			$box_data .= '$("#success").hide();';
-			$box_data .= '$("#ebutton").on("click", function(){';
-			$box_data .= '$("#formdata").hide();';
-			$box_data .= '$(".menu-icons-submit-mail").hide();';
-			$box_data .= '$("#success").show();';
-			$box_data .= '});';
-			$box_data .= '});';
+			$box_data .= '$( "#ebutton" ).click( function () {';
+			$box_data .= '$.post( "' . $data . '", $( "#formdata" ).serialize(), function( data ) {';
+			$box_data .= '$( "#formdata" ).hide();';
+			$box_data .= '$( ".menu-icons-submit-mail" ).hide();';
+			$box_data .= '$( "#success" ).show();';
+			$box_data .= '} ).fail( function( error ) {';
+			$box_data .= '$( "#failure" ).show();';
+			$box_data .= '} ); });';
 			$box_data .= '</script>';
 		}
 

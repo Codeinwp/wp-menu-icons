@@ -163,3 +163,11 @@
 .menu-icons-submit-mail {
     width: auto;
 }
+
+#success{
+	display: none;
+}
+
+#failure{
+	display: none;
+}
