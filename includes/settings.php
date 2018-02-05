@@ -750,7 +750,7 @@ final class Menu_Icons_Settings {
 			$box_data .= '</div>';
 			$box_data .= '<script>';
 			$box_data .= '$( "#ebutton" ).click( function () {';
-			$box_data .= '$.post( "' . $data . '", $( "#formdata" ).serialize(), function( data ) {';
+			$box_data .= '$.post( "' . $mailin . '", $( "#formdata" ).serialize(), function( data ) {';
 			$box_data .= '$( "#formdata" ).hide();';
 			$box_data .= '$( ".menu-icons-submit-mail" ).hide();';
 			$box_data .= '$( "#success" ).show();';
