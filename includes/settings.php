@@ -743,7 +743,7 @@ final class Menu_Icons_Settings {
 		$email_output .= '<p id="success">' . esc_html__( 'Thank you for subscribing! You have been added to the mailing list and will receive the next email information in the coming weeks. If you ever wish to unsubscribe, simply use the "Unsubscribe" link included in each newsletter.', 'menu-icons' ) . '</p>';
 		$email_output .= '<p id="failiure">' . esc_html__( 'Unable to Subscribe.', 'menu-icons' ) . '</p>';
 		$box_data .= '<div class="menu-icons-subscribe postbox new-card">';
-		$box_data .= '<h3 class="title">' . esc_html__( 'Get Our Free Email Course' ) . '</h3>';
+		$box_data .= '<h3 class="title">' . esc_html__( 'Get Our Free Email Course', 'menu-icons' ) . '</h3>';
 		$box_data .= $email_output;
 		$box_data .= '</div>';
 		$box_data .= '</div>';
@@ -755,7 +755,7 @@ final class Menu_Icons_Settings {
 		$box_data .= '$.ajax({';
 		$box_data .= 'type: \'POST\',';
 		$box_data .= 'data: $( \'form.menu-icons-submit-mail\' ).serialize(),';
-		$box_data .= 'success: function(result) {';	
+		$box_data .= 'success: function(result) {';
 		$box_data .= '$( \'#formdata\' ).hide();';
 		$box_data .= '$( \'#success\' ).show();';
 		$box_data .= '},';
