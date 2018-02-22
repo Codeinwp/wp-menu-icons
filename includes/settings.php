@@ -739,26 +739,29 @@ final class Menu_Icons_Settings {
 				update_option( 'menu_icons_subscribe', true );
 			}
 		}
-		$was_submited = get_option( 'menu_icons_subscribe', false );
-		if ( $was_submited == false ) {
-			$box_data .= '<div class="menu-icons-subscribe postbox new-card">';
-			$box_data .= '<h3 class="title">' . esc_html__( 'Get Our Free Email Course', 'menu-icons' ) . '</h3>';
-			$box_data .= '<p id="formdata">' . esc_html__( 'Ready to learn how to reduce your website loading times by half? Come and join the 1st lesson here!', 'menu-icons' ) . ' </p><form class="menu-icons-submit-mail" method="post" onsubmit="return false"><input name="menu_icons_mail" type="email" value="' . get_option( 'admin_email' ) . '" /><input id="ebutton" class="button" type="submit" value="Submit"></form>';
-			$box_data .= '<p id="success">' . esc_html__( 'Thank you for subscribing! You have been added to the mailing list and will receive the next email information in the coming weeks. If you ever wish to unsubscribe, simply use the "Unsubscribe" link included in each newsletter.', 'menu-icons' ) . '</p>';
-			$box_data .= '<p id="failure">' . esc_html__( 'Unable to subscribe.', 'menu-icons' ) . '</p>';
-			$box_data .= '</div>';
-			$box_data .= '</div>';
-			$box_data .= '<script>';
-			$box_data .= '$( "#ebutton" ).click( function () {';
-			$box_data .= '$.post( "' . $mailin . '", $( "#formdata" ).serialize(), function( data ) {';
-			$box_data .= '$( "#formdata" ).hide();';
-			$box_data .= '$( ".menu-icons-submit-mail" ).hide();';
-			$box_data .= '$( "#success" ).show();';
-			$box_data .= '} ).fail( function( error ) {';
-			$box_data .= '$( "#failure" ).show();';
-			$box_data .= '} ); });';
-			$box_data .= '</script>';
-		}
+		$email_output = '<div id="formdata"><p>' . esc_html__( 'Ready to learn how to reduce your website loading times by half? Come and join the 1st lesson here!', 'menu-icons' ) . ' </p><form class="menu-icons-submit-mail" method="post"><input name="menu_icons_mail" type="email" value="' . get_option( 'admin_email' ) . '" /><input id="ebutton" class="button" type="submit" value="Submit"></form></div>';
+		$email_output .= '<p id="success">' . esc_html__( 'Thank you for subscribing! You have been added to the mailing list and will receive the next email information in the coming weeks. If you ever wish to unsubscribe, simply use the "Unsubscribe" link included in each newsletter.', 'menu-icons' ) . '</p>';
+		$email_output .= '<p id="failiure">' . esc_html__( 'Unable to Subscribe.', 'menu-icons' ) . '</p>';
+		$box_data .= '<div class="menu-icons-subscribe postbox new-card">';
+		$box_data .= '<h3 class="title">' . esc_html__( 'Get Our Free Email Course' ) . '</h3>';
+		$box_data .= $email_output;
+		$box_data .= '</div>';
+		$box_data .= '</div>';
+		$box_data .= '<script>';
+		$box_data .= '$( \'#failiure\' ).hide();';
+		$box_data .= '$( \'#success\' ).hide();';
+		$box_data .= '$( \'form.menu-icons-submit-mail\' ).submit(function(event) {';
+		$box_data .= 'event.preventDefault();';
+		$box_data .= '$.ajax({';
+		$box_data .= 'type: \'POST\',';
+		$box_data .= 'data: $( \'form.menu-icons-submit-mail\' ).serialize(),';
+		$box_data .= 'success: function(result) {';	
+		$box_data .= '$( \'#formdata\' ).hide();';
+		$box_data .= '$( \'#success\' ).show();';
+		$box_data .= '},';
+		$box_data .= 'error: function(result) { $( \'#failiure\' ).show(); }';
+		$box_data .= '}); });';
+		$box_data .= '</script>';
 
 		$js_data = apply_filters(
 			'menu_icons_settings_js_data',
