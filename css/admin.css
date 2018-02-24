@@ -141,3 +141,33 @@
 .attachment .svg-icon img {
 	max-width: 100%;
 }
+
+.menu-icons-upgrade-hestia {
+	width: 90%;
+	margin-top: 0;
+    padding: 15px;
+}
+
+
+#menu-icons-sidebar div.new-card {
+	width: auto;
+	min-width: initial;
+	max-width: initial;
+	margin: 10px auto;
+}
+
+.menu-icons-subscribe {
+    padding: 15px;
+}
+
+.menu-icons-submit-mail {
+    width: auto;
+}
+
+#success{
+	display: none;
+}
+
+#failure{
+	display: none;
+}

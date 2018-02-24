@@ -11,7 +11,7 @@
  * Plugin name: Menu Icons
  * Plugin URI:  https://github.com/Codeinwp/wp-menu-icons
  * Description: Spice up your navigation menus with pretty icons, easily.
- * Version:     0.11.0
+ * Version:     0.11.1
  * Author:      ThemeIsle
  * Author URI:  https://themeisle.com
  * License:     GPLv2
@@ -27,7 +27,7 @@
  */
 final class Menu_Icons {
 
-	const VERSION = '0.11.0';
+	const VERSION = '0.11.1';
 
 	/**
 	 * Holds plugin data

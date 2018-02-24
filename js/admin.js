@@ -595,7 +595,7 @@ var MenuIconsSidebar = wp.media.view.IconPickerSidebar.extend({
 		});
 
 		var info = new wp.media.View({
-			tagName: 'p',
+			tagName: 'div',
 			className: '_info',
 			priority: 1000
 		});
