@@ -224,6 +224,11 @@ add_filter( 'menu_icons_menu_settings', 'my_menu_icons_menu_settings', 10, 2 );
 Read [this blog post](http://kucrut.org/add-custom-image-sizes-right-way/).
 
 == Changelog ==
+= 0.11.1 - 2018-02-24  = 
+
+* Add recommendation boxes in the menu icon popup.
+
+
 = 0.11.0 - 2018-01-05  = 
 
 * Change ownership to ThemeIsle.
