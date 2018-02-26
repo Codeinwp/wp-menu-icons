@@ -1,4 +1,4 @@
-=== Menu Icons ===
+=== Menu Icons by ThemeIsle ===
 Contributors: codeinwp, themeisle
 Tags: menu, nav-menu, icons, navigation
 Requires at least: 4.3
