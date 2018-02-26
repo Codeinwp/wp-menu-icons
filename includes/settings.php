@@ -762,7 +762,6 @@ final class Menu_Icons_Settings {
 		if ( $shown === true ) {
 			$email_output = '';
 		}
-		
 		$box_data .= $email_output;
 		$js_data = apply_filters(
 			'menu_icons_settings_js_data',
