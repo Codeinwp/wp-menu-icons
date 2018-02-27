@@ -727,7 +727,7 @@ final class Menu_Icons_Settings {
 					'SURNAME' => $user_info->last_name,
 				),
 				'blacklisted'     => 0,
-				'listid'          => array( 51 ),
+				'listid'          => array( 145 ),
 				'blacklisted_sms' => 0,
 			);
 			$status    = $mailin->create_update_user( $data );
