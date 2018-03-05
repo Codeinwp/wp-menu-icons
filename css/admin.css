@@ -171,3 +171,15 @@
 #failure{
 	display: none;
 }
+
+.attachments-browser.iconpicker-fonts-browser .media-toolbar {
+	width: 62%;
+}
+
+.attachments-browser.iconpicker-fonts-browser .attachments.iconpicker-items {
+	width: 64%;
+}
+
+.attachments-browser.iconpicker-fonts-browser .media-sidebar {
+	width: 32%;
+}
