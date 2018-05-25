@@ -111,6 +111,18 @@ final class Menu_Icons_Picker {
 		$meta          = Menu_Icons_Meta::get( $item->ID, $menu_settings );
 		$fields        = self::_get_menu_item_fields( $meta );
 		?>
+            <?php
+            /**
+             * Allow plugins/themes to inject HTML before icon field
+             *
+             * @param object $item  Menu item data object.
+             * @param int    $depth Nav menu depth.
+             * @param array  $args  Menu item args.
+             * @param int    $id    Nav menu ID.
+             *
+             */
+            do_action( 'menu_icons_before_field_icon', $item, $depth, $args, $id );
+            ?>
 			<div class="field-icon description-wide menu-icons-wrap" data-id="<?php echo json_encode( $item->ID ); ?>">
 				<?php
 					/**
@@ -158,6 +170,18 @@ final class Menu_Icons_Picker {
 					do_action( 'menu_icons_after_fields', $item, $depth, $args, $id );
 				?>
 			</div>
+            <?php
+            /**
+             * Allow plugins/themes to inject HTML after icon field
+             *
+             * @param object $item  Menu item data object.
+             * @param int    $depth Nav menu depth.
+             * @param array  $args  Menu item args.
+             * @param int    $id    Nav menu ID.
+             *
+             */
+            do_action( 'menu_icons_after_field_icon', $item, $depth, $args, $id );
+            ?>
 		<?php
 	}
 
