@@ -1,4 +1,8 @@
 
+ ### v0.11.3 - 2018-12-10 
+ **Changes:** 
+ * Tested with WP 5.0
+ 
  ### v0.11.2 - 2018-03-05 
  **Changes:** 
  * Improve popup sidebar layout.

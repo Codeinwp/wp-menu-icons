@@ -224,6 +224,11 @@ add_filter( 'menu_icons_menu_settings', 'my_menu_icons_menu_settings', 10, 2 );
 Read [this blog post](http://kucrut.org/add-custom-image-sizes-right-way/).
 
 == Changelog ==
+= 0.11.3 - 2018-12-10  = 
+
+* Tested with WP 5.0
+
+
 = 0.11.2 - 2018-03-05  = 
 
 * Improve popup sidebar layout.
