@@ -1,4 +1,8 @@
 
+ ### v0.11.4 - 2018-12-10 
+ **Changes:** 
+ * fix issue with composer libraries.
+ 
  ### v0.11.3 - 2018-12-10 
  **Changes:** 
  * Tested with WP 5.0

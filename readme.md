@@ -224,6 +224,11 @@ Add this block of code to your [mu-plugin file](http://codex.wordpress.org/Must_
 Read [this blog post](http://kucrut.org/add-custom-image-sizes-right-way/).
 
 ## Changelog ##
+### 0.11.4 - 2018-12-10  ###
+
+* fix issue with composer libraries.
+
+
 ### 0.11.3 - 2018-12-10  ###
 
 * Tested with WP 5.0
