@@ -4,8 +4,8 @@
   "type": "wordpress-plugin",
   "require": {
     "codeinwp/themeisle-sdk": "master",
-    "kucrut/icon-picker": "^0.5.0",
-    "kucrut/menu-item-custom-fields": "^1.0"
+    "codeinwp/icon-picker": "master",
+    "codeinwp/menu-item-custom-fields": "master"
   },
   "replace": {
     "composer/installers": "*",
@@ -13,8 +13,8 @@
   },
   "autoload": {
     "files": [
-      "vendor/kucrut/menu-item-custom-fields/menu-item-custom-fields.php",
-      "vendor/kucrut/icon-picker/icon-picker.php",
+      "vendor/codeinwp/menu-item-custom-fields/menu-item-custom-fields.php",
+      "vendor/codeinwp/icon-picker/icon-picker.php",
       "vendor/codeinwp/themeisle-sdk/load.php"
     ]
   },
