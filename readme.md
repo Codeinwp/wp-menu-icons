@@ -1,8 +1,8 @@
-# Menu Icons #
+# Menu Icons by ThemeIsle #
 **Contributors:** [codeinwp](https://profiles.wordpress.org/codeinwp), [themeisle](https://profiles.wordpress.org/themeisle)  
 **Tags:** menu, nav-menu, icons, navigation  
 **Requires at least:** 4.3  
-**Tested up to:** 4.9  
+**Tested up to:** 5.0  
 **Stable tag:** trunk  
 **License:** GPLv2  
 **License URI:** http://www.gnu.org/licenses/gpl-2.0.html  
@@ -224,6 +224,11 @@ Add this block of code to your [mu-plugin file](http://codex.wordpress.org/Must_
 Read [this blog post](http://kucrut.org/add-custom-image-sizes-right-way/).
 
 ## Changelog ##
+### 0.11.2 - 2018-03-05  ###
+
+* Improve popup sidebar layout.
+
+
 ### 0.11.1 - 2018-02-24  ###
 
 * Add recommendation boxes in the menu icon popup.
