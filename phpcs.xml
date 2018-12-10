@@ -34,6 +34,7 @@
 		<exclude name="WordPress.Arrays.ArrayDeclarationSpacing" />
 		<exclude name="Squiz.PHP.CommentedOutCode" />
 		<exclude name="WordPress.WP.I18n.MissingTranslatorsComment" />
+		<exclude name="PEAR.Functions.FunctionCallSignature.MultipleArguments" />
 	</rule>
 	<rule ref="WordPress-Docs">
 
