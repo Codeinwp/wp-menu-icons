@@ -3,9 +3,9 @@
   "description": "WordPress Menu Icons",
   "type": "wordpress-plugin",
   "require": {
-    "codeinwp/themeisle-sdk": "master",
     "codeinwp/icon-picker": "master",
-    "codeinwp/menu-item-custom-fields": "master"
+    "codeinwp/menu-item-custom-fields": "master",
+    "codeinwp/themeisle-sdk": "^3.0"
   },
   "replace": {
     "composer/installers": "*",
@@ -19,5 +19,6 @@
     ]
   },
   "license": "GPL-3.0+",
-  "minimum-stability": "dev"
+  "minimum-stability": "dev",
+  "prefer-stable": true
 }
