@@ -16,6 +16,8 @@
 		<exclude name="PEAR.Functions.FunctionCallSignature.SpaceBeforeCloseBracket" />
 		<exclude name="PEAR.Functions.FunctionCallSignature.SpaceAfterOpenBracket" />
 		<exclude name="Generic.Files.EndFileNewline.NotFound" />
+		<exclude name="WordPress.CodeAnalysis.AssignmentInCondition.Found" />
+		<exclude name="WordPress.PHP.StrictComparisons.LooseComparison" />
 		<exclude name="WordPress.Arrays.MultipleStatementAlignment" />
 		<exclude name="Generic.Formatting.MultipleStatementAlignment.NotSameWarning" />
 		<exclude name="WordPress.WhiteSpace.PrecisionAlignment.Found" />
