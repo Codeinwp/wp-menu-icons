@@ -224,6 +224,10 @@ add_filter( 'menu_icons_menu_settings', 'my_menu_icons_menu_settings', 10, 2 );
 Read [this blog post](http://kucrut.org/add-custom-image-sizes-right-way/).
 
 == Changelog ==
+= 0.12.2 - 2019-11-15  = 
+
+
+
 = 0.12.1 - 2019-11-15  = 
 
 * Improve legacy compatibility

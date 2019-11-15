@@ -1,4 +1,7 @@
 
+ ### v0.12.2 - 2019-11-15 
+ **Changes:** 
+  
  ### v0.12.1 - 2019-11-15 
  **Changes:** 
  * Improve legacy compatibility
