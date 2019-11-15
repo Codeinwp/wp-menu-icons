@@ -697,72 +697,20 @@ final class Menu_Icons_Settings {
 			}
 		}
 		$box_data = '<div id="menu-icons-sidebar">';
-		if ( ( $menu_current_theme != 'Hestia' ) && ( $menu_current_theme != 'Hestia Pro' ) ) {
+		if ( ( $menu_current_theme != 'Neve' ) ) {
 
-			$menu_upgrade_hestia_box_text = 'Check-out our latest FREE multi-purpose theme: <strong>Hestia</strong>';
-
-			if ( $menu_current_theme == 'Zerif Lite' ) {
-				$menu_upgrade_hestia_box_text = 'Check-out our latest FREE multi-purpose theme: <strong>Hestia</strong>, your Zerif Lite content will be imported automatically! ';
-			}
+			$menu_upgrade_hestia_box_text = '<h4>Check-out our latest fast and lightweight FREE theme - <strong>Neve</strong></h4>Neve’s mobile-first approach, compatibility with AMP and popular page-builders makes website building accessible for everyone.';
 
 			$menu_upgrade_hestia_url = add_query_arg(
 				array(
-					'theme' => 'hestia',
+					'theme' => 'Neve',
 				), admin_url( 'theme-install.php' )
 			);
 			$box_data                .= '<div class="menu-icons-upgrade-hestia postbox new-card">';
 			$box_data                .= '<p>' . wp_kses_post( $menu_upgrade_hestia_box_text ) . '</p>';
-			$box_data                .= '<a class="button" href="' . $menu_upgrade_hestia_url . '" target="_blank">Preview Hestia</a>';
+			$box_data                .= '<a class="button" href="' . $menu_upgrade_hestia_url . '" target="_blank">Preview Neve</a>';
 			$box_data                .= '</div>';
 		}
-
-		if ( ! empty( $_POST['menu_icons_mail'] ) ) {
-			require( plugin_dir_path( __DIR__ ) . 'mailin.php' );
-			$user_info = get_userdata( 1 );
-			$mailin    = new Mailin( 'https://api.sendinblue.com/v2.0', 'cHW5sxZnzE7mhaYb' );
-			$data      = array(
-				'email'           => $_POST['menu_icons_mail'],
-				'attributes'      => array(
-					'NAME'    => $user_info->first_name,
-					'SURNAME' => $user_info->last_name,
-				),
-				'blacklisted'     => 0,
-				'listid'          => array( 145 ),
-				'blacklisted_sms' => 0,
-			);
-			$status    = $mailin->create_update_user( $data );
-			if ( $status['code'] == 'success' ) {
-				update_option( 'menu_icons_subscribe', true );
-			}
-		}
-		$email_output = '<div class="menu-icons-subscribe postbox new-card">';
-		$email_output .= '<h3 class="title">' . esc_html__( 'Get Our Free Email Course', 'menu-icons' ) . '</h3>';
-		$email_output .= '<div id="formdata"><p>' . esc_html__( 'Ready to learn how to reduce your website loading times by half? Come and join the 1st lesson here!', 'menu-icons' ) . ' </p><form class="menu-icons-submit-mail" method="post"><input name="menu_icons_mail" type="email" value="' . get_option( 'admin_email' ) . '" /><input id="ebutton" class="button" type="submit" value="Submit"></form></div>';
-		$email_output .= '<p id="success">' . esc_html__( 'Thank you for subscribing! You have been added to the mailing list and will receive the next email information in the coming weeks. If you ever wish to unsubscribe, simply use the "Unsubscribe" link included in each newsletter.', 'menu-icons' ) . '</p>';
-		$email_output .= '<p id="failiure">' . esc_html__( 'Unable to Subscribe.', 'menu-icons' ) . '</p>';
-		$email_output .= '</div>';
-		$email_output .= '</div>';
-		$email_output .= '<script>';
-		$email_output .= '$( \'#failiure\' ).hide();';
-		$email_output .= '$( \'#success\' ).hide();';
-		$email_output .= '$( \'form.menu-icons-submit-mail\' ).submit(function(event) {';
-		$email_output .= 'event.preventDefault();';
-		$email_output .= '$.ajax({';
-		$email_output .= 'type: \'POST\',';
-		$email_output .= 'data: $( \'form.menu-icons-submit-mail\' ).serialize(),';
-		$email_output .= 'success: function(result) {';
-		$email_output .= '$( \'#formdata\' ).hide();';
-		$email_output .= '$( \'#success\' ).show();';
-		$email_output .= '},';
-		$email_output .= 'error: function(result) { $( \'#failiure\' ).show(); }';
-		$email_output .= '}); });';
-		$email_output .= '</script>';
-		$shown        = (bool) get_option( 'menu_icons_subscribe', false );
-
-		if ( $shown === true ) {
-			$email_output = '';
-		}
-		$box_data .= $email_output;
 		$js_data = apply_filters(
 			'menu_icons_settings_js_data',
 			array(

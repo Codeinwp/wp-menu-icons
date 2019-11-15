@@ -2,7 +2,7 @@
 Contributors: codeinwp, themeisle
 Tags: menu, nav-menu, icons, navigation
 Requires at least: 4.3
-Tested up to: 5.0
+Tested up to: 5.3
 Stable tag: trunk
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -45,7 +45,7 @@ Menu icons works with most of the themes out there, especially with popular ones
 
 Development of this plugin is done on [GitHub](https://github.com/codeinwp/wp-menu-icons). **Pull requests welcome**. Please see [issues reported](https://github.com/codeinwp/wp-menu-icons/issues) there before going to the plugin forum.
 
-== If you like this plugin, then consider checking out our other projects: == 
+== If you like this plugin, then consider checking out our other projects: ==
 
 [CodeinWP Blog](https://codeinwp.com/blog/) – Designer's Guide To WordPress
 [Revive.Social](https://revive.social) – Social Media Tools
@@ -224,32 +224,32 @@ add_filter( 'menu_icons_menu_settings', 'my_menu_icons_menu_settings', 10, 2 );
 Read [this blog post](http://kucrut.org/add-custom-image-sizes-right-way/).
 
 == Changelog ==
-= 0.11.5 - 2019-05-23  = 
+= 0.11.5 - 2019-05-23  =
 
 * Sync composer dependencies with the latest version
 
 
-= 0.11.4 - 2018-12-10  = 
+= 0.11.4 - 2018-12-10  =
 
 * fix issue with composer libraries.
 
 
-= 0.11.3 - 2018-12-10  = 
+= 0.11.3 - 2018-12-10  =
 
 * Tested with WP 5.0
 
 
-= 0.11.2 - 2018-03-05  = 
+= 0.11.2 - 2018-03-05  =
 
 * Improve popup sidebar layout.
 
 
-= 0.11.1 - 2018-02-24  = 
+= 0.11.1 - 2018-02-24  =
 
 * Add recommendation boxes in the menu icon popup.
 
 
-= 0.11.0 - 2018-01-05  = 
+= 0.11.0 - 2018-01-05  =
 
 * Change ownership to ThemeIsle.
 * Improves compatibility with various ThemeIsle products.
