@@ -1,4 +1,8 @@
 
+ ### v0.12.0 - 2019-11-15 
+ **Changes:** 
+ * Fix issues with WordPress 5.3.
+ 
  ### v0.11.5 - 2019-05-23 
  **Changes:** 
  * Sync composer dependencies with the latest version

@@ -2,7 +2,7 @@
 **Contributors:** [codeinwp](https://profiles.wordpress.org/codeinwp), [themeisle](https://profiles.wordpress.org/themeisle)  
 **Tags:** menu, nav-menu, icons, navigation  
 **Requires at least:** 4.3  
-**Tested up to:** 5.0  
+**Tested up to:** 5.3  
 **Stable tag:** trunk  
 **License:** GPLv2  
 **License URI:** http://www.gnu.org/licenses/gpl-2.0.html  
@@ -224,6 +224,11 @@ Add this block of code to your [mu-plugin file](http://codex.wordpress.org/Must_
 Read [this blog post](http://kucrut.org/add-custom-image-sizes-right-way/).
 
 ## Changelog ##
+### 0.12.0 - 2019-11-15  ###
+
+* Fix issues with WordPress 5.3.
+
+
 ### 0.11.5 - 2019-05-23  ###
 
 * Sync composer dependencies with the latest version
