@@ -690,7 +690,7 @@ final class Menu_Icons_Settings {
 		$menu_current_theme = '';
 		$theme              = wp_get_theme();
 		if ( ! empty( $theme ) ) {
-			if ( is_child_theme() ) {
+			if ( is_child_theme() && $theme->parent() ) {
 				$menu_current_theme = $theme->parent()->get( 'Name' );
 			} else {
 				$menu_current_theme = $theme->get( 'Name' );
