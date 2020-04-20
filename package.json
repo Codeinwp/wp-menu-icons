@@ -2,7 +2,7 @@
   "name": "menu-icons",
   "title": "Menu Icons",
   "description": "Spice up your navigation menus with pretty icons, easily.",
-  "version": "0.11.3",
+  "version": "0.12.2",
   "homepage": "http://wordpress.org/plugins/menu-icons/",
   "license": "GPL-2.0",
   "author": {
@@ -39,7 +39,7 @@
     "style-loader": "^0.13.1",
     "url-loader": "^0.5.7",
     "webpack": "^2.2.1",
-    "webpack-dev-server": "^2.3.0",
+    "webpack-dev-server": ">=3.1.11",
     "webpack-merge": "^2.6.1"
   },
   "keywords": [

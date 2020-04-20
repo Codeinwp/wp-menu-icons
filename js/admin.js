@@ -6,9 +6,9 @@
 /******/ 	function __webpack_require__(moduleId) {
 /******/
 /******/ 		// Check if module is in cache
-/******/ 		if(installedModules[moduleId])
+/******/ 		if(installedModules[moduleId]) {
 /******/ 			return installedModules[moduleId].exports;
-/******/
+/******/ 		}
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = installedModules[moduleId] = {
 /******/ 			i: moduleId,
@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 11);
+/******/ 	return __webpack_require__(__webpack_require__.s = 2);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -72,7 +72,7 @@
 
 /* global menuIcons:false */
 
-__webpack_require__(2);
+__webpack_require__(3);
 
 (function ($) {
 	var miPicker;
@@ -318,18 +318,25 @@ __webpack_require__(2);
 /* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
-wp.media.model.MenuIconsItemSettingField = __webpack_require__(3);
-wp.media.model.MenuIconsItemSettings = __webpack_require__(4);
-wp.media.model.MenuIconsItem = __webpack_require__(5);
-
-wp.media.view.MenuIconsItemSettingField = __webpack_require__(8);
-wp.media.view.MenuIconsItemSettings = __webpack_require__(9);
-wp.media.view.MenuIconsItemPreview = __webpack_require__(7);
-wp.media.view.MenuIconsSidebar = __webpack_require__(10);
-wp.media.view.MediaFrame.MenuIcons = __webpack_require__(6);
+__webpack_require__(1);
+__webpack_require__(0);
 
 /***/ }),
 /* 3 */
+/***/ (function(module, exports, __webpack_require__) {
+
+wp.media.model.MenuIconsItemSettingField = __webpack_require__(4);
+wp.media.model.MenuIconsItemSettings = __webpack_require__(5);
+wp.media.model.MenuIconsItem = __webpack_require__(6);
+
+wp.media.view.MenuIconsItemSettingField = __webpack_require__(9);
+wp.media.view.MenuIconsItemSettings = __webpack_require__(10);
+wp.media.view.MenuIconsItemPreview = __webpack_require__(8);
+wp.media.view.MenuIconsSidebar = __webpack_require__(11);
+wp.media.view.MediaFrame.MenuIcons = __webpack_require__(7);
+
+/***/ }),
+/* 4 */
 /***/ (function(module, exports) {
 
 /**
@@ -350,7 +357,7 @@ var MenuIconsItemSettingField = Backbone.Model.extend({
 module.exports = MenuIconsItemSettingField;
 
 /***/ }),
-/* 4 */
+/* 5 */
 /***/ (function(module, exports) {
 
 /**
@@ -366,7 +373,7 @@ var MenuIconsItemSettings = Backbone.Collection.extend({
 module.exports = MenuIconsItemSettings;
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, exports) {
 
 /**
@@ -398,7 +405,7 @@ var Item = Backbone.Model.extend({
 module.exports = Item;
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, exports) {
 
 /**
@@ -413,6 +420,7 @@ module.exports = Item;
  * @augments wp.Backbone.View
  * @augments Backbone.View
  */
+
 var MenuIcons = wp.media.view.MediaFrame.IconPicker.extend({
 	initialize: function initialize() {
 		this.menuItems = new Backbone.Collection([], {
@@ -420,7 +428,16 @@ var MenuIcons = wp.media.view.MediaFrame.IconPicker.extend({
 		});
 
 		wp.media.view.MediaFrame.IconPicker.prototype.initialize.apply(this, arguments);
+		if (this.setMenuTabPanelAriaAttributes) {
+			this.off('open', this.setMenuTabPanelAriaAttributes, this);
+			// Set the router ARIA tab panel attributes when the modal opens.
+			this.off('open', this.setRouterTabPanelAriaAttributes, this);
 
+			// Update the menu ARIA tab panel attributes when the content updates.
+			this.off('content:render', this.setMenuTabPanelAriaAttributes, this);
+			// Update the router ARIA tab panel attributes when the content updates.
+			this.off('content:render', this.setRouterTabPanelAriaAttributes, this);
+		}
 		this.listenTo(this.target, 'change', this.miUpdateItemProps);
 		this.on('select', this.miClearTarget, this);
 	},
@@ -439,7 +456,7 @@ var MenuIcons = wp.media.view.MediaFrame.IconPicker.extend({
 module.exports = MenuIcons;
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, exports) {
 
 /**
@@ -495,7 +512,7 @@ var MenuIconsItemPreview = wp.media.View.extend({
 module.exports = MenuIconsItemPreview;
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, exports) {
 
 var $ = jQuery,
@@ -538,7 +555,7 @@ MenuIconsItemSettingField = wp.media.View.extend({
 module.exports = MenuIconsItemSettingField;
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, exports) {
 
 /**
@@ -573,7 +590,7 @@ var MenuIconsItemSettings = wp.media.view.PriorityList.extend({
 module.exports = MenuIconsItemSettings;
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, exports) {
 
 /**
@@ -595,7 +612,7 @@ var MenuIconsSidebar = wp.media.view.IconPickerSidebar.extend({
 		});
 
 		var info = new wp.media.View({
-			tagName: 'div',
+			tagName: 'p',
 			className: '_info',
 			priority: 1000
 		});
@@ -677,13 +694,6 @@ var MenuIconsSidebar = wp.media.view.IconPickerSidebar.extend({
 });
 
 module.exports = MenuIconsSidebar;
-
-/***/ }),
-/* 11 */
-/***/ (function(module, exports, __webpack_require__) {
-
-__webpack_require__(1);
-__webpack_require__(0);
 
 /***/ })
 /******/ ]);

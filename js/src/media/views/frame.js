@@ -10,6 +10,7 @@
  * @augments wp.Backbone.View
  * @augments Backbone.View
  */
+
 var MenuIcons = wp.media.view.MediaFrame.IconPicker.extend({
 	initialize: function() {
 		this.menuItems = new Backbone.Collection([], {
@@ -17,7 +18,16 @@ var MenuIcons = wp.media.view.MediaFrame.IconPicker.extend({
 		});
 
 		wp.media.view.MediaFrame.IconPicker.prototype.initialize.apply( this, arguments );
+		if(this.setMenuTabPanelAriaAttributes){
+			this.off( 'open', this.setMenuTabPanelAriaAttributes, this );
+			// Set the router ARIA tab panel attributes when the modal opens.
+			this.off( 'open', this.setRouterTabPanelAriaAttributes, this );
 
+			// Update the menu ARIA tab panel attributes when the content updates.
+			this.off( 'content:render', this.setMenuTabPanelAriaAttributes, this );
+			// Update the router ARIA tab panel attributes when the content updates.
+			this.off( 'content:render', this.setRouterTabPanelAriaAttributes, this );
+		}
 		this.listenTo( this.target, 'change', this.miUpdateItemProps );
 		this.on( 'select', this.miClearTarget, this );
 	},

@@ -18,5 +18,6 @@ artifact
 composer.json
 composer.lock
 package-lock.json
+docker-compose.yml
 key.enc
 webpack.config.babel.js
