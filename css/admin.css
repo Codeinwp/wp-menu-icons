@@ -145,9 +145,8 @@
 .menu-icons-upgrade-hestia {
 	width: 90%;
 	margin-top: 0;
-    padding: 15px;
+	padding: 15px;
 }
-
 
 #menu-icons-sidebar div.new-card {
 	width: auto;
@@ -157,18 +156,18 @@
 }
 
 .menu-icons-subscribe {
-    padding: 15px;
+	padding: 15px;
 }
 
 .menu-icons-submit-mail {
-    width: auto;
+	width: auto;
 }
 
-#success{
+#success {
 	display: none;
 }
 
-#failure{
+#failure {
 	display: none;
 }
 

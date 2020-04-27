@@ -305,9 +305,10 @@ __webpack_require__(3);
 				} else {
 					$button.prop('disabled', false);
 				}
+				$spinner.hide();
 			},
 
-			always: function always() {
+			fail: function fail() {
 				$spinner.hide();
 			}
 		});

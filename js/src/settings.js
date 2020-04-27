@@ -49,9 +49,10 @@
 				} else {
 					$button.prop( 'disabled', false );
 				}
+				$spinner.hide();
 			},
 
-			always: function() {
+			fail: function() {
 				$spinner.hide();
 			}
 		});

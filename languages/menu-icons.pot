@@ -1,14 +1,14 @@
-# Copyright (C) 2019 ThemeIsle
+# Copyright (C) 2020 ThemeIsle
 # This file is distributed under the GPLv2.
 msgid ""
 msgstr ""
-"Project-Id-Version: Menu Icons 0.11.5\n"
+"Project-Id-Version: Menu Icons 0.12.2\n"
 "Report-Msgid-Bugs-To: https://github.com/Codeinwp/wp-menu-icons/issues\n"
-"POT-Creation-Date: 2019-11-15 14:55:01+00:00\n"
+"POT-Creation-Date: 2020-04-20 19:21:42+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2019-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2020-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Themeisle Translate Team <friends@themeisle.com>\n"
 "Language-Team: Themeisle Translate <friends@themeisle.com>\n"
 "Language: en\n"
@@ -52,23 +52,23 @@ msgstr ""
 msgid "Full Size"
 msgstr ""
 
-#: includes/picker.php:75
+#: includes/picker.php:63
 msgid "Type"
 msgstr ""
 
-#: includes/picker.php:80 includes/picker.php:178
+#: includes/picker.php:68 includes/picker.php:166
 msgid "Icon"
 msgstr ""
 
-#: includes/picker.php:128
+#: includes/picker.php:116
 msgid "Icon:"
 msgstr ""
 
-#: includes/picker.php:129 includes/settings.php:771
+#: includes/picker.php:117 includes/settings.php:719
 msgid "Select"
 msgstr ""
 
-#: includes/picker.php:130 includes/settings.php:772
+#: includes/picker.php:118 includes/settings.php:720
 #: vendor/codeinwp/icon-picker/includes/fields/base.php:68
 #: vendor/codeinwp/icon-picker/includes/types/elusive.php:465
 msgid "Remove"
@@ -199,63 +199,41 @@ msgstr ""
 msgid "Image Size"
 msgstr ""
 
-#: includes/settings.php:739
-msgid "Get Our Free Email Course"
-msgstr ""
-
-#: includes/settings.php:740
-msgid ""
-"Ready to learn how to reduce your website loading times by half? Come and "
-"join the 1st lesson here!"
-msgstr ""
-
-#: includes/settings.php:741
-msgid ""
-"Thank you for subscribing! You have been added to the mailing list and will "
-"receive the next email information in the coming weeks. If you ever wish to "
-"unsubscribe, simply use the \"Unsubscribe\" link included in each "
-"newsletter."
-msgstr ""
-
-#: includes/settings.php:742
-msgid "Unable to Subscribe."
-msgstr ""
-
-#: includes/settings.php:770
+#: includes/settings.php:718
 #: vendor/codeinwp/icon-picker/includes/fields/base.php:67
 #: vendor/codeinwp/icon-picker/includes/loader.php:237
 msgid "Select Icon"
 msgstr ""
 
-#: includes/settings.php:773
+#: includes/settings.php:721
 msgid "Change"
 msgstr ""
 
-#: includes/settings.php:774
+#: includes/settings.php:722
 #: vendor/codeinwp/icon-picker/includes/loader.php:236
 msgid "All"
 msgstr ""
 
-#: includes/settings.php:775
+#: includes/settings.php:723
 msgid "Preview"
 msgstr ""
 
-#: includes/settings.php:777
+#: includes/settings.php:725
 msgid ""
 "Please note that the actual look of the icons on the front-end will also be "
 "affected by the style of your active theme. You can add your own CSS using "
 "%2$s or a plugin such as %3$s if you need to override it."
 msgstr ""
 
-#: includes/settings.php:782
+#: includes/settings.php:730
 msgid "the customizer"
 msgstr ""
 
-#: menu-icons.php:138
+#: menu-icons.php:128
 msgid "Menu Icons: No registered icon types found."
 msgstr ""
 
-#: menu-icons.php:167
+#: menu-icons.php:157
 msgid ""
 "Looks like Menu Icons was installed via Composer. Please activate Icon "
 "Picker first."
@@ -4054,6 +4032,42 @@ msgstr ""
 msgid "SVG"
 msgstr ""
 
+#: vendor/codeinwp/icon-picker/node_modules/grunt-wp-i18n/test/fixtures/basic-theme/exclude/file.php:3
+#: vendor/codeinwp/icon-picker/node_modules/grunt-wp-i18n/test/fixtures/plugin-include/plugin-include.php:6
+msgid "Exclude"
+msgstr ""
+
+#: vendor/codeinwp/icon-picker/node_modules/grunt-wp-i18n/test/fixtures/plugin-include/include/file.php:2
+msgid "Include"
+msgstr ""
+
+#: vendor/codeinwp/icon-picker/node_modules/grunt-wp-i18n/test/fixtures/text-domains/add-domain.php:2
+#: vendor/codeinwp/icon-picker/node_modules/grunt-wp-i18n/test/fixtures/text-domains/update-all-domains.php:2
+#: vendor/codeinwp/icon-picker/node_modules/grunt-wp-i18n/test/fixtures/text-domains/update-all-domains.php:3
+#: vendor/codeinwp/icon-picker/node_modules/grunt-wp-i18n/test/fixtures/text-domains/update-all-domains.php:4
+#: vendor/codeinwp/icon-picker/node_modules/grunt-wp-i18n/test/fixtures/text-domains/update-domains.php:2
+#: vendor/codeinwp/icon-picker/node_modules/grunt-wp-i18n/test/fixtures/text-domains/update-domains.php:3
+msgid "String"
+msgstr ""
+
+#: vendor/codeinwp/icon-picker/node_modules/grunt-wp-i18n/test/fixtures/text-domains/update-all-domains.php:9
+#: vendor/codeinwp/icon-picker/node_modules/grunt-wp-i18n/test/fixtures/text-domains/update-all-domains.php:10
+#: vendor/codeinwp/icon-picker/node_modules/grunt-wp-i18n/test/fixtures/text-domains/update-all-domains.php:11
+msgid "1 Star"
+msgid_plural "%s Stars"
+msgstr[0] ""
+msgstr[1] ""
+
+#: vendor/codeinwp/icon-picker/node_modules/grunt-wp-i18n/test/fixtures/translator-comments/translator-comments.php:7
+#. translators: A single line translators comment.
+msgid "A"
+msgstr ""
+
+#: vendor/codeinwp/icon-picker/node_modules/grunt-wp-i18n/test/fixtures/translator-comments/translator-comments.php:15
+#. translators: A multiline translators comment.
+msgid "B"
+msgstr ""
+
 #: vendor/codeinwp/menu-item-custom-fields/doc/menu-item-custom-fields-example.php:51
 msgid "Custom Field #1"
 msgstr ""
@@ -4080,4 +4094,11 @@ msgstr ""
 
 #. Author URI of the plugin/theme
 msgid "https://themeisle.com"
+msgstr ""
+
+#: vendor/codeinwp/icon-picker/node_modules/grunt-wp-i18n/test/fixtures/text-domains/update-all-domains.php:6
+#: vendor/codeinwp/icon-picker/node_modules/grunt-wp-i18n/test/fixtures/text-domains/update-all-domains.php:7
+#: vendor/codeinwp/icon-picker/node_modules/grunt-wp-i18n/test/fixtures/text-domains/update-all-domains.php:8
+msgctxt "a string"
+msgid "String"
 msgstr ""

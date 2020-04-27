@@ -80,22 +80,7 @@ final class Menu_Icons {
 			'url'   => plugin_dir_url( __FILE__ ),
 			'types' => array(),
 		);
-		$vendor_file = dirname(__FILE__) . '/vendor/autoload.php';
 
-		if ( is_readable( $vendor_file ) ) {
-			require_once $vendor_file;
-		}
-		// Load Icon Picker.
-		if ( ! class_exists( 'Icon_Picker' ) ) {
-			$ip_file = self::$data['dir'] . 'includes/library/icon-picker/icon-picker.php';
-
-			if ( file_exists( $ip_file ) ) {
-				require_once $ip_file;
-			} else {
-				add_action( 'admin_notices', array( __CLASS__, '_notice_missing_icon_picker' ) );
-				return;
-			}
-		}
 		Icon_Picker::instance();
 
 		require_once self::$data['dir'] . 'includes/library/compat.php';
@@ -170,6 +155,12 @@ final class Menu_Icons {
 	}
 }
 add_action( 'plugins_loaded', array( 'Menu_Icons', '_load' ) );
+
+$vendor_file = dirname(__FILE__) . '/vendor/autoload.php';
+
+if ( is_readable( $vendor_file ) ) {
+	require_once $vendor_file;
+}
 
 add_filter( 'themeisle_sdk_products', 'kucrut_register_sdk', 10, 1 );
 function kucrut_register_sdk( $products ) {

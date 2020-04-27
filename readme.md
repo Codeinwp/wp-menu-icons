@@ -2,7 +2,7 @@
 **Contributors:** [codeinwp](https://profiles.wordpress.org/codeinwp), [themeisle](https://profiles.wordpress.org/themeisle)  
 **Tags:** menu, nav-menu, icons, navigation  
 **Requires at least:** 4.3  
-**Tested up to:** 5.3  
+**Tested up to:** 5.4  
 **Stable tag:** trunk  
 **License:** GPLv2  
 **License URI:** http://www.gnu.org/licenses/gpl-2.0.html  
