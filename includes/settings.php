@@ -106,8 +106,14 @@ final class Menu_Icons_Settings {
 			self::$script_deps[] = 'icon-picker';
 		}
 
+		// Include Menu Icons for Block Editor
+		if ( class_exists( '\ThemeIsle\GutenbergMenuIcons' ) ) {
+			\ThemeIsle\GutenbergMenuIcons::instance();
+		}
+
 		add_action( 'load-nav-menus.php', array( __CLASS__, '_load_nav_menus' ), 1 );
 		add_action( 'wp_ajax_menu_icons_update_settings', array( __CLASS__, '_ajax_menu_icons_update_settings' ) );
+		add_action( 'enqueue_block_assets', array( __CLASS__, '_enqueue_font_awesome' ) );
 	}
 
 	/**
@@ -639,6 +645,21 @@ final class Menu_Icons_Settings {
 		unset( $section );
 
 		return $sections;
+	}
+
+	/**
+	 * Enqueue scripts & styles for Block Icons
+	 *
+	 * @since   0.3.0
+	 * @wp_hook action enqueue_block_assets
+	 */
+	public static function _enqueue_font_awesome() {
+		$url = Menu_Icons::get( 'url' );
+	
+		wp_register_style(
+			'font-awesome-5',
+			"{$url}css/fontawesome/css/all.min.css"
+		);
 	}
 
 	/**

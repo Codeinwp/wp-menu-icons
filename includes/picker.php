@@ -19,11 +19,18 @@ final class Menu_Icons_Picker {
 	 */
 	public static function init() {
 		add_action( 'load-nav-menus.php', array( __CLASS__, '_load_nav_menus' ) );
-		add_filter( 'wp_edit_nav_menu_walker', array( __CLASS__, '_filter_wp_edit_nav_menu_walker' ), 99 );
 		add_filter( 'wp_nav_menu_item_custom_fields', array( __CLASS__, '_fields' ), 10, 4 );
 		add_filter( 'manage_nav-menus_columns', array( __CLASS__, '_columns' ), 99 );
 		add_action( 'wp_update_nav_menu_item', array( __CLASS__, '_save' ), 10, 3 );
 		add_filter( 'icon_picker_type_props', array( __CLASS__, '_add_extra_type_props_data' ), 10, 3 );
+
+		if ( ! version_compare( get_bloginfo( 'version' ), '5.4', '>=' ) ) {
+			add_filter(
+				'wp_edit_nav_menu_walker', function() {
+					return 'Menu_Item_Custom_Fields_Walker';
+				}, 99
+			);
+		}
 	}
 
 
@@ -37,25 +44,6 @@ final class Menu_Icons_Picker {
 		Icon_Picker::instance()->load();
 
 		add_action( 'print_media_templates', array( __CLASS__, '_media_templates' ) );
-	}
-
-
-
-	/**
-	 * Custom walker
-	 *
-	 * @since   0.3.0
-	 * @access  protected
-	 * @wp_hook filter    wp_edit_nav_menu_walker
-	 */
-	public static function _filter_wp_edit_nav_menu_walker( $walker ) {
-		// Load menu item custom fields plugin
-		if ( ! class_exists( 'Menu_Item_Custom_Fields_Walker' ) ) {
-			require_once Menu_Icons::get( 'dir' ) . 'includes/library/menu-item-custom-fields/walker-nav-menu-edit.php';
-		}
-		$walker = 'Menu_Item_Custom_Fields_Walker';
-
-		return $walker;
 	}
 
 
