@@ -58,6 +58,7 @@ final class Menu_Icons_Settings {
 		// Include Menu Icons for Block Editor
 		if ( class_exists( '\ThemeIsle\GutenbergMenuIcons' ) ) {
 			\ThemeIsle\GutenbergMenuIcons::instance();
+			add_action( 'enqueue_block_assets', array( __CLASS__, '_enqueue_font_awesome' ) );
 		}
 
 		/**
@@ -113,7 +114,6 @@ final class Menu_Icons_Settings {
 
 		add_action( 'load-nav-menus.php', array( __CLASS__, '_load_nav_menus' ), 1 );
 		add_action( 'wp_ajax_menu_icons_update_settings', array( __CLASS__, '_ajax_menu_icons_update_settings' ) );
-		add_action( 'enqueue_block_assets', array( __CLASS__, '_enqueue_font_awesome' ) );
 	}
 
 	/**

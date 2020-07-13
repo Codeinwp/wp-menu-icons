@@ -2,9 +2,9 @@
 # This file is distributed under the GPLv2.
 msgid ""
 msgstr ""
-"Project-Id-Version: Menu Icons 0.12.2\n"
+"Project-Id-Version: Menu Icons 0.12.3\n"
 "Report-Msgid-Bugs-To: https://github.com/Codeinwp/wp-menu-icons/issues\n"
-"POT-Creation-Date: 2020-07-13 11:24:24+00:00\n"
+"POT-Creation-Date: 2020-07-13 12:12:23+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
