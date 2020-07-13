@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Menu Icons 0.12.2\n"
 "Report-Msgid-Bugs-To: https://github.com/Codeinwp/wp-menu-icons/issues\n"
-"POT-Creation-Date: 2020-04-20 19:21:42+00:00\n"
+"POT-Creation-Date: 2020-07-13 11:24:24+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -64,179 +64,184 @@ msgstr ""
 msgid "Icon:"
 msgstr ""
 
-#: includes/picker.php:117 includes/settings.php:719
+#: includes/picker.php:117 includes/settings.php:740
 msgid "Select"
 msgstr ""
 
-#: includes/picker.php:118 includes/settings.php:720
+#: includes/picker.php:118 includes/settings.php:741
 #: vendor/codeinwp/icon-picker/includes/fields/base.php:68
 #: vendor/codeinwp/icon-picker/includes/types/elusive.php:465
 msgid "Remove"
 msgstr ""
 
-#: includes/settings.php:295
+#: includes/settings.php:301
 msgid "Menu Icons Settings"
 msgstr ""
 
-#: includes/settings.php:329
+#: includes/settings.php:335
 msgid "<strong>Menu Icons Settings</strong> have been successfully updated."
 msgstr ""
 
-#: includes/settings.php:330
+#: includes/settings.php:336
 msgid "<strong>Menu Icons Settings</strong> have been successfully reset."
 msgstr ""
 
-#: includes/settings.php:367 includes/settings.php:390
+#: includes/settings.php:373 includes/settings.php:396
 msgid "Extensions"
 msgstr ""
 
-#: includes/settings.php:409
+#: includes/settings.php:415
 msgid "Discard all changes and reset to default state"
 msgstr ""
 
-#: includes/settings.php:410
+#: includes/settings.php:416
 msgid "Reset"
 msgstr ""
 
-#: includes/settings.php:419
+#: includes/settings.php:425
 msgid "Save Settings"
 msgstr ""
 
-#: includes/settings.php:446
+#: includes/settings.php:452
 msgid "Global"
 msgstr ""
 
-#: includes/settings.php:447
+#: includes/settings.php:453
 msgid "Global settings"
 msgstr ""
 
-#: includes/settings.php:452
+#: includes/settings.php:458
 msgid "Icon Types"
 msgstr ""
 
-#: includes/settings.php:468
+#: includes/settings.php:474
 msgid "Current Menu"
 msgstr ""
 
-#: includes/settings.php:470
+#: includes/settings.php:476
 msgid "\"%s\" menu settings"
 msgstr ""
 
-#: includes/settings.php:496
+#: includes/settings.php:502
 msgid "Hide Label"
 msgstr ""
 
-#: includes/settings.php:501
+#: includes/settings.php:507
 #: vendor/codeinwp/icon-picker/includes/types/dashicons.php:800
 #: vendor/codeinwp/icon-picker/includes/types/dashicons.php:805
 msgid "No"
 msgstr ""
 
-#: includes/settings.php:505
+#: includes/settings.php:511
 #: vendor/codeinwp/icon-picker/includes/types/dashicons.php:795
 msgid "Yes"
 msgstr ""
 
-#: includes/settings.php:512
+#: includes/settings.php:518
 msgid "Position"
 msgstr ""
 
-#: includes/settings.php:517
+#: includes/settings.php:523
 msgid "Before"
 msgstr ""
 
-#: includes/settings.php:521
+#: includes/settings.php:527
 msgid "After"
 msgstr ""
 
-#: includes/settings.php:528
+#: includes/settings.php:534
 msgid "Vertical Align"
 msgstr ""
 
-#: includes/settings.php:533
+#: includes/settings.php:539
 msgid "Super"
 msgstr ""
 
-#: includes/settings.php:537
+#: includes/settings.php:543
 #: vendor/codeinwp/icon-picker/includes/types/genericon.php:292
 msgid "Top"
 msgstr ""
 
-#: includes/settings.php:541
+#: includes/settings.php:547
 msgid "Text Top"
 msgstr ""
 
-#: includes/settings.php:545
+#: includes/settings.php:551
 msgid "Middle"
 msgstr ""
 
-#: includes/settings.php:549
+#: includes/settings.php:555
 msgid "Baseline"
 msgstr ""
 
-#: includes/settings.php:553
+#: includes/settings.php:559
 msgid "Text Bottom"
 msgstr ""
 
-#: includes/settings.php:557
+#: includes/settings.php:563
 msgid "Bottom"
 msgstr ""
 
-#: includes/settings.php:561
+#: includes/settings.php:567
 msgid "Sub"
 msgstr ""
 
-#: includes/settings.php:568
+#: includes/settings.php:574
 #: vendor/codeinwp/icon-picker/includes/types/elusive.php:910
 msgid "Font Size"
 msgstr ""
 
-#: includes/settings.php:579
+#: includes/settings.php:585
 msgid "SVG Width"
 msgstr ""
 
-#: includes/settings.php:590
+#: includes/settings.php:596
 msgid "Image Size"
 msgstr ""
 
-#: includes/settings.php:718
+#: includes/settings.php:739
 #: vendor/codeinwp/icon-picker/includes/fields/base.php:67
 #: vendor/codeinwp/icon-picker/includes/loader.php:237
 msgid "Select Icon"
 msgstr ""
 
-#: includes/settings.php:721
+#: includes/settings.php:742
 msgid "Change"
 msgstr ""
 
-#: includes/settings.php:722
+#: includes/settings.php:743
 #: vendor/codeinwp/icon-picker/includes/loader.php:236
 msgid "All"
 msgstr ""
 
-#: includes/settings.php:723
+#: includes/settings.php:744
 msgid "Preview"
 msgstr ""
 
-#: includes/settings.php:725
+#: includes/settings.php:746
 msgid ""
 "Please note that the actual look of the icons on the front-end will also be "
 "affected by the style of your active theme. You can add your own CSS using "
 "%2$s or a plugin such as %3$s if you need to override it."
 msgstr ""
 
-#: includes/settings.php:730
+#: includes/settings.php:751
 msgid "the customizer"
 msgstr ""
 
-#: menu-icons.php:128
+#: menu-icons.php:123
 msgid "Menu Icons: No registered icon types found."
 msgstr ""
 
-#: menu-icons.php:157
+#: menu-icons.php:152
 msgid ""
 "Looks like Menu Icons was installed via Composer. Please activate Icon "
 "Picker first."
+msgstr ""
+
+#: vendor/codeinwp/gutenberg-menu-icons/class-gutenberg-menu-icons.php:163
+#: vendor/codeinwp/gutenberg-menu-icons/class-gutenberg-menu-icons.php:175
+msgid "Cheatin&#8217; huh?"
 msgstr ""
 
 #: vendor/codeinwp/icon-picker/includes/fontpack.php:132
@@ -4032,42 +4037,6 @@ msgstr ""
 msgid "SVG"
 msgstr ""
 
-#: vendor/codeinwp/icon-picker/node_modules/grunt-wp-i18n/test/fixtures/basic-theme/exclude/file.php:3
-#: vendor/codeinwp/icon-picker/node_modules/grunt-wp-i18n/test/fixtures/plugin-include/plugin-include.php:6
-msgid "Exclude"
-msgstr ""
-
-#: vendor/codeinwp/icon-picker/node_modules/grunt-wp-i18n/test/fixtures/plugin-include/include/file.php:2
-msgid "Include"
-msgstr ""
-
-#: vendor/codeinwp/icon-picker/node_modules/grunt-wp-i18n/test/fixtures/text-domains/add-domain.php:2
-#: vendor/codeinwp/icon-picker/node_modules/grunt-wp-i18n/test/fixtures/text-domains/update-all-domains.php:2
-#: vendor/codeinwp/icon-picker/node_modules/grunt-wp-i18n/test/fixtures/text-domains/update-all-domains.php:3
-#: vendor/codeinwp/icon-picker/node_modules/grunt-wp-i18n/test/fixtures/text-domains/update-all-domains.php:4
-#: vendor/codeinwp/icon-picker/node_modules/grunt-wp-i18n/test/fixtures/text-domains/update-domains.php:2
-#: vendor/codeinwp/icon-picker/node_modules/grunt-wp-i18n/test/fixtures/text-domains/update-domains.php:3
-msgid "String"
-msgstr ""
-
-#: vendor/codeinwp/icon-picker/node_modules/grunt-wp-i18n/test/fixtures/text-domains/update-all-domains.php:9
-#: vendor/codeinwp/icon-picker/node_modules/grunt-wp-i18n/test/fixtures/text-domains/update-all-domains.php:10
-#: vendor/codeinwp/icon-picker/node_modules/grunt-wp-i18n/test/fixtures/text-domains/update-all-domains.php:11
-msgid "1 Star"
-msgid_plural "%s Stars"
-msgstr[0] ""
-msgstr[1] ""
-
-#: vendor/codeinwp/icon-picker/node_modules/grunt-wp-i18n/test/fixtures/translator-comments/translator-comments.php:7
-#. translators: A single line translators comment.
-msgid "A"
-msgstr ""
-
-#: vendor/codeinwp/icon-picker/node_modules/grunt-wp-i18n/test/fixtures/translator-comments/translator-comments.php:15
-#. translators: A multiline translators comment.
-msgid "B"
-msgstr ""
-
 #: vendor/codeinwp/menu-item-custom-fields/doc/menu-item-custom-fields-example.php:51
 msgid "Custom Field #1"
 msgstr ""
@@ -4094,11 +4063,4 @@ msgstr ""
 
 #. Author URI of the plugin/theme
 msgid "https://themeisle.com"
-msgstr ""
-
-#: vendor/codeinwp/icon-picker/node_modules/grunt-wp-i18n/test/fixtures/text-domains/update-all-domains.php:6
-#: vendor/codeinwp/icon-picker/node_modules/grunt-wp-i18n/test/fixtures/text-domains/update-all-domains.php:7
-#: vendor/codeinwp/icon-picker/node_modules/grunt-wp-i18n/test/fixtures/text-domains/update-all-domains.php:8
-msgctxt "a string"
-msgid "String"
 msgstr ""

@@ -47,7 +47,7 @@ Development of this plugin is done on [GitHub](https://github.com/codeinwp/wp-me
 
 ## If you like this plugin, then consider checking out our other projects: ##
 
-[CodeinWP Blog](https://codeinwp.com/blog/) – Designer's Guide To WordPress
+[CodeinWP Blog](https://www.codeinwp.com/blog/) – Designer's Guide To WordPress
 [Revive.Social](https://revive.social) – Social Media Tools
 [JustFreeThemes](https://justfreethemes.com) - Free WordPress Themes directory
 
