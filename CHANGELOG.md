@@ -1,4 +1,8 @@
 
+ ### v0.12.4 - 2020-07-13 
+ **Changes:** 
+ * Fix Font Awesome not loading
+ 
  ### v0.12.3 - 2020-07-13 
  **Changes:** 
  * Fixed Menu Icons in Block Editor not working

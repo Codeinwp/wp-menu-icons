@@ -224,6 +224,11 @@ add_filter( 'menu_icons_menu_settings', 'my_menu_icons_menu_settings', 10, 2 );
 Read [this blog post](http://kucrut.org/add-custom-image-sizes-right-way/).
 
 == Changelog ==
+= 0.12.4 - 2020-07-13  = 
+
+* Fix Font Awesome not loading
+
+
 = 0.12.3 - 2020-07-13  = 
 
 * Fixed Menu Icons in Block Editor not working
