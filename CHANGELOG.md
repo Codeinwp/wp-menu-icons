@@ -1,4 +1,9 @@
 
+ ### v0.12.3 - 2020-07-13 
+ **Changes:** 
+ * Fixed Menu Icons in Block Editor not working
+* Fixed CWP links.
+ 
  ### v0.12.2 - 2019-11-15 
  **Changes:** 
   
