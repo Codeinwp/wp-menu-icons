@@ -2,7 +2,7 @@
 Contributors: codeinwp, themeisle
 Tags: menu, nav-menu, icons, navigation
 Requires at least: 4.3
-Tested up to: 5.4
+Tested up to: 5.7
 Stable tag: trunk
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -224,8 +224,6 @@ add_filter( 'menu_icons_menu_settings', 'my_menu_icons_menu_settings', 10, 2 );
 Read [this blog post](http://kucrut.org/add-custom-image-sizes-right-way/).
 
 == Changelog ==
-= 0.12.5 - 2020-08-18  = 
-
 
 
 = 0.12.4 - 2020-07-13  = 
@@ -233,22 +231,22 @@ Read [this blog post](http://kucrut.org/add-custom-image-sizes-right-way/).
 * Fix Font Awesome not loading
 
 
-= 0.12.3 - 2020-07-13  = 
+= 0.12.3 - 2020-07-13  =
 
 * Fixed Menu Icons in Block Editor not working
 * Fixed CWP links.
 
 
-= 0.12.2 - 2019-11-15  = 
+= 0.12.2 - 2019-11-15  =
 
 
 
-= 0.12.1 - 2019-11-15  = 
+= 0.12.1 - 2019-11-15  =
 
 * Improve legacy compatibility
 
 
-= 0.12.0 - 2019-11-15  = 
+= 0.12.0 - 2019-11-15  =
 
 * Fix issues with WordPress 5.3.
 

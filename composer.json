@@ -5,12 +5,11 @@
   "require": {
     "codeinwp/icon-picker": "master",
     "codeinwp/menu-item-custom-fields": "master",
-    "codeinwp/themeisle-sdk": "^3.0",
+    "codeinwp/themeisle-sdk": "master",
     "codeinwp/gutenberg-menu-icons": "^1.0"
   },
   "replace": {
-    "composer/installers": "*",
-    "wp-coding-standards/wpcs": "*"
+    "composer/installers": "*"
   },
   "autoload": {
     "files": [
@@ -19,7 +18,19 @@
       "vendor/codeinwp/themeisle-sdk/load.php"
     ]
   },
-  "license": "GPL-3.0+",
+  "require-dev": {
+    "codeinwp/phpcs-ruleset": "dev-main"
+  },
+  "scripts": {
+    "format": "phpcbf --standard=phpcs.xml --report-summary --report-source",
+    "lint": "phpcs --standard=phpcs.xml "
+  },
   "minimum-stability": "dev",
-  "prefer-stable": true
+  "prefer-stable": true,
+  "config": {
+    "optimize-autoloader": true,
+    "platform": {
+      "php": "5.6"
+    }
+  }
 }
