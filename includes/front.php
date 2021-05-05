@@ -420,10 +420,24 @@ final class Menu_Icons_Front_End {
 		$classes = sprintf( '%s _svg', self::get_icon_classes( $meta ) );
 		$style   = self::get_icon_style( $meta, array( 'svg_width', 'vertical_align' ) );
 
+		$svg_icon = esc_url( wp_get_attachment_url( $meta['icon'] ) );
+		$svg_icon_content = file_get_contents( $svg_icon );
+		$width  = 0;
+		$height = 0;
+		if ( $svg_icon_content ) {
+			$xmlget = simplexml_load_string( $svg_icon_content );
+			$xmlattributes = $xmlget->attributes();
+			$width  = (string) $xmlattributes->width;
+			$width  = (int) filter_var( $xmlattributes->width, FILTER_SANITIZE_NUMBER_INT );
+			$height = (string) $xmlattributes->height;
+			$height = (int) filter_var( $xmlattributes->height, FILTER_SANITIZE_NUMBER_INT );
+		}
 		return sprintf(
-			'<img src="%s" class="%s" aria-hidden="true"%s />',
+			'<img src="%s" class="%s" aria-hidden="true" width="%dpx" height="%dpx"%s/>',
 			esc_url( wp_get_attachment_url( $meta['icon'] ) ),
 			esc_attr( $classes ),
+			$width,
+			$height,
 			$style
 		);
 	}
