@@ -1,4 +1,7 @@
 
+ ### v0.12.5 - 2020-08-18 
+ **Changes:** 
+  
  ### v0.12.4 - 2020-07-13 
  **Changes:** 
  * Fix Font Awesome not loading
