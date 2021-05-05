@@ -5,6 +5,11 @@
 .jshintrc
 Gruntfile.js
 grunt
+.github
+.idea
+.editorconfig
+.gitattributes
+.wordpress-org
 phpcs.xml
 node_modules
 logs

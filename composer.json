@@ -9,8 +9,10 @@
     "codeinwp/gutenberg-menu-icons": "^1.0"
   },
   "replace": {
-    "composer/installers": "*",
-    "wp-coding-standards/wpcs": "*"
+    "composer/installers": "*"
+  },
+  "require-dev": {
+    "codeinwp/phpcs-ruleset": "dev-main"
   },
   "autoload": {
     "files": [
@@ -19,7 +21,16 @@
       "vendor/codeinwp/themeisle-sdk/load.php"
     ]
   },
-  "license": "GPL-3.0+",
+  "scripts": {
+    "format": "phpcbf --standard=phpcs.xml --report-summary --report-source",
+    "lint": "phpcs --standard=phpcs.xml"
+  },
   "minimum-stability": "dev",
-  "prefer-stable": true
+  "prefer-stable": true,
+  "config": {
+    "optimize-autoloader": true,
+    "platform": {
+      "php": "5.6"
+    }
+  }
 }
