@@ -1,5 +1,8 @@
+##### [Version 0.12.6](https://github.com/codeinwp/wp-menu-icons/compare/v0.12.5...v0.12.6) (2021-05-05)
 
- ### v0.12.5 - 2020-08-18 
+* Adds explicit width/height to icons to prevent layout shifts issues
+
+### v0.12.5 - 2020-08-18 
  **Changes:** 
   
  ### v0.12.4 - 2020-07-13 
@@ -46,4 +49,3 @@
  **Changes:** 
  * Change ownership to ThemeIsle.
 * Improves compatibility with various ThemeIsle products.
- 
