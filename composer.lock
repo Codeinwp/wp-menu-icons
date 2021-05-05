@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "50d96bcf5d54f558035481b40c20910a",
+    "content-hash": "7973bec5e21df054bc562f050b4739f8",
     "packages": [
         {
             "name": "codeinwp/gutenberg-menu-icons",
@@ -58,12 +58,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Codeinwp/icon-picker.git",
-                "reference": "980abcd0325414f6264ac62320990bf10a3ceb8f"
+                "reference": "0c60ce3a41653e41a20e710c4d5a6a2104c85020"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Codeinwp/icon-picker/zipball/980abcd0325414f6264ac62320990bf10a3ceb8f",
-                "reference": "980abcd0325414f6264ac62320990bf10a3ceb8f",
+                "url": "https://api.github.com/repos/Codeinwp/icon-picker/zipball/0c60ce3a41653e41a20e710c4d5a6a2104c85020",
+                "reference": "0c60ce3a41653e41a20e710c4d5a6a2104c85020",
                 "shasum": ""
             },
             "require": {
@@ -91,10 +91,9 @@
                 "wordpress"
             ],
             "support": {
-                "issues": "https://github.com/Codeinwp/icon-picker/issues",
-                "source": "https://github.com/Codeinwp/icon-picker/tree/development"
+                "source": "https://github.com/Codeinwp/icon-picker/tree/master"
             },
-            "time": "2019-11-15T16:51:01+00:00"
+            "time": "2021-05-05T18:52:26+00:00"
         },
         {
             "name": "codeinwp/menu-item-custom-fields",
@@ -102,12 +101,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Codeinwp/menu-item-custom-fields.git",
-                "reference": "26a5849e5b60556fe577afa3622fff512b5826c4"
+                "reference": "f491fcfa873e92006e3d92a4ede8775e9cf53bae"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Codeinwp/menu-item-custom-fields/zipball/26a5849e5b60556fe577afa3622fff512b5826c4",
-                "reference": "26a5849e5b60556fe577afa3622fff512b5826c4",
+                "url": "https://api.github.com/repos/Codeinwp/menu-item-custom-fields/zipball/f491fcfa873e92006e3d92a4ede8775e9cf53bae",
+                "reference": "f491fcfa873e92006e3d92a4ede8775e9cf53bae",
                 "shasum": ""
             },
             "require": {
@@ -131,28 +130,28 @@
                 "wordpress"
             ],
             "support": {
-                "issues": "https://github.com/Codeinwp/menu-item-custom-fields/issues",
                 "source": "https://github.com/Codeinwp/menu-item-custom-fields/tree/master"
             },
-            "time": "2020-04-27T19:54:38+00:00"
+            "time": "2021-05-05T18:49:57+00:00"
         },
         {
             "name": "codeinwp/themeisle-sdk",
-            "version": "3.2.20",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Codeinwp/themeisle-sdk.git",
-                "reference": "aeef3f159c1b35451d87672b6984ccde36c0d21d"
+                "reference": "24668ab249d8fb6596cc908c323205648aad0ed8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Codeinwp/themeisle-sdk/zipball/aeef3f159c1b35451d87672b6984ccde36c0d21d",
-                "reference": "aeef3f159c1b35451d87672b6984ccde36c0d21d",
+                "url": "https://api.github.com/repos/Codeinwp/themeisle-sdk/zipball/24668ab249d8fb6596cc908c323205648aad0ed8",
+                "reference": "24668ab249d8fb6596cc908c323205648aad0ed8",
                 "shasum": ""
             },
             "require-dev": {
                 "codeinwp/phpcs-ruleset": "dev-main"
             },
+            "default-branch": true,
             "type": "library",
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -172,9 +171,9 @@
             ],
             "support": {
                 "issues": "https://github.com/Codeinwp/themeisle-sdk/issues",
-                "source": "https://github.com/Codeinwp/themeisle-sdk/tree/v3.2.20"
+                "source": "https://github.com/Codeinwp/themeisle-sdk/tree/master"
             },
-            "time": "2021-03-30T09:16:29+00:00"
+            "time": "2021-05-05T17:45:51+00:00"
         }
     ],
     "packages-dev": [

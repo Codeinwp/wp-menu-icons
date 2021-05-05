@@ -2,11 +2,19 @@
 <ruleset name="Themeisle">
 	<description>Themeisle rules for PHP_CodeSnifferr</description>
 
+
 	<file>.</file>
 
 	<exclude-pattern>node_modules/*</exclude-pattern>
 	<exclude-pattern>vendor/*</exclude-pattern>
 	<exclude-pattern>lib/*</exclude-pattern>
+	<exclude-pattern>tests/*</exclude-pattern>
+
+	<arg name="extensions" value="php"/>
+	<arg value="sp"/>
+	<arg name="basepath" value="./" />
+	<arg name="parallel" value="20"/>
+
 
 	<rule ref="WordPress-Core">
 		<exclude name="Squiz.Commenting" />
@@ -41,7 +49,9 @@
 	<rule ref="WordPress-Docs">
 
 	</rule>
-
+	<config name="testVersion" value="5.6-"/>
+	<rule ref="PHPCompatibilityWP">
+	</rule>
 	<rule ref="Squiz.Commenting.FunctionComment.ScalarTypeHintMissing">
 		<severity>0</severity>
 	</rule>
