@@ -230,10 +230,7 @@ Read [this blog post](http://kucrut.org/add-custom-image-sizes-right-way/).
 * Adds explicit width/height to icons to prevent layout shifts issues
 
 
-
-
-
-= 0.12.4 - 2020-07-13  = 
+= 0.12.4 - 2020-07-13  =
 
 * Fix Font Awesome not loading
 
