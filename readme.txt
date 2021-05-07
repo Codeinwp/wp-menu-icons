@@ -225,6 +225,13 @@ Read [this blog post](http://kucrut.org/add-custom-image-sizes-right-way/).
 
 == Changelog ==
 
+##### [Version 0.12.7](https://github.com/codeinwp/wp-menu-icons/compare/v0.12.6...v0.12.7) (2021-05-07)
+
+Fix PHP fatal error when uploading SVG with the image uploader
+
+
+
+
 ##### [Version 0.12.6](https://github.com/codeinwp/wp-menu-icons/compare/v0.12.5...v0.12.6) (2021-05-05)
 
 * Adds explicit width/height to icons to prevent layout shifts issues
