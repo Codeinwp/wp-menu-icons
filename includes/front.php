@@ -424,13 +424,23 @@ final class Menu_Icons_Front_End {
 		$svg_icon_content = file_get_contents( $svg_icon );
 		$width  = 0;
 		$height = 0;
-		if ( $svg_icon_content ) {
-			$xmlget = simplexml_load_string( $svg_icon_content );
-			$xmlattributes = $xmlget->attributes();
-			$width  = (string) $xmlattributes->width;
-			$width  = (int) filter_var( $xmlattributes->width, FILTER_SANITIZE_NUMBER_INT );
-			$height = (string) $xmlattributes->height;
-			$height = (int) filter_var( $xmlattributes->height, FILTER_SANITIZE_NUMBER_INT );
+		if ( 'image/svg+xml' === get_post_mime_type( $meta['icon'] ) ) {
+			$svg_icon = esc_url( wp_get_attachment_url( $meta['icon'] ) );
+			$svg_icon_content = file_get_contents( $svg_icon );
+			if ( $svg_icon_content ) {
+				$xmlget = simplexml_load_string( $svg_icon_content );
+				$xmlattributes = $xmlget->attributes();
+				$width  = (string) $xmlattributes->width;
+				$width  = (int) filter_var( $xmlattributes->width, FILTER_SANITIZE_NUMBER_INT );
+				$height = (string) $xmlattributes->height;
+				$height = (int) filter_var( $xmlattributes->height, FILTER_SANITIZE_NUMBER_INT );
+			}
+		} else {
+			$attachment_meta = wp_get_attachment_metadata( $meta['icon'] );
+			if ( $attachment_meta ) {
+				$width = isset( $attachment_meta['width'] ) ? $attachment_meta['width'] : $width;
+				$height = isset( $attachment_meta['height'] ) ? $attachment_meta['height'] : $height;
+			}
 		}
 		return sprintf(
 			'<img src="%s" class="%s" aria-hidden="true" width="%dpx" height="%dpx"%s/>',
