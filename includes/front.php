@@ -421,12 +421,17 @@ final class Menu_Icons_Front_End {
 		$style   = self::get_icon_style( $meta, array( 'svg_width', 'vertical_align' ) );
 
 		$svg_icon = esc_url( wp_get_attachment_url( $meta['icon'] ) );
-		$svg_icon_content = file_get_contents( $svg_icon );
-		$width  = 0;
-		$height = 0;
+		$width  = '';
+		$height = '';
 		if ( 'image/svg+xml' === get_post_mime_type( $meta['icon'] ) ) {
+
+			// Check `WP_Filesystem` function exists OR not.
+			require_once ABSPATH . '/wp-admin/includes/file.php';
+			\WP_Filesystem();
+			global $wp_filesystem;
+
 			$svg_icon = esc_url( wp_get_attachment_url( $meta['icon'] ) );
-			$svg_icon_content = file_get_contents( $svg_icon );
+			$svg_icon_content = $wp_filesystem->get_contents( $svg_icon );
 			if ( $svg_icon_content ) {
 				$xmlget = simplexml_load_string( $svg_icon_content );
 				$xmlattributes = $xmlget->attributes();
@@ -442,8 +447,14 @@ final class Menu_Icons_Front_End {
 				$height = isset( $attachment_meta['height'] ) ? $attachment_meta['height'] : $height;
 			}
 		}
+		if ( ! empty( $width ) ) {
+			$width = sprintf( ' width="%dpx"', $width );
+		}
+		if ( ! empty( $height ) ) {
+			$height = sprintf( ' height="%dpx"', $height );
+		}
 		return sprintf(
-			'<img src="%s" class="%s" aria-hidden="true" width="%dpx" height="%dpx"%s/>',
+			'<img src="%s" class="%s" aria-hidden="true"%s%s%s/>',
 			esc_url( wp_get_attachment_url( $meta['icon'] ) ),
 			esc_attr( $classes ),
 			$width,
