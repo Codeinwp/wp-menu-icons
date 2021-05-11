@@ -430,7 +430,7 @@ final class Menu_Icons_Front_End {
 			\WP_Filesystem();
 			global $wp_filesystem;
 
-			$svg_icon = esc_url( wp_get_attachment_url( $meta['icon'] ) );
+			$svg_icon = get_attached_file( $meta['icon'] );
 			$svg_icon_content = $wp_filesystem->get_contents( $svg_icon );
 			if ( $svg_icon_content ) {
 				$xmlget = simplexml_load_string( $svg_icon_content );
