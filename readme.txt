@@ -225,6 +225,13 @@ Read [this blog post](http://kucrut.org/add-custom-image-sizes-right-way/).
 
 == Changelog ==
 
+##### [Version 0.12.9](https://github.com/codeinwp/wp-menu-icons/compare/v0.12.8...v0.12.9) (2021-08-04)
+
+* Tested compatibility with WordPress 5.8
+
+
+
+
 ##### [Version 0.12.8](https://github.com/codeinwp/wp-menu-icons/compare/v0.12.7...v0.12.8) (2021-05-12)
 
 * Fix issue when the image is not accessible to fetch the width/height metadata.
