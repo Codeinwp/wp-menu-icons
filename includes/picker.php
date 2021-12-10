@@ -56,6 +56,17 @@ final class Menu_Icons_Picker {
 	 * @return array
 	 */
 	protected static function _get_menu_item_fields( $meta ) {
+		$fa_icon       = sprintf( '%s-%s', $meta['type'], $meta['icon'] );
+		$font_awesome5 = font_awesome5_backward_compatible();
+
+		if ( array_key_exists( $fa_icon, $font_awesome5 ) ) {
+			$fa5_icon     = $font_awesome5[ $fa_icon ];
+			$fa5_class    = explode( ' ', $fa5_icon );
+			$type         = reset( $fa5_class );
+			$icon         = end( $fa5_class );
+			$meta['icon'] = sprintf( '%s %s', $type, $icon );
+		}
+
 		$fields = array_merge(
 			array(
 				array(

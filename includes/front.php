@@ -380,9 +380,26 @@ final class Menu_Icons_Front_End {
 	 * @return string
 	 */
 	public static function get_font_icon( $meta ) {
-		$classes = sprintf( '%s %s %s', self::get_icon_classes( $meta ), $meta['type'], $meta['icon'] );
-		$style   = self::get_icon_style( $meta, array( 'font_size', 'vertical_align' ) );
+		$type = $meta['type'];
+		$icon = $meta['icon'];
 
+		$font_awesome5 = font_awesome5_backward_compatible();
+		if ( in_array( $icon, $font_awesome5, true ) ) {
+			$type = '';
+		} elseif ( 'fa' === $type && ! in_array( $icon, $font_awesome5, true ) ) {
+			$type = '';
+		}
+		if ( ! empty( $type ) ) {
+			$fa_icon = sprintf( '%s-%s', $type, $icon );
+			if ( array_key_exists( $fa_icon, $font_awesome5 ) ) {
+				$fa5_icon  = $font_awesome5[ $fa_icon ];
+				$fa5_class = explode( ' ', $fa5_icon );
+				$type      = reset( $fa5_class );
+				$icon      = end( $fa5_class );
+			}
+		}
+		$classes = sprintf( '%s %s %s', self::get_icon_classes( $meta ), $type, $icon );
+		$style   = self::get_icon_style( $meta, array( 'font_size', 'vertical_align' ) );
 		return sprintf( '<i class="%s" aria-hidden="true"%s></i>', esc_attr( $classes ), $style );
 	}
 
