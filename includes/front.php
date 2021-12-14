@@ -384,12 +384,9 @@ final class Menu_Icons_Front_End {
 		$icon = $meta['icon'];
 
 		$font_awesome5 = font_awesome5_backward_compatible();
-		if ( in_array( $icon, $font_awesome5, true ) ) {
-			$type = '';
-		} elseif ( 'fa' === $type && ! in_array( $icon, $font_awesome5, true ) ) {
-			$type = '';
-		}
-		if ( ! empty( $type ) ) {
+		if ( ! empty( $type ) && 'fa' === $type ) {
+			$icon    = explode( ' ', $icon );
+			$icon    = end( $icon );
 			$fa_icon = sprintf( '%s-%s', $type, $icon );
 			if ( array_key_exists( $fa_icon, $font_awesome5 ) ) {
 				$fa5_icon  = $font_awesome5[ $fa_icon ];
