@@ -75,6 +75,15 @@ final class Menu_Icons_Meta {
 			}
 		}
 
+		$font_awesome5 = font_awesome5_backward_compatible();
+		$icon          = ! empty( $value['icon'] ) ? $value['icon'] : '';
+		$icon          = explode( ' ', $icon );
+		$icon          = sprintf( '%s-%s', reset( $icon ), end( $icon ) );
+
+		if ( ! empty( $font_awesome5[ $icon ] ) ) {
+			$value['icon'] = $font_awesome5[ $icon ];
+		}
+
 		// Backward-compatibility.
 		if ( empty( $value['icon'] ) &&
 			! empty( $value['type'] ) &&
