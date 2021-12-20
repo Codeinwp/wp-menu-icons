@@ -64,6 +64,26 @@ final class Menu_Icons_Font_Awesome {
 				$icons[ $key ]['id'] = sprintf( 'fa %s', trim( $icons[ $key ]['id'] ) );
 			}
 		}
+
+		// Fa5 extra icons support.
+		$global_settins = get_option( 'menu-icons', false );
+		if ( ! empty( $global_settins['global']['fa5_extra_icons'] ) ) {
+			$fa5_extra_icons = $global_settins['global']['fa5_extra_icons'];
+			$fa5_extra_icons = explode( ',', $fa5_extra_icons );
+			$fa5_extra_icons = array_map( 'trim', $fa5_extra_icons );
+			if ( ! empty( $fa5_extra_icons ) ) {
+				foreach ( $fa5_extra_icons as $fa5_icon ) {
+					$icon_name = explode( '-', $fa5_icon );
+					$icon_name = end( $icon_name );
+					$icons[]   = array(
+						'group' => 'all',
+						'id'    => $fa5_icon,
+						'name'  => $icon_name,
+					);
+				}
+			}
+		}
+
 		return $icons;
 	}
 

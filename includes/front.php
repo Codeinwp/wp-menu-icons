@@ -386,6 +386,7 @@ final class Menu_Icons_Front_End {
 		$font_awesome5 = font_awesome5_backward_compatible();
 		if ( ! empty( $type ) && 'fa' === $type ) {
 			$icon    = explode( ' ', $icon );
+			$type    = reset( $icon );
 			$icon    = end( $icon );
 			$fa_icon = sprintf( '%s-%s', $type, $icon );
 			if ( array_key_exists( $fa_icon, $font_awesome5 ) ) {
