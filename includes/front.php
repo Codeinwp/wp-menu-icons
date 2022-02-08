@@ -468,10 +468,13 @@ final class Menu_Icons_Front_End {
 		if ( ! empty( $height ) ) {
 			$height = sprintf( ' height="%dpx"', $height );
 		}
+		$image_alt = get_post_meta( $meta['icon'], '_wp_attachment_image_alt', true );
+		$image_alt = $image_alt ? wp_strip_all_tags( $image_alt ) : '';
 		return sprintf(
-			'<img src="%s" class="%s" aria-hidden="true"%s%s%s/>',
+			'<img src="%s" class="%s" aria-hidden="true" alt="%s"%s%s%s/>',
 			esc_url( wp_get_attachment_url( $meta['icon'] ) ),
 			esc_attr( $classes ),
+			$image_alt,
 			$width,
 			$height,
 			$style
