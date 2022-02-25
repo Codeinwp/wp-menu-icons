@@ -720,17 +720,18 @@ final class Menu_Icons_Settings {
 		$box_data = '<div id="menu-icons-sidebar">';
 		if ( ( $menu_current_theme != 'Neve' ) ) {
 
-			$menu_upgrade_hestia_box_text = '<h4>Check-out our latest fast and lightweight FREE theme - <strong>Neve</strong></h4>Neve’s mobile-first approach, compatibility with AMP and popular page-builders makes website building accessible for everyone.';
+			$menu_upgrade_hestia_box_text = '<div class="menu-icon-notice-popup-img"><img src="' . plugin_dir_url( __FILE__ ) . '../images/neve-theme.jpg"/></div><div class="menu-icon-notice-popup"><h4>Check-out our latest lightweight FREE theme - Neve</h4>Neve’s mobile-first approach, compatibility with AMP and popular page-builders makes website building accessible for everyone.';
 
 			$menu_upgrade_hestia_url = add_query_arg(
 				array(
-					'theme' => 'Neve',
-				), admin_url( 'theme-install.php' )
+					'theme' => 'neve',
+				),
+				admin_url( 'theme-install.php' )
 			);
-			$box_data                .= '<div class="menu-icons-upgrade-hestia postbox new-card">';
-			$box_data                .= '<p>' . wp_kses_post( $menu_upgrade_hestia_box_text ) . '</p>';
-			$box_data                .= '<a class="button" href="' . $menu_upgrade_hestia_url . '" target="_blank">Preview Neve</a>';
-			$box_data                .= '</div>';
+			$box_data               .= '<div class="nv-upgrade-notice postbox new-card">';
+			$box_data               .= wp_kses_post( wpautop( $menu_upgrade_hestia_box_text ) );
+			$box_data               .= '<a class="button" href="' . $menu_upgrade_hestia_url . '" target="_blank">Preview Neve</a>';
+			$box_data               .= '</div></div>';
 		}
 		$js_data = apply_filters(
 			'menu_icons_settings_js_data',

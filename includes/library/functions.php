@@ -106,6 +106,7 @@ if ( ! function_exists( 'kucrut_get_script_suffix' ) ) {
 	 * @return string
 	 */
 	function kucrut_get_script_suffix() {
-		return ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
+		return '';
+		//return ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
 	}
 }
