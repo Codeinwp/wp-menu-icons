@@ -19,7 +19,7 @@ module.exports = function( env ) {
 			rules: [{
 				test: /\.js$/,
 				loader: 'babel-loader',
-				query: { presets: [[ 'es2015', { modules: false }]] },
+				//query: { presets: [[ 'es2015', { modules: false }]] },
 				exclude: path.resolve( __dirname, '/node_modules/' )
 			}, {
 				test: /\.(png|jpg|jpeg|gif|svg|woff|woff2|eot|ttf)$/,
