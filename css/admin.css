@@ -231,7 +231,7 @@
 }
 
 .nv-upgrade-notice .menu-icon-notice-popup .button {
-	width: 105px;
+	width: auto;
 	height: 30px;
 	background: #0071AE;
 	border-radius: 4px;
