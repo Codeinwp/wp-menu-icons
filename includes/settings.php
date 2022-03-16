@@ -386,8 +386,13 @@ final class Menu_Icons_Settings {
 								esc_attr( $field->id ),
 								esc_html( $field->label )
 							);
+							// Help text.
+							if ( $field->help_text ) :
+								printf( '<i>%s</i>', esc_html( $field->help_text ) );
+							endif;
+
+							$field->render();
 							?>
-							<?php $field->render() ?>
 						</div>
 					<?php endforeach; ?>
 				</div>
@@ -458,6 +463,13 @@ final class Menu_Icons_Settings {
 						'label'   => __( 'Icon Types', 'menu-icons' ),
 						'choices' => $icon_types,
 						'value'   => self::get( 'global', 'icon_types' ),
+					),
+					array(
+						'id'        => 'fa5_extra_icons',
+						'type'      => 'textarea',
+						'label'     => __( 'FA5 Custom Icon Classes', 'menu-icons' ),
+						'value'     => self::get( 'global', 'fa5_extra_icons' ),
+						'help_text' => '( comma separated icons )',
 					),
 				),
 				'args'        => array(),
