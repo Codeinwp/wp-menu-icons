@@ -16,10 +16,17 @@
     "lasttranslator": "Themeisle Translate Team <friends@themeisle.com>"
   },
   "devDependencies": {
+    "@babel/core": "^7.17.5",
+    "@babel/plugin-proposal-class-properties": "^7.16.7",
+    "@babel/preset-env": "^7.16.11",
+    "@babel/preset-react": "^7.16.7",
     "@semantic-release/changelog": "^5.0.1",
     "@semantic-release/exec": "^5.0.0",
     "@semantic-release/git": "^9.0.0",
+    "babel-loader": "^8.2.3",
+    "babel-plugin-component": "^1.1.1",
     "conventional-changelog-simple-preset": "^1.0.15",
+    "extract-text-webpack-plugin": "^2.1.2",
     "grunt": "^1.4.0",
     "grunt-version": "^2.0.0",
     "grunt-wp-readme-to-markdown": "^2.0.1",
@@ -56,5 +63,15 @@
     "dist": "bash bin/dist.sh",
     "release": "semantic-release --debug",
     "lint": "npm run lint:js && npm run lint:php"
+  },
+  "dependencies": {
+    "babel-preset-es2015": "^6.24.1",
+    "babel-register": "^6.26.0",
+    "grunt-contrib-cssmin": "^4.0.0",
+    "grunt-contrib-jshint": "^3.2.0",
+    "grunt-contrib-qunit": "^5.1.1",
+    "grunt-contrib-uglify": "^5.0.1",
+    "webpack": "^2.7.0",
+    "webpack-merge": "^4.2.2"
   }
 }

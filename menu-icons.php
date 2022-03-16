@@ -27,6 +27,8 @@
  */
 final class Menu_Icons {
 
+	const DISMISS_NOTICE = 'menu-icons-dismiss-notice';
+
 	const VERSION = '0.12.5';
 
 	/**
@@ -90,6 +92,10 @@ final class Menu_Icons {
 		Menu_Icons_Meta::init();
 
 		add_action( 'icon_picker_init', array( __CLASS__, '_init' ), 9 );
+
+		add_action( 'admin_enqueue_scripts', array( __CLASS__, '_admin_enqueue_scripts' ) );
+		add_action( 'wp_dashboard_setup', array( __CLASS__, '_wp_menu_icons_dashboard_notice' ) );
+		add_action( 'wp_ajax_wp_menu_icons_dismiss_dashboard_notice', array( __CLASS__, 'wp_menu_icons_dismiss_dashboard_notice' ) );
 	}
 
 
@@ -150,6 +156,91 @@ final class Menu_Icons {
 		?>
 		<div class="error">
 			<p><?php esc_html_e( 'Looks like Menu Icons was installed via Composer. Please activate Icon Picker first.', 'menu-icons' ); ?></p>
+		</div>
+		<?php
+	}
+
+	/**
+	 * Register assets.
+	 */
+	public static function _admin_enqueue_scripts() {
+		$url    = self::get( 'url' );
+		$suffix = kucrut_get_script_suffix();
+
+		if ( defined( 'MENU_ICONS_SCRIPT_DEBUG' ) && MENU_ICONS_SCRIPT_DEBUG ) {
+			$script_url = '//localhost:8081/';
+		} else {
+			$script_url = $url;
+		}
+
+		wp_register_style(
+			'menu-icons-dashboard',
+			"{$url}css/dashboard-notice{$suffix}.css",
+			false,
+			self::VERSION
+		);
+
+		wp_register_script(
+			'menu-icons-dashboard',
+			"{$script_url}js/dashboard-notice{$suffix}.js",
+			array( 'jquery' ),
+			self::VERSION,
+			true
+		);
+
+		wp_localize_script(
+			'menu-icons-dashboard',
+			'menuIcons',
+			array(
+				'ajaxUrls' => admin_url( 'admin-ajax.php' ),
+				'_nonce'   => wp_create_nonce( self::DISMISS_NOTICE ),
+			)
+		);
+	}
+
+	/**
+	 * Render dashboard notice.
+	 */
+	public static function _wp_menu_icons_dashboard_notice() {
+		if ( false === get_transient( self::DISMISS_NOTICE ) ) {
+			wp_enqueue_style( 'menu-icons-dashboard' );
+			wp_enqueue_script( 'menu-icons-dashboard' );
+			add_action( 'admin_notices', array( __CLASS__, '_upsell_admin_notice' ) );
+		}
+	}
+
+	/**
+	 * Ajax request handle for dissmiss dashboard notice.
+	 */
+	public static function wp_menu_icons_dismiss_dashboard_notice() {
+		check_ajax_referer( self::DISMISS_NOTICE, '_nonce' );
+
+		$dismiss = ! empty( $_POST['dismiss'] ) ? intval( $_POST['dismiss'] ) : 0;
+		set_transient( self::DISMISS_NOTICE, $dismiss, 365 * DAY_IN_SECONDS );
+
+		wp_send_json_success(
+			array(
+				'status' => 0,
+			)
+		);
+		die();
+	}
+
+	/**
+	 * Upsell admin notice.
+	 */
+	public static function _upsell_admin_notice() {
+		$neve_theme_url = add_query_arg(
+			array(
+				'theme' => 'neve',
+			),
+			admin_url( 'theme-install.php' )
+		);
+		?>
+		<div class="notice notice-info is-dismissible menu-icon-dashboard-notice">
+			<h2><?php esc_html_e( 'Thank you for installing Menu Icons!', 'menu-icons' ); ?></h2>
+			<p><?php esc_html_e( 'Have you heard about our latest FREE theme - Neve? Using a mobile-first approach, compatibility with AMP and popular page-builders, Neve makes website building accessible for everyone.', 'menu-icons' ); ?></p>
+			<a href="<?php echo esc_url( $neve_theme_url ); ?>" class="button button-primary button-large"><?php esc_html_e( 'Preview Neve', 'menu-icons' ); ?></a>
 		</div>
 		<?php
 	}
