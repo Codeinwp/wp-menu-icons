@@ -25,9 +25,7 @@ plugins:
         - CHANGELOG.md
         - readme.md
         - readme.txt
-        - classes/Visualizer/Plugin.php
-        - css/media.css
-        - index.php
+        - menu-icons.php
         - package-lock.json
         - package.json
       message: "chore(release): ${nextRelease.version} \n\n${nextRelease.notes}"
