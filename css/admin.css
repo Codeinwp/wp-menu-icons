@@ -142,7 +142,7 @@
 	max-width: 100%;
 }
 
-.menu-icons-upgrade-hestia {
+.nv-upgrade-notice {
 	width: 90%;
 	margin-top: 0;
 	padding: 15px;
@@ -181,4 +181,66 @@
 
 .attachments-browser.iconpicker-fonts-browser .media-sidebar {
 	width: 32%;
+}
+
+.nv-upgrade-notice {
+	background: #FFFFFF;
+	border: 1px solid #E1E1E1;
+	box-sizing: border-box;
+	padding: 20px;
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.nv-upgrade-notice .menu-icon-notice-popup-img {
+	width: 115px;
+	height: 100px;
+	background-color: #f1f1f1;
+	margin-right: 20px;
+	margin-bottom: 20px;
+}
+
+.nv-upgrade-notice .menu-icon-notice-popup-img img{
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.nv-upgrade-notice .menu-icon-notice-popup {
+	flex: 1;
+}
+
+.nv-upgrade-notice .menu-icon-notice-popup h4{
+	padding: 0;
+	margin: 0 0 8px;
+	font-weight: 590;
+	font-size: 14px;
+	line-height: 1.2;
+	color: #000000;
+	display: block;
+	width: 100%;
+}
+
+.nv-upgrade-notice .menu-icon-notice-popup p {
+	font-size: 13px;
+	line-height: 1.2;
+	color: #000000;
+	margin: 0 0 16px;
+	display: block;
+	padding: 0;
+}
+
+.nv-upgrade-notice .menu-icon-notice-popup .button {
+	width: auto;
+	height: 30px;
+	background: #0071AE;
+	border-radius: 4px;
+	padding: 5px 12px;
+	font-size: 13px;
+	line-height: 1.5;
+	color: #fff;
+}
+
+.nv-upgrade-notice .menu-icon-notice-popup .button:hover {
+	color: #fff;
 }

@@ -386,8 +386,13 @@ final class Menu_Icons_Settings {
 								esc_attr( $field->id ),
 								esc_html( $field->label )
 							);
+							// Help text.
+							if ( $field->help_text ) :
+								printf( '<i>%s</i>', esc_html( $field->help_text ) );
+							endif;
+
+							$field->render();
 							?>
-							<?php $field->render() ?>
 						</div>
 					<?php endforeach; ?>
 				</div>
@@ -458,6 +463,13 @@ final class Menu_Icons_Settings {
 						'label'   => __( 'Icon Types', 'menu-icons' ),
 						'choices' => $icon_types,
 						'value'   => self::get( 'global', 'icon_types' ),
+					),
+					array(
+						'id'        => 'fa5_extra_icons',
+						'type'      => 'textarea',
+						'label'     => __( 'FA5 Custom Icon Classes', 'menu-icons' ),
+						'value'     => self::get( 'global', 'fa5_extra_icons' ),
+						'help_text' => '( comma separated icons )',
 					),
 				),
 				'args'        => array(),
@@ -717,20 +729,47 @@ final class Menu_Icons_Settings {
 				$menu_current_theme = $theme->get( 'Name' );
 			}
 		}
+		$upsell_notices = array();
 		$box_data = '<div id="menu-icons-sidebar">';
+
 		if ( ( $menu_current_theme != 'Neve' ) ) {
-
-			$menu_upgrade_hestia_box_text = '<h4>Check-out our latest fast and lightweight FREE theme - <strong>Neve</strong></h4>Neve’s mobile-first approach, compatibility with AMP and popular page-builders makes website building accessible for everyone.';
-
-			$menu_upgrade_hestia_url = add_query_arg(
-				array(
-					'theme' => 'Neve',
-				), admin_url( 'theme-install.php' )
+			$upsell_notices['neve'] = array(
+				'content' => wp_sprintf( '<div class="menu-icon-notice-popup-img"><img src="%s"/></div><div class="menu-icon-notice-popup"><h4>%s</h4>%s', plugin_dir_url( __FILE__ ) . '../images/neve-theme.jpg', __( 'Check-out our latest lightweight FREE theme - Neve', 'menu-icons' ), __( 'Neve’s mobile-first approach, compatibility with AMP and popular page-builders makes website building accessible for everyone.', 'menu-icons' ) ),
+				'url' => add_query_arg(
+					array(
+						'theme' => 'neve',
+					),
+					admin_url( 'theme-install.php' )
+				),
+				'btn_text' => __( 'Preview Neve', 'menu-icons' ),
 			);
-			$box_data                .= '<div class="menu-icons-upgrade-hestia postbox new-card">';
-			$box_data                .= '<p>' . wp_kses_post( $menu_upgrade_hestia_box_text ) . '</p>';
-			$box_data                .= '<a class="button" href="' . $menu_upgrade_hestia_url . '" target="_blank">Preview Neve</a>';
-			$box_data                .= '</div>';
+		}
+
+		if ( ! in_array( 'otter-blocks/otter-blocks.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ), true ) ) {
+			$upsell_notices['otter-blocks'] = array(
+				'content' => wp_sprintf( '<div class="menu-icon-notice-popup-img"><img src="%s"/></div><div class="menu-icon-notice-popup"><h4>%s</h4>%s', plugin_dir_url( __FILE__ ) . '../images/otter-block.png', __( 'Build professional pages with Otter Blocks', 'menu-icons' ), __( 'Otter is a dynamic collection of page building blocks and templates,  covering all the elements you need to build your WordPress site.', 'menu-icons' ) ),
+				'url' => add_query_arg(
+					array(
+						'tab'       => 'plugin-information',
+						'plugin'    => 'otter-blocks',
+						'TB_iframe' => true,
+						'width'     => 772,
+						'height'    => 551,
+					),
+					admin_url( 'plugin-install.php' )
+				),
+				'btn_text' => __( 'Preview Otter Blocks', 'menu-icons' ),
+			);
+		}
+
+		if ( ! empty( $upsell_notices ) ) {
+			$rand_key                     = array_rand( $upsell_notices );
+			$menu_upgrade_hestia_box_text = $upsell_notices[ $rand_key ]['content'];
+
+			$box_data               .= '<div class="nv-upgrade-notice postbox new-card">';
+			$box_data               .= wp_kses_post( wpautop( $menu_upgrade_hestia_box_text ) );
+			$box_data               .= '<a class="button" href="' . $upsell_notices[ $rand_key ]['url'] . '" target="_blank">' . $upsell_notices[ $rand_key ]['btn_text'] . '</a>';
+			$box_data               .= '</div></div>';
 		}
 		$js_data = apply_filters(
 			'menu_icons_settings_js_data',

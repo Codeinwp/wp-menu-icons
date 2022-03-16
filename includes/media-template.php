@@ -1,5 +1,5 @@
 <script type="text/html" id="tmpl-menu-icons-item-field-preview-font">
-	<i class="_icon {{data.type}} {{ data.icon }}"></i>
+	<i class="_icon {{'fa' == data.type ? '' : data.type}} {{ data.icon }}"></i>
 </script>
 
 <script type="text/html" id="tmpl-menu-icons-item-field-preview-image">
