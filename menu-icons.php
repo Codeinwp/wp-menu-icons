@@ -26,9 +26,9 @@
  * Main plugin class
  */
 final class Menu_Icons {
-	
+
 	const DISMISS_NOTICE = 'menu-icons-dismiss-notice';
-	
+
 	const VERSION = '0.12.10';
 
 	/**
