@@ -225,6 +225,14 @@ Read [this blog post](http://kucrut.org/add-custom-image-sizes-right-way/).
 
 == Changelog ==
 
+##### [Version 0.12.11](https://github.com/codeinwp/wp-menu-icons/compare/v0.12.10...v0.12.11) (2022-03-16)
+
+Add font awesome 5 support
+Enhance compatibility with Otter/Neve
+
+
+
+
 ##### [Version 0.12.10](https://github.com/codeinwp/wp-menu-icons/compare/v0.12.9...v0.12.10) (2022-02-07)
 
 - [Fix] Add support for alt attribute for SVG icons
