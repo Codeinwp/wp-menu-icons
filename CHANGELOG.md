@@ -1,3 +1,9 @@
+##### [Version 0.12.12](https://github.com/codeinwp/wp-menu-icons/compare/v0.12.11...v0.12.12) (2022-05-27)
+
+- Fix the style handler conflict issue which breaks the arrow icon of the submenus on some themes
+- Fix dismiss dashboard notice issue on some edge cases
+- Fix compatibility with the Max Mega Menu plugin
+
 ##### [Version 0.12.11](https://github.com/codeinwp/wp-menu-icons/compare/v0.12.10...v0.12.11) (2022-03-16)
 
 Add font awesome 5 support
