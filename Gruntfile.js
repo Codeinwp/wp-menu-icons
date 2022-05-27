@@ -51,8 +51,7 @@ module.exports = function (grunt) {
 			},
 			dist: {
 				files: {
-					'js/admin.min.js': 'js/admin.js',
-					'js/dashboard-notice.min.js': 'js/dashboard-notice.js'
+					'js/admin.min.js': 'js/admin.js'
 				}
 			}
 		}

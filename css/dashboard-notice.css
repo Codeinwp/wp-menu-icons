@@ -1,4 +1,5 @@
 .menu-icon-dashboard-notice {
+  position: relative;
   background: #FFFFFF;
   border: 1px solid #E1E1E1;
   box-sizing: border-box;
@@ -37,4 +38,7 @@
   color: #FFFFFF;
   font-size: 13px;
   line-height: 1.5;
+}
+.menu-icon-dashboard-notice .notice-dismiss {
+  text-decoration: none;
 }
