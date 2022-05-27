@@ -195,6 +195,8 @@ final class Menu_Icons_Front_End {
 	 */
 	public static function _add_menu_item_title_filter( $args ) {
 		add_filter( 'the_title', array( __CLASS__, '_add_icon' ), 999, 2 );
+		add_filter( 'megamenu_the_title', array( __CLASS__, '_add_icon' ), 999, 2 );
+		add_filter( 'megamenu_nav_menu_css_class', array( __CLASS__, '_add_menu_item_class' ), 10, 3 );
 
 		return $args;
 	}
@@ -213,7 +215,8 @@ final class Menu_Icons_Front_End {
 	 */
 	public static function _remove_menu_item_title_filter( $nav_menu ) {
 		remove_filter( 'the_title', array( __CLASS__, '_add_icon' ), 999, 2 );
-
+		remove_filter( 'megamenu_the_title', array( __CLASS__, '_add_icon' ), 999, 2 );
+		remove_filter( 'megamenu_nav_menu_css_class', array( __CLASS__, '_add_menu_item_class' ), 10, 3 );
 		return $nav_menu;
 	}
 
@@ -493,5 +496,18 @@ final class Menu_Icons_Front_End {
 			$height,
 			$style
 		);
+	}
+
+	/**
+	 * Add menu item class in `Max Mega Menu` item.
+	 *
+	 * @param array  $classes Item classes.
+	 * @param array  $item WP menu item.
+	 * @param object $args Menu object.
+	 * @return array
+	 */
+	public static function _add_menu_item_class( $classes, $item, $args ) { // phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore
+		$classes[] = 'menu-item';
+		return $classes;
 	}
 }
