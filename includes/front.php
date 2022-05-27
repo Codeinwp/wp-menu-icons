@@ -141,9 +141,23 @@ final class Menu_Icons_Front_End {
 	 * @link    http://codex.wordpress.org/Plugin_API/Action_Reference/wp_enqueue_scripts
 	 */
 	public static function _enqueue_styles() {
+		// Deregister icon picker plugin font-awesome style and re-register with the new handler to avoid other plugin/theme style handler conflict.
+		$wp_styles = wp_styles();
+		if ( $wp_styles && isset( $wp_styles->registered['font-awesome'] ) ) {
+			$registered = $wp_styles->registered['font-awesome'];
+			if ( strpos( $registered->src, Menu_Icons::get( 'url' ) ) !== false ) {
+				$wp_styles->remove( 'font-awesome' );
+				$wp_styles->add( 'menu-icon-' . $registered->handle, $registered->src, $registered->deps, $registered->ver, $registered->args );
+			}
+		}
+
 		foreach ( self::$icon_types as $type ) {
-			if ( wp_style_is( $type->stylesheet_id, 'registered' ) ) {
-				wp_enqueue_style( $type->stylesheet_id );
+			$stylesheet_id = $type->stylesheet_id;
+			if ( 'font-awesome' === $stylesheet_id ) {
+				$stylesheet_id = 'menu-icon-' . $stylesheet_id;
+			}
+			if ( wp_style_is( $stylesheet_id, 'registered' ) ) {
+				wp_enqueue_style( $stylesheet_id );
 			}
 		}
 
