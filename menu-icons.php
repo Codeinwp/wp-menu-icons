@@ -184,7 +184,7 @@ final class Menu_Icons {
 	 * Render dashboard notice.
 	 */
 	public static function _wp_menu_icons_dashboard_notice() {
-		if ( false === get_transient( self::DISMISS_NOTICE ) ) {
+		if ( false === get_option( self::DISMISS_NOTICE, false ) ) {
 			wp_enqueue_style( 'menu-icons-dashboard' );
 			wp_enqueue_script( 'menu-icons-dashboard' );
 			add_action( 'admin_notices', array( __CLASS__, '_upsell_admin_notice' ) );
@@ -197,7 +197,7 @@ final class Menu_Icons {
 	public static function wp_menu_icons_dismiss_dashboard_notice() {
 		// Verify WP nonce and store hide notice flag.
 		if ( isset( $_GET['_wp_notice_nonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_GET['_wp_notice_nonce'] ) ), self::DISMISS_NOTICE ) ) {
-			set_transient( self::DISMISS_NOTICE, 1, 365 * DAY_IN_SECONDS );
+			update_option( self::DISMISS_NOTICE, 1 );
 		}
 
 		if ( ! headers_sent() ) {
