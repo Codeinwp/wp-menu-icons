@@ -184,7 +184,7 @@ final class Menu_Icons {
 	 * Render dashboard notice.
 	 */
 	public static function _wp_menu_icons_dashboard_notice() {
-		if ( false === get_option( self::DISMISS_NOTICE, false ) ) {
+		if ( false === get_transient( self::DISMISS_NOTICE ) || false === get_option( self::DISMISS_NOTICE, false ) ) {
 			wp_enqueue_style( 'menu-icons-dashboard' );
 			wp_enqueue_script( 'menu-icons-dashboard' );
 			add_action( 'admin_notices', array( __CLASS__, '_upsell_admin_notice' ) );
