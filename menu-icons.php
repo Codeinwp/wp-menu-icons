@@ -184,7 +184,14 @@ final class Menu_Icons {
 	 * Render dashboard notice.
 	 */
 	public static function _wp_menu_icons_dashboard_notice() {
-		if ( false === get_transient( self::DISMISS_NOTICE ) || false === get_option( self::DISMISS_NOTICE, false ) ) {
+		$show_notice = true;
+		if ( ! empty( get_option( self::DISMISS_NOTICE, false ) ) ) {
+			$show_notice = false;
+		}
+		if ( ! empty( get_transient( self::DISMISS_NOTICE ) ) ) {
+			$show_notice = false;
+		}
+		if ( $show_notice ) {
 			wp_enqueue_style( 'menu-icons-dashboard' );
 			wp_enqueue_script( 'menu-icons-dashboard' );
 			add_action( 'admin_notices', array( __CLASS__, '_upsell_admin_notice' ) );
