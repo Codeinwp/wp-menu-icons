@@ -147,6 +147,7 @@ final class Menu_Icons_Front_End {
 			$registered = $wp_styles->registered['font-awesome'];
 			if ( strpos( $registered->src, Menu_Icons::get( 'url' ) ) !== false ) {
 				$wp_styles->remove( 'font-awesome' );
+				$registered->ver = Menu_Icons_Font_Awesome::$version;
 				$wp_styles->add( 'menu-icon-' . $registered->handle, $registered->src, $registered->deps, $registered->ver, $registered->args );
 			}
 		}

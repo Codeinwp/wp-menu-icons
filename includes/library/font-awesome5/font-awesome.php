@@ -7,6 +7,14 @@
 final class Menu_Icons_Font_Awesome {
 
 	/**
+	 * Font Awesome version
+	 *
+	 * @access static
+	 * @var    string
+	 */
+	public static $version = '5.15.4';
+
+	/**
 	 * Init hooks.
 	 */
 	public static function init() {
