@@ -75,7 +75,7 @@ final class Menu_Icons_Meta {
 			}
 		}
 
-		$font_awesome5 = font_awesome5_backward_compatible();
+		$font_awesome5 = font_awesome_backward_compatible();
 		$icon          = ! empty( $value['icon'] ) ? $value['icon'] : '';
 		$icon          = explode( ' ', $icon );
 		$icon          = sprintf( '%s-%s', reset( $icon ), end( $icon ) );

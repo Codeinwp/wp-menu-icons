@@ -91,9 +91,9 @@ final class Menu_Icons {
 
 		Menu_Icons_Meta::init();
 
-		// Font awesome 5 backward compatible functionalities.
-		require_once self::$data['dir'] . 'includes/library/font-awesome5/backward-compatible-icons.php';
-		require_once self::$data['dir'] . 'includes/library/font-awesome5/font-awesome.php';
+		// Font awesome backward compatible functionalities.
+		require_once self::$data['dir'] . 'includes/library/font-awesome/backward-compatible-icons.php';
+		require_once self::$data['dir'] . 'includes/library/font-awesome/font-awesome.php';
 		Menu_Icons_Font_Awesome::init();
 
 		add_action( 'icon_picker_init', array( __CLASS__, '_init' ), 9 );
@@ -101,6 +101,13 @@ final class Menu_Icons {
 		add_action( 'admin_enqueue_scripts', array( __CLASS__, '_admin_enqueue_scripts' ) );
 		add_action( 'wp_dashboard_setup', array( __CLASS__, '_wp_menu_icons_dashboard_notice' ) );
 		add_action( 'admin_action_menu_icon_hide_notice', array( __CLASS__, 'wp_menu_icons_dismiss_dashboard_notice' ) );
+
+		add_filter(
+			'wp_menu_icons_load_promotions',
+			function() {
+				return array( 'otter' );
+			}
+		);
 	}
 
 
@@ -193,7 +200,6 @@ final class Menu_Icons {
 		}
 		if ( $show_notice ) {
 			wp_enqueue_style( 'menu-icons-dashboard' );
-			wp_enqueue_script( 'menu-icons-dashboard' );
 			add_action( 'admin_notices', array( __CLASS__, '_upsell_admin_notice' ) );
 		}
 	}
