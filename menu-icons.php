@@ -91,9 +91,9 @@ final class Menu_Icons {
 
 		Menu_Icons_Meta::init();
 
-		// Font awesome 5 backward compatible functionalities.
-		require_once self::$data['dir'] . 'includes/library/font-awesome5/backward-compatible-icons.php';
-		require_once self::$data['dir'] . 'includes/library/font-awesome5/font-awesome.php';
+		// Font awesome backward compatible functionalities.
+		require_once self::$data['dir'] . 'includes/library/font-awesome/backward-compatible-icons.php';
+		require_once self::$data['dir'] . 'includes/library/font-awesome/font-awesome.php';
 		Menu_Icons_Font_Awesome::init();
 
 		add_action( 'icon_picker_init', array( __CLASS__, '_init' ), 9 );
@@ -101,6 +101,13 @@ final class Menu_Icons {
 		add_action( 'admin_enqueue_scripts', array( __CLASS__, '_admin_enqueue_scripts' ) );
 		add_action( 'wp_dashboard_setup', array( __CLASS__, '_wp_menu_icons_dashboard_notice' ) );
 		add_action( 'admin_action_menu_icon_hide_notice', array( __CLASS__, 'wp_menu_icons_dismiss_dashboard_notice' ) );
+
+		add_filter(
+			'wp_menu_icons_load_promotions',
+			function() {
+				return array( 'otter' );
+			}
+		);
 	}
 
 
@@ -184,9 +191,15 @@ final class Menu_Icons {
 	 * Render dashboard notice.
 	 */
 	public static function _wp_menu_icons_dashboard_notice() {
-		if ( false === get_transient( self::DISMISS_NOTICE ) ) {
+		$show_notice = true;
+		if ( ! empty( get_option( self::DISMISS_NOTICE, false ) ) ) {
+			$show_notice = false;
+		}
+		if ( ! empty( get_transient( self::DISMISS_NOTICE ) ) ) {
+			$show_notice = false;
+		}
+		if ( $show_notice ) {
 			wp_enqueue_style( 'menu-icons-dashboard' );
-			wp_enqueue_script( 'menu-icons-dashboard' );
 			add_action( 'admin_notices', array( __CLASS__, '_upsell_admin_notice' ) );
 		}
 	}
@@ -197,7 +210,7 @@ final class Menu_Icons {
 	public static function wp_menu_icons_dismiss_dashboard_notice() {
 		// Verify WP nonce and store hide notice flag.
 		if ( isset( $_GET['_wp_notice_nonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_GET['_wp_notice_nonce'] ) ), self::DISMISS_NOTICE ) ) {
-			set_transient( self::DISMISS_NOTICE, 1, 365 * DAY_IN_SECONDS );
+			update_option( self::DISMISS_NOTICE, 1 );
 		}
 
 		if ( ! headers_sent() ) {

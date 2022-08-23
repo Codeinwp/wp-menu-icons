@@ -7,6 +7,14 @@
 final class Menu_Icons_Font_Awesome {
 
 	/**
+	 * Font Awesome version
+	 *
+	 * @access static
+	 * @var    string
+	 */
+	public static $version = '5.15.4';
+
+	/**
 	 * Init hooks.
 	 */
 	public static function init() {
@@ -55,11 +63,11 @@ final class Menu_Icons_Font_Awesome {
 			$icons = array_values( $icons );
 		}
 
-		$font_awesome5 = font_awesome5_backward_compatible();
+		$font_awesome = font_awesome_backward_compatible();
 		foreach ( $icons as $key => $icon ) {
 			$old_fa_icon = sprintf( 'fa-%s', $icons[ $key ]['id'] );
-			if ( array_key_exists( $old_fa_icon, $font_awesome5 ) ) {
-				$icons[ $key ]['id'] = trim( $font_awesome5[ $old_fa_icon ] );
+			if ( array_key_exists( $old_fa_icon, $font_awesome ) ) {
+				$icons[ $key ]['id'] = trim( $font_awesome[ $old_fa_icon ] );
 			} else {
 				$icons[ $key ]['id'] = sprintf( 'fa %s', trim( $icons[ $key ]['id'] ) );
 			}

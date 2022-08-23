@@ -88,7 +88,7 @@ final class Menu_Icons_Front_End {
 		 */
 		self::$default_style = apply_filters( 'menu_icons_default_style', self::$default_style );
 
-		add_action( 'wp_enqueue_scripts', array( __CLASS__, '_enqueue_styles' ), 7 );
+		add_action( 'wp_enqueue_scripts', array( __CLASS__, '_enqueue_styles' ), 4 );
 		add_filter( 'wp_nav_menu_args', array( __CLASS__, '_add_menu_item_title_filter' ) );
 		add_filter( 'wp_nav_menu', array( __CLASS__, '_remove_menu_item_title_filter' ) );
 	}
@@ -147,6 +147,7 @@ final class Menu_Icons_Front_End {
 			$registered = $wp_styles->registered['font-awesome'];
 			if ( strpos( $registered->src, Menu_Icons::get( 'url' ) ) !== false ) {
 				$wp_styles->remove( 'font-awesome' );
+				$registered->ver = Menu_Icons_Font_Awesome::$version;
 				$wp_styles->add( 'menu-icon-' . $registered->handle, $registered->src, $registered->deps, $registered->ver, $registered->args );
 			}
 		}
@@ -400,7 +401,7 @@ final class Menu_Icons_Front_End {
 		$type = $meta['type'];
 		$icon = $meta['icon'];
 
-		$font_awesome5 = font_awesome5_backward_compatible();
+		$font_awesome5 = font_awesome_backward_compatible();
 		if ( ! empty( $type ) && 'fa' === $type ) {
 			$icon    = explode( ' ', $icon );
 			$type    = reset( $icon );
