@@ -467,7 +467,7 @@ final class Menu_Icons_Settings {
 					array(
 						'id'        => 'fa5_extra_icons',
 						'type'      => 'textarea',
-						'label'     => __( 'FA5 Custom Icon Classes', 'menu-icons' ),
+						'label'     => __( 'FA Custom Icon Classes', 'menu-icons' ),
 						'value'     => self::get( 'global', 'fa5_extra_icons' ),
 						'help_text' => '( comma separated icons )',
 					),

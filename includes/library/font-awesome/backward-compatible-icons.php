@@ -6,15 +6,15 @@
  */
 
 // phpcs:disable WordPress.Arrays.MultipleStatementAlignment.DoubleArrowNotAligned
-if ( ! function_exists( 'font_awesome5_backward_compatible' ) ) {
+if ( ! function_exists( 'font_awesome_backward_compatible' ) ) {
 
 	/**
 	 * Font awesome 5 backward compatible.
 	 *
 	 * @return array
 	 */
-	function font_awesome5_backward_compatible() {
-		$font_awesome5_icon = array(
+	function font_awesome_backward_compatible() {
+		$font_awesome_icon = array(
 			'fa-fa-500px' => 'fab fa-500px',
 			'fa-fa-address-book-o' => 'far fa-address-book',
 			'fa-fa-address-card-o' => 'far fa-address-card',
@@ -477,8 +477,8 @@ if ( ! function_exists( 'font_awesome5_backward_compatible' ) ) {
 			'fa-fa-youtube' => 'fab fa-youtube',
 			'fa-fa-fa' => 'fab fa-font-awesome',
 		);
-		$font_awesome5_icon = apply_filters( 'menu_icons_backward_compatibility_icons', $font_awesome5_icon );
+		$font_awesome_icon = apply_filters( 'menu_icons_backward_compatibility_icons', $font_awesome_icon );
 
-		return $font_awesome5_icon;
+		return $font_awesome_icon;
 	}
 }

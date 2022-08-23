@@ -400,7 +400,7 @@ final class Menu_Icons_Front_End {
 		$type = $meta['type'];
 		$icon = $meta['icon'];
 
-		$font_awesome5 = font_awesome5_backward_compatible();
+		$font_awesome5 = font_awesome_backward_compatible();
 		if ( ! empty( $type ) && 'fa' === $type ) {
 			$icon    = explode( ' ', $icon );
 			$type    = reset( $icon );
