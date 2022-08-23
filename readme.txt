@@ -225,6 +225,16 @@ Read [this blog post](http://kucrut.org/add-custom-image-sizes-right-way/).
 
 == Changelog ==
 
+#### [Version 0.13.0](https://github.com/codeinwp/wp-menu-icons/compare/v0.12.12...v0.13.0) (2022-08-23)
+
+* Fix Neve upsells showing up inconsistently on edge cases
+* Fix inconsistency with Font Awesome 5 and adds compatibility with 6th version
+* Fix compatibility with JupiterX 
+* Update dependencies
+
+
+
+
 ##### [Version 0.12.12](https://github.com/codeinwp/wp-menu-icons/compare/v0.12.11...v0.12.12) (2022-05-27)
 
 - Fix the style handler conflict issue which breaks the arrow icon of the submenus on some themes
