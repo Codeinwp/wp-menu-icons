@@ -101,6 +101,13 @@ final class Menu_Icons {
 		add_action( 'admin_enqueue_scripts', array( __CLASS__, '_admin_enqueue_scripts' ) );
 		add_action( 'wp_dashboard_setup', array( __CLASS__, '_wp_menu_icons_dashboard_notice' ) );
 		add_action( 'admin_action_menu_icon_hide_notice', array( __CLASS__, 'wp_menu_icons_dismiss_dashboard_notice' ) );
+
+		add_filter(
+			'wp_menu_icons_load_promotions',
+			function() {
+				return array( 'otter' );
+			}
+		);
 	}
 
 
