@@ -1,3 +1,7 @@
+##### [Version 0.13.2](https://github.com/codeinwp/wp-menu-icons/compare/v0.13.1...v0.13.2) (2022-11-24)
+
+* Fix - update dependencies
+
 ##### [Version 0.13.1](https://github.com/codeinwp/wp-menu-icons/compare/v0.13.0...v0.13.1) (2022-11-04)
 
 Tested with the WordPress 6.1 version
