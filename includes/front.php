@@ -481,10 +481,10 @@ final class Menu_Icons_Front_End {
 			}
 		}
 		if ( ! empty( $width ) ) {
-			$width = sprintf( ' width="%dpx"', $width );
+			$width = sprintf( ' width="%d"', $width );
 		}
 		if ( ! empty( $height ) ) {
-			$height = sprintf( ' height="%dpx"', $height );
+			$height = sprintf( ' height="%d"', $height );
 		}
 		$image_alt = get_post_meta( $meta['icon'], '_wp_attachment_image_alt', true );
 		$image_alt = $image_alt ? wp_strip_all_tags( $image_alt ) : '';
