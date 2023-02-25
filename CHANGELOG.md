@@ -1,3 +1,8 @@
+##### [Version 0.13.3](https://github.com/codeinwp/wp-menu-icons/compare/v0.13.2...v0.13.3) (2023-02-25)
+
+- Fix img width/height value, props @Htbaa 
+- Update dependencies
+
 ##### [Version 0.13.2](https://github.com/codeinwp/wp-menu-icons/compare/v0.13.1...v0.13.2) (2022-11-24)
 
 * Fix - update dependencies
