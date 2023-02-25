@@ -5,7 +5,7 @@
   "require": {
     "codeinwp/icon-picker": "master",
     "codeinwp/menu-item-custom-fields": "master",
-    "codeinwp/themeisle-sdk": "master",
+    "codeinwp/themeisle-sdk": "^3.2",
     "codeinwp/gutenberg-menu-icons": "^1.0"
   },
   "replace": {
