@@ -225,6 +225,13 @@ Read [this blog post](http://kucrut.org/add-custom-image-sizes-right-way/).
 
 == Changelog ==
 
+##### [Version 0.13.4](https://github.com/codeinwp/wp-menu-icons/compare/v0.13.3...v0.13.4) (2023-03-01)
+
+Update dependencies
+
+
+
+
 ##### [Version 0.13.3](https://github.com/codeinwp/wp-menu-icons/compare/v0.13.2...v0.13.3) (2023-02-25)
 
 - Fix img width/height value, props @Htbaa 
