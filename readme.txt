@@ -225,6 +225,13 @@ Read [this blog post](http://kucrut.org/add-custom-image-sizes-right-way/).
 
 == Changelog ==
 
+##### [Version 0.13.5](https://github.com/codeinwp/wp-menu-icons/compare/v0.13.4...v0.13.5) (2023-03-30)
+
+- Updated Dependencies and WordPress core tested up to version 6.2
+
+
+
+
 ##### [Version 0.13.4](https://github.com/codeinwp/wp-menu-icons/compare/v0.13.3...v0.13.4) (2023-03-01)
 
 Update dependencies
