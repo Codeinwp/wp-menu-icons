@@ -1,7 +1,7 @@
 === Menu Icons by ThemeIsle ===
 Contributors: codeinwp, themeisle
 Tags: menu, nav-menu, icons, navigation
-Requires at least: 4.3
+Requires at least: 4.7
 Tested up to: 6.3
 Stable tag: trunk
 License: GPLv2
