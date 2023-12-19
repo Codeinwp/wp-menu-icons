@@ -240,9 +240,11 @@ final class Menu_Icons_Front_End {
 		if ( empty( $icon ) ) {
 			return $title;
 		}
-
-		$title_class   = ! empty( $meta['hide_label'] ) ? self::$hidden_label_class : '';
-		$title_wrapped = sprintf(
+		$menu_id           = Menu_Icons_Settings::get_current_menu_id();
+		$menu_key          = sprintf( 'menu_%d', $menu_id );
+		$global_hide_label = Menu_Icons_Settings::get( $menu_key, 'hide_label' );
+		$title_class       = ! empty( $global_hide_label ) || ! empty( $meta['hide_label'] ) ? self::$hidden_label_class : '';
+		$title_wrapped     = sprintf(
 			'<span%s>%s</span>',
 			( ! empty( $title_class ) ) ? sprintf( ' class="%s"', esc_attr( $title_class ) ) : '',
 			$title
