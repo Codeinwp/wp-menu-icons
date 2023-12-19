@@ -1,3 +1,8 @@
+##### [Version 0.13.8](https://github.com/codeinwp/wp-menu-icons/compare/v0.13.7...v0.13.8) (2023-12-19)
+
+- SDK Updates
+- Fixed global hide label issue
+
 ##### [Version 0.13.7](https://github.com/codeinwp/wp-menu-icons/compare/v0.13.6...v0.13.7) (2023-08-17)
 
 - Updated dependencies
