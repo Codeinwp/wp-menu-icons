@@ -27,3 +27,4 @@ docker-compose.yml
 key.enc
 webpack.config.babel.js
 .releaserc.yml
+CONTRIBUTING.md
