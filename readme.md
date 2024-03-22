@@ -45,6 +45,10 @@ Menu icons works with most of the themes out there, especially with popular ones
 
 Development of this plugin is done on [GitHub](https://github.com/codeinwp/wp-menu-icons). **Pull requests welcome**. Please see [issues reported](https://github.com/codeinwp/wp-menu-icons/issues) there before going to the plugin forum.
 
+All the code and sources is publicly available on [GitHub/wp-menu-icons](https://github.com/codeinwp/wp-menu-icons) for this plugin and
+for the [SDK](https://github.com/Codeinwp/themeisle-sdk).
+
+
 ## If you like this plugin, then consider checking out our other projects: ##
 
 [CodeinWP Blog](https://www.codeinwp.com/blog/) – Designer's Guide To WordPress
