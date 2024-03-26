@@ -1,3 +1,10 @@
+##### [Version 0.13.10](https://github.com/codeinwp/wp-menu-icons/compare/v0.13.9...v0.13.10) (2024-03-26)
+
+### Improvements
+- Updated internal dependencies
+- Improved readme to link to the public source files
+- Filter promotions
+
 ##### [Version 0.13.9](https://github.com/codeinwp/wp-menu-icons/compare/v0.13.8...v0.13.9) (2024-02-23)
 
 ### Fixes
