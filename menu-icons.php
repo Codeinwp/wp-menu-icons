@@ -103,9 +103,14 @@ final class Menu_Icons {
 		add_action( 'admin_action_menu_icon_hide_notice', array( __CLASS__, 'wp_menu_icons_dismiss_dashboard_notice' ) );
 
 		add_filter(
-			'menu_icons_load_promotions',
+			'wp_menu_icons_load_promotions',
 			function() {
 				return array( 'otter' );
+			}
+		);
+		add_filter(
+			'wp_menu_icons_dissallowed_promotions', function () {
+				return array( 'om-editor', 'om-image-block' );
 			}
 		);
 	}
