@@ -55,12 +55,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Codeinwp/icon-picker.git",
-                "reference": "14f9021d450992897e3ceb7fa07d46ca994864f8"
+                "reference": "8efc2e400231ad7d4af94ff9270cd5b50248d4c9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Codeinwp/icon-picker/zipball/14f9021d450992897e3ceb7fa07d46ca994864f8",
-                "reference": "14f9021d450992897e3ceb7fa07d46ca994864f8",
+                "url": "https://api.github.com/repos/Codeinwp/icon-picker/zipball/8efc2e400231ad7d4af94ff9270cd5b50248d4c9",
+                "reference": "8efc2e400231ad7d4af94ff9270cd5b50248d4c9",
                 "shasum": ""
             },
             "require": {
@@ -91,7 +91,7 @@
             "support": {
                 "source": "https://github.com/Codeinwp/icon-picker/tree/master"
             },
-            "time": "2024-05-13T08:13:08+00:00"
+            "time": "2024-05-13T08:27:15+00:00"
         },
         {
             "name": "codeinwp/menu-item-custom-fields",
