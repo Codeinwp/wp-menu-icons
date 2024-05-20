@@ -130,16 +130,16 @@
         },
         {
             "name": "codeinwp/themeisle-sdk",
-            "version": "3.3.20",
+            "version": "3.3.22",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Codeinwp/themeisle-sdk.git",
-                "reference": "d1b92f3ab74f1b3f0afad7e23ddb1c058d66c03c"
+                "reference": "1754febc3c25c4c884424e72801c4d3f2ec7097e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Codeinwp/themeisle-sdk/zipball/d1b92f3ab74f1b3f0afad7e23ddb1c058d66c03c",
-                "reference": "d1b92f3ab74f1b3f0afad7e23ddb1c058d66c03c",
+                "url": "https://api.github.com/repos/Codeinwp/themeisle-sdk/zipball/1754febc3c25c4c884424e72801c4d3f2ec7097e",
+                "reference": "1754febc3c25c4c884424e72801c4d3f2ec7097e",
                 "shasum": ""
             },
             "require-dev": {
@@ -162,7 +162,11 @@
             "keywords": [
                 "wordpress"
             ],
-            "time": "2024-04-16T12:27:32+00:00"
+            "support": {
+                "issues": "https://github.com/Codeinwp/themeisle-sdk/issues",
+                "source": "https://github.com/Codeinwp/themeisle-sdk/tree/v3.3.22"
+            },
+            "time": "2024-05-17T15:04:51+00:00"
         },
         {
             "name": "enshrined/svg-sanitize",
