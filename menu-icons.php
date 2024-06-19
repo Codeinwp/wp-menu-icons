@@ -196,6 +196,10 @@ final class Menu_Icons {
 	 * Render dashboard notice.
 	 */
 	public static function _wp_menu_icons_dashboard_notice() {
+		$theme = get_template();
+		if ( 'neve' === $theme ) {
+			return;
+		}
 		$show_notice = true;
 		if ( ! empty( get_option( self::DISMISS_NOTICE, false ) ) ) {
 			$show_notice = false;
