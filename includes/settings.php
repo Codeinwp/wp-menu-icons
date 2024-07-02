@@ -367,12 +367,6 @@ final class Menu_Icons_Settings {
 					);
 					?>
 				<?php endforeach; ?>
-				<?php
-				printf(
-					'<li><a href="#" class="mi-settings-nav-tab" data-type="menu-icons-settings-extensions">%s</a></li>',
-					esc_html__( 'Extensions', 'menu-icons' )
-				);
-				?>
 			</ul>
 			<?php foreach ( self::_get_fields() as $section_index => $section ) : ?>
 				<div id="menu-icons-settings-<?php echo esc_attr( $section['id'] ) ?>"
@@ -397,12 +391,6 @@ final class Menu_Icons_Settings {
 					<?php endforeach; ?>
 				</div>
 			<?php endforeach; ?>
-			<div id="menu-icons-settings-extensions" class="tabs-panel _extensions">
-				<h4 class="hide-if-js"><?php echo esc_html__( 'Extensions', 'menu-icons' ) ?></h4>
-				<ul>
-					<li><a target="_blank" href="http://wordpress.org/plugins/menu-icons-icomoon/">IcoMoon</a></li>
-				</ul>
-			</div>
 		</div>
 		<p class="submitbox button-controls">
 			<?php wp_nonce_field( self::UPDATE_KEY, self::UPDATE_KEY ) ?>
