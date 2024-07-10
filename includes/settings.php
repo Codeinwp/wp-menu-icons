@@ -782,14 +782,13 @@ final class Menu_Icons_Settings {
 					'all'          => __( 'All', 'menu-icons' ),
 					'preview'      => __( 'Preview', 'menu-icons' ),
 					'settingsInfo' => sprintf(
-						'<div> %1$s <p>' . esc_html__( 'Please note that the actual look of the icons on the front-end will also be affected by the style of your active theme. You can add your own CSS using %2$s or a plugin such as %3$s if you need to override it.', 'menu-icons' ) . '</p></div>',
+						'<div> %1$s <p>' . esc_html__( 'Please note that the actual look of the icons on the front-end will also be affected by the style of your active theme. You can add your own CSS using %2$s.', 'menu-icons' ) . '</p></div>',
 						$box_data,
 						sprintf(
 							'<a href="%s">%s</a>',
 							esc_url( $customizer_url ),
 							esc_html__( 'the customizer', 'menu-icons' )
-						),
-						'<a target="_blank" href="https://wordpress.org/plugins/advanced-css-editor/">Advanced CSS Editor</a>'
+						)
 					),
 				),
 				'settingsFields' => self::get_settings_fields(),
