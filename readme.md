@@ -37,9 +37,6 @@ https://www.youtube.com/watch?v=YcSotWXIczI
 ### Planned supported icon types ###
 - Image (URL)
 
-### Extensions ###
-- [IcoMoon](http://wordpress.org/plugins/menu-icons-icomoon/) by [IcoMoon.io](http://icomoon.io/)
-
 ### Compatible themes ###
 Menu icons works with most of the themes out there, especially with popular ones like Twenty Seventeen or [Hestia](https://themeisle.com/themes/hestia/).
 
