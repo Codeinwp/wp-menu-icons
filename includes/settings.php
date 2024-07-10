@@ -367,12 +367,6 @@ final class Menu_Icons_Settings {
 					);
 					?>
 				<?php endforeach; ?>
-				<?php
-				printf(
-					'<li><a href="#" class="mi-settings-nav-tab" data-type="menu-icons-settings-extensions">%s</a></li>',
-					esc_html__( 'Extensions', 'menu-icons' )
-				);
-				?>
 			</ul>
 			<?php foreach ( self::_get_fields() as $section_index => $section ) : ?>
 				<div id="menu-icons-settings-<?php echo esc_attr( $section['id'] ) ?>"
@@ -397,12 +391,6 @@ final class Menu_Icons_Settings {
 					<?php endforeach; ?>
 				</div>
 			<?php endforeach; ?>
-			<div id="menu-icons-settings-extensions" class="tabs-panel _extensions">
-				<h4 class="hide-if-js"><?php echo esc_html__( 'Extensions', 'menu-icons' ) ?></h4>
-				<ul>
-					<li><a target="_blank" href="http://wordpress.org/plugins/menu-icons-icomoon/">IcoMoon</a></li>
-				</ul>
-			</div>
 		</div>
 		<p class="submitbox button-controls">
 			<?php wp_nonce_field( self::UPDATE_KEY, self::UPDATE_KEY ) ?>
@@ -782,14 +770,13 @@ final class Menu_Icons_Settings {
 					'all'          => __( 'All', 'menu-icons' ),
 					'preview'      => __( 'Preview', 'menu-icons' ),
 					'settingsInfo' => sprintf(
-						'<div> %1$s <p>' . esc_html__( 'Please note that the actual look of the icons on the front-end will also be affected by the style of your active theme. You can add your own CSS using %2$s or a plugin such as %3$s if you need to override it.', 'menu-icons' ) . '</p></div>',
+						'<div> %1$s <p>' . esc_html__( 'Please note that the actual look of the icons on the front-end will also be affected by the style of your active theme. You can add your own CSS using %2$s.', 'menu-icons' ) . '</p></div>',
 						$box_data,
 						sprintf(
 							'<a href="%s">%s</a>',
 							esc_url( $customizer_url ),
 							esc_html__( 'the customizer', 'menu-icons' )
-						),
-						'<a target="_blank" href="https://wordpress.org/plugins/advanced-css-editor/">Advanced CSS Editor</a>'
+						)
 					),
 				),
 				'settingsFields' => self::get_settings_fields(),
