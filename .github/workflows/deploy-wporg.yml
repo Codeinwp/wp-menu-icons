@@ -6,7 +6,7 @@ on:
 jobs:
   tag:
     name: New version
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@master
       - name: Get the version
