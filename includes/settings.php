@@ -473,6 +473,7 @@ final class Menu_Icons_Settings {
 				'id'          => $menu_key,
 				'title'       => __( 'Current Menu', 'menu-icons' ),
 				'description' => sprintf(
+					// translators: %s - the name of the menu.
 					__( '"%s" menu settings', 'menu-icons' ),
 					apply_filters( 'single_term_title', $menu_term->name )
 				),
@@ -770,6 +771,7 @@ final class Menu_Icons_Settings {
 					'all'          => __( 'All', 'menu-icons' ),
 					'preview'      => __( 'Preview', 'menu-icons' ),
 					'settingsInfo' => sprintf(
+						// translators: %2$s - a link to the Customizer with the label `the customizer`.
 						'<div> %1$s <p>' . esc_html__( 'Please note that the actual look of the icons on the front-end will also be affected by the style of your active theme. You can add your own CSS using %2$s.', 'menu-icons' ) . '</p></div>',
 						$box_data,
 						sprintf(
