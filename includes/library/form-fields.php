@@ -149,6 +149,7 @@ abstract class Kucrut_Form_Field {
 		) {
 			trigger_error(
 				sprintf(
+					// translators: %1$s - the name of the class, %2$s - the type of the field.
 					esc_html__( '%1$s: Type %2$s is not supported, reverting to text.', 'menu-icons' ),
 					__CLASS__,
 					esc_html( $field['type'] )
