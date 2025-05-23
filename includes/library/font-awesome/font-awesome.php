@@ -113,7 +113,7 @@ final class Menu_Icons_Font_Awesome {
 			</div>
 			</div>
 			<a class="check" href="#" title="%s"><div class="media-modal-icon"></div></a>',
-				esc_attr__( 'Deselect', 'icon-picker' )
+				esc_attr__( 'Deselect', 'menu-icons' )
 			),
 		);
 

@@ -10,15 +10,16 @@
 	<exclude-pattern>lib/*</exclude-pattern>
 	<exclude-pattern>tests/*</exclude-pattern>
 
-	<arg name="extensions" value="php"/>
-	<arg value="sp"/>
+	<arg name="extensions" value="php" />
+	<arg value="sp" />
 	<arg name="basepath" value="./" />
-	<arg name="parallel" value="20"/>
+	<arg name="parallel" value="20" />
 
 
 	<rule ref="WordPress-Core">
 		<exclude name="Squiz.Commenting" />
-		<exclude name="WordPress.WhiteSpace.ControlStructureSpacing.ExtraSpaceBeforeCloseParenthesis" />
+		<exclude
+			name="WordPress.WhiteSpace.ControlStructureSpacing.ExtraSpaceBeforeCloseParenthesis" />
 		<exclude name="Squiz.PHP.EmbeddedPhp" />
 		<exclude name="Generic.Commenting" />
 		<exclude name="PEAR.Functions.FunctionCallSignature.SpaceBeforeCloseBracket" />
@@ -43,13 +44,19 @@
 		<exclude name="WordPress.Files.FileName.NotHyphenatedLowercase" />
 		<exclude name="WordPress.Arrays.ArrayDeclarationSpacing" />
 		<exclude name="Squiz.PHP.CommentedOutCode" />
-		<exclude name="WordPress.WP.I18n.MissingTranslatorsComment" />
 		<exclude name="PEAR.Functions.FunctionCallSignature.MultipleArguments" />
 	</rule>
 	<rule ref="WordPress-Docs">
 
 	</rule>
-	<config name="testVersion" value="5.6-"/>
+	<rule ref="WordPress.WP.I18n">
+		<properties>
+			<property name="text_domain" type="array">
+				<element value="menu-icons" />
+			</property>
+		</properties>
+	</rule>
+	<config name="testVersion" value="5.6-" />
 	<rule ref="PHPCompatibilityWP">
 	</rule>
 	<rule ref="Squiz.Commenting.FunctionComment.ScalarTypeHintMissing">
