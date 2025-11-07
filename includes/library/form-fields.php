@@ -127,7 +127,7 @@ abstract class Kucrut_Form_Field {
 	 * Holds field arguments
 	 *
 	 * @since  0.1.0
-	 * @var    object
+	 * @var    stdClass
 	 * @access protected
 	 */
 	protected $args;
