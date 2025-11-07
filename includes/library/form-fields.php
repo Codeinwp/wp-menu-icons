@@ -76,6 +76,15 @@ abstract class Kucrut_Form_Field {
 	);
 
 	/**
+	 * URL path to this directory
+	 *
+	 * @since  0.1.0
+	 * @var    string
+	 * @access protected
+	 */
+	protected static $url_path;
+
+	/**
 	 * Holds allowed html tags
 	 *
 	 * @since  0.1.0
@@ -113,6 +122,15 @@ abstract class Kucrut_Form_Field {
 	 * @access protected
 	 */
 	protected $attributes = array();
+
+	/**
+	 * Holds field arguments
+	 *
+	 * @since  0.1.0
+	 * @var    object
+	 * @access protected
+	 */
+	protected $args;
 
 
 	/**
