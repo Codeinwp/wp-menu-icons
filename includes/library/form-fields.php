@@ -403,6 +403,13 @@ class Kucrut_Form_Field_Textarea extends Kucrut_Form_Field {
 	);
 
 
+	protected function set_properties() {
+		if ( ! is_string( $this->field['value'] ) ) {
+			$this->field['value'] = '';
+		}
+	}
+
+
 	public function render() {
 		printf( // WPCS: XSS ok.
 			$this->template,
