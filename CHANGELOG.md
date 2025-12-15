@@ -1,3 +1,8 @@
+##### [Version 0.13.20](https://github.com/codeinwp/wp-menu-icons/compare/v0.13.19...v0.13.20) (2025-12-15)
+
+- Fixed compatibility with PHP 8.1+ versions
+- Updated dependencies
+
 ##### [Version 0.13.19](https://github.com/codeinwp/wp-menu-icons/compare/v0.13.18...v0.13.19) (2025-09-05)
 
 - Updated dependencies
