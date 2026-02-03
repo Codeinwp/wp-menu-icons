@@ -494,10 +494,10 @@ final class Menu_Icons_Front_End {
 			'<img src="%s" class="%s" aria-hidden="true" alt="%s"%s%s%s/>',
 			esc_url( wp_get_attachment_url( $meta['icon'] ) ),
 			esc_attr( $classes ),
-			$image_alt,
-			$width,
-			$height,
-			$style
+			esc_attr( $image_alt ),
+			esc_attr( $width ),
+			esc_attr( $height ),
+			esc_attr( $style )
 		);
 	}
 
