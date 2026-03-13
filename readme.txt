@@ -220,6 +220,11 @@ add_filter( 'menu_icons_menu_settings', 'my_menu_icons_menu_settings', 10, 2 );
 = I can't select a custom image size from the *Image Size* dropdown =
 Read [this blog post](http://kucrut.org/add-custom-image-sizes-right-way/).
 
+= How to report a security issue? =
+ 
+Plugin security is a core priority for us. If you identify a potential vulnerability, we ask that you disclose it responsibly.
+Please follow the reporting protocols outlined on our [Security Page](https://themeisle.com/security/).
+
 == Changelog ==
 
 ##### [Version 0.13.21](https://github.com/codeinwp/wp-menu-icons/compare/v0.13.20...v0.13.21) (2026-02-03)
