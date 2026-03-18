@@ -269,15 +269,13 @@ final class Menu_Icons {
 		$config = $configs['default'];
 		$product_slug = basename(dirname(__FILE__));
 
-		// translators: %1$s - plugin name, %2$s - HTML tag, %3$s - discount, %4$s - HTML tag, %5$s - company name.
-		$message_template = __( 'Brought to you by the team behind %1$s— our biggest sale of the year is here: %2$sup to %3$s OFF%4$s on premium products from %5$s! Limited-time only.', 'menu-icons' );
-
-		$config['message']  = sprintf( $message_template, 'Menu Icons', '<strong>', '70%', '</strong>', '<strong>Themeisle</strong>' );
+		$config['message']  = __( 'You use Menu Icons. Get more menu control with Neve Pro: advanced header builder, sticky navigation, custom layouts. Built by the same team.', 'menu-icons' );
+		$config['cta_label'] = __( 'Get Neve Pro free', 'menu-icons' );
 		$config['sale_url'] = add_query_arg(
 			array(
 				'utm_term' => 'free',
 			),
-			tsdk_translate_link( tsdk_utmify( 'https://themeisle.link/all-bf', 'bfcm', 'menu-icons' ) )
+			tsdk_translate_link( tsdk_utmify( 'https://themeisle.link/neve-bf', 'bfcm', 'menu-icons' ) )
 		);
 
 		$configs[ $product_slug ] = $config;
