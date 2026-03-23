@@ -269,6 +269,10 @@ final class Menu_Icons {
 		$config = $configs['default'];
 		$product_slug = basename(dirname(__FILE__));
 
+		if ( defined( 'NEVE_VERSION' ) ) {
+			return $configs;
+		}
+
 		$config['message']  = __( 'You use Menu Icons. Get more menu control with Neve Pro: advanced header builder, sticky navigation, custom layouts. Built by the same team.', 'menu-icons' );
 		$config['cta_label'] = __( 'Get Neve Pro free', 'menu-icons' );
 		$config['sale_url'] = add_query_arg(
