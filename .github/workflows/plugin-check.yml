@@ -15,8 +15,26 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Install Composer dependencies
+        run: composer install --no-dev --optimize-autoloader
+
       - uses: wordpress/plugin-check-action@v1
+        id: plugin-check
         with:
           categories: plugin_repo,security,performance,general
           ignore-warnings: false
           ignore-errors: false
+
+      - name: Plugin Check Summary
+        if: always()
+        run: |
+          RESULTS_FILE="${RUNNER_TEMP}/plugin-check-results.txt"
+          echo "## WordPress Plugin Check Results" >> $GITHUB_STEP_SUMMARY
+          if [ -s "$RESULTS_FILE" ]; then
+            echo '```' >> $GITHUB_STEP_SUMMARY
+            cat "$RESULTS_FILE" >> $GITHUB_STEP_SUMMARY
+            echo '```' >> $GITHUB_STEP_SUMMARY
+          else
+            echo "No results file found or file is empty." >> $GITHUB_STEP_SUMMARY
+            echo "Check the annotations on the Files Changed tab for details." >> $GITHUB_STEP_SUMMARY
+          fi
