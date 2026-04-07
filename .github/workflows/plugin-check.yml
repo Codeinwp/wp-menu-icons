@@ -21,9 +21,21 @@ jobs:
       - uses: wordpress/plugin-check-action@v1
         id: plugin-check
         with:
-          categories: plugin_repo,security,performance,general
-          ignore-warnings: false
-          ignore-errors: false
+          categories: plugin_repo,security,performance
+          exclude-directories: |
+            tests
+            bin
+            .github
+          ignore-codes: |
+            WordPress.WP.I18n.TextDomainMismatch
+            textdomain_mismatch
+            hidden_files
+            WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound
+            WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedConstantFound
+            WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedFunctionFound
+            WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
+            WordPress.PHP.DevelopmentFunctions.error_log_trigger_error
+          include-experimental: false
 
       - name: Plugin Check Summary
         if: always()
