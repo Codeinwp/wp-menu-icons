@@ -18,7 +18,7 @@ jobs:
       - name: Install Composer dependencies
         run: composer install --no-dev --optimize-autoloader
 
-      - uses: wordpress/plugin-check-action@v1.1.5
+      - uses: wordpress/plugin-check-action@v1
         id: plugin-check
         with:
           categories: plugin_repo,security,performance,general
