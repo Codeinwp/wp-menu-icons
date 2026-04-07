@@ -1,0 +1,22 @@
+name: WordPress Plugin Check
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  plugin-check:
+    name: WordPress.org Guidelines Check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: wordpress/plugin-check-action@v1
+        with:
+          categories: plugin_repo,security,performance,general
+          ignore-warnings: false
+          ignore-errors: false
