@@ -38,6 +38,7 @@ jobs:
             WordPress.PHP.DevelopmentFunctions.error_log_trigger_error
             WordPress.WP.EnqueuedResourceParameters.MissingVersion
           include-experimental: true
+          repo-token: ''
 
       - name: Plugin Check Summary
         if: always()
