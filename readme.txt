@@ -227,6 +227,13 @@ Please follow the reporting protocols outlined on our [Security Page](https://th
 
 == Changelog ==
 
+##### [Version 0.13.22](https://github.com/codeinwp/wp-menu-icons/compare/v0.13.21...v0.13.22) (2026-04-09)
+
+- Updated dependencies
+
+
+
+
 ##### [Version 0.13.21](https://github.com/codeinwp/wp-menu-icons/compare/v0.13.20...v0.13.21) (2026-02-03)
 
 - Enhanced security
