@@ -2,7 +2,7 @@
 Contributors: codeinwp, themeisle
 Tags: menu, nav-menu, icons, navigation
 Requires at least: 4.7
-Tested up to: 6.4
+Tested up to: 6.9
 Stable tag: trunk
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -220,7 +220,105 @@ add_filter( 'menu_icons_menu_settings', 'my_menu_icons_menu_settings', 10, 2 );
 = I can't select a custom image size from the *Image Size* dropdown =
 Read [this blog post](http://kucrut.org/add-custom-image-sizes-right-way/).
 
+= How to report a security issue? =
+ 
+Plugin security is a core priority for us. If you identify a potential vulnerability, we ask that you disclose it responsibly.
+Please follow the reporting protocols outlined on our [Security Page](https://themeisle.com/security/).
+
 == Changelog ==
+
+##### [Version 0.13.21](https://github.com/codeinwp/wp-menu-icons/compare/v0.13.20...v0.13.21) (2026-02-03)
+
+- Enhanced security
+
+
+
+
+##### [Version 0.13.20](https://github.com/codeinwp/wp-menu-icons/compare/v0.13.19...v0.13.20) (2025-12-15)
+
+- Fixed compatibility with PHP 8.1+ versions
+- Updated dependencies
+
+
+
+
+##### [Version 0.13.19](https://github.com/codeinwp/wp-menu-icons/compare/v0.13.18...v0.13.19) (2025-09-05)
+
+- Updated dependencies
+
+
+
+
+##### [Version 0.13.18](https://github.com/codeinwp/wp-menu-icons/compare/v0.13.17...v0.13.18) (2025-05-23)
+
+- Updated dependencies
+
+
+
+
+##### [Version 0.13.17](https://github.com/codeinwp/wp-menu-icons/compare/v0.13.16...v0.13.17) (2025-04-17)
+
+- Updated dependencies
+
+
+
+
+##### [Version 0.13.16](https://github.com/codeinwp/wp-menu-icons/compare/v0.13.15...v0.13.16) (2024-11-07)
+
+- Updated dependencies
+
+
+
+
+##### [Version 0.13.15](https://github.com/codeinwp/wp-menu-icons/compare/v0.13.14...v0.13.15) (2024-07-10)
+
+- Removed recommendations of unsupported plugins
+- Fixed conditions for theme recommendation
+
+
+
+
+##### [Version 0.13.14](https://github.com/codeinwp/wp-menu-icons/compare/v0.13.13...v0.13.14) (2024-05-14)
+
+- Enhanced security
+
+
+
+
+##### [Version 0.13.13](https://github.com/codeinwp/wp-menu-icons/compare/v0.13.12...v0.13.13) (2024-04-18)
+
+### Improvements
+​- **Updated internal dependencies:​​** Enhanced performance and security.
+
+
+
+
+##### [Version 0.13.12](https://github.com/codeinwp/wp-menu-icons/compare/v0.13.11...v0.13.12) (2024-04-01)
+
+### Improvements
+- **Updated internal dependencies**
+
+
+
+
+##### [Version 0.13.11](https://github.com/codeinwp/wp-menu-icons/compare/v0.13.10...v0.13.11) (2024-03-29)
+
+### Fixes
+- Updated internal dependencies
+- Enhanced security
+
+
+
+
+##### [Version 0.13.10](https://github.com/codeinwp/wp-menu-icons/compare/v0.13.9...v0.13.10) (2024-03-26)
+
+### Improvements
+- Updated internal dependencies
+- Improved readme to link to the public source files
+- Filter promotions
+
+
+
 
 ##### [Version 0.13.9](https://github.com/codeinwp/wp-menu-icons/compare/v0.13.8...v0.13.9) (2024-02-23)
 
