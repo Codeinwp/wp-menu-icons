@@ -276,6 +276,7 @@ final class Menu_Icons {
 		// translators: 1. Number of free licenses, 2. The price of the product.
 		$config['message'] = sprintf( __( 'You\'re using Menu Icons, and the team behind it is celebrating Black Friday by giving away %1$s licences of Neve Pro. A premium WordPress theme worth %2$s, packed with starter sites, a header builder, and WooCommerce layouts. Claim yours before they run out.', 'menu-icons' ), 100, '$69' );
 		$config['cta_label'] = __( 'Get Neve Pro free', 'menu-icons' );
+		$config['plugin_meta_message'] = __( 'Black Friday Sale - Get Neve Pro free', 'menu-icons' );
 		$config['sale_url'] = add_query_arg(
 			array(
 				'utm_term' => 'free',
