@@ -483,10 +483,10 @@ final class Menu_Icons_Front_End {
 			}
 		}
 		if ( ! empty( $width ) ) {
-			$width = sprintf( ' width="%d"', $width );
+			$width = sprintf( ' width="%d"', esc_attr( $width ) );
 		}
 		if ( ! empty( $height ) ) {
-			$height = sprintf( ' height="%d"', $height );
+			$height = sprintf( ' height="%d"', esc_attr( $height ) );
 		}
 		$image_alt = get_post_meta( $meta['icon'], '_wp_attachment_image_alt', true );
 		$image_alt = $image_alt ? wp_strip_all_tags( $image_alt ) : '';
@@ -495,9 +495,9 @@ final class Menu_Icons_Front_End {
 			esc_url( wp_get_attachment_url( $meta['icon'] ) ),
 			esc_attr( $classes ),
 			esc_attr( $image_alt ),
-			esc_attr( $width ),
-			esc_attr( $height ),
-			esc_attr( $style )
+			$width,
+			$height,
+			$style
 		);
 	}
 
