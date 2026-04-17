@@ -51,6 +51,19 @@ final class Menu_Icons_Front_End {
 	 */
 	protected static $hidden_label_class = 'visuallyhidden';
 
+	/**
+	 * Align-self map for vertical-align values.
+	 *
+	 * @access private
+	 * @var    array
+	 */
+	private static $align_self_map = array(
+		'top'      => 'flex-start',
+		'middle'   => 'center',
+		'bottom'   => 'flex-end',
+		'baseline' => 'baseline',
+	);
+
 
 	/**
 	 * Add hooks for front-end functionalities
@@ -341,13 +354,13 @@ final class Menu_Icons_Front_End {
 
 			// Special handling for vertical-align because it affects the layout of flex containers.
 			if ( 'vertical_align' === $key ) {
-				$stored = isset( $meta[ $key ] ) ? $meta[ $key ] : $rule['value'];
-
-				if ( $stored !== $rule['value'] ) {
-					$style_a[ $rule['property'] ] = $stored;
+				if ( ! isset( $meta[ $key ] ) || $meta[ $key ] === $rule['value'] ) {
+					continue;
 				}
 
-				$style_a['align-self'] = self::calculate_align_self( $stored );
+				$stored                       = $meta[ $key ];
+				$style_a[ $rule['property'] ] = $stored;
+				$style_a['align-self']        = isset( self::$align_self_map[ $stored ] ) ? self::$align_self_map[ $stored ] : 'center';
 				continue;
 			}
 
@@ -524,22 +537,5 @@ final class Menu_Icons_Front_End {
 	public static function _add_menu_item_class( $classes, $item, $args ) { // phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore
 		$classes[] = 'menu-item';
 		return $classes;
-	}
-
-	/**
-	 * Calculate align-self value.
-	 *
-	 * @param string $value vertical-align value.
-	 * @return string
-	 */
-	private static function calculate_align_self( $value ) {
-		$align_self_map = array(
-			'top'      => 'flex-start',
-			'middle'   => 'center',
-			'bottom'   => 'flex-end',
-			'baseline' => 'baseline',
-		);
-
-		return isset( $align_self_map[ $value ] ) ? $align_self_map[ $value ] : 'center';
 	}
 }
