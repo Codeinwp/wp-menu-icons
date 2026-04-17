@@ -339,6 +339,18 @@ final class Menu_Icons_Front_End {
 
 			$rule = self::$default_style[ $key ];
 
+			// Special handling for vertical-align because it affects the layout of flex containers.
+			if ( 'vertical_align' === $key ) {
+				$stored = isset( $meta[ $key ] ) ? $meta[ $key ] : $rule['value'];
+
+				if ( $stored !== $rule['value'] ) {
+					$style_a[ $rule['property'] ] = $stored;
+				}
+
+				$style_a['align-self'] = self::calculate_align_self( $stored );
+				continue;
+			}
+
 			if ( ! isset( $meta[ $key ] ) || $meta[ $key ] === $rule['value'] ) {
 				continue;
 			}
@@ -355,13 +367,13 @@ final class Menu_Icons_Front_End {
 			return $style_s;
 		}
 
-		foreach ( $style_a as $key => $value ) {
-			$style_s .= "{$key}:{$value};";
+		foreach ( $style_a as $prop => $value ) {
+			$style_s .= "{$prop}:{$value};";
 		}
 
 		$style_s = esc_attr( $style_s );
 
-		if ( $as_attribute  ) {
+		if ( $as_attribute ) {
 			$style_s = sprintf( ' style="%s"', $style_s );
 		}
 
@@ -512,5 +524,22 @@ final class Menu_Icons_Front_End {
 	public static function _add_menu_item_class( $classes, $item, $args ) { // phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore
 		$classes[] = 'menu-item';
 		return $classes;
+	}
+
+	/**
+	 * Calculate align-self value.
+	 *
+	 * @param string $value vertical-align value.
+	 * @return string
+	 */
+	private static function calculate_align_self( $value ) {
+		$align_self_map = array(
+			'top'      => 'flex-start',
+			'middle'   => 'center',
+			'bottom'   => 'flex-end',
+			'baseline' => 'baseline',
+		);
+
+		return isset( $align_self_map[ $value ] ) ? $align_self_map[ $value ] : 'center';
 	}
 }

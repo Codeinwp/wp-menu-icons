@@ -103,6 +103,14 @@ final class Menu_Icons_Meta {
 			$value['position'] = $defaults['position'];
 		}
 
+		// Backward-compatibility: values removed in favour of align-self support.
+		$supported_vertical_align = array( 'top', 'middle', 'bottom', 'baseline' );
+		if ( isset( $value['vertical_align'] ) &&
+			! in_array( $value['vertical_align'], $supported_vertical_align, true )
+		) {
+			$value['vertical_align'] = 'middle';
+		}
+
 		if ( isset( $value['size'] ) && ! isset( $value['font_size'] ) ) {
 			$value['font_size'] = $value['size'];
 			unset( $value['size'] );
