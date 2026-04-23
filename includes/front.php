@@ -51,6 +51,19 @@ final class Menu_Icons_Front_End {
 	 */
 	protected static $hidden_label_class = 'visuallyhidden';
 
+	/**
+	 * Align-self map for vertical-align values.
+	 *
+	 * @access private
+	 * @var    array
+	 */
+	private static $align_self_map = array(
+		'top'      => 'flex-start',
+		'middle'   => 'center',
+		'bottom'   => 'flex-end',
+		'baseline' => 'baseline',
+	);
+
 
 	/**
 	 * Add hooks for front-end functionalities
@@ -339,6 +352,18 @@ final class Menu_Icons_Front_End {
 
 			$rule = self::$default_style[ $key ];
 
+			// Special handling for vertical-align because it affects the layout of flex containers.
+			if ( 'vertical_align' === $key ) {
+				if ( ! isset( $meta[ $key ] ) || $meta[ $key ] === $rule['value'] ) {
+					continue;
+				}
+
+				$stored                       = $meta[ $key ];
+				$style_a[ $rule['property'] ] = $stored;
+				$style_a['align-self']        = isset( self::$align_self_map[ $stored ] ) ? self::$align_self_map[ $stored ] : 'center';
+				continue;
+			}
+
 			if ( ! isset( $meta[ $key ] ) || $meta[ $key ] === $rule['value'] ) {
 				continue;
 			}
@@ -355,13 +380,13 @@ final class Menu_Icons_Front_End {
 			return $style_s;
 		}
 
-		foreach ( $style_a as $key => $value ) {
-			$style_s .= "{$key}:{$value};";
+		foreach ( $style_a as $prop => $value ) {
+			$style_s .= "{$prop}:{$value};";
 		}
 
 		$style_s = esc_attr( $style_s );
 
-		if ( $as_attribute  ) {
+		if ( $as_attribute ) {
 			$style_s = sprintf( ' style="%s"', $style_s );
 		}
 

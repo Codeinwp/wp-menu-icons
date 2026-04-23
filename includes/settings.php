@@ -536,16 +536,8 @@ final class Menu_Icons_Settings {
 				'default' => 'middle',
 				'choices' => array(
 					array(
-						'value' => 'super',
-						'label' => __( 'Super', 'menu-icons' ),
-					),
-					array(
 						'value' => 'top',
 						'label' => __( 'Top', 'menu-icons' ),
-					),
-					array(
-						'value' => 'text-top',
-						'label' => __( 'Text Top', 'menu-icons' ),
 					),
 					array(
 						'value' => 'middle',
@@ -556,16 +548,8 @@ final class Menu_Icons_Settings {
 						'label' => __( 'Baseline', 'menu-icons' ),
 					),
 					array(
-						'value' => 'text-bottom',
-						'label' => __( 'Text Bottom', 'menu-icons' ),
-					),
-					array(
 						'value' => 'bottom',
 						'label' => __( 'Bottom', 'menu-icons' ),
-					),
-					array(
-						'value' => 'sub',
-						'label' => __( 'Sub', 'menu-icons' ),
 					),
 				),
 			),
