@@ -227,6 +227,14 @@ Please follow the reporting protocols outlined on our [Security Page](https://th
 
 == Changelog ==
 
+##### [Version 0.13.23](https://github.com/codeinwp/wp-menu-icons/compare/v0.13.22...v0.13.23) (2026-04-23)
+
+- Fixed issue with SVG menu icons rendering too small
+- Fixed issue with vertical alignment not working on frontend
+
+
+
+
 ##### [Version 0.13.22](https://github.com/codeinwp/wp-menu-icons/compare/v0.13.21...v0.13.22) (2026-04-09)
 
 - Updated dependencies
