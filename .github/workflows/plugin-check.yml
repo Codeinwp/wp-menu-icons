@@ -42,9 +42,9 @@ jobs:
 
       - name: Plugin Check Summary
         if: always()
+        env:
+          RESULTS_FILE: ${{ runner.temp }}/plugin-check-results.txt
         run: |
-          RESULTS_FILE="${RUNNER_TEMP}/plugin-check-results.txt"
-
           echo "## WordPress Plugin Check Results" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
 
@@ -54,31 +54,33 @@ jobs:
             exit 0
           fi
 
-          PARSED=$(python3 << 'PYEOF'
-          import json, sys, re
+          PARSED=$(RESULTS_FILE="$RESULTS_FILE" python3 << 'PYEOF'
+          import json, os, re
+
+          results_path = os.environ["RESULTS_FILE"]
 
           high_risk_codes = [
               "plugin_updater", "code_obfuscation", "no_unfiltered_uploads",
               "trademarked_term", "trademarks"
           ]
           high_risk_messages = [
-              "Plugin Updater detected", "Missing.*License.*Plugin Header",
-              "restricted term", "Unescaped parameter.*\\$wpdb",
-              "Use placeholders and.*\\$wpdb->prepare"
+              r"Plugin Updater detected", r"Missing.*License.*Plugin Header",
+              r"restricted term", r"Unescaped parameter.*\$wpdb",
+              r"Use placeholders and.*\$wpdb->prepare"
           ]
           medium_risk_codes = [
               "missing_direct_file_access_protection", "trunk_stable_tag",
               "mismatched_plugin_name", "application_detected"
           ]
           medium_risk_messages = [
-              "Missing.*\\$domain.*parameter", "has been deprecated",
-              "wp_get_sites", "cURL functions is highly discouraged"
+              r"Missing.*\$domain.*parameter", r"has been deprecated",
+              r"wp_get_sites", r"cURL functions is highly discouraged"
           ]
 
           high, medium, other = [], [], []
 
           try:
-              with open("${RUNNER_TEMP}/plugin-check-results.txt", "r") as f:
+              with open(results_path, "r") as f:
                   content = f.read().strip()
 
               all_issues = []
@@ -95,12 +97,16 @@ jobs:
               except json.JSONDecodeError:
                   for line in content.split('\n'):
                       line = line.strip()
-                      if not line: continue
+                      if not line:
+                          continue
                       try:
                           parsed = json.loads(line)
-                          if isinstance(parsed, list): all_issues.extend(parsed)
-                          elif isinstance(parsed, dict): all_issues.append(parsed)
-                      except json.JSONDecodeError: continue
+                          if isinstance(parsed, list):
+                              all_issues.extend(parsed)
+                          elif isinstance(parsed, dict):
+                              all_issues.append(parsed)
+                      except json.JSONDecodeError:
+                          continue
 
               for issue in all_issues:
                   code = issue.get('code', '')
@@ -113,7 +119,8 @@ jobs:
                   location = ""
                   if file_path:
                       location = f" ({file_path}"
-                      if line_num and line_num > 0: location += f", line {line_num}"
+                      if line_num and line_num > 0:
+                          location += f", line {line_num}"
                       location += ")"
                   elif line_num and line_num > 0:
                       location = f" (line {line_num})"
@@ -123,21 +130,31 @@ jobs:
                   is_high = code in high_risk_codes
                   if not is_high:
                       for p in high_risk_messages:
-                          if re.search(p, msg, re.IGNORECASE): is_high = True; break
+                          if re.search(p, msg, re.IGNORECASE):
+                              is_high = True
+                              break
 
                   is_medium = code in medium_risk_codes
                   if not is_medium and not is_high:
                       for p in medium_risk_messages:
-                          if re.search(p, msg, re.IGNORECASE): is_medium = True; break
+                          if re.search(p, msg, re.IGNORECASE):
+                              is_medium = True
+                              break
 
-                  if is_high: high.append(readable)
-                  elif is_medium: medium.append(readable)
-                  else: other.append(readable)
+                  if is_high:
+                      high.append(readable)
+                  elif is_medium:
+                      medium.append(readable)
+                  else:
+                      other.append(readable)
 
               def dedup(lst):
-                  seen = set(); result = []
+                  seen = set()
+                  result = []
                   for item in lst:
-                      if item not in seen: seen.add(item); result.append(item)
+                      if item not in seen:
+                          seen.add(item)
+                          result.append(item)
                   return result
 
               high, medium, other = dedup(high), dedup(medium), dedup(other)
@@ -150,8 +167,9 @@ jobs:
               for i in other: print(i)
               print("---COUNTS---")
               print(f"{len(high)}|{len(medium)}|{len(other)}")
+
           except Exception as e:
-              print(f"Parse error: {e}", file=sys.stderr)
+              print(f"Parse error: {e}", file=__import__('sys').stderr)
               print("---HIGH---\n---MEDIUM---\n---OTHER---\n---COUNTS---\n0|0|0")
           PYEOF
           )
