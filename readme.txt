@@ -1,13 +1,13 @@
-=== Menu Icons by ThemeIsle ===
+=== Menu Icons by ThemeIsle – Add Icons to Navigation Menus ===
 Contributors: codeinwp, themeisle
-Tags: menu, nav-menu, icons, navigation
+Tags: menu icons, navigation menu, font awesome, dashicons, image icons
 Requires at least: 4.7
 Tested up to: 6.9
 Stable tag: trunk
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Spice up your navigation menus with pretty icons, easily.
+Add icons to WordPress navigation menus easily — pick from Font Awesome, Dashicons, image icons & more. Style menu items with custom colors & sizes.
 
 
 == Description ==
