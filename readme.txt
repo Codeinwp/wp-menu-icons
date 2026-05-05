@@ -1,4 +1,4 @@
-=== Menu Icons by ThemeIsle – Add Icons to Navigation Menus ===
+=== Menu Icons by Themeisle – Add Icons to Navigation Menus ===
 Contributors: codeinwp, themeisle
 Tags: menu icons, navigation menu, font awesome, dashicons, image icons
 Requires at least: 4.7
