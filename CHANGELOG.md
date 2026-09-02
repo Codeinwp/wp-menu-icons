@@ -1,3 +1,7 @@
+##### [Version 0.13.24](https://github.com/codeinwp/wp-menu-icons/compare/v0.13.23...v0.13.24) (2026-09-02)
+
+- Updated dependencies
+
 ##### [Version 0.13.23](https://github.com/codeinwp/wp-menu-icons/compare/v0.13.22...v0.13.23) (2026-04-23)
 
 - Fixed issue with SVG menu icons rendering too small
