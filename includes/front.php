@@ -379,6 +379,9 @@ final class Menu_Icons_Front_End {
 			}
 
 			$style_a[ $rule['property'] ] = $value;
+			if ( 'svg_padding' === $key ) {
+				$style_a['box-sizing'] = 'border-box';
+			}
 		}
 
 		if ( empty( $style_a ) ) {

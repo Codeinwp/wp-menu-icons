@@ -47,8 +47,12 @@ class Test_MenuIcons extends WP_Ajax_UnitTestCase {
 
 		$this->assertContains( 'svg_padding', $props['data']['settingsFields'] );
 		$this->assertSame(
-			' style="padding:4px;"',
+			' style="padding:4px;box-sizing:border-box;"',
 			Menu_Icons_Front_End::get_icon_style( array( 'svg_padding' => '4' ), array( 'svg_padding' ) )
+		);
+		$this->assertSame(
+			'',
+			Menu_Icons_Front_End::get_icon_style( array(), array( 'svg_padding' ) )
 		);
 		$this->assertSame(
 			'',

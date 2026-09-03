@@ -36,10 +36,6 @@
 	width: 1em;
 }
 
-.menu-item img._mi._svg {
-	box-sizing: border-box;
-}
-
 .rtl .menu-item i._before {
 	margin-right: 0;
 }
