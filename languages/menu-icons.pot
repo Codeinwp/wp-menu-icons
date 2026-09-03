@@ -195,6 +195,10 @@ msgstr ""
 msgid "SVG Width"
 msgstr ""
 
+#: includes/settings.php:581
+msgid "SVG Padding"
+msgstr ""
+
 #: includes/settings.php:596
 msgid "Image Size"
 msgstr ""

@@ -21,4 +21,38 @@ class Test_MenuIcons extends WP_Ajax_UnitTestCase {
 	public function test_generic() {
 		$this->assertTrue( true );
 	}
+
+	/**
+	 * Custom SVG icons expose padding and render it as a pixel style.
+	 */
+	public function test_svg_padding_setting_and_style() {
+		if ( ! class_exists( 'Menu_Icons_Picker' ) ) {
+			require_once dirname( __DIR__ ) . '/includes/picker.php';
+		}
+
+		$fields = Menu_Icons_Settings::get_settings_fields();
+
+		$this->assertArrayHasKey( 'svg_padding', $fields );
+		$this->assertSame( '0', $fields['svg_padding']['default'] );
+		$this->assertSame( 'px', $fields['svg_padding']['description'] );
+
+		$props = Menu_Icons_Picker::_add_extra_type_props_data(
+			array(
+				'controller' => 'Svg',
+				'data'       => array(),
+			),
+			'svg',
+			null
+		);
+
+		$this->assertContains( 'svg_padding', $props['data']['settingsFields'] );
+		$this->assertSame(
+			' style="padding:4px;"',
+			Menu_Icons_Front_End::get_icon_style( array( 'svg_padding' => '4' ), array( 'svg_padding' ) )
+		);
+		$this->assertSame(
+			'',
+			Menu_Icons_Front_End::get_icon_style( array( 'svg_padding' => '0' ), array( 'svg_padding' ) )
+		);
+	}
 }

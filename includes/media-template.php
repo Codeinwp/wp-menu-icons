@@ -73,7 +73,7 @@
 		<img src="{{ data.url }}"
 			alt="{{ data.alt }}"
 			class="_icon _{{data.type}}"
-			style="width:{{data.svg_width}}em;vertical-align:{{ data.vertical_align }}"
+			style="width:{{data.svg_width}}em;padding:{{data.svg_padding}}px;box-sizing:border-box;vertical-align:{{ data.vertical_align }}"
 			/>
 		<span>{{ data.title }}</span>
 	</a>
@@ -85,7 +85,7 @@
 		<img src="{{ data.url }}"
 			alt="{{ data.alt }}"
 			class="_icon _{{data.type}}"
-			style="width:{{data.svg_width}}em;vertical-align:{{ data.vertical_align }}"
+			style="width:{{data.svg_width}}em;padding:{{data.svg_padding}}px;box-sizing:border-box;vertical-align:{{ data.vertical_align }}"
 			/>
 	</a>
 </script>
@@ -95,7 +95,7 @@
 		<img src="{{ data.url }}"
 			alt="{{ data.alt }}"
 			class="_icon _{{data.type}}"
-			style="width:{{data.svg_width}}em;vertical-align:{{ data.vertical_align }}"
+			style="width:{{data.svg_width}}em;padding:{{data.svg_padding}}px;box-sizing:border-box;vertical-align:{{ data.vertical_align }}"
 			/>
 	</a>
 </script>

@@ -40,6 +40,11 @@ final class Menu_Icons_Front_End {
 			'value'    => '1',
 			'unit'     => 'em',
 		),
+		'svg_padding'    => array(
+			'property' => 'padding',
+			'value'    => '0',
+			'unit'     => 'px',
+		),
 	);
 
 	/**
@@ -478,7 +483,7 @@ final class Menu_Icons_Front_End {
 	 */
 	public static function get_svg_icon( $meta ) {
 		$classes = sprintf( '%s _svg', self::get_icon_classes( $meta ) );
-		$style   = self::get_icon_style( $meta, array( 'svg_width', 'vertical_align' ) );
+		$style   = self::get_icon_style( $meta, array( 'svg_width', 'svg_padding', 'vertical_align' ) );
 
 		$svg_icon = esc_url( wp_get_attachment_url( $meta['icon'] ) );
 		$width  = '';
