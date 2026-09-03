@@ -73,7 +73,7 @@
 		<img src="{{ data.url }}"
 			alt="{{ data.alt }}"
 			class="_icon _{{data.type}}"
-			style="width:{{data.svg_width}}em;<# if ( data.svg_padding && parseFloat( data.svg_padding ) > 0 ) { #>padding:{{data.svg_padding}}px;box-sizing:border-box;<# } #>vertical-align:{{ data.vertical_align }}"
+			style="width:{{data.svg_width}}em;<# if ( data.svg_padding !== '' && ! isNaN( parseFloat( data.svg_padding ) ) ) { #>padding:{{data.svg_padding}}px;box-sizing:border-box;<# } #>vertical-align:{{ data.vertical_align }}"
 			/>
 		<span>{{ data.title }}</span>
 	</a>
@@ -85,7 +85,7 @@
 		<img src="{{ data.url }}"
 			alt="{{ data.alt }}"
 			class="_icon _{{data.type}}"
-			style="width:{{data.svg_width}}em;<# if ( data.svg_padding && parseFloat( data.svg_padding ) > 0 ) { #>padding:{{data.svg_padding}}px;box-sizing:border-box;<# } #>vertical-align:{{ data.vertical_align }}"
+			style="width:{{data.svg_width}}em;<# if ( data.svg_padding !== '' && ! isNaN( parseFloat( data.svg_padding ) ) ) { #>padding:{{data.svg_padding}}px;box-sizing:border-box;<# } #>vertical-align:{{ data.vertical_align }}"
 			/>
 	</a>
 </script>
@@ -95,7 +95,7 @@
 		<img src="{{ data.url }}"
 			alt="{{ data.alt }}"
 			class="_icon _{{data.type}}"
-			style="width:{{data.svg_width}}em;<# if ( data.svg_padding && parseFloat( data.svg_padding ) > 0 ) { #>padding:{{data.svg_padding}}px;box-sizing:border-box;<# } #>vertical-align:{{ data.vertical_align }}"
+			style="width:{{data.svg_width}}em;<# if ( data.svg_padding !== '' && ! isNaN( parseFloat( data.svg_padding ) ) ) { #>padding:{{data.svg_padding}}px;box-sizing:border-box;<# } #>vertical-align:{{ data.vertical_align }}"
 			/>
 	</a>
 </script>
@@ -107,7 +107,7 @@
 
 <script type="text/html" id="tmpl-menu-icons-settings-field-number">
 	<span>{{ data.label }}</span>
-	<input type="number" min="{{ data.attributes.min }}" step="{{ data.attributes.step }}" data-setting="{{ data.id }}" value="{{ data.value }}" />
+	<input type="number" min="{{ data.attributes.min }}" step="{{ data.attributes.step }}" data-setting="{{ data.id }}" value="{{ data.value }}"<# if ( data.placeholder !== undefined ) { #> placeholder="{{ data.placeholder }}"<# } #> />
 	<# if ( data.description ) { #><em>{{ data.description }} </em><# } #>
 </script>
 

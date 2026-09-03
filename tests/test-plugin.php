@@ -33,7 +33,8 @@ class Test_MenuIcons extends WP_Ajax_UnitTestCase {
 		$fields = Menu_Icons_Settings::get_settings_fields();
 
 		$this->assertArrayHasKey( 'svg_padding', $fields );
-		$this->assertSame( '0', $fields['svg_padding']['default'] );
+		$this->assertSame( '', $fields['svg_padding']['default'] );
+		$this->assertSame( '0', $fields['svg_padding']['placeholder'] );
 		$this->assertSame( 'px', $fields['svg_padding']['description'] );
 
 		$props = Menu_Icons_Picker::_add_extra_type_props_data(
@@ -55,8 +56,12 @@ class Test_MenuIcons extends WP_Ajax_UnitTestCase {
 			Menu_Icons_Front_End::get_icon_style( array(), array( 'svg_padding' ) )
 		);
 		$this->assertSame(
-			'',
+			' style="padding:0px;box-sizing:border-box;"',
 			Menu_Icons_Front_End::get_icon_style( array( 'svg_padding' => '0' ), array( 'svg_padding' ) )
+		);
+		$this->assertSame(
+			'',
+			Menu_Icons_Front_End::get_icon_style( array( 'svg_padding' => '' ), array( 'svg_padding' ) )
 		);
 	}
 }

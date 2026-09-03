@@ -42,7 +42,7 @@ final class Menu_Icons_Front_End {
 		),
 		'svg_padding'    => array(
 			'property' => 'padding',
-			'value'    => '0',
+			'value'    => '',
 			'unit'     => 'px',
 		),
 	);

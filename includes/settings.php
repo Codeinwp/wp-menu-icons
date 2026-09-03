@@ -579,7 +579,8 @@ final class Menu_Icons_Settings {
 				'id'          => 'svg_padding',
 				'type'        => 'number',
 				'label'       => __( 'SVG Padding', 'menu-icons' ),
-				'default'     => '0',
+				'default'     => '',
+				'placeholder' => '0',
 				'description' => 'px',
 				'attributes'  => array(
 					'min'  => '0',
