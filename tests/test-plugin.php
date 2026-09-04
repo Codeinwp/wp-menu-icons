@@ -64,4 +64,24 @@ class Test_MenuIcons extends WP_Ajax_UnitTestCase {
 			Menu_Icons_Front_End::get_icon_style( array( 'svg_padding' => '' ), array( 'svg_padding' ) )
 		);
 	}
+
+	/**
+	 * Stored menu metadata cannot add arbitrary CSS declarations.
+	 */
+	public function test_rejects_unsafe_icon_style_values() {
+		$unsafe_value = '0;position:fixed;background:url(https://example.com/tracker.png)';
+
+		$this->assertSame(
+			'',
+			Menu_Icons_Front_End::get_icon_style(
+				array(
+					'font_size'      => $unsafe_value,
+					'svg_width'      => $unsafe_value,
+					'svg_padding'    => $unsafe_value,
+					'vertical_align' => $unsafe_value,
+				),
+				array( 'font_size', 'svg_width', 'svg_padding', 'vertical_align' )
+			)
+		);
+	}
 }

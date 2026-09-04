@@ -363,9 +363,13 @@ final class Menu_Icons_Front_End {
 					continue;
 				}
 
-				$stored                       = $meta[ $key ];
+				$stored = $meta[ $key ];
+				if ( ! isset( self::$align_self_map[ $stored ] ) ) {
+					continue;
+				}
+
 				$style_a[ $rule['property'] ] = $stored;
-				$style_a['align-self']        = isset( self::$align_self_map[ $stored ] ) ? self::$align_self_map[ $stored ] : 'center';
+				$style_a['align-self']        = self::$align_self_map[ $stored ];
 				continue;
 			}
 
@@ -374,6 +378,14 @@ final class Menu_Icons_Front_End {
 			}
 
 			$value = $meta[ $key ];
+			if ( in_array( $key, array( 'font_size', 'svg_width', 'svg_padding' ), true ) ) {
+				if ( ! is_numeric( $value ) ) {
+					continue;
+				}
+
+				$value = (string) (float) $value;
+			}
+
 			if ( ! empty( $rule['unit'] ) ) {
 				$value .= $rule['unit'];
 			}
