@@ -575,6 +575,18 @@ final class Menu_Icons_Settings {
 					'step' => '.1',
 				),
 			),
+			'svg_padding'    => array(
+				'id'          => 'svg_padding',
+				'type'        => 'number',
+				'label'       => __( 'SVG Padding', 'menu-icons' ),
+				'default'     => '',
+				'placeholder' => '0',
+				'description' => 'px',
+				'attributes'  => array(
+					'min'  => '0',
+					'step' => '.1',
+				),
+			),
 			'image_size'     => array(
 				'id'      => 'image_size',
 				'type'    => 'select',
