@@ -91,6 +91,9 @@ final class Menu_Icons {
 
 		Menu_Icons_Meta::init();
 
+		require_once self::$data['dir'] . 'includes/abilities.php';
+		Menu_Icons_Abilities::init();
+
 		// Font awesome backward compatible functionalities.
 		require_once self::$data['dir'] . 'includes/library/font-awesome/backward-compatible-icons.php';
 		require_once self::$data['dir'] . 'includes/library/font-awesome/font-awesome.php';
