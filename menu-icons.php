@@ -91,6 +91,9 @@ final class Menu_Icons {
 
 		Menu_Icons_Meta::init();
 
+		require_once self::$data['dir'] . 'includes/abilities.php';
+		Menu_Icons_Abilities::init();
+
 		// Font awesome backward compatible functionalities.
 		require_once self::$data['dir'] . 'includes/library/font-awesome/backward-compatible-icons.php';
 		require_once self::$data['dir'] . 'includes/library/font-awesome/font-awesome.php';
@@ -115,6 +118,30 @@ final class Menu_Icons {
 		);
 
 		add_filter( 'themeisle_sdk_blackfriday_data', array( __CLASS__, 'add_black_friday_data' ) );
+
+		// The SDK product key is the install directory (menu-icons on WordPress.org) with dashes as underscores.
+		add_filter(
+			str_replace( '-', '_', strtolower( basename( dirname( __FILE__ ) ) ) ) . '_ai_connect_metadata',
+			function() {
+				return array(
+					'name'         => 'Menu Icons',
+					'notice_cases' => array(
+						__( 'add icons to your navigation menu', 'menu-icons' ),
+						__( 'find the right icon for a menu item', 'menu-icons' ),
+						__( 'restyle the icons you already use', 'menu-icons' ),
+					),
+					'prompts'      => array(
+						__( 'Go through every item in my main menu and give each one a fitting icon, placed before the label.', 'menu-icons' ),
+						__( 'Put a house icon before the label of the Home item in my main menu.', 'menu-icons' ),
+						__( 'Show me which icon types Menu Icons has enabled on my site and find me a few shopping cart icons.', 'menu-icons' ),
+					),
+					'abilities'    => array(
+						'menu-icons/search-icons',
+						'menu-icons/set-item-icon',
+					),
+				);
+			}
+		);
 	}
 
 
