@@ -12,15 +12,14 @@ The PHPUnit suite runs on PHP 7.4. The PHP coding-standards configuration mainta
 
 ## Validation
 
-Run the existing checks that apply to your change:
+Run the available checks that apply to your change:
 
 ```bash
 phpunit
 composer run lint
-npm run lint:js
 ```
 
-There is no existing E2E test suite. Do not create or run an E2E suite unless the task introduces one. Run `npm run build` only when JavaScript or style source changes require regenerated assets.
+Run `npm run build` only when JavaScript or style source changes require regenerated assets.
 
 ## Conventions
 
