@@ -131,9 +131,9 @@ final class Menu_Icons {
 						__( 'restyle the icons you already use', 'menu-icons' ),
 					),
 					'prompts'      => array(
-						__( 'Go through every item in my main menu and give each one a fitting icon, placed before the label.', 'menu-icons' ),
-						__( 'Put a house icon before the label of the Home item in my main menu.', 'menu-icons' ),
-						__( 'Show me which icon types Menu Icons has enabled on my site and find me a few shopping cart icons.', 'menu-icons' ),
+						__( 'Give every item in my main menu a fitting icon, before the label.', 'menu-icons' ),
+						__( 'Use a shopping cart icon on the Shop item and a phone icon on Contact.', 'menu-icons' ),
+						__( 'Find me a few shopping cart icons in Menu Icons and put the best one on the Shop item.', 'menu-icons' ),
 					),
 					'ability_prefix'    => 'menu-icons',
 				);
