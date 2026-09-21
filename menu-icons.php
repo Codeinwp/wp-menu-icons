@@ -135,10 +135,7 @@ final class Menu_Icons {
 						__( 'Put a house icon before the label of the Home item in my main menu.', 'menu-icons' ),
 						__( 'Show me which icon types Menu Icons has enabled on my site and find me a few shopping cart icons.', 'menu-icons' ),
 					),
-					'abilities'    => array(
-						'menu-icons/search-icons',
-						'menu-icons/set-item-icon',
-					),
+					'ability_prefix'    => 'menu-icons',
 				);
 			}
 		);
