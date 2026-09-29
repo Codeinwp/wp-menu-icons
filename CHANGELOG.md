@@ -1,3 +1,9 @@
+##### [Version 0.13.25](https://github.com/codeinwp/wp-menu-icons/compare/v0.13.24...v0.13.25) (2026-09-29)
+
+- Added padding controls for custom SVG menu icons.
+- Added AI agent support: let AI assistants read and change your Menu Icons settings.   
+- Updated dependencies
+
 ##### [Version 0.13.24](https://github.com/codeinwp/wp-menu-icons/compare/v0.13.23...v0.13.24) (2026-09-02)
 
 - Updated dependencies
