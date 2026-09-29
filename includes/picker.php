@@ -295,6 +295,7 @@ final class Menu_Icons_Picker {
 				break;
 			case 'svg':
 				$settings_fields[] = 'svg_width';
+				$settings_fields[] = 'svg_padding';
 				break;
 		}
 
