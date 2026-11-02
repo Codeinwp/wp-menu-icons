@@ -78,7 +78,7 @@ final class Menu_Icons_Settings {
 				$value['icon_types'] = array_values(
 					array_intersect(
 						array_keys( Menu_Icons::get( 'types' ) ),
-						array_filter( (array) $value['icon_types'] )
+						array_filter( isset( $value['icon_types'] ) ? (array) $value['icon_types'] : array() )
 					)
 				);
 			} else {
