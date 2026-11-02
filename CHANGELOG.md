@@ -1,3 +1,8 @@
+##### [Version 0.13.26](https://github.com/codeinwp/wp-menu-icons/compare/v0.13.25...v0.13.26) (2026-11-02)
+
+- Fixed settings warning when all icon types are unchecked.
+- Updated dependencies
+
 ##### [Version 0.13.25](https://github.com/codeinwp/wp-menu-icons/compare/v0.13.24...v0.13.25) (2026-09-29)
 
 - Added padding controls for custom SVG menu icons.
