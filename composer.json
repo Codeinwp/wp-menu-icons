@@ -3,7 +3,7 @@
   "description": "WordPress Menu Icons",
   "type": "wordpress-plugin",
   "require": {
-    "codeinwp/icon-picker": "dev-codex/refresh-svg-sanitizer",
+    "codeinwp/icon-picker": "master",
     "codeinwp/menu-item-custom-fields": "master",
     "codeinwp/themeisle-sdk": "^3.3.65",
     "codeinwp/gutenberg-menu-icons": "^1.0"

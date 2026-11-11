@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0f82fb6f334946d7eec89b32bfbb959c",
+    "content-hash": "e94ad1e0d042ab136c24cc3f16c1df80",
     "packages": [
         {
             "name": "codeinwp/gutenberg-menu-icons",
@@ -51,16 +51,16 @@
         },
         {
             "name": "codeinwp/icon-picker",
-            "version": "dev-codex/refresh-svg-sanitizer",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Codeinwp/icon-picker.git",
-                "reference": "7a6efc3dcd00473b85a3f1966125114317cff4b0"
+                "reference": "2858088a1518e3921de4b7b6daae098cf2a2901f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Codeinwp/icon-picker/zipball/7a6efc3dcd00473b85a3f1966125114317cff4b0",
-                "reference": "7a6efc3dcd00473b85a3f1966125114317cff4b0",
+                "url": "https://api.github.com/repos/Codeinwp/icon-picker/zipball/2858088a1518e3921de4b7b6daae098cf2a2901f",
+                "reference": "2858088a1518e3921de4b7b6daae098cf2a2901f",
                 "shasum": ""
             },
             "require": {
@@ -71,6 +71,7 @@
             "require-dev": {
                 "wp-coding-standards/wpcs": "^0.10.0"
             },
+            "default-branch": true,
             "type": "wordpress-plugin",
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -89,9 +90,9 @@
                 "wordpress"
             ],
             "support": {
-                "source": "https://github.com/Codeinwp/icon-picker/tree/codex/refresh-svg-sanitizer"
+                "source": "https://github.com/Codeinwp/icon-picker/tree/master"
             },
-            "time": "2026-11-11T10:18:40+00:00"
+            "time": "2026-11-11T13:20:18+00:00"
         },
         {
             "name": "codeinwp/menu-item-custom-fields",
@@ -766,7 +767,6 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "codeinwp/icon-picker": 20,
         "codeinwp/phpcs-ruleset": 20
     },
     "prefer-stable": true,
