@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "cd3c1cd43e2711973a55af7206af6dbd",
+    "content-hash": "e94ad1e0d042ab136c24cc3f16c1df80",
     "packages": [
         {
             "name": "codeinwp/gutenberg-menu-icons",
@@ -55,17 +55,18 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Codeinwp/icon-picker.git",
-                "reference": "8efc2e400231ad7d4af94ff9270cd5b50248d4c9"
+                "reference": "2858088a1518e3921de4b7b6daae098cf2a2901f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Codeinwp/icon-picker/zipball/8efc2e400231ad7d4af94ff9270cd5b50248d4c9",
-                "reference": "8efc2e400231ad7d4af94ff9270cd5b50248d4c9",
+                "url": "https://api.github.com/repos/Codeinwp/icon-picker/zipball/2858088a1518e3921de4b7b6daae098cf2a2901f",
+                "reference": "2858088a1518e3921de4b7b6daae098cf2a2901f",
                 "shasum": ""
             },
             "require": {
                 "composer/installers": "~1.0",
-                "enshrined/svg-sanitize": "^0.18.0"
+                "enshrined/svg-sanitize": "^1.1.1",
+                "php": "^7.1 || ^8.0"
             },
             "require-dev": {
                 "wp-coding-standards/wpcs": "^0.10.0"
@@ -91,7 +92,7 @@
             "support": {
                 "source": "https://github.com/Codeinwp/icon-picker/tree/master"
             },
-            "time": "2024-05-13T08:27:15+00:00"
+            "time": "2026-11-11T13:20:18+00:00"
         },
         {
             "name": "codeinwp/menu-item-custom-fields",
@@ -171,25 +172,25 @@
         },
         {
             "name": "enshrined/svg-sanitize",
-            "version": "0.18.0",
+            "version": "1.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/darylldoyle/svg-sanitizer.git",
-                "reference": "6a2c069dab3843ca4d887ff09c972fc7033888d0"
+                "reference": "1976ff93c8d8a234cdd3ff99626bd43ecf11bf49"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/darylldoyle/svg-sanitizer/zipball/6a2c069dab3843ca4d887ff09c972fc7033888d0",
-                "reference": "6a2c069dab3843ca4d887ff09c972fc7033888d0",
+                "url": "https://api.github.com/repos/darylldoyle/svg-sanitizer/zipball/1976ff93c8d8a234cdd3ff99626bd43ecf11bf49",
+                "reference": "1976ff93c8d8a234cdd3ff99626bd43ecf11bf49",
                 "shasum": ""
             },
             "require": {
                 "ext-dom": "*",
                 "ext-libxml": "*",
-                "php": "^5.6 || ^7.0 || ^8.0"
+                "php": "^7.1 || ^8.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "^5.7 || ^6.5 || ^8.5"
+                "phpunit/phpunit": "^6.5 || ^8.5"
             },
             "type": "library",
             "autoload": {
@@ -210,9 +211,9 @@
             "description": "An SVG sanitizer for PHP",
             "support": {
                 "issues": "https://github.com/darylldoyle/svg-sanitizer/issues",
-                "source": "https://github.com/darylldoyle/svg-sanitizer/tree/0.18.0"
+                "source": "https://github.com/darylldoyle/svg-sanitizer/tree/1.1.1"
             },
-            "time": "2024-02-22T17:51:05+00:00"
+            "time": "2026-10-20T09:45:10+00:00"
         }
     ],
     "packages-dev": [
@@ -773,7 +774,7 @@
     "platform": {},
     "platform-dev": {},
     "platform-overrides": {
-        "php": "5.6"
+        "php": "7.1"
     },
     "plugin-api-version": "2.9.0"
 }
