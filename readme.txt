@@ -2,6 +2,7 @@
 Contributors: codeinwp, themeisle
 Tags: menu, nav-menu, icons, navigation
 Requires at least: 4.7
+Requires PHP: 7.1
 Tested up to: 6.9
 Stable tag: trunk
 License: GPLv2
