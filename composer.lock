@@ -55,12 +55,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Codeinwp/icon-picker.git",
-                "reference": "5467f395c8919f4ec586ba7ea26a7fc4ea2a70e3"
+                "reference": "7a6efc3dcd00473b85a3f1966125114317cff4b0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Codeinwp/icon-picker/zipball/5467f395c8919f4ec586ba7ea26a7fc4ea2a70e3",
-                "reference": "5467f395c8919f4ec586ba7ea26a7fc4ea2a70e3",
+                "url": "https://api.github.com/repos/Codeinwp/icon-picker/zipball/7a6efc3dcd00473b85a3f1966125114317cff4b0",
+                "reference": "7a6efc3dcd00473b85a3f1966125114317cff4b0",
                 "shasum": ""
             },
             "require": {
@@ -91,7 +91,7 @@
             "support": {
                 "source": "https://github.com/Codeinwp/icon-picker/tree/codex/refresh-svg-sanitizer"
             },
-            "time": "2026-11-11T10:10:00+00:00"
+            "time": "2026-11-11T10:18:40+00:00"
         },
         {
             "name": "codeinwp/menu-item-custom-fields",
