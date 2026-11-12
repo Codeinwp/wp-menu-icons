@@ -12,6 +12,7 @@
  * Plugin URI:  https://github.com/Codeinwp/wp-menu-icons
  * Description: Spice up your navigation menus with pretty icons, easily.
  * Version:     0.13.26
+ * Requires PHP: 7.1
  * Author:      ThemeIsle
  * Author URI:  https://themeisle.com
  * License:     GPLv2

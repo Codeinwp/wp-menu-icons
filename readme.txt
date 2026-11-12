@@ -2,6 +2,7 @@
 Contributors: codeinwp, themeisle
 Tags: menu icons, navigation menu, font awesome, dashicons, image icons
 Requires at least: 4.7
+Requires PHP: 7.1
 Tested up to: 7.1
 Stable tag: trunk
 License: GPLv2
