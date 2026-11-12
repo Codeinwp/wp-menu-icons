@@ -11,7 +11,7 @@
  * Plugin name: Menu Icons
  * Plugin URI:  https://github.com/Codeinwp/wp-menu-icons
  * Description: Spice up your navigation menus with pretty icons, easily.
- * Version:     0.13.21
+ * Version:     0.13.26
  * Requires PHP: 7.1
  * Author:      ThemeIsle
  * Author URI:  https://themeisle.com
@@ -30,7 +30,7 @@ final class Menu_Icons {
 
 	const DISMISS_NOTICE = 'menu-icons-dismiss-notice';
 
-	const VERSION = '0.13.21';
+	const VERSION = '0.13.26';
 
 	/**
 	 * Holds plugin data
@@ -294,15 +294,19 @@ final class Menu_Icons {
 		$config = $configs['default'];
 		$product_slug = basename(dirname(__FILE__));
 
-		// translators: %1$s - plugin name, %2$s - HTML tag, %3$s - discount, %4$s - HTML tag, %5$s - company name.
-		$message_template = __( 'Brought to you by the team behind %1$s— our biggest sale of the year is here: %2$sup to %3$s OFF%4$s on premium products from %5$s! Limited-time only.', 'menu-icons' );
+		if ( defined( 'NEVE_VERSION' ) ) {
+			return $configs;
+		}
 
-		$config['message']  = sprintf( $message_template, 'Menu Icons', '<strong>', '70%', '</strong>', '<strong>Themeisle</strong>' );
+		// translators: 1. Number of free licenses, 2. The price of the product.
+		$config['message'] = sprintf( __( 'You\'re using Menu Icons, and the team behind it is celebrating Black Friday by giving away %1$s licences of Neve Pro. A premium WordPress theme worth %2$s, packed with starter sites, a header builder, and WooCommerce layouts. Claim yours before they run out.', 'menu-icons' ), 100, '$69' );
+		$config['cta_label'] = __( 'Get Neve Pro free', 'menu-icons' );
+		$config['plugin_meta_message'] = __( 'Black Friday Sale - Get Neve Pro free', 'menu-icons' );
 		$config['sale_url'] = add_query_arg(
 			array(
 				'utm_term' => 'free',
 			),
-			tsdk_translate_link( tsdk_utmify( 'https://themeisle.link/all-bf', 'bfcm', 'menu-icons' ) )
+			tsdk_translate_link( tsdk_utmify( 'https://themeisle.link/neve-claim-bf', 'bfcm', 'menu-icons' ) )
 		);
 
 		$configs[ $product_slug ] = $config;

@@ -1,0 +1,43 @@
+name: Copilot Setup Steps
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - ".github/workflows/copilot-setup-steps.yml"
+  pull_request:
+    paths:
+      - ".github/workflows/copilot-setup-steps.yml"
+
+jobs:
+  copilot-setup-steps:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    services:
+      mysql:
+        image: mysql:5.7
+        env:
+          MYSQL_ROOT_PASSWORD: root
+        ports:
+          - 3306/tcp
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - name: Install JavaScript dependencies
+        run: npm ci
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: "7.4"
+          extensions: simplexml, mysql
+          tools: phpunit-polyfills
+      - name: Install PHP dependencies
+        run: composer install --prefer-dist --no-progress
+      - name: Install Subversion
+        run: sudo apt-get update && sudo apt-get install -y subversion
+      - name: Install the WordPress test suite
+        run: bash bin/install-wp-tests.sh wordpress_test root root 127.0.0.1:${{ job.services.mysql.ports['3306'] }}

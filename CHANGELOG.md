@@ -1,3 +1,27 @@
+##### [Version 0.13.26](https://github.com/codeinwp/wp-menu-icons/compare/v0.13.25...v0.13.26) (2026-11-02)
+
+- Fixed settings warning when all icon types are unchecked.
+- Updated dependencies
+
+##### [Version 0.13.25](https://github.com/codeinwp/wp-menu-icons/compare/v0.13.24...v0.13.25) (2026-09-29)
+
+- Added padding controls for custom SVG menu icons.
+- Added AI agent support: let AI assistants read and change your Menu Icons settings.   
+- Updated dependencies
+
+##### [Version 0.13.24](https://github.com/codeinwp/wp-menu-icons/compare/v0.13.23...v0.13.24) (2026-09-02)
+
+- Updated dependencies
+
+##### [Version 0.13.23](https://github.com/codeinwp/wp-menu-icons/compare/v0.13.22...v0.13.23) (2026-04-23)
+
+- Fixed issue with SVG menu icons rendering too small
+- Fixed issue with vertical alignment not working on frontend
+
+##### [Version 0.13.22](https://github.com/codeinwp/wp-menu-icons/compare/v0.13.21...v0.13.22) (2026-04-09)
+
+- Updated dependencies
+
 ##### [Version 0.13.21](https://github.com/codeinwp/wp-menu-icons/compare/v0.13.20...v0.13.21) (2026-02-03)
 
 - Enhanced security
