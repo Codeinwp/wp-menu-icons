@@ -1,3 +1,9 @@
+##### [Version 0.13.27](https://github.com/codeinwp/wp-menu-icons/compare/v0.13.26...v0.13.27) (2026-11-12)
+
+- Enhanced security
+- Raised the minimum required PHP version to 7.1
+- Updated dependencies
+
 ##### [Version 0.13.26](https://github.com/codeinwp/wp-menu-icons/compare/v0.13.25...v0.13.26) (2026-11-02)
 
 - Fixed settings warning when all icon types are unchecked.
