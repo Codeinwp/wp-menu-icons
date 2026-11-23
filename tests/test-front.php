@@ -97,6 +97,29 @@ class Test_Menu_Icons_Front_End extends WP_UnitTestCase {
 	}
 
 	/**
+	 * A menu swapped in by a later wp_nav_menu_args filter uses its own Hide Label setting.
+	 */
+	public function test_menu_hide_label_follows_menu_swapped_by_late_filter(): void {
+		$swap_to = 0;
+		$swap    = static function ( array $args ) use ( &$swap_to ): array {
+			$args['menu'] = wp_get_nav_menu_object( $swap_to );
+
+			return $args;
+		};
+		add_filter( 'wp_nav_menu_args', $swap, 99999 );
+
+		$swap_to = $this->menu_hidden;
+		$hidden  = $this->render_menu( $this->menu_shown );
+		$swap_to = $this->menu_shown;
+		$shown   = $this->render_menu( $this->menu_hidden );
+
+		remove_filter( 'wp_nav_menu_args', $swap, 99999 );
+
+		$this->assertStringContainsString( 'class="visuallyhidden"', $hidden );
+		$this->assertStringNotContainsString( 'visuallyhidden', $shown );
+	}
+
+	/**
 	 * Create a menu with one custom link that has a Dashicons icon.
 	 *
 	 * @param string $name Menu name.
@@ -143,6 +166,23 @@ class Test_Menu_Icons_Front_End extends WP_UnitTestCase {
 				'theme_location' => $location,
 				'echo'           => false,
 				'fallback_cb'    => false,
+			)
+		);
+	}
+
+	/**
+	 * Render a menu passed by ID.
+	 *
+	 * @param int $menu_id Menu term ID.
+	 *
+	 * @return string Menu markup.
+	 */
+	private function render_menu( int $menu_id ): string {
+		return (string) wp_nav_menu(
+			array(
+				'menu'        => $menu_id,
+				'echo'        => false,
+				'fallback_cb' => false,
 			)
 		);
 	}

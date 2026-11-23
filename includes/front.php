@@ -116,6 +116,7 @@ final class Menu_Icons_Front_End {
 
 		add_action( 'wp_enqueue_scripts', array( __CLASS__, '_enqueue_styles' ), 4 );
 		add_filter( 'wp_nav_menu_args', array( __CLASS__, '_add_menu_item_title_filter' ) );
+		add_filter( 'wp_nav_menu_objects', array( __CLASS__, '_set_current_menu_id' ), 10, 2 );
 		add_filter( 'wp_nav_menu', array( __CLASS__, '_remove_menu_item_title_filter' ) );
 	}
 
@@ -216,18 +217,35 @@ final class Menu_Icons_Front_End {
 	 *
 	 * @since   0.1.0
 	 * @wp_hook filter wp_nav_menu_args
-	 * @param   array<string, mixed> $args wp_nav_menu() arguments.
+	 * @param   array  $args Not used.
 	 *
-	 * @return array<string, mixed>
+	 * @return array
 	 */
 	public static function _add_menu_item_title_filter( $args ) {
-		self::$current_menu_id = (int) self::get_nav_menu_id( $args );
-
 		add_filter( 'the_title', array( __CLASS__, '_add_icon' ), 999, 2 );
 		add_filter( 'megamenu_the_title', array( __CLASS__, '_add_icon' ), 999, 2 );
 		add_filter( 'megamenu_nav_menu_css_class', array( __CLASS__, '_add_menu_item_class' ), 10, 3 );
 
 		return $args;
+	}
+
+
+	/**
+	 * Remember the menu being printed
+	 *
+	 * Runs after every `wp_nav_menu_args` callback, so a menu swapped
+	 * in by another plugin is the one whose settings apply.
+	 *
+	 * @wp_hook filter wp_nav_menu_objects
+	 * @param   array<int, WP_Post> $sorted_menu_items Menu items, keyed by menu order.
+	 * @param   stdClass            $args              wp_nav_menu() arguments.
+	 *
+	 * @return array<int, WP_Post>
+	 */
+	public static function _set_current_menu_id( $sorted_menu_items, $args ) {
+		self::$current_menu_id = (int) self::get_nav_menu_id( $args );
+
+		return $sorted_menu_items;
 	}
 
 
