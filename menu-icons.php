@@ -145,6 +145,7 @@ final class Menu_Icons {
 			str_replace( '-', '_', strtolower( basename( dirname( __FILE__ ) ) ) ) . '_support_hub_metadata',
 			function() {
 				return array(
+					'pages'  => array( 'nav-menus' ),
 					'is_pro' => false,
 					'links'  => array(
 						array(
