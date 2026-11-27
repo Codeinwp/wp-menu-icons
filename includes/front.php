@@ -57,6 +57,14 @@ final class Menu_Icons_Front_End {
 	protected static $hidden_label_class = 'visuallyhidden';
 
 	/**
+	 * ID of the nav menu being printed, 0 outside wp_nav_menu()
+	 *
+	 * @access private
+	 * @var    int
+	 */
+	private static $current_menu_id = 0;
+
+	/**
 	 * Align-self map for vertical-align values.
 	 *
 	 * @access private
@@ -108,6 +116,7 @@ final class Menu_Icons_Front_End {
 
 		add_action( 'wp_enqueue_scripts', array( __CLASS__, '_enqueue_styles' ), 4 );
 		add_filter( 'wp_nav_menu_args', array( __CLASS__, '_add_menu_item_title_filter' ) );
+		add_filter( 'wp_nav_menu_objects', array( __CLASS__, '_set_current_menu_id' ), 10, 2 );
 		add_filter( 'wp_nav_menu', array( __CLASS__, '_remove_menu_item_title_filter' ) );
 	}
 
@@ -222,6 +231,25 @@ final class Menu_Icons_Front_End {
 
 
 	/**
+	 * Remember the menu being printed
+	 *
+	 * Runs after every `wp_nav_menu_args` callback, so a menu swapped
+	 * in by another plugin is the one whose settings apply.
+	 *
+	 * @wp_hook filter wp_nav_menu_objects
+	 * @param   array<int, WP_Post> $sorted_menu_items Menu items, keyed by menu order.
+	 * @param   stdClass            $args              wp_nav_menu() arguments.
+	 *
+	 * @return array<int, WP_Post>
+	 */
+	public static function _set_current_menu_id( $sorted_menu_items, $args ) {
+		self::$current_menu_id = (int) self::get_nav_menu_id( $args );
+
+		return $sorted_menu_items;
+	}
+
+
+	/**
 	 * Remove filter from 'the_title' hook
 	 *
 	 * Because we don't want to filter post titles, we need to remove our
@@ -233,6 +261,8 @@ final class Menu_Icons_Front_End {
 	 * @return  array
 	 */
 	public static function _remove_menu_item_title_filter( $nav_menu ) {
+		self::$current_menu_id = 0;
+
 		remove_filter( 'the_title', array( __CLASS__, '_add_icon' ), 999, 2 );
 		remove_filter( 'megamenu_the_title', array( __CLASS__, '_add_icon' ), 999, 2 );
 		remove_filter( 'megamenu_nav_menu_css_class', array( __CLASS__, '_add_menu_item_class' ), 10, 3 );
@@ -258,10 +288,8 @@ final class Menu_Icons_Front_End {
 		if ( empty( $icon ) ) {
 			return $title;
 		}
-		$menu_id           = Menu_Icons_Settings::get_current_menu_id();
-		$menu_key          = sprintf( 'menu_%d', $menu_id );
-		$global_hide_label = Menu_Icons_Settings::get( $menu_key, 'hide_label' );
-		$title_class       = ! empty( $global_hide_label ) || ! empty( $meta['hide_label'] ) ? self::$hidden_label_class : '';
+		$menu_settings     = Menu_Icons_Settings::get_menu_settings( self::$current_menu_id );
+		$title_class       = ! empty( $menu_settings['hide_label'] ) || ! empty( $meta['hide_label'] ) ? self::$hidden_label_class : '';
 		$title_wrapped     = sprintf(
 			'<span%s>%s</span>',
 			( ! empty( $title_class ) ) ? sprintf( ' class="%s"', esc_attr( $title_class ) ) : '',
