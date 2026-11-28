@@ -23,6 +23,18 @@ class Test_MenuIcons extends WP_Ajax_UnitTestCase {
 	}
 
 	/**
+	 * The Support Hub opt-in wires the metadata filter on the product key.
+	 */
+	public function test_support_hub_metadata_filter() {
+		$hook = str_replace( '-', '_', strtolower( basename( dirname( __DIR__ ) ) ) ) . '_support_hub_metadata';
+		$meta = apply_filters( $hook, array() );
+
+		$this->assertSame( array( 'nav-menus' ), $meta['pages'] );
+		$this->assertFalse( $meta['is_pro'] );
+		$this->assertSame( 'https://wordpress.org/support/plugin/menu-icons/', $meta['links'][0]['url'] );
+	}
+
+	/**
 	 * Custom SVG icons expose padding and render it as a pixel style.
 	 */
 	public function test_svg_padding_setting_and_style() {

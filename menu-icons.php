@@ -140,6 +140,23 @@ final class Menu_Icons {
 				);
 			}
 		);
+
+		add_filter(
+			str_replace( '-', '_', strtolower( basename( dirname( __FILE__ ) ) ) ) . '_support_hub_metadata',
+			function() {
+				return array(
+					'pages'  => array( 'nav-menus' ),
+					'is_pro' => false,
+					'links'  => array(
+						array(
+							'icon' => 'groups',
+							'text' => __( 'Community Forum', 'menu-icons' ),
+							'url'  => 'https://wordpress.org/support/plugin/menu-icons/',
+						),
+					),
+				);
+			}
+		);
 	}
 
 
